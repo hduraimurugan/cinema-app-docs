@@ -1,0 +1,53 @@
+# Documentation Index
+
+Quick reference for all documentation files in this folder.
+
+| File | Description | Key Topics |
+|------|-------------|------------|
+| [README.md](./README.md) | Project overview and navigation guide | Tech stack, quick start, doc structure |
+| [backend.md](./backend.md) | Backend API reference | All endpoints, DB schema, auth, middleware, payment integration |
+| [users.md](./users.md) | User frontend documentation | Pages, components, auth flow, booking + payment flow |
+| [admin.md](./admin.md) | Admin panel documentation | Movie management, screen designer, show scheduling |
+| [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page |
+
+---
+
+## Key API Endpoints Quick Reference
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/booking/hold` | Hold seats (5-min lock) |
+| POST | `/api/payment/create-order` | Create Razorpay order |
+| POST | `/api/payment/verify` | Verify signature + confirm booking |
+| GET | `/api/booking/by-payment/:id` | Fetch booking by payment_id (success page) |
+| POST | `/api/booking/release` | Release held seats |
+| GET | `/api/shows/get/:id` | Get show with seat layout |
+
+---
+
+## Booking Flow Summary
+
+```
+Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
+→ Navigate to /booking/success?payment_id=pay_xxx
+→ BookingSuccessPage fetches GET /api/booking/by-payment/:id
+→ Display movie, show time, seat labels, amount
+```
+
+---
+
+## Critical Files
+
+| Area | File |
+|------|------|
+| Booking controller | `cinema-hall-api/controllers/booking.Controller.js` |
+| Payment controller | `cinema-hall-api/controllers/payment.Controller.js` |
+| Booking routes | `cinema-hall-api/routes/booking.routes.js` |
+| Frontend API service | `cinema-hall-users/src/services/api.js` |
+| Payment hook | `cinema-hall-users/src/hooks/useRazorpayPayment.js` |
+| Success page | `cinema-hall-users/src/pages/BookingSuccessPage.jsx` |
+| Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
+
+---
+
+*Last Updated: March 7, 2026*
