@@ -460,7 +460,8 @@ Displays all bookings for the logged-in customer, split into two tabs.
 **Features:**
 - **Upcoming tab** — shows with `show_date >= today`, sorted by date ascending
 - **Past tab** — shows with `show_date < today`
-- Each booking card shows: movie title, show date/time, cinema hall name, screen name, seat chips (e.g. "A1"), total amount, booking status badge, booking ID (first 8 chars)
+- Each booking card shows: movie title, show date/time, cinema hall name, screen name, seat chips (e.g. "A1"), total amount, booking status badge (capitalized), booking ID (first 8 chars)
+- **Clickable cards** — clicking any booking card navigates to `/booking/success?payment_id=xxx` to view full details
 - Loading skeleton and empty state per tab
 - Calls `GET /api/booking/my-bookings` on mount
 
@@ -469,14 +470,18 @@ Displays all bookings for the logged-in customer, split into two tabs.
 **Route**: `/booking/success?payment_id=pay_xxx`
 **Component**: `BookingSuccessPage.jsx`
 
-Displayed after successful Razorpay payment. Fetches booking details from the API using the `payment_id` URL query parameter.
+Displayed after successful Razorpay payment, and also accessible by clicking a booking card from the My Bookings page.
 
 **Features:**
 - Reads `payment_id` from URL (`useSearchParams`) — survives page refresh
 - Shows loading spinner while fetching
 - Shows error state with "View My Bookings" fallback if fetch fails
-- Displays: movie title, show date/time, booking ID, booking status, seat labels (e.g. "A1"), total amount, payment ID
+- Displays: movie title, show date/time, booking ID, booking status (capitalized), seat labels (e.g. "A1"), total amount, payment ID
 - Navigates to `/` if no `payment_id` in URL
+- **Download Ticket** button — captures the booking details card as a JPEG using `html-to-image`, temporarily switches to light mode during capture for correct colors, downloads as `ticket-<id>.jpg`
+
+**Dependencies:**
+- `html-to-image` — DOM-to-image capture (supports Tailwind v4 `oklch` colors)
 
 #### ProfilePage
 
@@ -978,6 +983,8 @@ npm run build
 - Interactive seat selection with 5-minute hold mechanism
 - Razorpay payment integration
 - Booking confirmation page (fetches from API, survives page refresh)
+- Clickable booking cards navigating to booking detail page
+- Download ticket as JPEG from booking success page
 
 💡 **Potential Features:**
 
@@ -993,4 +1000,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 7, 2026
+**Last Updated**: March 7, 2026 (booking card navigation + ticket download)
