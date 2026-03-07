@@ -483,9 +483,17 @@ flowchart TD
 
 #### Bookings
 
-- View all bookings
-- Booking details
-- Status management
+**Route**: `/bookings`
+**Component**: `Bookings.jsx`
+
+Displays all bookings for the admin's cinema hall in a paginated table.
+
+**Features:**
+- Table columns: Customer (name + email), Movie, Show date/time, Screen, Seats, Amount, Status badge, Booking ID
+- Filters: show date picker, movie title search (debounced), booking status dropdown (All / Confirmed / Cancelled / Completed)
+- Pagination: 50 bookings per page with Prev/Next controls
+- Loading skeleton, empty state, and error state
+- Calls `GET /api/booking/admin/all` with query params on filter/page change
 
 #### ProfilePage
 
@@ -511,11 +519,13 @@ graph LR
     A --> C[screensAPI]
     A --> D[moviesAPI]
     A --> E[showsAPI]
+    A --> F[bookingAPI]
 
-    B --> F[register, login, logout, getMe, refresh]
-    C --> G[createScreen, getMyScreens, updateScreen, deleteScreen]
-    D --> H[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
-    E --> I[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
+    B --> G[register, login, logout, getMe, refresh]
+    C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
+    D --> I[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
+    E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
+    F --> K[getCinemaHallBookings]
 ```
 
 ### API Configuration
@@ -884,4 +894,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: January 29, 2026
+**Last Updated**: March 7, 2026

@@ -455,12 +455,14 @@ graph LR
 **Route**: `/bookings`
 **Component**: `Bookings.jsx`
 
-View booking history:
+Displays all bookings for the logged-in customer, split into two tabs.
 
-- Past bookings
-- Upcoming shows
-- Booking details
-- Cancellation (if implemented)
+**Features:**
+- **Upcoming tab** — shows with `show_date >= today`, sorted by date ascending
+- **Past tab** — shows with `show_date < today`
+- Each booking card shows: movie title, show date/time, cinema hall name, screen name, seat chips (e.g. "A1"), total amount, booking status badge, booking ID (first 8 chars)
+- Loading skeleton and empty state per tab
+- Calls `GET /api/booking/my-bookings` on mount
 
 #### BookingSuccessPage
 
@@ -516,7 +518,7 @@ graph LR
 
     B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp]
     C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes]
-    D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId]
+    D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings]
     E --> I[createOrder, verifyPayment]
 ```
 

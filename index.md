@@ -7,7 +7,7 @@ Quick reference for all documentation files in this folder.
 | [README.md](./README.md) | Project overview and navigation guide | Tech stack, quick start, doc structure |
 | [backend.md](./backend.md) | Backend API reference | All endpoints, DB schema, auth, middleware, payment integration |
 | [users.md](./users.md) | User frontend documentation | Pages, components, auth flow, booking + payment flow |
-| [admin.md](./admin.md) | Admin panel documentation | Movie management, screen designer, show scheduling |
+| [admin.md](./admin.md) | Admin panel documentation | Movie management, screen designer, show scheduling, bookings overview |
 | [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page |
 
 ---
@@ -20,6 +20,8 @@ Quick reference for all documentation files in this folder.
 | POST | `/api/payment/create-order` | Create Razorpay order |
 | POST | `/api/payment/verify` | Verify signature + confirm booking |
 | GET | `/api/booking/by-payment/:id` | Fetch booking by payment_id (success page) |
+| GET | `/api/booking/my-bookings` | List all bookings for logged-in customer |
+| GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
 
@@ -43,9 +45,12 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Booking controller | `cinema-hall-api/controllers/booking.Controller.js` |
 | Payment controller | `cinema-hall-api/controllers/payment.Controller.js` |
 | Booking routes | `cinema-hall-api/routes/booking.routes.js` |
-| Frontend API service | `cinema-hall-users/src/services/api.js` |
+| User frontend API service | `cinema-hall-users/src/services/api.js` |
+| Admin frontend API service | `cinema-hall-admin/src/services/api.js` |
 | Payment hook | `cinema-hall-users/src/hooks/useRazorpayPayment.js` |
 | Success page | `cinema-hall-users/src/pages/BookingSuccessPage.jsx` |
+| User bookings page | `cinema-hall-users/src/pages/Bookings.jsx` |
+| Admin bookings page | `cinema-hall-admin/src/pages/Bookings.jsx` |
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
 
 ---

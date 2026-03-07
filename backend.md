@@ -792,6 +792,8 @@ sequenceDiagram
 | POST   | `/confirm`                   | Customer | Convert held seats to booked (without payment) |
 | POST   | `/release`                   | Customer | Release held seats voluntarily                 |
 | GET    | `/by-payment/:payment_id`    | Customer | Fetch confirmed booking by Razorpay payment ID |
+| GET    | `/my-bookings`               | Customer | List all bookings for the logged-in customer   |
+| GET    | `/admin/all`                 | Admin    | List all bookings for admin's cinema hall      |
 
 #### GET `/api/booking/by-payment/:payment_id`
 
@@ -823,6 +825,80 @@ Fetches a confirmed booking with full details using the Razorpay `payment_id`. U
 **Notes:**
 - `seat_labels` are derived from `screens.layout` (e.g. row `"A"` + column `1` → `"A1"`)
 - Returns `404` if payment_id not found or belongs to another customer
+
+---
+
+#### GET `/api/booking/my-bookings`
+
+Lists all confirmed bookings for the currently logged-in customer, ordered by show date descending.
+
+**Auth**: Customer required
+
+**Response (200):**
+
+```json
+{
+  "bookings": [
+    {
+      "id": "booking-uuid",
+      "show_id": "show-uuid",
+      "seats": ["0-0", "1-1"],
+      "total_amount": "440.00",
+      "payment_status": "completed",
+      "payment_id": "pay_MlOhsFJKxD8SQz",
+      "booking_status": "confirmed",
+      "movie_title": "Paranthu Po",
+      "show_date": "2026-03-06",
+      "start_time": "11:00:00",
+      "screen_name": "Screen 1",
+      "cinema_hall_name": "Grand Cinema",
+      "seat_labels": ["A1", "B2"]
+    }
+  ]
+}
+```
+
+---
+
+#### GET `/api/booking/admin/all`
+
+Lists all bookings for shows in the admin's cinema hall. Supports filtering and pagination (50 per page).
+
+**Auth**: Admin required (`verifyCinemaAdminAccessToken` + `verifyCinemaHall`)
+
+**Query Parameters:**
+
+| Param    | Type   | Description                                                        |
+| -------- | ------ | ------------------------------------------------------------------ |
+| `date`   | date   | Filter by show date (e.g. `2026-03-07`)                            |
+| `search` | string | Filter by movie title (partial, case-insensitive)                  |
+| `status` | string | Filter by booking status (`confirmed`, `cancelled`, `completed`)   |
+| `page`   | number | Page number (default: 1)                                           |
+
+**Response (200):**
+
+```json
+{
+  "bookings": [
+    {
+      "id": "booking-uuid",
+      "show_id": "show-uuid",
+      "seats": ["0-0", "1-1"],
+      "total_amount": "440.00",
+      "booking_status": "confirmed",
+      "movie_title": "Paranthu Po",
+      "show_date": "2026-03-06",
+      "start_time": "11:00:00",
+      "screen_name": "Screen 1",
+      "customer_name": "Jane Smith",
+      "customer_email": "jane@example.com",
+      "seat_labels": ["A1", "B2"]
+    }
+  ],
+  "total": 120,
+  "page": 1
+}
+```
 
 ---
 
