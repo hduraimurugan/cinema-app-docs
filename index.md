@@ -61,4 +61,4 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 
 ---
 
-*Last Updated: March 8, 2026 (BookMyShow-style UI redesign for MovieDetailsPage, TheatresPage, and admin ShowsManagement)*
+*Last Updated: March 8, 2026 — Fixed `createShow` const reassignment bug for `show_date`; `show_date` is now normalized via `formattedDate` using dayjs before DB insert. Docs updated: `backend.md` (`POST /api/shows/create` note added)*

@@ -618,6 +618,8 @@ sequenceDiagram
 
 #### POST `/api/shows/create`
 
+> **Note:** `show_date` is automatically normalized to `YYYY-MM-DD` format on the server using `dayjs` — any ISO datetime string (e.g. `2026-03-10T00:00:00Z`) is safely stripped to date-only before insertion.
+
 **Request Body:**
 
 ```json
