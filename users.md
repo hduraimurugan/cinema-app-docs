@@ -806,6 +806,55 @@ sequenceDiagram
 
 ---
 
+### 2. Movie Details Page
+
+**Route**: `/movie/:movieId`
+**Component**: `MovieDetailsPage.jsx`
+
+Displays movie info, a date selector, and the list of cinema halls + showtimes for the selected date.
+
+**Features:**
+- Movie poster, title, genre badges, duration, language, description
+- Date selector (Today / Tomorrow / next 4 days) — 6 buttons, always visible
+- Shows are **filtered by the selected date** — changing the date refetches and updates only the cinema/showtime section
+- Shows grouped first by cinema hall, then by screen name
+- Show time buttons navigate to `/show/:showId`
+- Empty state when no shows are scheduled for the selected date
+- **Full-page skeleton** on initial load; **section-only skeleton** (Cinema Halls area) when changing date — movie info and date selector stay visible during refetch
+
+**Data flow:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant MovieDetailsPage
+    participant API
+
+    User->>MovieDetailsPage: Navigate to /movie/:movieId
+    MovieDetailsPage->>MovieDetailsPage: selectedDate = today, loading = true
+    MovieDetailsPage->>API: GET /api/user/movies/:movieId/showtimes?district=X&state=Y&date=YYYY-MM-DD
+    API-->>MovieDetailsPage: { movie, cinema_halls }
+    MovieDetailsPage->>User: Render full page (movie info + date selector + halls)
+
+    User->>MovieDetailsPage: Select different date
+    MovieDetailsPage->>MovieDetailsPage: refetching = true (movie info stays visible)
+    MovieDetailsPage->>API: Refetch with new date
+    API-->>MovieDetailsPage: { movie, cinema_halls }
+    MovieDetailsPage->>User: Update cinema halls section only (skeleton during fetch)
+```
+
+**State:**
+
+| State | Type | Description |
+|-------|------|-------------|
+| `movie` | object | Movie details from API |
+| `cinemaHalls` | array | Cinema halls with shows for the selected date |
+| `loading` | boolean | `true` on initial load — shows full-page skeleton |
+| `refetching` | boolean | `true` when date changes — shows section skeleton only |
+| `selectedDate` | Date | Currently selected date (defaults to today) |
+
+---
+
 ## Styling & Theming
 
 ### Tailwind Configuration
@@ -1041,6 +1090,8 @@ npm run build
 - Auth-gated navigation: "My Bookings" hidden when logged out; `/bookings`, `/profile`, `/settings` protected — redirect to `/movies` with auto-opened login modal
 - **TheatresPage**: fully implemented — date-filtered cinema hall list with movies and show time buttons (`GET /api/user/movies/location/theatres`)
 - **MovieDetailsPage bug fix**: cinema hall name now correctly displays (fixed field name mismatch `hall_name` → `cinema_hall_name`, `location` → `cinema_hall_location`)
+- **MovieDetailsPage date filtering**: date selector connected end-to-end — changing date refetches shows filtered to that date (`GET /api/user/movies/:movieId/showtimes?date=YYYY-MM-DD`)
+- **MovieDetailsPage section loading**: date change triggers skeleton only on the Cinema Halls section; movie info and date selector stay visible (`refetching` state separate from initial `loading`)
 
 💡 **Potential Features:**
 
@@ -1056,4 +1107,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 8, 2026 (TheatresPage implementation + MovieDetailsPage cinema hall name fix)
+**Last Updated**: March 8, 2026 (MovieDetailsPage section-only skeleton on date change)

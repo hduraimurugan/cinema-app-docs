@@ -717,7 +717,7 @@ sequenceDiagram
 | GET    | `/:id`                   | None | Get movie by ID                         |
 | GET    | `/location/movies`       | None | Get movies by district + state          |
 | GET    | `/state/movies`          | None | Get movies by state                     |
-| GET    | `/:movieId/showtimes`    | None | Get movie with cinema halls + showtimes |
+| GET    | `/:movieId/showtimes`    | None | Get movie with cinema halls + showtimes for a date |
 | GET    | `/location/districts`    | None | Get districts in state                  |
 | GET    | `/location/cinema-halls` | None | Get cinema halls in location            |
 | GET    | `/location/theatres`     | None | Get cinema halls with movies + shows for a date |
@@ -748,10 +748,13 @@ sequenceDiagram
 
 #### GET `/api/user/movies/:movieId/showtimes`
 
+Returns movie details with cinema halls and showtimes filtered to a specific date. Used by `MovieDetailsPage`.
+
 **Query Parameters:**
 
-- `district` (string): District name
-- `state` (string): State name
+- `district` (string, required): District name
+- `state` (string, required): State name
+- `date` (string, optional): Date in `YYYY-MM-DD` format — defaults to today if omitted
 
 **Response (200):**
 
