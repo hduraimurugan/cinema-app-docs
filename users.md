@@ -435,15 +435,43 @@ Simple welcome page with:
 
 #### TheatresPage
 
-**Route**: `/theatres`  
+**Route**: `/theatres`
 **Component**: `TheatresPage.jsx`
 
-Browse cinema halls by location:
+Browse cinema halls by location with their movies and showtimes.
 
-- List of theatres
-- Filter by district/state
-- Theatre details
-- Available screens
+**Features:**
+- Date selector (Today / Tomorrow / next 4 days) — always visible
+- Fetches `GET /api/user/movies/location/theatres` with `district`, `state`, `date` from user's profile
+- Cinema hall cards with hall name and location header
+- Each hall shows its movies with poster thumbnail, title, genre badges, duration
+- Shows grouped by screen name with show time buttons
+- Clicking a show time navigates to `/show/:showId`
+- Skeleton loader only for the cinema halls section (date selector stays visible during refetch)
+- Empty state when no shows are scheduled for the selected date
+- "Set Your Location" state when user has no location set
+
+**Data flow:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant TheatresPage
+    participant API
+
+    User->>TheatresPage: Navigate to /theatres
+    TheatresPage->>TheatresPage: Read district/state from CustomerAuthContext
+    TheatresPage->>API: GET /api/user/movies/location/theatres?district=X&state=Y&date=Z
+    API-->>TheatresPage: { cinema_halls: [{ hall_name, movies: [{ title, shows }] }] }
+    TheatresPage->>User: Render halls → movies → show time buttons
+
+    User->>TheatresPage: Select different date
+    TheatresPage->>API: Refetch with new date
+    TheatresPage->>User: Update cinema halls section only (skeleton)
+
+    User->>TheatresPage: Click show time
+    TheatresPage->>User: navigate('/show/:showId')
+```
 
 #### HallManagement
 
@@ -545,7 +573,7 @@ graph LR
     A --> E[paymentAPI]
 
     B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp]
-    C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes]
+    C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes, getTheatresWithShows]
     D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings]
     E --> I[createOrder, verifyPayment]
 ```
@@ -573,13 +601,14 @@ graph LR
 
 ```javascript
 {
-  getAllMovies(params),                        // Get all movies with filters
-  getMovieById(movieId),                       // Get single movie
-  getMoviesByLocation(district, state),        // Movies in location
-  getMoviesByState(state),                     // Movies in state
-  getMovieDetailsWithShowtimes(movieId, ...),  // Movie + showtimes
-  getDistrictsInState(state),                  // Available districts
-  getCinemaHallsByLocation(district, state)    // Cinema halls in area
+  getAllMovies(params),                           // Get all movies with filters
+  getMovieById(movieId),                          // Get single movie
+  getMoviesByLocation(district, state),           // Movies in location
+  getMoviesByState(state),                        // Movies in state
+  getMovieDetailsWithShowtimes(movieId, ...),     // Movie + cinema halls + showtimes
+  getDistrictsInState(state),                     // Available districts
+  getCinemaHallsByLocation(district, state),      // Cinema halls in area (basic, no shows)
+  getTheatresWithShows(district, state, date)     // Cinema halls with movies + shows for a date
 }
 ```
 
@@ -1010,6 +1039,8 @@ npm run build
 - Clickable booking cards navigating to booking detail page
 - Download ticket as JPEG from booking success page
 - Auth-gated navigation: "My Bookings" hidden when logged out; `/bookings`, `/profile`, `/settings` protected — redirect to `/movies` with auto-opened login modal
+- **TheatresPage**: fully implemented — date-filtered cinema hall list with movies and show time buttons (`GET /api/user/movies/location/theatres`)
+- **MovieDetailsPage bug fix**: cinema hall name now correctly displays (fixed field name mismatch `hall_name` → `cinema_hall_name`, `location` → `cinema_hall_location`)
 
 💡 **Potential Features:**
 
@@ -1025,4 +1056,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 8, 2026 (auth-gated navigation + protected routes)
+**Last Updated**: March 8, 2026 (TheatresPage implementation + MovieDetailsPage cinema hall name fix)

@@ -24,6 +24,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
+| GET | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage) |
 
 ---
 
@@ -52,7 +53,11 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | User bookings page | `cinema-hall-users/src/pages/Bookings.jsx` |
 | Admin bookings page | `cinema-hall-admin/src/pages/Bookings.jsx` |
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
+| Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |
+| Movie details page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
+| User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
+| User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
 
 ---
 
-*Last Updated: March 7, 2026*
+*Last Updated: March 8, 2026*

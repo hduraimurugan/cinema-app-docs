@@ -720,6 +720,7 @@ sequenceDiagram
 | GET    | `/:movieId/showtimes`    | None | Get movie with cinema halls + showtimes |
 | GET    | `/location/districts`    | None | Get districts in state                  |
 | GET    | `/location/cinema-halls` | None | Get cinema halls in location            |
+| GET    | `/location/theatres`     | None | Get cinema halls with movies + shows for a date |
 
 #### GET `/api/user/movies/location/movies`
 
@@ -765,16 +766,75 @@ sequenceDiagram
   },
   "cinema_halls": [
     {
-      "hall_id": "uuid",
-      "hall_name": "Grand Cinema",
-      "location": "Downtown Plaza",
+      "cinema_hall_id": "uuid",
+      "cinema_hall_name": "Grand Cinema",
+      "cinema_hall_location": "Downtown Plaza",
+      "district": "Mumbai",
+      "state": "Maharashtra",
       "shows": [
         {
           "show_id": "uuid",
+          "screen_id": "uuid",
           "screen_name": "Screen 1",
+          "show_date": "2026-03-08",
           "start_time": "14:00:00",
           "end_time": "16:30:00",
-          "language_version": "English"
+          "language_version": "English",
+          "show_status": "scheduled",
+          "pricing": { "premium": 200, "gold": 150, "silver": 120 }
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### GET `/api/user/movies/location/theatres`
+
+Returns all cinema halls in a location for a specific date, with their movies and showtimes grouped hierarchically. Used by TheatresPage.
+
+**Query Parameters:**
+
+- `district` (string, required): District name
+- `state` (string, required): State name
+- `date` (string, optional): Date in `YYYY-MM-DD` format — defaults to today
+
+**Response (200):**
+
+```json
+{
+  "success": true,
+  "count": 1,
+  "district": "Mumbai",
+  "state": "Maharashtra",
+  "date": "2026-03-08",
+  "cinema_halls": [
+    {
+      "hall_id": "uuid",
+      "hall_name": "Grand Cinema",
+      "location": "Downtown Plaza",
+      "district": "Mumbai",
+      "state": "Maharashtra",
+      "movies": [
+        {
+          "movie_id": "uuid",
+          "title": "Inception",
+          "poster_url": "...",
+          "duration_mins": 148,
+          "genre": ["Sci-Fi", "Thriller"],
+          "language": ["English", "Hindi"],
+          "shows": [
+            {
+              "show_id": "uuid",
+              "screen_id": "uuid",
+              "screen_name": "IMAX Screen",
+              "start_time": "11:00:00",
+              "end_time": "13:28:00",
+              "show_date": "2026-03-08",
+              "language_version": "English",
+              "pricing": { "premium": 350, "gold": 250, "silver": 180 }
+            }
+          ]
         }
       ]
     }
