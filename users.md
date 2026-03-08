@@ -438,18 +438,27 @@ Simple welcome page with:
 **Route**: `/theatres`
 **Component**: `TheatresPage.jsx`
 
-Browse cinema halls by location with their movies and showtimes.
+Browse cinema halls by location with their movies and showtimes. Uses a **BookMyShow-style UI**.
 
 **Features:**
-- Date selector (Today / Tomorrow / next 4 days) — always visible
+- **3-part vertical date buttons** (DOW / day number / month) — 7 days shown, inside a `bg-card border-b` shelf; selected date highlighted in cinema red (`bg-primary`)
+- **Availability legend** — `● AVAILABLE` (green) + `● FAST FILLING` (amber) aligned right below the date shelf
 - Fetches `GET /api/user/movies/location/theatres` with `district`, `state`, `date` from user's profile
-- Cinema hall cards with hall name and location header
-- Each hall shows its movies with poster thumbnail, title, genre badges, duration
-- Shows grouped by screen name with show time buttons
-- Clicking a show time navigates to `/show/:showId`
-- Skeleton loader only for the cinema halls section (date selector stays visible during refetch)
-- Empty state when no shows are scheduled for the selected date
+- **Cinema hall cards** (`rounded-xl`): building icon + hall name + location + heart icon (visual)
+- Each hall shows its movies with:
+  - Clickable poster thumbnail (navigates to `/movie/:movieId`)
+  - Clickable title (same navigation)
+  - Duration badge (`2h 13m` format via `formatDuration`) + genre pills
+  - Shows **grouped by screen** with screen name as a left-aligned label
+  - **Green-bordered outlined show time buttons** — time on line 1, language version on line 2; sorted by time; hover changes to primary color
+  - "Non-cancellable" label below each movie's shows
+- Skeleton loader covers the cinema halls section (date selector stays visible during refetch)
+- Empty state with cinema icon when no shows are scheduled for the selected date
 - "Set Your Location" state when user has no location set
+
+**Helper functions:**
+- `formatDuration(mins)` — converts `144` → `"2h 24m"`
+- `formatDateParts(date)` — returns `{ dow, day, month }` for 3-part date buttons
 
 **Data flow:**
 
@@ -811,16 +820,28 @@ sequenceDiagram
 **Route**: `/movie/:movieId`
 **Component**: `MovieDetailsPage.jsx`
 
-Displays movie info, a date selector, and the list of cinema halls + showtimes for the selected date.
+Displays movie info, a date selector, and the list of cinema halls + showtimes for the selected date. Uses a **BookMyShow-style UI**.
 
 **Features:**
-- Movie poster, title, genre badges, duration, language, description
-- Date selector (Today / Tomorrow / next 4 days) — 6 buttons, always visible
-- Shows are **filtered by the selected date** — changing the date refetches and updates only the cinema/showtime section
-- Shows grouped first by cinema hall, then by screen name
-- Show time buttons navigate to `/show/:showId`
-- Empty state when no shows are scheduled for the selected date
-- **Full-page skeleton** on initial load; **section-only skeleton** (Cinema Halls area) when changing date — movie info and date selector stay visible during refetch
+
+**Cinematic Banner Header:**
+- Full-width blurred `poster_url` as background (`blur-md opacity-40 pointer-events-none`) with dark gradient overlay (`from-background via-background/75 to-transparent pointer-events-none`)
+- Back button (top-left, frosted glass style) — `pointer-events-none` on background layers ensures button always receives clicks
+- Poster thumbnail (left, `hidden sm:block`, `w-36 md:w-44`, `aspect-[2/3]`) + movie info (right)
+- Movie info: title (`text-3xl md:text-4xl`), tag pills (runtime, genres, languages as rounded pills), expandable description with "Read more / Show less" toggle
+
+**Date Selector shelf** (`bg-card border-b border-border`):
+- **3-part vertical date buttons** (DOW / day number / month) — 7 days, `w-14` fixed width, hidden scrollbar
+- Selected: `bg-primary text-primary-foreground`; others: `border border-border hover:border-primary`
+- Language chip on the right showing `{language[0]} • 2D`
+
+**Availability legend:** `● AVAILABLE` (green) + `● FAST FILLING` (amber) aligned right
+
+**Cinema Hall Cards** (`rounded-xl p-5`):
+- Building icon + hall name + location + heart icon (visual-only)
+- Shows as a **flat sorted list** (all shows for the hall sorted by `start_time`)
+- **Green-bordered outlined buttons** — time (bold) on line 1, screen name on line 2; hover changes to primary color
+- "Non-cancellable" label below buttons
 
 **Data flow:**
 
@@ -834,10 +855,10 @@ sequenceDiagram
     MovieDetailsPage->>MovieDetailsPage: selectedDate = today, loading = true
     MovieDetailsPage->>API: GET /api/user/movies/:movieId/showtimes?district=X&state=Y&date=YYYY-MM-DD
     API-->>MovieDetailsPage: { movie, cinema_halls }
-    MovieDetailsPage->>User: Render full page (movie info + date selector + halls)
+    MovieDetailsPage->>User: Render full page (cinematic banner + date shelf + halls)
 
     User->>MovieDetailsPage: Select different date
-    MovieDetailsPage->>MovieDetailsPage: refetching = true (movie info stays visible)
+    MovieDetailsPage->>MovieDetailsPage: refetching = true (banner + date shelf stay visible)
     MovieDetailsPage->>API: Refetch with new date
     API-->>MovieDetailsPage: { movie, cinema_halls }
     MovieDetailsPage->>User: Update cinema halls section only (skeleton during fetch)
@@ -852,6 +873,11 @@ sequenceDiagram
 | `loading` | boolean | `true` on initial load — shows full-page skeleton |
 | `refetching` | boolean | `true` when date changes — shows section skeleton only |
 | `selectedDate` | Date | Currently selected date (defaults to today) |
+| `descExpanded` | boolean | Controls description expand/collapse |
+
+**Helper functions:**
+- `formatDuration(mins)` — converts `144` → `"2h 24m"`
+- `formatDateParts(date)` — returns `{ dow, day, month }` for 3-part date buttons
 
 ---
 
@@ -1092,6 +1118,8 @@ npm run build
 - **MovieDetailsPage bug fix**: cinema hall name now correctly displays (fixed field name mismatch `hall_name` → `cinema_hall_name`, `location` → `cinema_hall_location`)
 - **MovieDetailsPage date filtering**: date selector connected end-to-end — changing date refetches shows filtered to that date (`GET /api/user/movies/:movieId/showtimes?date=YYYY-MM-DD`)
 - **MovieDetailsPage section loading**: date change triggers skeleton only on the Cinema Halls section; movie info and date selector stay visible (`refetching` state separate from initial `loading`)
+- **MovieDetailsPage UI redesign** (BookMyShow style): cinematic blurred-poster banner header, 3-part vertical date buttons (DOW/day/month), language chip, availability legend, green-bordered outlined show time buttons with screen name, expandable description, heart icon on hall cards
+- **TheatresPage UI redesign** (BookMyShow style): same 3-part date buttons and availability legend, rounded-xl hall cards with heart icon, clickable movie poster + title, green-bordered show time buttons with language version, `formatDuration` helper, shows sorted by time per screen
 
 💡 **Potential Features:**
 
@@ -1107,4 +1135,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 8, 2026 (MovieDetailsPage section-only skeleton on date change)
+**Last Updated**: March 8, 2026 (BookMyShow-style UI redesign for MovieDetailsPage and TheatresPage)

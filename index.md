@@ -57,7 +57,8 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Movie details page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
 | User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
+| Admin shows management | `cinema-hall-admin/src/pages/ShowsManagement.jsx` |
 
 ---
 
-*Last Updated: March 8, 2026*
+*Last Updated: March 8, 2026 (BookMyShow-style UI redesign for MovieDetailsPage, TheatresPage, and admin ShowsManagement)*

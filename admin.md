@@ -348,33 +348,64 @@ sequenceDiagram
 
 ### 3. Shows Management
 
-**Route**: `/shows`  
-**Component**: `ShowsManagement.jsx`  
+**Route**: `/shows`
+**Component**: `ShowsManagement.jsx`
 **Access**: Admin (any role)
 
 #### Feature Overview
 
-Manage movie showtimes with date-based scheduling, bulk creation, and overlap prevention.
+Manage movie showtimes with date-based scheduling and overlap prevention. Uses a **BookMyShow-style UI** consistent with the user-facing MovieDetailsPage and TheatresPage.
 
 ```mermaid
 flowchart TD
     A[Shows Management] --> B[View Shows by Date]
     A --> C[Create Single Show]
-    A --> D[Create Bulk Shows]
     A --> E[Edit Show]
     A --> F[Delete Show]
 
     B --> G[Group by Movie]
     G --> H[Display Show Cards]
 
-    C --> I[Select Movie]
+    C --> I[Select Movie via Search]
     C --> J[Select Screen]
     C --> K[Set Date & Time]
     C --> L[Set Language Version]
     C --> M[Override Prices]
+```
 
-    D --> N[Select Date Range]
-    D --> O[Same Time for All]
+#### UI Layout
+
+**Header row:** "Shows Management" title + description + `+ Add Show` button (top-right)
+
+**Date Selector shelf** (`bg-card border-b border-border`):
+- **3-part vertical date buttons** (DOW / day number / month) — 7 days, `w-14` fixed width, hidden scrollbar
+- Selected: `bg-primary text-primary-foreground`; others: `border border-border hover:border-primary`
+- `selectedDate` stored as a `Date` object; formatted to `YYYY-MM-DD` string only when calling `showsAPI.getShowsByDate(dateStr)`
+
+**Availability Legend:** `● AVAILABLE` (green) + `● FAST FILLING` (amber) aligned right
+
+**Movie Cards** (`rounded-xl`, shadcn `Card`):
+- Poster (`rounded-lg shadow-md`) + movie title + duration badge + genre/language pills (`rounded-full`)
+- Show time buttons: **green-bordered outlined style** — screen info (MapPin icon + name + seat count) on line 1, time (bold) on line 2, language + price on line 3
+- **Edit/Delete hover actions** — appear absolutely positioned at top-right of each button on `group-hover` (shadcn `Button` size="sm")
+
+**Show card data flow:**
+```mermaid
+sequenceDiagram
+    participant Admin
+    participant ShowsPage
+    participant API
+
+    Admin->>ShowsPage: Navigate to /shows
+    ShowsPage->>ShowsPage: selectedDate = today (Date object)
+    ShowsPage->>API: GET /api/shows?date=YYYY-MM-DD
+    API-->>ShowsPage: { grouped: [{ movie_id, title, poster_url, shows: [...] }] }
+    ShowsPage->>Admin: Render date shelf + movie cards + show buttons
+
+    Admin->>ShowsPage: Click different date
+    ShowsPage->>ShowsPage: setSelectedDate(date) → triggers useEffect
+    ShowsPage->>API: Refetch with new date
+    ShowsPage->>Admin: Update shows section (isLoading skeleton)
 ```
 
 #### Show Creation Form
@@ -383,13 +414,13 @@ flowchart TD
 
 ```javascript
 {
-  movie_id: "uuid",              // Selected movie
-  screen_id: "uuid",             // Selected screen
-  show_date: "2024-02-15",       // Show date
-  start_time: "14:00:00",        // Start time
-  end_time: "16:30:00",          // End time (auto-calculated)
-  language_version: "English",   // Language variant
-  price_override: {              // Optional price override
+  movie_id: "uuid",              // Selected via MovieSearchDropdown
+  screen_id: "uuid",             // Selected from dropdown (fetched via screensAPI.getMyScreens)
+  show_date: "2024-02-15",       // Date picker (dayjs IST-aware)
+  start_time: "14:00:00",        // Time input
+  end_time: "16:30:00",          // Time input
+  language_version: "English",   // Text input (e.g. "Tamil", "English")
+  price_override: {              // Optional — overrides screen default pricing
     premium: 600,
     gold: 350,
     silver: 250
@@ -399,65 +430,13 @@ flowchart TD
 
 #### Movie Search Component
 
-**MovieSearchDropdown** - Searchable movie selector with debouncing
-
-```mermaid
-flowchart LR
-    A[User Types] --> B[Debounce 300ms]
-    B --> C[API Call]
-    C --> D[Filter Results]
-    D --> E[Display Dropdown]
-    E --> F[User Selects]
-    F --> G[Update Form]
-```
+**MovieSearchDropdown** — Searchable movie selector with debouncing (300ms), used inside the Add/Edit modal.
 
 **Features:**
-
-- Real-time search with debouncing
-- Display movie poster, title, genres
-- Keyboard navigation support
-- Clear selection option
-
-#### Bulk Show Creation
-
-Create multiple shows with same timing across different dates:
-
-```javascript
-{
-  movie_id: "uuid",
-  screen_id: "uuid",
-  dates: ["2024-02-15", "2024-02-16", "2024-02-17"],
-  start_time: "14:00:00",
-  end_time: "16:30:00",
-  language_version: "English"
-}
-```
-
-#### Show Display
-
-Shows are grouped by movie and displayed as cards:
-
-```mermaid
-graph TD
-    A[Date Selector] --> B[Fetch Shows]
-    B --> C{Group by Movie}
-    C --> D[Movie Card 1]
-    C --> E[Movie Card 2]
-    C --> F[Movie Card 3]
-
-    D --> G[Show 1 - 10:00 AM]
-    D --> H[Show 2 - 2:00 PM]
-    D --> I[Show 3 - 6:00 PM]
-```
-
-**Show Card Information:**
-
-- Movie poster and title
-- Screen name
-- Show time (formatted)
-- Language version
-- Status badge
-- Edit/Delete actions
+- Real-time debounced search via `GET /api/movies?search=...&limit=10`
+- Shows poster thumbnail, title, genres in dropdown
+- Pre-loads the selected movie on edit (fetches by `selectedMovieId` on mount)
+- Separate `isInitialLoading` state to prevent flicker when editing an existing show
 
 #### Time Validation
 
@@ -844,6 +823,23 @@ Configured for Vercel deployment:
 - Automatic builds on push
 - Environment variables via Vercel dashboard
 - Custom domain support
+
+---
+
+## Recently Implemented
+
+✅ **ShowsManagement UI redesign** (BookMyShow style):
+- Replaced shadcn `Tabs` date selector with 3-part vertical buttons (DOW/day/month) — 7 days, same shelf style as user pages
+- `selectedDate` changed from string to `Date` object; formatted to string only at API call
+- Availability legend (● AVAILABLE green / ● FAST FILLING amber)
+- Show time buttons redesigned: green-bordered outlined style with screen name + seat count / time / language + price in 3 lines
+- Movie cards use `rounded-xl` + `rounded-full` genre/language pills
+- Edit/Delete hover actions preserved on `group-hover`
+- Removed unused `Tabs, TabsContent, TabsList, TabsTrigger` imports
+
+---
+
+**Last Updated**: March 8, 2026 (ShowsManagement BookMyShow-style UI redesign)
 
 ---
 
