@@ -22,6 +22,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/booking/by-payment/:id` | Fetch booking by payment_id (success page) |
 | GET | `/api/booking/my-bookings` | List all bookings for logged-in customer |
 | GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
+| GET | `/api/booking/admin/verify/:id` | Verify a booking by UUID — admin QR scan (scoped to cinema hall) |
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
 | GET | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage) |
@@ -52,6 +53,7 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Success page | `cinema-hall-users/src/pages/BookingSuccessPage.jsx` |
 | User bookings page | `cinema-hall-users/src/pages/Bookings.jsx` |
 | Admin bookings page | `cinema-hall-admin/src/pages/Bookings.jsx` |
+| Admin verify ticket page | `cinema-hall-admin/src/pages/VerifyTicket.jsx` |
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
 | Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |
 | Movie details page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
@@ -61,4 +63,4 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 
 ---
 
-*Last Updated: March 8, 2026 — Fixed `createShow` const reassignment bug for `show_date`; `show_date` is now normalized via `formattedDate` using dayjs before DB insert. Docs updated: `backend.md` (`POST /api/shows/create` note added)*
+*Last Updated: March 8, 2026 — Added QR code ticket feature: QR (booking UUID) shown on BookingSuccessPage and My Bookings page; downloaded ticket includes QR. New admin `GET /api/booking/admin/verify/:id` endpoint + `VerifyTicket` page with camera scan and manual entry.*

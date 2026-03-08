@@ -1323,6 +1323,11 @@ sequenceDiagram
 - Seat labels (e.g. "A1", "B2") derived from `screens.layout`
 - Total amount
 - Payment ID
+- **QR code** — `QRCodeSVG` (120×120) encoding the full booking UUID, rendered inside the ticket card (`ticketRef`). Wrapped in `bg-white p-2 rounded` for dark mode compatibility. Included in the downloaded JPEG since it sits inside `ticketRef`
+
+### Download Ticket
+
+The "Download Ticket" button captures `ticketRef` (the entire booking card including the QR code) as a JPEG via `html-to-image`. The dark class is temporarily removed during capture to ensure correct light-mode colors. Downloads as `ticket-<id8>.jpg`.
 
 ### Seat Label Derivation
 

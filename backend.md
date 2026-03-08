@@ -859,6 +859,7 @@ Returns all cinema halls in a location for a specific date, with their movies an
 | GET    | `/by-payment/:payment_id`    | Customer | Fetch confirmed booking by Razorpay payment ID |
 | GET    | `/my-bookings`               | Customer | List all bookings for the logged-in customer   |
 | GET    | `/admin/all`                 | Admin    | List all bookings for admin's cinema hall      |
+| GET    | `/admin/verify/:booking_id`  | Admin    | Verify a booking by UUID (QR scan lookup)      |
 
 #### GET `/api/booking/by-payment/:payment_id`
 
@@ -964,6 +965,41 @@ Lists all bookings for shows in the admin's cinema hall. Supports filtering and 
   "page": 1
 }
 ```
+
+#### GET `/api/booking/admin/verify/:booking_id`
+
+Looks up a booking by its full UUID — used by the admin QR code scanner to verify a customer's ticket at the cinema entrance.
+
+**Auth**: Admin required (`verifyCinemaAdminAccessToken` + `verifyCinemaHall`)
+
+**Path Param**: `booking_id` — must be a valid UUID v4. Returns `400` if format is invalid.
+
+**Security**: Result is scoped to the admin's cinema hall (`sc.cinema_hall_id = cinema_hall_id`). An admin cannot look up bookings from another cinema hall.
+
+**Response (200):**
+
+```json
+{
+  "booking": {
+    "id": "booking-uuid",
+    "show_id": "show-uuid",
+    "seats": ["0-0", "1-1"],
+    "total_amount": "340.00",
+    "booking_status": "confirmed",
+    "movie_title": "Thaai Kizhavi",
+    "show_date": "2026-03-10",
+    "start_time": "11:45:00",
+    "screen_name": "Screen 1",
+    "customer_name": "Jane Smith",
+    "customer_email": "jane@example.com",
+    "seat_labels": ["E7", "E8"]
+  }
+}
+```
+
+**Error Responses:**
+- `400` — Invalid UUID format
+- `404` — Booking not found (or belongs to a different cinema hall)
 
 ---
 

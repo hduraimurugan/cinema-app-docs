@@ -34,6 +34,7 @@ graph TD
     E --> I[/shows - ShowsManagement]
     E --> J[/show/:id - ShowPage]
     E --> K[/bookings - Bookings]
+    E --> K2[/verify-ticket - VerifyTicket]
     E --> L[/profile - ProfilePage]
     E --> M[/settings - SettingsPage]
 
@@ -474,6 +475,27 @@ Displays all bookings for the admin's cinema hall in a paginated table.
 - Loading skeleton, empty state, and error state
 - Calls `GET /api/booking/admin/all` with query params on filter/page change
 
+#### VerifyTicket
+
+**Route**: `/verify-ticket`
+**Component**: `VerifyTicket.jsx`
+
+QR code ticket verification page for cinema entrance staff.
+
+**Features:**
+- **Camera scanner** — starts/stops the device camera via `html5-qrcode`'s `Html5Qrcode` class. Decodes QR code frames at 10fps with a 220×220 scanning box. On successful decode, validates the UUID format before calling the API
+- **Manual entry** — `Input` + "Verify" button to paste or type a booking UUID. Also supports pressing Enter. Same UUID validation applied before the API call
+- **Result card** (view-only) — shows customer name + email, movie title, show date/time, screen name, seat labels (as chips), total amount, booking status badge, full booking UUID
+- **Error states** — "Invalid QR code" if scanned text is not a UUID, API error message if booking not found
+- **Camera cleanup** — `useEffect` stops the scanner on component unmount to prevent camera from staying open when navigating away
+- Calls `GET /api/booking/admin/verify/:booking_id`
+
+**Layout:** Two columns on desktop (scanner + input left, result right), stacked vertically on mobile.
+
+**Dependencies:**
+- `html5-qrcode` — `Html5Qrcode` class for camera-based QR scanning
+- `qrcode.react` — not used here (QR display is user-side only)
+
 #### ProfilePage
 
 - Admin profile information
@@ -504,7 +526,7 @@ graph LR
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
     D --> I[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
-    F --> K[getCinemaHallBookings]
+    F --> K[getCinemaHallBookings, verifyBooking]
 ```
 
 ### API Configuration
@@ -635,8 +657,9 @@ flowchart TD
 3. Screens
 4. Shows
 5. Bookings
-6. Profile
-7. Settings
+6. Verify Ticket
+7. Profile
+8. Settings
 
 ---
 
@@ -828,6 +851,13 @@ Configured for Vercel deployment:
 
 ## Recently Implemented
 
+✅ **QR Ticket Verification** (March 8, 2026):
+- New `VerifyTicket` page at `/verify-ticket` — camera QR scanner + manual booking UUID entry
+- Shows full booking details (view-only) after scan/lookup
+- `ScanLine` icon added to Operations sidebar
+- `bookingAPI.verifyBooking(bookingId)` added to admin API service
+- Calls `GET /api/booking/admin/verify/:booking_id` (scoped to admin's cinema hall)
+
 ✅ **ShowsManagement UI redesign** (BookMyShow style):
 - Replaced shadcn `Tabs` date selector with 3-part vertical buttons (DOW/day/month) — 7 days, same shelf style as user pages
 - `selectedDate` changed from string to `Date` object; formatted to string only at API call
@@ -839,7 +869,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 8, 2026 (ShowsManagement BookMyShow-style UI redesign)
+**Last Updated**: March 8, 2026 (QR ticket verification feature added)
 
 ---
 

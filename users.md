@@ -522,8 +522,13 @@ Displays all bookings for the logged-in customer, split into two tabs.
 - **Past tab** — shows with `show_date < today`
 - Each booking card shows: movie title, show date/time, cinema hall name, screen name, seat chips (e.g. "A1"), total amount, booking status badge (capitalized), booking ID (first 8 chars)
 - **Clickable cards** — clicking any booking card navigates to `/booking/success?payment_id=xxx` to view full details
+- **Show QR button** — each card has a "Show QR" button that opens a `Dialog` containing a `QRCodeSVG` (180×180) encoding the full booking UUID, movie title, and show date. Uses `e.stopPropagation()` to prevent card navigation
 - Loading skeleton and empty state per tab
 - Calls `GET /api/booking/my-bookings` on mount
+
+**Dependencies:**
+- `qrcode.react` — `QRCodeSVG` component for QR generation
+- `@/components/ui/dialog` — shadcn Dialog for the QR modal
 
 #### BookingSuccessPage
 
@@ -537,11 +542,13 @@ Displayed after successful Razorpay payment, and also accessible by clicking a b
 - Shows loading spinner while fetching
 - Shows error state with "View My Bookings" fallback if fetch fails
 - Displays: movie title, show date/time, booking ID, booking status (capitalized), seat labels (e.g. "A1"), total amount, payment ID
+- **QR Code** — embedded inside the ticket card (`ticketRef`) as a `QRCodeSVG` (120×120) encoding the full booking UUID. Wrapped in `bg-white p-2 rounded` so it's visible in dark mode. Labeled "Scan to verify"
 - Navigates to `/` if no `payment_id` in URL
-- **Download Ticket** button — captures the booking details card as a JPEG using `html-to-image`, temporarily switches to light mode during capture for correct colors, downloads as `ticket-<id>.jpg`
+- **Download Ticket** button — captures the entire ticket card (including the QR code) as a JPEG using `html-to-image`, temporarily switches to light mode during capture for correct colors, downloads as `ticket-<id>.jpg`
 
 **Dependencies:**
 - `html-to-image` — DOM-to-image capture (supports Tailwind v4 `oklch` colors)
+- `qrcode.react` — `QRCodeSVG` component (SVG-based, serializes correctly with `html-to-image`)
 
 #### ProfilePage
 
@@ -1113,6 +1120,8 @@ npm run build
 - Booking confirmation page (fetches from API, survives page refresh)
 - Clickable booking cards navigating to booking detail page
 - Download ticket as JPEG from booking success page
+- **QR code on BookingSuccessPage** — embedded in ticket card, included in downloaded JPEG
+- **QR code on My Bookings page** — "Show QR" button per booking opens a dialog with the QR code
 - Auth-gated navigation: "My Bookings" hidden when logged out; `/bookings`, `/profile`, `/settings` protected — redirect to `/movies` with auto-opened login modal
 - **TheatresPage**: fully implemented — date-filtered cinema hall list with movies and show time buttons (`GET /api/user/movies/location/theatres`)
 - **MovieDetailsPage bug fix**: cinema hall name now correctly displays (fixed field name mismatch `hall_name` → `cinema_hall_name`, `location` → `cinema_hall_location`)
@@ -1135,4 +1144,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 8, 2026 (BookMyShow-style UI redesign for MovieDetailsPage and TheatresPage)
+**Last Updated**: March 8, 2026 (QR code added to BookingSuccessPage and Bookings page)
