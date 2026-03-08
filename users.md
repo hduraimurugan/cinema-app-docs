@@ -24,13 +24,21 @@ The Cinema Hall User Application is a **React-based web application** designed f
 graph TD
     A[App.jsx] --> B[CinemaLayout]
     B --> C[Public Routes]
+    B --> P[Protected Routes - ProtectedRoute]
 
-    C --> D[/ - HomePage]
-    C --> E[/movies - MoviesPage]
-    C --> F[/theatres - TheatresPage]
-    C --> G[/bookings - Bookings]
-    C --> H[/profile - ProfilePage]
-    C --> I[/settings - SettingsPage]
+    C --> D[/movies - MoviesPage]
+    C --> E[/movie/:movieId - MovieDetailsPage]
+    C --> F[/show/:showId - SeatSelectionPage]
+    C --> G[/booking/success - BookingSuccessPage]
+    C --> H[/theatres - TheatresPage]
+
+    P --> I[/bookings - Bookings]
+    P --> J[/profile - ProfilePage]
+    P --> K[/settings - SettingsPage]
+
+    P --> L{Authenticated?}
+    L -->|No| M[Redirect /movies + open login modal]
+    L -->|Yes| N[Render page]
 ```
 
 ### Component Hierarchy
@@ -343,6 +351,14 @@ graph LR
     H --> L[Logout]
 ```
 
+#### Auto-Open Login Modal (Protected Route Redirect)
+
+When a user is redirected from a protected route (e.g. `/bookings` while logged out), `TopBar` automatically opens the login modal:
+
+1. `ProtectedRoute` navigates to `/movies` with `state: { openLogin: true }`
+2. `TopBar` detects `location.state?.openLogin` via a `useEffect`
+3. `LoginModal` is opened and the router state is cleared (so refresh doesn't re-trigger it)
+
 #### Search Functionality
 
 **Features:**
@@ -353,30 +369,19 @@ graph LR
 - Submit on Enter key
 - Responsive width
 
-**Search Flow:**
-
-```mermaid
-flowchart TD
-    A[User Types] --> B[Update State]
-    B --> C[Press Enter]
-    C --> D[Navigate to Search Results]
-    D --> E[Filter Movies by Query]
-```
-
 #### Location Selector
 
 **Features:**
 
 - Display current location (district, state)
-- Change location modal (if implemented)
-- Location icon indicator
+- Opens `LocationModal` on click
+- Auto-opens on first load if no location is cached
 
 #### User Menu
 
 **Logged Out State:**
 
-- "Login" button
-- Opens LoginModal
+- "Sign in" button — opens `LoginModal`
 
 **Logged In State:**
 
@@ -394,6 +399,24 @@ flowchart TD
 - Dark mode (Moon icon)
 - Toggle between themes
 - Persisted in localStorage
+
+---
+
+### 3b. Secondary Navigation Bar
+
+**Component**: `TopNavbar.jsx`
+
+#### Navigation Items
+
+| Position | Item | Auth Required | Route |
+|----------|------|---------------|-------|
+| Left | Movies | No | `/movies` |
+| Left | Theatres | No | `/theatres` |
+| Right | My Bookings | **Yes** | `/bookings` |
+| Right | Offers | No | `/offers` |
+| Right | Gift Cards | No | `/gift-cards` |
+
+**"My Bookings"** is conditionally rendered — it only appears in the navbar when the customer is logged in (`customer` truthy from `useCustomerAuth()`). It is completely hidden for logged-out users.
 
 ---
 
@@ -612,8 +635,9 @@ sequenceDiagram
 
 **TopNavbar** - Secondary navigation
 
-- Category links
-- Quick filters
+- Category links (Movies, Theatres — always visible)
+- "My Bookings" link — visible only when logged in
+- Offers, Gift Cards — always visible
 
 **AdBanner** - Advertisement banner
 
@@ -985,6 +1009,7 @@ npm run build
 - Booking confirmation page (fetches from API, survives page refresh)
 - Clickable booking cards navigating to booking detail page
 - Download ticket as JPEG from booking success page
+- Auth-gated navigation: "My Bookings" hidden when logged out; `/bookings`, `/profile`, `/settings` protected — redirect to `/movies` with auto-opened login modal
 
 💡 **Potential Features:**
 
@@ -1000,4 +1025,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 7, 2026 (booking card navigation + ticket download)
+**Last Updated**: March 8, 2026 (auth-gated navigation + protected routes)
