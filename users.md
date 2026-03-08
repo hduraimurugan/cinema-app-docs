@@ -541,14 +541,32 @@ Displayed after successful Razorpay payment, and also accessible by clicking a b
 - Reads `payment_id` from URL (`useSearchParams`) — survives page refresh
 - Shows loading spinner while fetching
 - Shows error state with "View My Bookings" fallback if fetch fails
-- Displays: movie title, show date/time, booking ID, booking status (capitalized), seat labels (e.g. "A1"), total amount, payment ID
-- **QR Code** — embedded inside the ticket card (`ticketRef`) as a `QRCodeSVG` (120×120) encoding the full booking UUID. Wrapped in `bg-white p-2 rounded` so it's visible in dark mode. Labeled "Scan to verify"
 - Navigates to `/` if no `payment_id` in URL
-- **Download Ticket** button — captures the entire ticket card (including the QR code) as a JPEG using `html-to-image`, temporarily switches to light mode during capture for correct colors, downloads as `ticket-<id>.jpg`
+- **Download Ticket** button — captures the entire ticket card as a JPEG using `html-to-image` at 3× pixel ratio, temporarily strips dark mode during capture for correct colors, downloads as `ticket-<id>.jpg`
+
+**UI Design (redesigned — premium cinema ticket style):**
+
+**Success header:**
+- Pulsing green ring animation (`animate-ping`) behind a `CheckCircle` icon for a dynamic confirmation feel
+- Bold heading + subtitle copy
+
+**Ticket card** (`ticketRef` — this is what gets captured as JPEG):
+- **Header banner** — deep red gradient (`#e11d48 → #9f1239`) with CineMax logo pill, movie title in large white bold type, date & time with `CalendarDays` / `Clock` icons
+- **Perforated divider** — dashed border with half-circle notches cut into both sides (`-left-3` / `-right-3` absolutely positioned circles) — classic physical ticket aesthetic
+- **Body section:**
+  - Booking ID in monospace font with `Hash` icon label; green live-dot status badge with ring border
+  - Seat labels as pill tags with zinc ring border
+  - Total amount right-aligned in `text-3xl font-extrabold`; payment ID below in muted text
+- **QR stub** — `QRCodeSVG` (90×90, level `M`) in a white padded `rounded-xl` card with drop shadow; "scan to verify" instructions beside it
+
+**Info banner:** Blue-tinted email confirmation notice below the ticket
+
+**Action buttons:** 3-column grid — pink primary "My Bookings", dark "Download Ticket" with Download icon, muted "Book More"
 
 **Dependencies:**
 - `html-to-image` — DOM-to-image capture (supports Tailwind v4 `oklch` colors)
 - `qrcode.react` — `QRCodeSVG` component (SVG-based, serializes correctly with `html-to-image`)
+- `lucide-react` — `CheckCircle`, `CalendarDays`, `Clock`, `Hash`, `Ticket`, `Download`, `Loader2`
 
 #### ProfilePage
 
@@ -1120,7 +1138,8 @@ npm run build
 - Booking confirmation page (fetches from API, survives page refresh)
 - Clickable booking cards navigating to booking detail page
 - Download ticket as JPEG from booking success page
-- **QR code on BookingSuccessPage** — embedded in ticket card, included in downloaded JPEG
+- **QR code on BookingSuccessPage** — embedded in ticket stub section, included in downloaded JPEG (90×90, level M)
+- **BookingSuccessPage UI redesign** — premium cinema ticket design: red gradient banner header, perforated tear-edge divider with half-circle notches, monospace Booking ID, live-dot status badge, zinc pill seat tags, 3× pixel-ratio JPEG download
 - **QR code on My Bookings page** — "Show QR" button per booking opens a dialog with the QR code
 - Auth-gated navigation: "My Bookings" hidden when logged out; `/bookings`, `/profile`, `/settings` protected — redirect to `/movies` with auto-opened login modal
 - **TheatresPage**: fully implemented — date-filtered cinema hall list with movies and show time buttons (`GET /api/user/movies/location/theatres`)
@@ -1144,4 +1163,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 8, 2026 (QR code added to BookingSuccessPage and Bookings page)
+**Last Updated**: March 8, 2026 (BookingSuccessPage UI redesigned — premium cinema ticket style with gradient header, perforated divider, and improved JPEG download)

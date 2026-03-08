@@ -63,4 +63,4 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 
 ---
 
-*Last Updated: March 8, 2026 — Added QR code ticket feature: QR (booking UUID) shown on BookingSuccessPage and My Bookings page; downloaded ticket includes QR. New admin `GET /api/booking/admin/verify/:id` endpoint + `VerifyTicket` page with camera scan and manual entry.*
+*Last Updated: March 8, 2026 — BookingSuccessPage UI redesigned: premium cinema ticket card with red gradient banner, perforated tear-edge divider, monospace Booking ID, live-dot status badge, QR stub section, and 3× pixel-ratio JPEG download. QR code also shown on My Bookings page. New admin `GET /api/booking/admin/verify/:id` endpoint + `VerifyTicket` page with camera scan and manual entry.*
