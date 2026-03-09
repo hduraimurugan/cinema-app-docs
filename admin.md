@@ -873,9 +873,21 @@ Configured for Vercel deployment:
 - Edit/Delete hover actions preserved on `group-hover`
 - Removed unused `Tabs, TabsContent, TabsList, TabsTrigger` imports
 
+✅ **Bookings page — Screen filter + visual redesign** (March 9, 2026):
+- Added **Screen dropdown filter** — fetches screens via `screensAPI.getMyScreens()` on mount; passes `screen_id` UUID to `GET /api/booking/admin/all`
+- Backend `getCinemaHallBookings` updated: added `$5::uuid IS NULL OR sc.id = $5` condition to both data and count queries (param index shift: limit → `$6`, offset → `$7`)
+- `bookingAPI.getCinemaHallBookings` updated to forward `screen_id` query param
+- Filters reorganised into a 4-column grid with a "Filters" header row, active filter count badge, and "Clear all" button
+- Customer column: coloured avatar circle (initials, colour derived from name hash)
+- Screen column: `<Monitor>` icon pill badge
+- Seats: primary-tinted chips with subtle border
+- Status indicators: custom glass-style pills (emerald / red / blue) replacing generic `<Badge>`
+- Booking ID: monospace `<code>` element with muted background
+- Empty state: icon-in-circle, descriptive sub-text, "Clear filters" CTA
+
 ---
 
-**Last Updated**: March 8, 2026 (QR ticket verification feature added)
+**Last Updated**: March 9, 2026 (Bookings screen filter + visual redesign)
 
 ---
 

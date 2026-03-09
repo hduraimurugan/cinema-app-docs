@@ -64,4 +64,6 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 
 ---
 
-*Last Updated: March 9, 2026 — Movie detail route split into two pages: `/movie/:movieId` → `MovieInfoPage` (poster, metadata, Book Tickets CTA, About, YouTube trailer embed) and `/movie/shows/:movieId` → `MovieDetailsPage` (date selector + cinema halls + showtimes). Trailer overlay button on poster scrolls to inline YouTube embed.*
+*Last Updated: March 9, 2026 — Admin Bookings page: added Screen filter dropdown (fetches from `screensAPI.getMyScreens()`, passes `screen_id` to `GET /api/booking/admin/all`); backend query updated with `$5::uuid` screen filter; full visual redesign (avatar initials, glass-style status pills, screen pill badge, primary-tinted seat chips, 4-column filter grid).*
+
+*March 9, 2026 — Movie detail route split into two pages: `/movie/:movieId` → `MovieInfoPage` (poster, metadata, Book Tickets CTA, About, YouTube trailer embed) and `/movie/shows/:movieId` → `MovieDetailsPage` (date selector + cinema halls + showtimes). Trailer overlay button on poster scrolls to inline YouTube embed.*
