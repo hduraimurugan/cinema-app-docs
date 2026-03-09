@@ -469,11 +469,17 @@ flowchart TD
 Displays all bookings for the admin's cinema hall in a paginated table.
 
 **Features:**
-- Table columns: Customer (name + email), Movie, Show date/time, Screen, Seats, Amount, Status badge, Booking ID
-- Filters: show date picker, movie title search (debounced), booking status dropdown (All / Confirmed / Cancelled / Completed)
-- Pagination: 50 bookings per page with Prev/Next controls
-- Loading skeleton, empty state, and error state
-- Calls `GET /api/booking/admin/all` with query params on filter/page change
+- Table columns: Customer (avatar + name + email), Movie, Show date/time, Screen (pill badge with monitor icon), Seats (primary-tinted chips), Amount, Status badge, Booking ID (monospace code)
+- Filters (4-column grid layout): show date picker, movie title search (debounced 400ms), screen dropdown (populated from `screensAPI.getMyScreens()`), booking status dropdown
+  - Filter params: `date`, `search`, `screen_id`, `status` (all / confirmed / cancelled / completed)
+  - Active filter count badge on the Filters header
+  - "Clear all" button shown when any filter is active
+- Status badges: custom glass-style pills — emerald (confirmed), red (cancelled), blue (completed)
+- Customer column: coloured avatar circle with initials derived from name
+- Screen column: rendered as a `<Monitor>` icon pill using `screensAPI.getMyScreens()` data loaded on mount
+- Pagination: 50 bookings per page with Prev/Next controls and "Showing X of Y" count
+- Loading skeleton, contextual empty state (with "Clear filters" CTA when filters active), and error state
+- Calls `GET /api/booking/admin/all` with `{ date, search, status, screen_id, page }` query params on filter/page change
 
 #### VerifyTicket
 

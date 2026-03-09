@@ -934,12 +934,13 @@ Lists all bookings for shows in the admin's cinema hall. Supports filtering and 
 
 **Query Parameters:**
 
-| Param    | Type   | Description                                                        |
-| -------- | ------ | ------------------------------------------------------------------ |
-| `date`   | date   | Filter by show date (e.g. `2026-03-07`)                            |
-| `search` | string | Filter by movie title (partial, case-insensitive)                  |
-| `status` | string | Filter by booking status (`confirmed`, `cancelled`, `completed`)   |
-| `page`   | number | Page number (default: 1)                                           |
+| Param       | Type   | Description                                                        |
+| ----------- | ------ | ------------------------------------------------------------------ |
+| `date`      | date   | Filter by show date (e.g. `2026-03-07`)                            |
+| `search`    | string | Filter by movie title (partial, case-insensitive)                  |
+| `status`    | string | Filter by booking status (`confirmed`, `cancelled`, `completed`)   |
+| `screen_id` | uuid   | Filter by screen ID (scoped to admin's cinema hall)                |
+| `page`      | number | Page number (default: 1)                                           |
 
 **Response (200):**
 
