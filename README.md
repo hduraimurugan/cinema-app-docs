@@ -170,6 +170,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Real-time seat availability**
 ✅ **Secure payment with Razorpay**
 ✅ **Booking confirmation page (API-fetched, refresh-safe)**
+✅ **MovieInfoPage — BookMyShow-style movie detail with trailer embed**
 
 ---
 
@@ -270,7 +271,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: March 7, 2026
+**Last Updated**: March 9, 2026
 
 ---
 

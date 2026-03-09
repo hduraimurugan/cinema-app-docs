@@ -841,18 +841,77 @@ sequenceDiagram
 
 ---
 
-### 2. Movie Details Page
+### 2. Movie Info Page
 
 **Route**: `/movie/:movieId`
+**Component**: `MovieInfoPage.jsx`
+
+Dedicated movie detail page — BookMyShow style — showing movie metadata, a prominent "Book Tickets" CTA, full description, and a YouTube trailer embed. This is the landing page when a movie card is clicked.
+
+**Sections:**
+
+**Hero Banner:**
+- Full-width blurred `poster_url` background (`blur-md opacity-40`) with dark gradient overlay
+- Back button (top-left, frosted glass) → `/movies`
+- Large poster left (`w-40 sm:w-52 md:w-60`, `aspect-[2/3]`, `rounded-2xl`) with **Trailer overlay button** at the bottom (shown only when `trailer_url` exists) — clicking scrolls to the Trailer section
+- Movie metadata right: title (`text-3xl sm:text-5xl font-bold`), duration + genres + release date in a meta row, format (`2D`) + language badges, **Book Tickets** primary button → `/movie/shows/:movieId`
+
+**About the movie:**
+- Full description text, `max-w-3xl`, separated by `border-b`
+
+**Trailer section** (only rendered when `trailer_url` is set):
+- Responsive `aspect-video` iframe (`rounded-xl overflow-hidden shadow-2xl`, `max-w-3xl`)
+- YouTube URL is normalized via `getYouTubeEmbedUrl()` helper — supports `watch?v=`, `youtu.be/`, and already-embedded URLs
+- `ref={trailerRef}` — scrolled to via `scrollIntoView({ behavior: 'smooth' })` when the poster overlay button is clicked
+
+**Data flow:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant MovieInfoPage
+    participant API
+
+    User->>MovieInfoPage: Navigate to /movie/:movieId (click movie card)
+    MovieInfoPage->>API: GET /api/user/movies/:movieId
+    API-->>MovieInfoPage: { movie: { id, title, description, poster_url, trailer_url, duration_mins, genre[], language[], release_date, status } }
+    MovieInfoPage->>User: Render hero + About section + Trailer (if trailer_url set)
+
+    User->>MovieInfoPage: Click "▶ Trailer" on poster
+    MovieInfoPage->>MovieInfoPage: scrollIntoView(trailerRef)
+    MovieInfoPage->>User: Page scrolls to inline YouTube embed
+
+    User->>MovieInfoPage: Click "Book Tickets"
+    MovieInfoPage->>User: navigate('/movie/shows/:movieId')
+```
+
+**State:**
+
+| State | Type | Description |
+|-------|------|-------------|
+| `movie` | object \| null | Movie data from `GET /api/user/movies/:movieId` (nested under `data.movie`) |
+| `loading` | boolean | Full-page skeleton on initial load |
+| `error` | string \| null | Error message if fetch fails |
+
+**Helper functions:**
+- `formatDuration(mins)` — converts `144` → `"2h 24m"`
+- `formatReleaseDate(dateStr)` — formats to `"27 Feb 2026"` (en-IN locale)
+- `getYouTubeEmbedUrl(url)` — converts any YouTube URL format to `https://www.youtube.com/embed/VIDEO_ID`
+
+---
+
+### 3. Movie Shows Page
+
+**Route**: `/movie/shows/:movieId`
 **Component**: `MovieDetailsPage.jsx`
 
-Displays movie info, a date selector, and the list of cinema halls + showtimes for the selected date. Uses a **BookMyShow-style UI**.
+Displays a date selector and the list of cinema halls + showtimes for the selected date. Reached by clicking "Book Tickets" on the Movie Info Page. Uses a **BookMyShow-style UI**.
 
 **Features:**
 
 **Cinematic Banner Header:**
-- Full-width blurred `poster_url` as background (`blur-md opacity-40 pointer-events-none`) with dark gradient overlay (`from-background via-background/75 to-transparent pointer-events-none`)
-- Back button (top-left, frosted glass style) — `pointer-events-none` on background layers ensures button always receives clicks
+- Full-width blurred `poster_url` as background (`blur-md opacity-40 pointer-events-none`) with dark gradient overlay
+- Back button (top-left, frosted glass) → `/movie/:movieId` (explicitly navigates, does not use browser history)
 - Poster thumbnail (left, `hidden sm:block`, `w-36 md:w-44`, `aspect-[2/3]`) + movie info (right)
 - Movie info: title (`text-3xl md:text-4xl`), tag pills (runtime, genres, languages as rounded pills), expandable description with "Read more / Show less" toggle
 
@@ -877,7 +936,7 @@ sequenceDiagram
     participant MovieDetailsPage
     participant API
 
-    User->>MovieDetailsPage: Navigate to /movie/:movieId
+    User->>MovieDetailsPage: Navigate to /movie/shows/:movieId
     MovieDetailsPage->>MovieDetailsPage: selectedDate = today, loading = true
     MovieDetailsPage->>API: GET /api/user/movies/:movieId/showtimes?district=X&state=Y&date=YYYY-MM-DD
     API-->>MovieDetailsPage: { movie, cinema_halls }
@@ -1149,6 +1208,7 @@ npm run build
 - **MovieDetailsPage section loading**: date change triggers skeleton only on the Cinema Halls section; movie info and date selector stay visible (`refetching` state separate from initial `loading`)
 - **MovieDetailsPage UI redesign** (BookMyShow style): cinematic blurred-poster banner header, 3-part vertical date buttons (DOW/day/month), language chip, availability legend, green-bordered outlined show time buttons with screen name, expandable description, heart icon on hall cards
 - **TheatresPage UI redesign** (BookMyShow style): same 3-part date buttons and availability legend, rounded-xl hall cards with heart icon, clickable movie poster + title, green-bordered show time buttons with language version, `formatDuration` helper, shows sorted by time per screen
+- **MovieInfoPage** (new page, BookMyShow style): `/movie/:movieId` now shows a dedicated movie info page — large poster, title, duration/genres/release date, 2D + language badges, "Book Tickets" CTA → `/movie/shows/:movieId`, "About the movie" section, inline YouTube trailer embed with smooth-scroll from poster overlay button. Route `/movie/shows/:movieId` now serves the existing cinema-halls/showtimes page. Back button on shows page explicitly returns to `/movie/:movieId`.
 
 💡 **Potential Features:**
 
@@ -1164,4 +1224,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 8, 2026 (BookingSuccessPage UI redesigned — premium cinema ticket style with gradient header, perforated divider, and improved JPEG download)
+**Last Updated**: March 9, 2026 (MovieInfoPage added — movie detail split into info page `/movie/:movieId` and shows page `/movie/shows/:movieId`; YouTube trailer embed with scroll-to anchor)
