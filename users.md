@@ -27,7 +27,8 @@ graph TD
     B --> P[Protected Routes - ProtectedRoute]
 
     C --> D[/movies - MoviesPage]
-    C --> E[/movie/:movieId - MovieDetailsPage]
+    C --> E1[/movie/:movieId - MovieInfoPage]
+    C --> E2[/movie/shows/:movieId - MovieDetailsPage]
     C --> F[/show/:showId - SeatSelectionPage]
     C --> G[/booking/success - BookingSuccessPage]
     C --> H[/theatres - TheatresPage]
