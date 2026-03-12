@@ -34,6 +34,9 @@ graph TD
     E --> H2[/screens/new - ScreenDesignerPage add]
     E --> H3[/screens/:id/edit - ScreenDesignerPage edit]
     E --> I[/shows - ShowsManagement]
+    E --> I2[/shows/new - AddShowPage]
+    E --> I3[/shows/bulk - AddMultipleShowsPage]
+    E --> I4[/shows/:id/edit - EditShowPage]
     E --> J[/show/:id - ShowPage]
     E --> K[/bookings - Bookings]
     E --> K2[/verify-ticket - VerifyTicket]
@@ -64,7 +67,10 @@ graph TD
     G --> K[MovieManagement]
     G --> L[CinemaScreenDesigner - list]
     G --> L2[ScreenDesignerPage - add/edit]
-    G --> M[ShowsManagement]
+    G --> M[ShowsManagement - list]
+    G --> M2[AddShowPage - /shows/new]
+    G --> M3[AddMultipleShowsPage - /shows/bulk]
+    G --> M4[EditShowPage - /shows/:id/edit]
     G --> N[Other Pages]
 ```
 
@@ -385,34 +391,46 @@ sequenceDiagram
 
 ### 3. Shows Management
 
-**Route**: `/shows`
-**Component**: `ShowsManagement.jsx`
+| Route | Component | Purpose |
+|---|---|---|
+| `/shows` | `ShowsManagement.jsx` | List shows by date, delete |
+| `/shows/new` | `AddShowPage.jsx` | Create a single show |
+| `/shows/bulk` | `AddMultipleShowsPage.jsx` | Create multiple time slots at once |
+| `/shows/:id/edit` | `EditShowPage.jsx` | Edit an existing show |
+
 **Access**: Admin (any role)
 
 #### Feature Overview
 
-Manage movie showtimes with date-based scheduling and overlap prevention. Uses a **BookMyShow-style UI** consistent with the user-facing MovieDetailsPage and TheatresPage.
+Manage movie showtimes with date-based scheduling. Add/Edit are **separate routes** — navigating to them changes the URL, enabling back-button support. Deleting a show stays on the list page via `window.confirm`.
 
 ```mermaid
 flowchart TD
-    A[Shows Management] --> B[View Shows by Date]
-    A --> C[Create Single Show]
-    A --> E[Edit Show]
-    A --> F[Delete Show]
+    A[Shows Management /shows] --> B[View Shows by Date]
+    A --> C[navigate /shows/new]
+    A --> D[navigate /shows/bulk]
+    A --> E[navigate /shows/:id/edit]
+    A --> F[Delete Show - confirm dialog]
 
     B --> G[Group by Movie]
-    G --> H[Display Show Cards]
+    G --> H[Display Show Time Buttons]
 
-    C --> I[Select Movie via Search]
-    C --> J[Select Screen]
-    C --> K[Set Date & Time]
-    C --> L[Set Language Version]
-    C --> M[Override Prices]
+    C --> I[AddShowPage - single show form]
+    D --> J[AddMultipleShowsPage - shared details + time slots list]
+    E --> K[EditShowPage - pre-filled form fetched by ID]
+
+    I --> L[POST /api/shows/create]
+    J --> M[POST /api/shows/bulk]
+    K --> N[PUT /api/shows/edit/:id]
+
+    L --> A
+    M --> A
+    N --> A
 ```
 
-#### UI Layout
+#### UI Layout — Shows List (`/shows`)
 
-**Header row:** "Shows Management" title + description + `+ Add Show` button (top-right)
+**Header row:** "Shows Management" title + description + `+ Add Multiple` (outline) + `+ Add Show` (primary) buttons (top-right)
 
 **Date Selector shelf** (`bg-card border-b border-border`):
 - **3-part vertical date buttons** (DOW / day number / month) — 7 days, `w-14` fixed width, hidden scrollbar
@@ -424,9 +442,11 @@ flowchart TD
 **Movie Cards** (`rounded-xl`, shadcn `Card`):
 - Poster (`rounded-lg shadow-md`) + movie title + duration badge + genre/language pills (`rounded-full`)
 - Show time buttons: **green-bordered outlined style** — screen info (MapPin icon + name + seat count) on line 1, time (bold) on line 2, language + price on line 3
-- **Edit/Delete hover actions** — appear absolutely positioned at top-right of each button on `group-hover` (shadcn `Button` size="sm")
+- **Edit/Delete hover actions** — appear absolutely positioned at top-right of each button on `group-hover`
+  - Edit → `navigate('/shows/:id/edit')`
+  - Delete → `window.confirm` → `showsAPI.deleteShow(id)` → refresh
 
-**Show card data flow:**
+**Show list data flow:**
 ```mermaid
 sequenceDiagram
     participant Admin
@@ -435,7 +455,7 @@ sequenceDiagram
 
     Admin->>ShowsPage: Navigate to /shows
     ShowsPage->>ShowsPage: selectedDate = today (Date object)
-    ShowsPage->>API: GET /api/shows?date=YYYY-MM-DD
+    ShowsPage->>API: GET /api/shows/date/YYYY-MM-DD
     API-->>ShowsPage: { grouped: [{ movie_id, title, poster_url, shows: [...] }] }
     ShowsPage->>Admin: Render date shelf + movie cards + show buttons
 
@@ -445,47 +465,88 @@ sequenceDiagram
     ShowsPage->>Admin: Update shows section (isLoading skeleton)
 ```
 
-#### Show Creation Form
+#### Add Show Page (`/shows/new`)
 
-**Fields:**
+Full-page form. On success → navigates back to `/shows`.
+
+**Auto-fill behaviour:**
+- **Select movie** → `language_version` auto-filled from `movie.language.join(", ")`
+- **Select screen** → `price_override.premium/gold/silver` auto-filled from `screen.premium_price / gold_price / silver_price`
+- Both auto-fills can be manually overridden
+
+**Form fields:**
 
 ```javascript
 {
-  movie_id: "uuid",              // Selected via MovieSearchDropdown
-  screen_id: "uuid",             // Selected from dropdown (fetched via screensAPI.getMyScreens)
-  show_date: "2024-02-15",       // Date picker (dayjs IST-aware)
-  start_time: "14:00:00",        // Time input
-  end_time: "16:30:00",          // Time input
-  language_version: "English",   // Text input (e.g. "Tamil", "English")
-  price_override: {              // Optional — overrides screen default pricing
-    premium: 600,
-    gold: 350,
-    silver: 250
+  movie_id: "uuid",              // MovieSearchDropdown — passes full movie object; language auto-filled
+  screen_id: "uuid",             // Select from screensAPI.getMyScreens(); prices auto-filled
+  show_date: "2024-02-15",       // date input (dayjs IST-aware)
+  start_time: "14:00",           // time input
+  end_time: "16:30",             // time input
+  language_version: "Tamil, English",  // auto-filled from movie; editable
+  price_override: {              // auto-filled from screen defaults; editable
+    premium: 200,
+    gold: 150,
+    silver: 130
   }
 }
 ```
 
+Calls `showsAPI.createShow(formData)` → `POST /api/shows/create`.
+
+#### Edit Show Page (`/shows/:id/edit`)
+
+Fetches show by ID on mount (`showsAPI.getShowById(id)`), maps response to form fields:
+
+| Response field | Form field |
+|---|---|
+| `movie.id` | `movie_id` |
+| `screen.id` | `screen_id` |
+| `show_details.show_date` | `show_date` |
+| `show_details.start_time` | `start_time` |
+| `show_details.end_time` | `end_time` |
+| `show_details.language_version` | `language_version` |
+| `show_details.price_override` | `price_override` |
+
+Loading skeleton shown while fetching. On success → `navigate('/shows')`.
+Calls `showsAPI.editShow(id, formData)` → `PUT /api/shows/edit/:id`.
+
+#### Add Multiple Shows Page (`/shows/bulk`)
+
+Same auto-fill behaviour as AddShowPage. Instead of a single start/end time, there is a **dynamic time slots list**:
+- Minimum 1 slot; "+ Add Slot" button appends a new row
+- Each row: `Slot N — Start` (time) + `End` (time) + trash icon (disabled when only 1 slot)
+- Footer label: `N slot(s) → N show(s) will be created`
+- Submit button label updates dynamically: `Create N Show(s)`
+
+Payload sent:
+```javascript
+{
+  movie_id: "uuid",
+  screen_ids: ["uuid"],          // single screen wrapped in array
+  dates: ["2024-02-15"],         // single date wrapped in array
+  time_slots: [
+    { start_time: "10:00", end_time: "12:30" },
+    { start_time: "14:00", end_time: "16:30" },
+    { start_time: "19:00", end_time: "21:30" }
+  ],
+  language_version: "Tamil, English",
+  price_override: { premium: 200, gold: 150, silver: 130 }
+}
+```
+
+Calls `showsAPI.createMultipleShows(payload)` → `POST /api/shows/bulk`. Backend creates one show per `screen × date × time_slot` (cartesian product).
+
 #### Movie Search Component
 
-**MovieSearchDropdown** — Searchable movie selector with debouncing (300ms), used inside the Add/Edit modal.
+**`MovieSearchDropdown`** — Extracted to `src/components/MovieSearchDropdown.jsx`, shared across AddShowPage, EditShowPage, and AddMultipleShowsPage.
 
 **Features:**
-- Real-time debounced search via `GET /api/movies?search=...&limit=10`
-- Shows poster thumbnail, title, genres in dropdown
-- Pre-loads the selected movie on edit (fetches by `selectedMovieId` on mount)
+- Real-time debounced search (300ms) via `moviesAPI.getAllMovies({ search, limit: 10 })`
+- Shows poster thumbnail, title, genres + duration in dropdown
+- Pre-loads the selected movie on edit (fetches by `selectedMovieId` on mount via `moviesAPI.getMovieById`)
 - Separate `isInitialLoading` state to prevent flicker when editing an existing show
-
-#### Time Validation
-
-```mermaid
-flowchart TD
-    A[User Sets Start Time] --> B[Calculate End Time]
-    B --> C[Movie Duration + 30min buffer]
-    C --> D{Check Overlap}
-    D -->|No Overlap| E[Allow Creation]
-    D -->|Overlap Detected| F[Show Error]
-    F --> G[Suggest Alternative Times]
-```
+- Calls `onMovieSelect(movie)` with the **full movie object** — callers extract `movie.id` and `movie.language`
 
 ---
 
@@ -630,6 +691,13 @@ try {
 
 - Full-screen overlay
 - Animated spinner
+
+**MovieSearchDropdown** (`src/components/MovieSearchDropdown.jsx`) - Shared movie selector used in show forms
+
+- Debounced search (300ms), shows poster + genre + duration in results
+- Pre-loads selected movie by ID on mount (for edit pages)
+- Calls `onMovieSelect(movie)` with **full movie object** — callers extract `movie.id` and `movie.language`
+- Used by: `AddShowPage`, `EditShowPage`, `AddMultipleShowsPage`
 
 **SearchMovies** - Movie search component
 
@@ -797,31 +865,49 @@ const debounce = (func, wait) => {
 sequenceDiagram
     participant Admin
     participant ShowsPage
-    participant MovieSearch
+    participant AddShowPage
     participant API
-    participant DB
 
-    Admin->>ShowsPage: Click "Add Show"
-    ShowsPage->>Admin: Open modal
+    Admin->>ShowsPage: Click "+ Add Show"
+    ShowsPage->>AddShowPage: navigate('/shows/new')
 
-    Admin->>MovieSearch: Search "Inception"
-    MovieSearch->>API: GET /api/movies?search=Inception
-    API-->>MovieSearch: Return movies
-    MovieSearch->>Admin: Display results
+    Admin->>AddShowPage: Search + select movie
+    Note over AddShowPage: language_version auto-filled from movie.language
+    Admin->>AddShowPage: Select screen
+    Note over AddShowPage: price_override auto-filled from screen.premium/gold/silver_price
+    Admin->>AddShowPage: Set date, start/end time
+    Admin->>AddShowPage: Review / adjust language & prices
+    Admin->>AddShowPage: Click "Add Show"
 
-    Admin->>ShowsPage: Select movie
-    Admin->>ShowsPage: Select screen
-    Admin->>ShowsPage: Set date & time
-    Admin->>ShowsPage: Click "Create"
+    AddShowPage->>API: POST /api/shows/create
+    API-->>AddShowPage: Show created
+    AddShowPage->>Admin: toast.success("Show added successfully!")
+    AddShowPage->>ShowsPage: navigate('/shows')
+```
 
-    ShowsPage->>API: POST /api/shows/create
-    API->>DB: Validate overlap
-    DB-->>API: No conflict
-    API->>DB: Insert show
-    DB-->>API: Show created
-    API-->>ShowsPage: Success
-    ShowsPage->>Admin: Show toast notification
-    ShowsPage->>ShowsPage: Refresh shows list
+### Add Multiple Shows Workflow
+
+```mermaid
+sequenceDiagram
+    participant Admin
+    participant ShowsPage
+    participant BulkPage
+    participant API
+
+    Admin->>ShowsPage: Click "+ Add Multiple"
+    ShowsPage->>BulkPage: navigate('/shows/bulk')
+
+    Admin->>BulkPage: Select movie → language auto-filled
+    Admin->>BulkPage: Select screen → prices auto-filled
+    Admin->>BulkPage: Set date
+    Admin->>BulkPage: Add time slots (+ Add Slot button)
+    Note over BulkPage: "3 slots → 3 shows will be created"
+    Admin->>BulkPage: Click "Create 3 Shows"
+
+    BulkPage->>API: POST /api/shows/bulk {screen_ids:[id], dates:[date], time_slots:[...]}
+    API-->>BulkPage: { shows: [...3 created shows] }
+    BulkPage->>Admin: toast.success("3 shows created successfully!")
+    BulkPage->>ShowsPage: navigate('/shows')
 ```
 
 ### Screen Designer Workflow
@@ -923,6 +1009,15 @@ Configured for Vercel deployment:
 - `bookingAPI.verifyBooking(bookingId)` added to admin API service
 - Calls `GET /api/booking/admin/verify/:booking_id` (scoped to admin's cinema hall)
 
+✅ **Shows Management — separate routes + bulk create** (March 12, 2026):
+- "Add Show" modal replaced by dedicated **`AddShowPage`** at `/shows/new`
+- "Edit Show" modal replaced by dedicated **`EditShowPage`** at `/shows/:id/edit` — fetches show data via `showsAPI.getShowById(id)` on mount, pre-fills all fields
+- New **`AddMultipleShowsPage`** at `/shows/bulk` — shared movie/screen/date/language/price section + dynamic time slots list (+ Add Slot / remove); calls `POST /api/shows/bulk`
+- **`MovieSearchDropdown`** extracted from `ShowsManagement.jsx` into `src/components/MovieSearchDropdown.jsx` — now shared across all three pages
+- **Auto-fill on screen select**: `price_override.premium/gold/silver` auto-populated from `screen.premium_price / gold_price / silver_price`
+- **Auto-fill on movie select**: `language_version` auto-populated from `movie.language.join(", ")` — both fields remain manually editable
+- `ShowsManagement.jsx` stripped to list-only (removed `ShowModal`, modal state, `screensAPI` call); Edit button navigates to `/shows/:id/edit`; header now has both `+ Add Multiple` and `+ Add Show` buttons
+
 ✅ **ShowsManagement UI redesign** (BookMyShow style):
 - Replaced shadcn `Tabs` date selector with 3-part vertical buttons (DOW/day/month) — 7 days, same shelf style as user pages
 - `selectedDate` changed from string to `Date` object; formatted to string only at API call
@@ -946,7 +1041,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (Screen Designer edit-mode resize fix + debounced inputs)
+**Last Updated**: March 12, 2026 (Shows Management — separate routes, bulk create page, auto-fill from screen/movie)
 
 ---
 
@@ -997,4 +1092,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026
+**Last Updated**: March 12, 2026 (Shows Management — separate routes, bulk create page, auto-fill from screen/movie)

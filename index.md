@@ -60,7 +60,11 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
 | User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
-| Admin shows management | `cinema-hall-admin/src/pages/ShowsManagement.jsx` |
+| Admin shows management (list) | `cinema-hall-admin/src/pages/ShowsManagement.jsx` |
+| Admin add show | `cinema-hall-admin/src/pages/AddShowPage.jsx` |
+| Admin edit show | `cinema-hall-admin/src/pages/EditShowPage.jsx` |
+| Admin bulk add shows | `cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx` |
+| Movie search dropdown (shared) | `cinema-hall-admin/src/components/MovieSearchDropdown.jsx` |
 | Admin screen list | `cinema-hall-admin/src/pages/CinemaScreens.jsx` |
 | Admin screen designer (add/edit) | `cinema-hall-admin/src/pages/ScreenDesignerPage.jsx` |
 
@@ -73,3 +77,5 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 *March 9, 2026 — Screen Layout Designer overhaul: replaced passage-type seats with a professional aisle gap system. Aisles are now stored as `aisleAfterColumns: number[]` and `aisleAfterRows: string[]` in the layout JSON (no seat positions consumed). New `Aisle` tool in admin designer — click column headers to add vertical aisles, click row `⬌` buttons to add horizontal aisles. Auto-migration on load: old screens with all-passage columns/rows are automatically converted to the new format (seats renumbered, passage seats removed). Each seat object now includes a `label` field (e.g. `"B-13"`). User-facing `SeatSelectionPage` updated to render matching aisle gaps using layout data. No backend/schema changes required — `layout` JSONB stores new fields additively.*
 
 *March 12, 2026 — Screen Designer split into separate routes: `/screens` (list, `CinemaScreens.jsx`), `/screens/new` (add, `ScreenDesignerPage.jsx`), `/screens/:id/edit` (edit, `ScreenDesignerPage.jsx`). Screen object passed via `location.state` on edit navigation. Redirect guard added for direct URL access. Legacy `AddScreen.jsx` and `EditScreen.jsx` deleted.*
+
+*March 12, 2026 — Shows Management split into separate routes: Add Show modal → `AddShowPage` at `/shows/new`; Edit Show modal → `EditShowPage` at `/shows/:id/edit` (fetches show by ID, pre-fills form); new `AddMultipleShowsPage` at `/shows/bulk` (same movie+screen+date, dynamic time slots list → `POST /api/shows/bulk`). `MovieSearchDropdown` extracted to `src/components/MovieSearchDropdown.jsx` (shared). Auto-fill: selecting a screen populates `price_override` from `screen.premium/gold/silver_price`; selecting a movie populates `language_version` from `movie.language`.*
