@@ -989,6 +989,13 @@ Configured for Vercel deployment:
 
 ## Recently Implemented
 
+✅ **ShowPage — aisle gaps + screenPosition** (March 12, 2026):
+- `renderSeatSection` now reads `aisleAfterColumns` and `aisleAfterRows` from `screen.layout` (same logic as user `SeatSelectionPage`)
+  - `aisleAfterColumns: number[]` — inserts a `w-3` gap div after the matching column number in every row
+  - `aisleAfterRows: string[]` — inserts a `h-3` gap div after the matching row letter
+- `screenPosition` (`"top"` | `"bottom"`, default `"bottom"`) from `screen.layout` now controls whether "SCREEN THIS WAY" bar renders **above** or **below** the seat sections
+- `React` import added (required for `React.Fragment` wrapper pattern)
+
 ✅ **Screen Designer — edit-mode resize fix + debounced inputs** (March 12, 2026):
 - **Bug fix**: in edit mode, increasing rows/columns now generates proper seat objects for the new rows/columns. Previously they rendered as empty, non-clickable placeholders because the seat-initialization effect was guarded by `!isEditing`.
 - **Seat reconciliation**: the effect now runs in both modes. Add mode fully reinitializes; edit mode preserves existing seat configs and only appends new seats for expanded dimensions (or drops out-of-bounds seats when dimensions shrink).
@@ -1048,7 +1055,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (ShadCN date pickers in AddShowPage, AddMultipleShowsPage, Bookings; Shows Management — separate routes, bulk create, auto-fill)
+**Last Updated**: March 12, 2026 (ShowPage — aisle gaps + screenPosition; ShadCN date pickers; Shows Management — separate routes, bulk create, auto-fill)
 
 ---
 
@@ -1099,4 +1106,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (ShadCN date pickers in AddShowPage, AddMultipleShowsPage, Bookings; Shows Management — separate routes, bulk create, auto-fill)
+**Last Updated**: March 12, 2026 (ShowPage — aisle gaps + screenPosition; ShadCN date pickers; Shows Management — separate routes, bulk create, auto-fill)

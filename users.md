@@ -1193,6 +1193,9 @@ npm run build
 
 ✅ **Recently Implemented:**
 
+- **SeatSelectionPage — aisle gaps + screenPosition** (March 12, 2026):
+  - `aisleAfterColumns` and `aisleAfterRows` already existed; now `screenPosition` (`"top"` | `"bottom"`, default `"bottom"`) from `screen.layout` controls whether "SCREEN THIS WAY" bar renders above or below the seat sections
+  - Unused `rowIdx` variable removed from `sortedRows.map`
 - Interactive seat selection with 5-minute hold mechanism
 - Razorpay payment integration
 - Booking confirmation page (fetches from API, survives page refresh)
@@ -1224,4 +1227,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 9, 2026 (MovieInfoPage added — movie detail split into info page `/movie/:movieId` and shows page `/movie/shows/:movieId`; YouTube trailer embed with scroll-to anchor)
+**Last Updated**: March 12, 2026 (SeatSelectionPage — screenPosition support for "SCREEN THIS WAY" placement)
