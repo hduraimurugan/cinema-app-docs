@@ -480,7 +480,7 @@ Full-page form. On success → navigates back to `/shows`.
 {
   movie_id: "uuid",              // MovieSearchDropdown — passes full movie object; language auto-filled
   screen_id: "uuid",             // Select from screensAPI.getMyScreens(); prices auto-filled
-  show_date: "2024-02-15",       // date input (dayjs IST-aware)
+  show_date: "2024-02-15",       // ShadCN Popover + Calendar picker; stored as YYYY-MM-DD via dayjs
   start_time: "14:00",           // time input
   end_time: "16:30",             // time input
   language_version: "Tamil, English",  // auto-filled from movie; editable
@@ -567,7 +567,7 @@ Displays all bookings for the admin's cinema hall in a paginated table.
 
 **Features:**
 - Table columns: Customer (avatar + name + email), Movie, Show date/time, Screen (pill badge with monitor icon), Seats (primary-tinted chips), Amount, Status badge, Booking ID (monospace code)
-- Filters (4-column grid layout): show date picker, movie title search (debounced 400ms), screen dropdown (populated from `screensAPI.getMyScreens()`), booking status dropdown
+- Filters (4-column grid layout): show date (ShadCN Popover + Calendar picker), movie title search (debounced 400ms), screen dropdown (populated from `screensAPI.getMyScreens()`), booking status dropdown
   - Filter params: `date`, `search`, `screen_id`, `status` (all / confirmed / cancelled / completed)
   - Active filter count badge on the Filters header
   - "Clear all" button shown when any filter is active
@@ -1026,6 +1026,13 @@ Configured for Vercel deployment:
 - Movie cards use `rounded-xl` + `rounded-full` genre/language pills
 - Edit/Delete hover actions preserved on `group-hover`
 - Removed unused `Tabs, TabsContent, TabsList, TabsTrigger` imports
+
+✅ **ShadCN date pickers — AddShowPage, AddMultipleShowsPage, Bookings** (March 12, 2026):
+- Replaced all `<input type="date">` fields with ShadCN **Popover + Calendar** date picker pattern
+- `AddShowPage` (`show_date`), `AddMultipleShowsPage` (`show_date`), `Bookings` (Show Date filter)
+- Trigger: outlined `Button` with `CalendarIcon`; displays `MMM D, YYYY` or "Pick a date" placeholder
+- `onSelect` stores date as `YYYY-MM-DD` string via `dayjs`; `selected` prop converts string back to `Date` object
+- `handleDateChange` in `Bookings.jsx` updated to accept a `Date` object directly (was `e.target.value` from input event)
 
 ✅ **Bookings page — Screen filter + visual redesign** (March 9, 2026):
 - Added **Screen dropdown filter** — fetches screens via `screensAPI.getMyScreens()` on mount; passes `screen_id` UUID to `GET /api/booking/admin/all`
