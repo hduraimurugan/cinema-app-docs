@@ -163,6 +163,7 @@ erDiagram
 
 - **Unique screen showtime**: Prevents double-booking same screen at same time
 - **Show overlap prevention**: Trigger function prevents overlapping shows on same screen
+- **Show status values**: `scheduled` | `running` | `cancelled` | `completed`
 
 #### Triggers
 
@@ -1173,6 +1174,26 @@ BEFORE INSERT OR UPDATE ON shows
 FOR EACH ROW
 EXECUTE FUNCTION prevent_overlapping_shows();
 ```
+
+### Show Status Auto-Update (Background Job)
+
+Show statuses transition automatically via a `setInterval` job in `server.js` (runs every 60 seconds):
+
+| Transition | Condition |
+|---|---|
+| `scheduled` → `running` | `show_date = today AND start_time <= now < end_time` |
+| `scheduled`/`running` → `completed` | `show_date < today` OR `(show_date = today AND end_time <= now)` |
+
+Times are compared in **IST (`Asia/Kolkata`)** since show times are stored in local time.
+
+```javascript
+// server.js
+setInterval(async () => {
+  await updateShowStatuses();
+}, 60000);
+```
+
+> **Production note:** `setInterval` only runs when `NODE_ENV !== 'production'`. For Vercel deployments, use Vercel Cron Jobs to call `GET /api/shows/update-statuses`.
 
 ### Auto-Update Timestamp
 
