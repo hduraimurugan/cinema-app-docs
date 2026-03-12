@@ -23,6 +23,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/booking/my-bookings` | List all bookings for logged-in customer |
 | GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
 | GET | `/api/booking/admin/verify/:id` | Verify a booking by UUID — admin QR scan (scoped to cinema hall) |
+| GET | `/api/payment/admin/orders` | List all payment orders for admin's cinema hall (with filters) |
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
 | GET | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage) |
@@ -53,6 +54,7 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Success page | `cinema-hall-users/src/pages/BookingSuccessPage.jsx` |
 | User bookings page | `cinema-hall-users/src/pages/Bookings.jsx` |
 | Admin bookings page | `cinema-hall-admin/src/pages/Bookings.jsx` |
+| Admin payment orders page | `cinema-hall-admin/src/pages/PaymentOrders.jsx` |
 | Admin verify ticket page | `cinema-hall-admin/src/pages/VerifyTicket.jsx` |
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
 | Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |
@@ -83,3 +85,7 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 *March 12, 2026 — Shows Management date selector redesigned: added left/right chevron arrow buttons for week-by-week navigation. New `weekOffset` state shifts the visible 7-day window by ±7 days per click. Past dates are accessible. A week range label (e.g. "March 12 – 18, 2026") is shown above the pills. Pills remain fixed-width (`w-14`), left-aligned with consistent `gap-2` spacing. Navigating weeks auto-selects the first day of the new week. (`ShowsManagement.jsx`)*
 
 *March 12, 2026 — Replaced plain `<input type="date">` with ShadCN Popover + Calendar date picker in `AddShowPage.jsx`, `AddMultipleShowsPage.jsx`, and the Show Date filter in `Bookings.jsx`. All three use `Popover` + `PopoverTrigger` (outlined Button with `CalendarIcon`) + `Calendar mode="single"`. Selected date stored as `YYYY-MM-DD` string via `dayjs`; trigger displays `MMM D, YYYY` or "Pick a date" placeholder.*
+
+*March 12, 2026 — Added Payment Orders page to admin panel. New backend endpoint `GET /api/payment/admin/orders` (auth: `verifyCinemaAdminAccessToken` + `verifyCinemaHall`) returns paginated `payment_orders` with JOINed customer/movie/show/screen data and derived seat labels from screen layout JSONB. Filters: order date, status (created/paid/failed/expired), customer name/email search, movie title search. Frontend: `PaymentOrders.jsx` at `/payment-orders` follows same pattern as `Bookings.jsx` (4-column filter card, shadcn Table, skeleton loading, empty/error states, pagination). Sidebar nav link added under Operations between Bookings and Verify Ticket. `paymentAPI.getOrders()` added to `cinema-hall-admin/src/services/api.js`.*
+
+*March 12, 2026 — Added Refresh button to admin `Bookings.jsx` and `PaymentOrders.jsx`. Button sits in the page header alongside the total count badge; clicking re-fetches with current active filters and page. Icon spins (`animate-spin`) and button is disabled while loading.*
