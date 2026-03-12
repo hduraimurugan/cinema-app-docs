@@ -30,7 +30,9 @@ graph TD
     D --> E[Protected Routes]
     E --> F[/ - HomePage]
     E --> G[/movie/:id - MoviePage]
-    E --> H[/screens - CinemaScreens]
+    E --> H[/screens - CinemaScreens list]
+    E --> H2[/screens/new - ScreenDesignerPage add]
+    E --> H3[/screens/:id/edit - ScreenDesignerPage edit]
     E --> I[/shows - ShowsManagement]
     E --> J[/show/:id - ShowPage]
     E --> K[/bookings - Bookings]
@@ -60,7 +62,8 @@ graph TD
     E --> J[Theme Toggle]
 
     G --> K[MovieManagement]
-    G --> L[CinemaScreenDesigner]
+    G --> L[CinemaScreenDesigner - list]
+    G --> L2[ScreenDesignerPage - add/edit]
     G --> M[ShowsManagement]
     G --> N[Other Pages]
 ```
@@ -227,34 +230,45 @@ flowchart LR
 
 ### 2. Screen Designer
 
-**Route**: `/screens`  
-**Component**: `CinemaScreenDesigner.jsx`  
+| Route | Component | Purpose |
+|---|---|---|
+| `/screens` | `CinemaScreens.jsx` (`CinemaScreenDesigner`) | Screen list, delete, view preview |
+| `/screens/new` | `ScreenDesignerPage.jsx` | Add new screen with layout designer |
+| `/screens/:id/edit` | `ScreenDesignerPage.jsx` | Edit existing screen layout |
+
 **Access**: Admin (any role)
 
 #### Feature Overview
 
-Interactive seat layout designer for creating and managing cinema screens with customizable seating arrangements.
+Interactive seat layout designer for creating and managing cinema screens with customizable seating arrangements. The list and designer views are now **separate routes** — navigating to add/edit changes the browser URL, enabling back-button support.
 
 ```mermaid
 stateDiagram-v2
-    [*] --> ScreenList
-    ScreenList --> CreateScreen: New Screen
-    ScreenList --> EditScreen: Edit
-    ScreenList --> ViewScreen: View
-    ScreenList --> DeleteScreen: Delete
+    [*] --> ScreenList: /screens
+    ScreenList --> AddScreen: navigate /screens/new
+    ScreenList --> EditScreen: navigate /screens/:id/edit
+    ScreenList --> ViewScreen: open dialog
+    ScreenList --> DeleteScreen: confirm dialog
 
-    CreateScreen --> LayoutDesigner
-    EditScreen --> LayoutDesigner
+    AddScreen --> LayoutDesigner
+    EditScreen --> LayoutDesigner: pre-populated from location.state
 
     LayoutDesigner --> ConfigureSeats: Set Rows/Cols
     ConfigureSeats --> AssignTypes: Premium/Gold/Silver
     AssignTypes --> SetPrices: Price per Type
     SetPrices --> SaveScreen
-    SaveScreen --> ScreenList
+    SaveScreen --> ScreenList: navigate('/screens')
 
     ViewScreen --> ScreenList
     DeleteScreen --> ScreenList
 ```
+
+#### Navigation Pattern
+
+**List → Add**: `navigate('/screens/new')`
+**List → Edit**: `navigate('/screens/:id/edit', { state: { screen } })` — screen object passed via `location.state` to avoid a redundant API fetch
+**Designer → Back/Cancel/Save**: `navigate('/screens')`
+**Guard**: If `/screens/:id/edit` is accessed directly (no `location.state`), `ScreenDesignerPage` redirects to `/screens`
 
 #### Screen Configuration
 
@@ -262,17 +276,18 @@ stateDiagram-v2
 
 ```javascript
 {
-  name: "Screen 1",
-  rows: 10,
-  columns: 12,
-  screen_position: "top" | "bottom" | "left" | "right",
-  total_seats: 120,
-  premium_seats: 24,
-  gold_seats: 48,
-  silver_seats: 48,
-  premium_price: 500,
-  gold_price: 300,
-  silver_price: 200
+  name: "IMAX Screen 1",
+  rows: 12,
+  columns: 16,
+  screen_position: "top" | "bottom",
+  total_seats: 192,
+  premium_seats: 64,
+  gold_seats: 64,
+  silver_seats: 64,
+  premium_price: 200,
+  gold_price: 150,
+  silver_price: 130,
+  layout: { ... }  // Full layout JSONB (seats array + aisle config)
 }
 ```
 
@@ -282,41 +297,56 @@ Each seat in the layout:
 
 ```javascript
 {
-  id: "A1",              // Unique seat ID
-  row: 0,                // Row index
-  col: 0,                // Column index
-  type: "premium",       // "premium" | "gold" | "silver"
-  label: "A1",           // Display label
-  rowLabel: "A",         // Row letter
-  isAisle: false,        // Aisle space
-  isEmpty: false         // Empty space
+  id: "2-5",             // "{rowIndex}-{colIndex}" (0-based)
+  row: "C",              // Row letter (A, B, C...)
+  column: 6,             // 1-based column number
+  label: "C-6",          // Display label (row + column)
+  type: "premium",       // "premium" | "gold" | "silver" | "entrance" | "door"
+  price: 200,            // Derived from pricing config for this type
+  isBlocked: false       // Admin-blocked seat
 }
 ```
+
+#### Aisle System
+
+Aisles are **gaps** in the grid, not seats. Stored in the layout as:
+
+```javascript
+{
+  aisleAfterColumns: [5, 11],  // vertical gap after column 5 and 11
+  aisleAfterRows: ["D", "H"]   // horizontal gap after row D and H
+}
+```
+
+- **Aisle tool** in designer: click a column number header to toggle a vertical aisle; click a row's `⬌` button to toggle a horizontal aisle
+- Old screens saved with passage-type seats are **auto-migrated** on load via `migrateLayoutFromPassage()` in `ScreenDesignerPage.jsx`
 
 #### Interactive Features
 
 **Selection Modes:**
 
-1. **Single Click** - Select individual seat
-2. **Shift + Click** - Multi-select seats
-3. **Row Select** - Select entire row
-4. **Column Select** - Select entire column
+1. **Single** - Click a seat to apply the active tool immediately
+2. **Multi** - `Ctrl+Click` to toggle individual seats, `Shift+Click` to range-select; apply tool to all selected at once
+3. **Row Select** - Click row `⬌` button (non-aisle mode)
+4. **Column Select** - Click column number header (non-aisle mode)
 
-**Seat Actions:**
+**Tools:**
 
-- Change seat type (Premium/Gold/Silver)
-- Mark as aisle
-- Mark as empty space
-- Delete seats
+| Tool | Action |
+|---|---|
+| Premium / Gold / Silver | Set seat type + price |
+| Aisle | Toggle aisle gap after a column/row header |
+| Entrance / Door | Mark seat as entrance or door (price = 0) |
+| Block/Unblock | Toggle `isBlocked` on selected seats |
 
 **Visual Indicators:**
 
-- **Premium**: Purple background
-- **Gold**: Yellow/amber background
-- **Silver**: Gray background
-- **Aisle**: Dotted border
-- **Empty**: Transparent
-- **Selected**: Blue border
+- **Premium**: Yellow gradient
+- **Gold**: Blue gradient
+- **Silver**: Gray gradient
+- **Entrance/Door**: Green/Orange gradient
+- **Blocked**: Red background + ✕
+- **Selected**: Blue border + ring
 
 #### Layout Designer Workflow
 
@@ -793,25 +823,35 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant Admin
+    participant ScreenList
     participant Designer
     participant API
 
-    Admin->>Designer: Click "New Screen"
-    Designer->>Admin: Show configuration form
+    Admin->>ScreenList: Visit /screens
+    ScreenList->>API: GET /api/screens
+    API-->>ScreenList: screens[]
+    ScreenList->>Admin: Display screen cards
 
-    Admin->>Designer: Set name, rows, columns
-    Designer->>Designer: Generate seat grid
+    alt Add new screen
+        Admin->>ScreenList: Click "Add Screen"
+        ScreenList->>Designer: navigate('/screens/new')
+        Designer->>Admin: Blank designer (10×15 silver defaults)
+    else Edit existing screen
+        Admin->>ScreenList: Click "Edit" on card
+        ScreenList->>Designer: navigate('/screens/:id/edit', {state:{screen}})
+        Designer->>Designer: Load screen from location.state + migrateLayoutFromPassage()
+        Designer->>Admin: Pre-populated designer
+    end
 
-    Admin->>Designer: Select seats
-    Admin->>Designer: Change to Premium
-    Designer->>Designer: Update seat types
+    Admin->>Designer: Configure rows, columns, pricing
+    Designer->>Designer: Auto-reinitialize seats (add mode only)
+    Admin->>Designer: Paint seat types with tools
+    Admin->>Designer: Toggle aisles on headers
+    Admin->>Designer: Click Save
 
-    Admin->>Designer: Set prices
-    Admin->>Designer: Click "Save"
-
-    Designer->>API: POST /api/screens/create
-    API-->>Designer: Screen created
-    Designer->>Admin: Success + redirect to list
+    Designer->>API: POST /api/screens/create OR PUT /api/screens/update/:id
+    API-->>Designer: Success
+    Designer->>Admin: Show success dialog → navigate('/screens')
 ```
 
 ---
@@ -857,6 +897,14 @@ Configured for Vercel deployment:
 
 ## Recently Implemented
 
+✅ **Screen Designer split into separate routes** (March 12, 2026):
+- `/screens` now renders `CinemaScreens.jsx` (list only — ~260 lines)
+- `/screens/new` and `/screens/:id/edit` render new `ScreenDesignerPage.jsx` (extracted designer)
+- Edit navigation passes full screen object via `location.state` to avoid extra API fetch
+- Page refresh / direct URL to edit route redirects safely to `/screens`
+- Legacy `AddScreen.jsx` and `EditScreen.jsx` (localStorage-based) deleted
+- Browser URL now reflects which mode (add vs edit) the user is in; back button works correctly
+
 ✅ **QR Ticket Verification** (March 8, 2026):
 - New `VerifyTicket` page at `/verify-ticket` — camera QR scanner + manual booking UUID entry
 - Shows full booking details (view-only) after scan/lookup
@@ -887,7 +935,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 9, 2026 (Bookings screen filter + visual redesign)
+**Last Updated**: March 12, 2026 (Screen Designer routes split)
 
 ---
 
@@ -938,4 +986,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 7, 2026
+**Last Updated**: March 12, 2026

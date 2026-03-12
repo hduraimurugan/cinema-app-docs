@@ -61,6 +61,8 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
 | User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
 | Admin shows management | `cinema-hall-admin/src/pages/ShowsManagement.jsx` |
+| Admin screen list | `cinema-hall-admin/src/pages/CinemaScreens.jsx` |
+| Admin screen designer (add/edit) | `cinema-hall-admin/src/pages/ScreenDesignerPage.jsx` |
 
 ---
 
@@ -69,3 +71,5 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 *March 9, 2026 — Movie detail route split into two pages: `/movie/:movieId` → `MovieInfoPage` (poster, metadata, Book Tickets CTA, About, YouTube trailer embed) and `/movie/shows/:movieId` → `MovieDetailsPage` (date selector + cinema halls + showtimes). Trailer overlay button on poster scrolls to inline YouTube embed.*
 
 *March 9, 2026 — Screen Layout Designer overhaul: replaced passage-type seats with a professional aisle gap system. Aisles are now stored as `aisleAfterColumns: number[]` and `aisleAfterRows: string[]` in the layout JSON (no seat positions consumed). New `Aisle` tool in admin designer — click column headers to add vertical aisles, click row `⬌` buttons to add horizontal aisles. Auto-migration on load: old screens with all-passage columns/rows are automatically converted to the new format (seats renumbered, passage seats removed). Each seat object now includes a `label` field (e.g. `"B-13"`). User-facing `SeatSelectionPage` updated to render matching aisle gaps using layout data. No backend/schema changes required — `layout` JSONB stores new fields additively.*
+
+*March 12, 2026 — Screen Designer split into separate routes: `/screens` (list, `CinemaScreens.jsx`), `/screens/new` (add, `ScreenDesignerPage.jsx`), `/screens/:id/edit` (edit, `ScreenDesignerPage.jsx`). Screen object passed via `location.state` on edit navigation. Redirect guard added for direct URL access. Legacy `AddScreen.jsx` and `EditScreen.jsx` deleted.*
