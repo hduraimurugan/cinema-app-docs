@@ -1048,7 +1048,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (Shows Management — separate routes, bulk create page, auto-fill from screen/movie)
+**Last Updated**: March 12, 2026 (ShadCN date pickers in AddShowPage, AddMultipleShowsPage, Bookings; Shows Management — separate routes, bulk create, auto-fill)
 
 ---
 
@@ -1099,4 +1099,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (Shows Management — separate routes, bulk create page, auto-fill from screen/movie)
+**Last Updated**: March 12, 2026 (ShadCN date pickers in AddShowPage, AddMultipleShowsPage, Bookings; Shows Management — separate routes, bulk create, auto-fill)
