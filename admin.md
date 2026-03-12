@@ -321,6 +321,12 @@ Aisles are **gaps** in the grid, not seats. Stored in the layout as:
 - **Aisle tool** in designer: click a column number header to toggle a vertical aisle; click a row's `⬌` button to toggle a horizontal aisle
 - Old screens saved with passage-type seats are **auto-migrated** on load via `migrateLayoutFromPassage()` in `ScreenDesignerPage.jsx`
 
+#### Rows/Columns Resize Behaviour
+
+- **Add mode**: changing rows or columns reinitializes the entire seat grid (all seats reset to `silver`).
+- **Edit mode**: changing rows or columns **reconciles** — existing seat configurations are preserved; only new seats (for the expanded dimensions) are added as `silver`; seats for removed rows/columns are dropped.
+- **Debounced input** (600 ms): the Rows and Columns inputs are controlled by separate `inputRows`/`inputColumns` state that updates immediately for a responsive feel. The actual layout update (and seat reconciliation) fires only after the user stops typing for 600 ms, preventing unnecessary re-renders on every keystroke.
+
 #### Interactive Features
 
 **Selection Modes:**
@@ -844,7 +850,7 @@ sequenceDiagram
     end
 
     Admin->>Designer: Configure rows, columns, pricing
-    Designer->>Designer: Auto-reinitialize seats (add mode only)
+    Designer->>Designer: Add mode — reinitialize all seats; Edit mode — reconcile (preserve existing, add new)
     Admin->>Designer: Paint seat types with tools
     Admin->>Designer: Toggle aisles on headers
     Admin->>Designer: Click Save
@@ -897,6 +903,11 @@ Configured for Vercel deployment:
 
 ## Recently Implemented
 
+✅ **Screen Designer — edit-mode resize fix + debounced inputs** (March 12, 2026):
+- **Bug fix**: in edit mode, increasing rows/columns now generates proper seat objects for the new rows/columns. Previously they rendered as empty, non-clickable placeholders because the seat-initialization effect was guarded by `!isEditing`.
+- **Seat reconciliation**: the effect now runs in both modes. Add mode fully reinitializes; edit mode preserves existing seat configs and only appends new seats for expanded dimensions (or drops out-of-bounds seats when dimensions shrink).
+- **Debounced inputs**: `inputRows` / `inputColumns` state drives the inputs immediately; a 600 ms `setTimeout` (cleared on each keystroke) applies the change to `layout.rows` / `layout.columns`, preventing rapid seat-grid rebuilds while the user is still typing.
+
 ✅ **Screen Designer split into separate routes** (March 12, 2026):
 - `/screens` now renders `CinemaScreens.jsx` (list only — ~260 lines)
 - `/screens/new` and `/screens/:id/edit` render new `ScreenDesignerPage.jsx` (extracted designer)
@@ -935,7 +946,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (Screen Designer routes split)
+**Last Updated**: March 12, 2026 (Screen Designer edit-mode resize fix + debounced inputs)
 
 ---
 
