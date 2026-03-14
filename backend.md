@@ -29,6 +29,8 @@ erDiagram
     customers ||--o{ bookings : "makes"
     customers ||--o{ payment_orders : "creates"
     customers ||--o{ otp_verifications : "verifies"
+    customers ||--o{ ad_clicks : "clicks"
+    ads ||--o{ ad_clicks : "receives"
 
     cinema_admin_user {
         uuid id PK
@@ -154,6 +156,26 @@ erDiagram
         boolean is_verified
         timestamptz created_at
         timestamptz expires_at
+    }
+
+    ads {
+        uuid id PK
+        varchar title
+        text image_url
+        text click_url
+        varchar placement
+        date start_date
+        date end_date
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    ad_clicks {
+        uuid id PK
+        uuid ad_id FK
+        uuid customer_id FK
+        timestamptz clicked_at
     }
 ```
 
@@ -1002,6 +1024,89 @@ Looks up a booking by its full UUID — used by the admin QR code scanner to ver
 **Error Responses:**
 - `400` — Invalid UUID format
 - `404` — Booking not found (or belongs to a different cinema hall)
+
+---
+
+### Ads (`/api/ads`)
+
+| Method | Endpoint         | Auth          | Description                                      |
+| ------ | ---------------- | ------------- | ------------------------------------------------ |
+| GET    | `/active`        | None (public) | Get currently active ads filtered by `placement` |
+| POST   | `/click/:id`     | None (optional customer cookie) | Record a click-through on an ad |
+| GET    | `/`              | SuperAdmin    | List all ads with total click count              |
+| POST   | `/create`        | SuperAdmin    | Create a new ad                                  |
+| PUT    | `/update/:id`    | SuperAdmin    | Update an existing ad                            |
+| DELETE | `/delete/:id`    | SuperAdmin    | Delete an ad (cascades click records)            |
+| GET    | `/:id/clicks`    | SuperAdmin    | Get click-through details for a specific ad      |
+
+#### GET `/api/ads/active?placement=banner`
+
+Returns ads where `is_active = true` AND `start_date <= CURRENT_DATE <= end_date` for the given placement (`banner` or `side`). No auth required.
+
+**Response (200):**
+
+```json
+{
+  "ads": [
+    {
+      "id": "uuid",
+      "title": "Summer Sale",
+      "image_url": "https://example.com/banner.jpg",
+      "click_url": "https://example.com/offer",
+      "placement": "banner"
+    }
+  ]
+}
+```
+
+#### POST `/api/ads/click/:id`
+
+Records a click-through. If a valid `cusAccessToken` cookie is present, attaches the customer ID; otherwise records anonymously.
+
+**Response (200):**
+
+```json
+{ "recorded": true }
+```
+
+#### GET `/api/ads/:id/clicks` *(SuperAdmin)*
+
+**Response (200):**
+
+```json
+{
+  "clicks": [
+    {
+      "id": "uuid",
+      "clicked_at": "2026-03-14T10:30:00Z",
+      "customer_name": "Jane Smith",
+      "customer_email": "jane@example.com",
+      "customer_phone": "+91 98765 43210"
+    },
+    {
+      "id": "uuid",
+      "clicked_at": "2026-03-14T11:00:00Z",
+      "customer_name": null,
+      "customer_email": null,
+      "customer_phone": null
+    }
+  ]
+}
+```
+
+> `customer_name` / `customer_email` / `customer_phone` are `null` for anonymous (non-logged-in) clicks.
+
+#### Ad Fields
+
+| Field        | Type    | Required | Description                                      |
+| ------------ | ------- | -------- | ------------------------------------------------ |
+| `title`      | string  | Yes      | Ad display name (admin reference)                |
+| `image_url`  | string  | Yes      | URL of the ad image                              |
+| `click_url`  | string  | No       | URL to open when the ad is clicked               |
+| `placement`  | string  | Yes      | `"banner"` (MoviesPage carousel) or `"side"` (MovieInfoPage sidebar) |
+| `start_date` | date    | Yes      | Date from which the ad becomes active            |
+| `end_date`   | date    | Yes      | Date after which the ad stops serving            |
+| `is_active`  | boolean | No       | Manual on/off toggle (default `true`)            |
 
 ---
 

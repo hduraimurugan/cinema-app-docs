@@ -45,6 +45,7 @@ graph TD
 
     D --> N[SuperAdmin Routes]
     N --> O[/movies - MovieManagement]
+    N --> O2[/ads - AdsManagement]
 
     C --> P[/register - RegisterPage]
 ```
@@ -153,7 +154,76 @@ sequenceDiagram
 
 ## Features Documentation
 
-### 1. Movie Management (SuperAdmin Only)
+### 1. Ads Management (SuperAdmin Only)
+
+**Route**: `/ads`
+**Component**: `AdsManagement.jsx`
+**Access**: SuperAdmin role required
+**API**: `adsAPI` in `src/services/api.js`
+
+#### Feature Overview
+
+```mermaid
+flowchart TD
+    A[Ads Management] --> B[Create Ad]
+    A --> C[Edit Ad]
+    A --> D[Delete Ad]
+    A --> E[View Click-throughs]
+
+    B --> F[Set Title + Image URL]
+    B --> G[Set Placement: Banner or Side]
+    B --> H[Set Date Range + Active Toggle]
+
+    E --> I[Customer Name / Email / Phone]
+    E --> J[Click Timestamp]
+    E --> K[Anonymous if not logged in]
+```
+
+#### Ad Placements
+
+| Placement | Where it renders | Component |
+|-----------|-----------------|-----------|
+| `banner`  | `/movies` page — full-width carousel | `AdBanner.jsx` |
+| `side`    | `/movie/:id` page — sticky right sidebar (md+ screens) | `MovieInfoPage.jsx` |
+
+#### Ad Card
+
+Each ad card in the list shows:
+- Image thumbnail preview
+- Title
+- Placement badge (blue = Banner, purple = Side)
+- Active / Inactive badge
+- Date range
+- Click-through URL (linked)
+- Total click count (clickable — opens click details modal)
+- Edit / Delete buttons
+
+#### Create/Edit Form Fields
+
+| Field        | Type     | Required | Description                          |
+| ------------ | -------- | -------- | ------------------------------------ |
+| Title        | Text     | Yes      | Admin reference name                 |
+| Image URL    | Text     | Yes      | URL of the ad image (live preview)   |
+| Click URL    | Text     | No       | Opens in new tab when ad is clicked  |
+| Placement    | Select   | Yes      | `Banner` or `Side`                   |
+| Start Date   | Date     | Yes      | First day the ad is served           |
+| End Date     | Date     | Yes      | Last day the ad is served            |
+| Active       | Toggle   | No       | Manual on/off (default on)           |
+
+#### Click-through Details Modal
+
+Shows a table of all recorded clicks for the selected ad:
+
+| Column      | Source                        |
+| ----------- | ----------------------------- |
+| Customer    | `customers.name` or Anonymous |
+| Email       | `customers.email`             |
+| Phone       | `customers.phone`             |
+| Clicked At  | `ad_clicks.clicked_at`        |
+
+---
+
+### 2. Movie Management (SuperAdmin Only)
 
 **Route**: `/movies`  
 **Component**: `MovieManagement.jsx`  

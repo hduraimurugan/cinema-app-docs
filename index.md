@@ -23,6 +23,10 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/booking/my-bookings` | List all bookings for logged-in customer |
 | GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
 | GET | `/api/booking/admin/verify/:id` | Verify a booking by UUID — admin QR scan (scoped to cinema hall) |
+| GET | `/api/ads/active?placement=` | Fetch currently active ads by placement (`banner` or `side`) — public |
+| POST | `/api/ads/click/:id` | Record a click-through on an ad (optional customer auth) |
+| GET | `/api/ads` | List all ads with click counts — SuperAdmin only |
+| GET | `/api/ads/:id/clicks` | List click-through details (customer name/email/phone, timestamp) — SuperAdmin only |
 | GET | `/api/payment/admin/orders` | List all payment orders for admin's cinema hall (with filters) |
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
@@ -59,6 +63,11 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
 | Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |
 | Movie info page | `cinema-hall-users/src/pages/MovieInfoPage.jsx` |
+| Ad banner (carousel) | `cinema-hall-users/src/components/AdBanner.jsx` |
+| Ads controller | `cinema-hall-api/controllers/ads.Controller.js` |
+| Ads routes | `cinema-hall-api/routes/ads.routes.js` |
+| Admin Ads management page | `cinema-hall-admin/src/pages/AdsManagement.jsx` |
+| Ads DB migration | `cinema-hall-api/migration_ads.sql` |
 | Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
 | User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
@@ -89,3 +98,5 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 *March 12, 2026 — Added Payment Orders page to admin panel. New backend endpoint `GET /api/payment/admin/orders` (auth: `verifyCinemaAdminAccessToken` + `verifyCinemaHall`) returns paginated `payment_orders` with JOINed customer/movie/show/screen data and derived seat labels from screen layout JSONB. Filters: order date, status (created/paid/failed/expired), customer name/email search, movie title search. Frontend: `PaymentOrders.jsx` at `/payment-orders` follows same pattern as `Bookings.jsx` (4-column filter card, shadcn Table, skeleton loading, empty/error states, pagination). Sidebar nav link added under Operations between Bookings and Verify Ticket. `paymentAPI.getOrders()` added to `cinema-hall-admin/src/services/api.js`.*
 
 *March 12, 2026 — Added Refresh button to admin `Bookings.jsx` and `PaymentOrders.jsx`. Button sits in the page header alongside the total count badge; clicking re-fetches with current active filters and page. Icon spins (`animate-spin`) and button is disabled while loading.*
+
+*March 14, 2026 — Added Ads Management system (SuperAdmin only). New `ads` and `ad_clicks` tables (`migration_ads.sql`). Backend: `ads.Controller.js` + `ads.routes.js` registered at `/api/ads`. Public routes: `GET /active?placement=` (serves active ads by date range), `POST /click/:id` (records click with optional customer auth via cookie). SuperAdmin routes: full CRUD + `GET /:id/clicks` (returns customer name/email/phone per click). Admin panel: `AdsManagement.jsx` at `/ads` (SuperAdmin route) — card grid with image preview, placement badge, date range, active toggle, click count, edit/delete/view-clicks actions; create/edit modal with image URL preview, placement selector (Banner/Side), date range, active toggle. User frontend: `AdBanner.jsx` now fetches `placement=banner` ads dynamically (hides if no active ads, clicking records click + opens URL); `MovieInfoPage.jsx` fetches `placement=side` ads and renders a sticky right sidebar on md+ screens. `adsAPI` added to both `cinema-hall-admin/src/services/api.js` and `cinema-hall-users/src/services/api.js`.*

@@ -175,7 +175,25 @@ flowchart TD
 
     H --> I[Display Movie Cards]
     I --> J[Horizontal Scroll]
+
+    A --> K[AdBanner — Dynamic Banner Ads]
+    K --> L[GET /api/ads/active?placement=banner]
+    L --> M{Ads Returned?}
+    M -->|Yes| N[Render carousel]
+    M -->|No| O[Render nothing]
 ```
+
+#### AdBanner Component
+
+**Component**: `AdBanner.jsx`
+
+Fetches active `banner` placement ads from the API on mount. Renders a full-width Embla carousel; hidden entirely if no ads are currently active.
+
+**Behaviour:**
+- Fetches `GET /api/ads/active?placement=banner`
+- Each slide is a clickable image — clicking records a click (`POST /api/ads/click/:id`) and opens `click_url` in a new tab
+- Dot indicators shown only when there are 2+ slides
+- Falls back to rendering nothing if no ads or fetch fails
 
 #### MoviesList Component
 
@@ -606,11 +624,13 @@ graph LR
     A --> C[customerMoviesAPI]
     A --> D[bookingAPI]
     A --> E[paymentAPI]
+    A --> F2[adsAPI]
 
     B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp]
     C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes, getTheatresWithShows]
     D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings]
     E --> I[createOrder, verifyPayment]
+    F2 --> J[getActive, recordClick]
 ```
 
 ### customerAuthAPI
@@ -646,6 +666,19 @@ graph LR
   getTheatresWithShows(district, state, date)     // Cinema halls with movies + shows for a date
 }
 ```
+
+### adsAPI
+
+**Endpoints:**
+
+```javascript
+{
+  getActive(placement),  // GET /api/ads/active?placement={placement} — public
+  recordClick(adId),     // POST /api/ads/click/{adId} — optional customer auth
+}
+```
+
+Used by `AdBanner.jsx` (placement `'banner'`) and `MovieInfoPage.jsx` (placement `'side'`). `recordClick` is fire-and-forget — errors are silently caught.
 
 ### API Request Flow
 
@@ -857,12 +890,18 @@ Dedicated movie detail page — BookMyShow style — showing movie metadata, a p
 - Movie metadata right: title (`text-3xl sm:text-5xl font-bold`), duration + genres + release date in a meta row, format (`2D`) + language badges, **Book Tickets** primary button → `/movie/shows/:movieId`
 
 **About the movie:**
-- Full description text, `max-w-3xl`, separated by `border-b`
+- Full description text, separated by `border-b`
 
 **Trailer section** (only rendered when `trailer_url` is set):
 - Responsive `aspect-video` iframe (`rounded-xl overflow-hidden shadow-2xl`, `max-w-3xl`)
 - YouTube URL is normalized via `getYouTubeEmbedUrl()` helper — supports `watch?v=`, `youtu.be/`, and already-embedded URLs
 - `ref={trailerRef}` — scrolled to via `scrollIntoView({ behavior: 'smooth' })` when the poster overlay button is clicked
+
+**Side Ad Sidebar** (md+ screens only):
+- Fetches `placement=side` active ads from `GET /api/ads/active?placement=side` on mount
+- If ads exist, the About + Trailer area becomes a two-column layout: `flex-1` main content + `w-44 lg:w-48` sticky sidebar (`top-24`)
+- Each ad is a rounded image card; clicking records the click and opens `click_url` in a new tab
+- Sidebar hidden on mobile (`hidden md:flex`) and completely absent if no side ads are active
 
 **Data flow:**
 
@@ -874,12 +913,14 @@ sequenceDiagram
 
     User->>MovieInfoPage: Navigate to /movie/:movieId (click movie card)
     MovieInfoPage->>API: GET /api/user/movies/:movieId
-    API-->>MovieInfoPage: { movie: { id, title, description, poster_url, trailer_url, duration_mins, genre[], language[], release_date, status } }
-    MovieInfoPage->>User: Render hero + About section + Trailer (if trailer_url set)
+    MovieInfoPage->>API: GET /api/ads/active?placement=side
+    API-->>MovieInfoPage: movie data + side ads
 
-    User->>MovieInfoPage: Click "▶ Trailer" on poster
-    MovieInfoPage->>MovieInfoPage: scrollIntoView(trailerRef)
-    MovieInfoPage->>User: Page scrolls to inline YouTube embed
+    MovieInfoPage->>User: Render hero + [About + Trailer | side ad column]
+
+    User->>MovieInfoPage: Click side ad
+    MovieInfoPage->>API: POST /api/ads/click/:id (fire-and-forget)
+    MovieInfoPage->>User: Open click_url in new tab
 
     User->>MovieInfoPage: Click "Book Tickets"
     MovieInfoPage->>User: navigate('/movie/shows/:movieId')
@@ -889,9 +930,10 @@ sequenceDiagram
 
 | State | Type | Description |
 |-------|------|-------------|
-| `movie` | object \| null | Movie data from `GET /api/user/movies/:movieId` (nested under `data.movie`) |
+| `movie` | object \| null | Movie data from `GET /api/user/movies/:movieId` |
 | `loading` | boolean | Full-page skeleton on initial load |
 | `error` | string \| null | Error message if fetch fails |
+| `sideAds` | array | Active `side` placement ads (empty array if none) |
 
 **Helper functions:**
 - `formatDuration(mins)` — converts `144` → `"2h 24m"`
@@ -1212,6 +1254,7 @@ npm run build
 - **MovieDetailsPage UI redesign** (BookMyShow style): cinematic blurred-poster banner header, 3-part vertical date buttons (DOW/day/month), language chip, availability legend, green-bordered outlined show time buttons with screen name, expandable description, heart icon on hall cards
 - **TheatresPage UI redesign** (BookMyShow style): same 3-part date buttons and availability legend, rounded-xl hall cards with heart icon, clickable movie poster + title, green-bordered show time buttons with language version, `formatDuration` helper, shows sorted by time per screen
 - **MovieInfoPage** (new page, BookMyShow style): `/movie/:movieId` now shows a dedicated movie info page — large poster, title, duration/genres/release date, 2D + language badges, "Book Tickets" CTA → `/movie/shows/:movieId`, "About the movie" section, inline YouTube trailer embed with smooth-scroll from poster overlay button. Route `/movie/shows/:movieId` now serves the existing cinema-halls/showtimes page. Back button on shows page explicitly returns to `/movie/:movieId`.
+- **Dynamic Ads** (March 14, 2026): `AdBanner.jsx` now fetches live banner ads from `GET /api/ads/active?placement=banner`; renders nothing if no active ads. Clicking an ad records the click-through and opens the destination URL. `MovieInfoPage.jsx` fetches `placement=side` ads and shows a sticky right-side column on `md+` screens when ads are available. `adsAPI` added to `cinema-hall-users/src/services/api.js`.
 
 💡 **Potential Features:**
 

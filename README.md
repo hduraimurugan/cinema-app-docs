@@ -132,7 +132,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 | Total Lines           | 4,000+ |
 | Mermaid Diagrams      | 35+    |
 | API Endpoints         | 40+    |
-| Database Tables       | 10     |
+| Database Tables       | 12     |
 | Components Documented | 25+    |
 
 ---
@@ -153,11 +153,12 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 
 ### Admin Features
 
-✅ Movie management (CRUD)  
-✅ Interactive screen designer  
-✅ Show scheduling  
-✅ Bulk show creation  
+✅ Movie management (CRUD)
+✅ Interactive screen designer
+✅ Show scheduling
+✅ Bulk show creation
 ✅ Image upload (Cloudinary)
+✅ **Ads management (SuperAdmin only) — banner + sidebar ads with click-through tracking**
 
 ### User Features
 
@@ -171,6 +172,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Secure payment with Razorpay**
 ✅ **Booking confirmation page (API-fetched, refresh-safe)**
 ✅ **MovieInfoPage — BookMyShow-style movie detail with trailer embed**
+✅ **Dynamic ad banners (carousel on /movies, sidebar on /movie/:id) with click-through recording**
 
 ---
 
@@ -271,7 +273,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: March 9, 2026
+**Last Updated**: March 14, 2026
 
 ---
 
