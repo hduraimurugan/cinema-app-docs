@@ -165,19 +165,37 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A[Ads Management] --> B[Create Ad]
-    A --> C[Edit Ad]
-    A --> D[Delete Ad]
-    A --> E[View Click-throughs]
+    A[Ads Management] --> T1[Ads Tab - Card Grid]
+    A[Ads Management] --> T2[Analytics Tab - Table]
 
-    B --> F[Set Title + Image URL]
-    B --> G[Set Placement: Banner or Side]
-    B --> H[Set Date Range + Active Toggle]
+    T1 --> B[Create Ad]
+    T1 --> C[Edit Ad]
+    T1 --> D[Delete Ad]
+    T1 --> E[View Click-throughs]
 
-    E --> I[Customer Name / Email / Phone]
-    E --> J[Click Timestamp]
-    E --> K[Anonymous if not logged in]
+    T2 --> F[All Details in Table]
+    T2 --> G[Metrics: Clicks, Active Count, Total]
+    T2 --> H[Same Edit / Delete / Click-through Actions]
+
+    B --> I[Set Title + Image URL]
+    B --> J[Set Placement: Banner or Side]
+    B --> K[Set Date Range + Active Toggle]
+
+    E --> L[Customer Name / Email / Phone]
+    E --> M[Click Timestamp]
+    E --> N[Anonymous if not logged in]
 ```
+
+#### Tabs
+
+The page is split into two tabs (shadcn/ui `Tabs` component):
+
+| Tab | Icon | Content |
+|-----|------|---------|
+| **Ads** | `LayoutGrid` | Card grid view — same as before |
+| **Analytics** | `TableProperties` | Full table view with all columns + metrics footer |
+
+Both tabs share all modal state — edit, delete, and click-through modals work identically from either tab.
 
 #### Ad Placements
 
@@ -186,9 +204,9 @@ flowchart TD
 | `banner`  | `/movies` page — full-width carousel | `AdBanner.jsx` |
 | `side`    | `/movie/:id` page — sticky right sidebar (md+ screens) | `MovieInfoPage.jsx` |
 
-#### Ad Card
+#### Ads Tab (Card Grid)
 
-Each ad card in the list shows:
+Each ad card shows:
 - Image thumbnail preview
 - Title
 - Placement badge (blue = Banner, purple = Side)
@@ -197,6 +215,24 @@ Each ad card in the list shows:
 - Click-through URL (linked)
 - Total click count (clickable — opens click details modal)
 - Edit / Delete buttons
+
+#### Analytics Tab (Table)
+
+Full-width scrollable table with the following columns:
+
+| Column | Description |
+|--------|-------------|
+| **Title** | Ad name with a small image thumbnail |
+| **Image URL** | Full URL as a truncated external link |
+| **Click-through URL** | Destination URL as a truncated external link, or `—` |
+| **Placement** | Badge (Banner / Side) |
+| **Status** | Badge (Active / Inactive) |
+| **Start Date** | Formatted with `en-IN` locale |
+| **End Date** | Formatted with `en-IN` locale |
+| **Clicks** | Count; click to open the per-user click details modal |
+| **Actions** | Edit and Delete buttons |
+
+Table footer row displays summary metrics: total ads · active ads · total clicks across all ads.
 
 #### Create/Edit Form Fields
 
@@ -212,7 +248,7 @@ Each ad card in the list shows:
 
 #### Click-through Details Modal
 
-Shows a table of all recorded clicks for the selected ad:
+Opened by clicking the **click count** in either the Ads card or the Analytics table row. Shows a table of all recorded clicks for the selected ad:
 
 | Column      | Source                        |
 | ----------- | ----------------------------- |
