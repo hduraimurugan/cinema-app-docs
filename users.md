@@ -419,6 +419,33 @@ When a user is redirected from a protected route (e.g. `/bookings` while logged 
 - Toggle between themes
 - Persisted in localStorage
 
+#### Mobile Dropdown Menu
+
+On small screens (`sm:hidden`), a hamburger menu (`Menu` icon) consolidates Theme, Location, and Sign In into a single `DropdownMenu`.
+
+**Known Fix — Radix UI DropdownMenu + Dialog conflict:**
+
+Opening a Radix `Dialog` (modal) directly from a `DropdownMenuItem` click causes a race condition where both components fight over:
+- `aria-hidden` on the portal root
+- `pointer-events` on `document.body`
+- Focus trap ownership
+
+This results in the Dialog visually closing but leaving the page frozen (no clicks register) because the dropdown's `pointer-events: none` lock is never cleaned up.
+
+**Fixes applied:**
+
+1. **Removed `asChild` from the mobile `DropdownMenuTrigger`** — using `asChild` with a `<Button>` child created a button-in-button nesting issue that compounded the modal conflict.
+
+2. **Deferred modal `open` calls with `setTimeout(..., 0)`** — all `DropdownMenuItem` handlers that open a Dialog now defer the state update to the next event-loop tick, giving Radix time to fully unmount the dropdown and release its overlay/focus-trap state before the Dialog mounts.
+
+```jsx
+// Before (causes freeze)
+<DropdownMenuItem onClick={() => setLocationOpen(true)}>
+
+// After (deferred — dropdown unmounts cleanly first)
+<DropdownMenuItem onClick={() => setTimeout(() => setLocationOpen(true), 0)}>
+```
+
 ---
 
 ### 3b. Secondary Navigation Bar
