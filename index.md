@@ -37,10 +37,17 @@ Quick reference for all documentation files in this folder.
 ## Booking Flow Summary
 
 ```
-Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
-→ Navigate to /booking/success?payment_id=pay_xxx
-→ BookingSuccessPage fetches GET /api/booking/by-payment/:id
-→ Display movie, show time, seat labels, amount
+Select Seats (/show/:showId)
+  → Hold seats (POST /api/booking/hold)
+  → Navigate to /order-summary (location.state with seat + show info)
+Order Summary (/order-summary)
+  → Show price breakdown (tickets + ₹15/ticket convenience fee)
+  → Pay button → Razorpay Checkout modal
+  → Verify payment (POST /api/payment/verify)
+  → Navigate to /booking/success?payment_id=pay_xxx
+BookingSuccessPage
+  → GET /api/booking/by-payment/:id
+  → Display movie, show time, seat labels, amount, QR code
 ```
 
 ---
@@ -61,6 +68,7 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 | Admin payment orders page | `cinema-hall-admin/src/pages/PaymentOrders.jsx` |
 | Admin verify ticket page | `cinema-hall-admin/src/pages/VerifyTicket.jsx` |
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
+| Order summary (pre-payment) | `cinema-hall-users/src/pages/OrderSummaryPage.jsx` |
 | Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |
 | Movie info page | `cinema-hall-users/src/pages/MovieInfoPage.jsx` |
 | Ad banner (carousel) | `cinema-hall-users/src/components/AdBanner.jsx` |
@@ -98,5 +106,7 @@ Select Seats → Hold (5 min) → Razorpay Checkout → Verify Payment
 *March 12, 2026 — Added Payment Orders page to admin panel. New backend endpoint `GET /api/payment/admin/orders` (auth: `verifyCinemaAdminAccessToken` + `verifyCinemaHall`) returns paginated `payment_orders` with JOINed customer/movie/show/screen data and derived seat labels from screen layout JSONB. Filters: order date, status (created/paid/failed/expired), customer name/email search, movie title search. Frontend: `PaymentOrders.jsx` at `/payment-orders` follows same pattern as `Bookings.jsx` (4-column filter card, shadcn Table, skeleton loading, empty/error states, pagination). Sidebar nav link added under Operations between Bookings and Verify Ticket. `paymentAPI.getOrders()` added to `cinema-hall-admin/src/services/api.js`.*
 
 *March 12, 2026 — Added Refresh button to admin `Bookings.jsx` and `PaymentOrders.jsx`. Button sits in the page header alongside the total count badge; clicking re-fetches with current active filters and page. Icon spins (`animate-spin`) and button is disabled while loading.*
+
+*March 16, 2026 — SeatSelectionPage BMS-style redesign + new OrderSummaryPage. SeatSelectionPage: dark-themed seat grid (`bg-gray-50 dark:bg-zinc-950`), small 28px square seat buttons with zero-padded 2-digit column numbers, theme-adaptive available/sold/selected colors, row labels on both sides, mobile-responsive horizontal scroll (`overflow-x-auto` + `w-max mx-auto`). "Proceed to Payment" now holds seats then navigates to `/order-summary` with `location.state` (removed inline payment bar). New `OrderSummaryPage` at `/order-summary`: two-column layout (Razorpay panel left, order summary right), countdown timer, ₹15/ticket convenience fee, Pay triggers Razorpay, Cancel releases seats. Route added to `App.jsx`.*
 
 *March 14, 2026 — Added Ads Management system (SuperAdmin only). New `ads` and `ad_clicks` tables (`migration_ads.sql`). Backend: `ads.Controller.js` + `ads.routes.js` registered at `/api/ads`. Public routes: `GET /active?placement=` (serves active ads by date range), `POST /click/:id` (records click with optional customer auth via cookie). SuperAdmin routes: full CRUD + `GET /:id/clicks` (returns customer name/email/phone per click). Admin panel: `AdsManagement.jsx` at `/ads` (SuperAdmin route) — card grid with image preview, placement badge, date range, active toggle, click count, edit/delete/view-clicks actions; create/edit modal with image URL preview, placement selector (Banner/Side), date range, active toggle. User frontend: `AdBanner.jsx` now fetches `placement=banner` ads dynamically (hides if no active ads, clicking records click + opens URL); `MovieInfoPage.jsx` fetches `placement=side` ads and renders a sticky right sidebar on md+ screens. `adsAPI` added to both `cinema-hall-admin/src/services/api.js` and `cinema-hall-users/src/services/api.js`.*

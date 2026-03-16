@@ -30,6 +30,7 @@ graph TD
     C --> E1[/movie/:movieId - MovieInfoPage]
     C --> E2[/movie/shows/:movieId - MovieDetailsPage]
     C --> F[/show/:showId - SeatSelectionPage]
+    C --> F2[/order-summary - OrderSummaryPage]
     C --> G[/booking/success - BookingSuccessPage]
     C --> H[/theatres - TheatresPage]
 
@@ -575,6 +576,42 @@ Displays all bookings for the logged-in customer, split into two tabs.
 **Dependencies:**
 - `qrcode.react` — `QRCodeSVG` component for QR generation
 - `@/components/ui/dialog` — shadcn Dialog for the QR modal
+
+#### OrderSummaryPage
+
+**Route**: `/order-summary`
+**Component**: `OrderSummaryPage.jsx`
+
+Intermediate page between seat selection and Razorpay payment. Reached after seats are successfully held (5-min hold). Receives all booking context via `location.state`; redirects to `/movies` if accessed directly with no state.
+
+**Layout (two-column on desktop, stacked on mobile):**
+- **Left panel** — Razorpay payment section: lock icon + "Secure Payment via Razorpay" branding, amount summary badge, "Pay ₹XXX" button
+- **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + ₹15/ticket convenience fee + amount payable), "Cancel and release seats" link
+
+**Countdown timer:**
+- Reads `holdExpiry` from `location.state`, ticks down MM:SS in the header
+- On expiry: shows toast error, releases seats, navigates back to `/show/:showId`
+
+**Pay button:**
+- Calls `useRazorpayPayment.initiatePayment()` with `totalAmount + convenienceFees`
+- On success: navigates to `/booking/success?payment_id=xxx`
+- On cancel: shows info toast (no seat release — hold is still active)
+
+**Cancel/Back button:**
+- Calls `bookingAPI.releaseSeats()` then navigates back to `/show/:showId`
+
+**State passed from SeatSelectionPage:**
+
+```js
+{
+  showId, selectedSeats, seatLabels,
+  holdExpiry, totalAmount,
+  movieTitle, language, showDate, startTime,
+  screenName, screenType, cinemaName
+}
+```
+
+---
 
 #### BookingSuccessPage
 
@@ -1262,9 +1299,11 @@ npm run build
 
 ✅ **Recently Implemented:**
 
-- **SeatSelectionPage — aisle gaps + screenPosition** (March 12, 2026):
-  - `aisleAfterColumns` and `aisleAfterRows` already existed; now `screenPosition` (`"top"` | `"bottom"`, default `"bottom"`) from `screen.layout` controls whether "SCREEN THIS WAY" bar renders above or below the seat sections
-  - Unused `rowIdx` variable removed from `sortedRows.map`
+- **SeatSelectionPage + OrderSummaryPage — BMS-style redesign** (March 16, 2026):
+  - `SeatSelectionPage` fully redesigned: dark seat grid (`bg-gray-50 dark:bg-zinc-950`), small square buttons with zero-padded 2-digit column numbers (`01`, `02`…), theme-adaptive colors for available/sold/selected states, row labels on both sides, "Proceed to Payment" holds seats then navigates to `/order-summary` via `location.state`
+  - Mobile-responsive seat grid: `overflow-x-auto` container + `w-max mx-auto` inner div prevents squishing on small screens; compact header on mobile
+  - `screenPosition` from `screen.layout` still controls "All Eyes This Way" bar placement (`top` | `bottom`)
+  - **New `OrderSummaryPage`** at `/order-summary` — receives booking state, shows Razorpay payment panel (left) + order summary card (right), includes countdown timer, price breakdown with ₹15/ticket convenience fee, Pay button triggers Razorpay, Cancel releases seats and navigates back
 - Interactive seat selection with 5-minute hold mechanism
 - Razorpay payment integration
 - Booking confirmation page (fetches from API, survives page refresh)
@@ -1297,4 +1336,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 12, 2026 (SeatSelectionPage — screenPosition support for "SCREEN THIS WAY" placement)
+**Last Updated**: March 16, 2026 (SeatSelectionPage BMS-style redesign + new OrderSummaryPage at /order-summary)

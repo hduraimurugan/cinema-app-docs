@@ -525,19 +525,19 @@ export const bookingAPI = {
 ```mermaid
 stateDiagram-v2
     [*] --> SelectSeats: User opens seat map
-    SelectSeats --> HoldSeats: Click "Proceed"
+    SelectSeats --> HoldSeats: Click "Proceed to Payment"
 
-    HoldSeats --> SeatsHeld: All seats available
+    HoldSeats --> OrderSummary: All seats available
     HoldSeats --> SelectSeats: Some seats unavailable
 
-    SeatsHeld --> Payment: 5-minute timer starts
-    SeatsHeld --> SeatsReleased: Timer expires
-    SeatsHeld --> SeatsReleased: User cancels
+    OrderSummary --> Payment: Click "Pay ₹XXX" (5-min timer active)
+    OrderSummary --> SeatsReleased: User cancels / timer expires
 
-    Payment --> Booked: Payment success
-    Payment --> SeatsReleased: Payment fails
+    Payment --> Booked: Payment success + signature verified
+    Payment --> OrderSummary: Payment cancelled (hold still active)
+    Payment --> SeatsReleased: Payment fails (webhook)
 
-    Booked --> [*]: Booking complete
+    Booked --> [*]: /booking/success page
     SeatsReleased --> [*]: Seats available again
 ```
 
@@ -1209,24 +1209,27 @@ export const useRazorpayPayment = () => {
 ```mermaid
 stateDiagram-v2
     [*] --> SelectSeats
-    SelectSeats --> HoldSeats: Click "Proceed"
+    SelectSeats --> HoldSeats: Click "Proceed to Payment"
 
-    HoldSeats --> SeatsHeld: Success
+    HoldSeats --> OrderSummary: Success → navigate /order-summary
     HoldSeats --> SelectSeats: Seats unavailable
 
-    SeatsHeld --> CreateOrder: Initiate payment
-    CreateOrder --> RazorpayCheckout: Open modal
+    OrderSummary --> CreateOrder: Click "Pay ₹XXX"
+    OrderSummary --> SeatsReleased: Cancel / hold expires
+
+    CreateOrder --> RazorpayCheckout: Open Razorpay modal
 
     RazorpayCheckout --> VerifyPayment: Payment success
-    RazorpayCheckout --> SeatsReleased: Payment failed/cancelled
+    RazorpayCheckout --> OrderSummary: Payment cancelled (hold intact)
+    RazorpayCheckout --> SeatsReleased: Payment failed
 
     VerifyPayment --> BookingConfirmed: Signature valid
     VerifyPayment --> SeatsReleased: Signature invalid
 
-    BookingConfirmed --> [*]
+    BookingConfirmed --> [*]: /booking/success?payment_id=
     SeatsReleased --> [*]
 
-    note right of RazorpayCheckout: 5-min hold timer running
+    note right of OrderSummary: 5-min hold timer ticking
     note right of BookingConfirmed: Webhook as backup
 ```
 
