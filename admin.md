@@ -609,12 +609,19 @@ Fetches show by ID on mount (`showsAPI.getShowById(id)`), maps response to form 
 | Response field | Form field |
 |---|---|
 | `movie.id` | `movie_id` |
+| `movie.language` | `movieLanguages` state (drives dropdown vs input) |
 | `screen.id` | `screen_id` |
 | `show_details.show_date` | `show_date` |
 | `show_details.start_time` | `start_time` |
 | `show_details.end_time` | `end_time` |
 | `show_details.language_version` | `language_version` |
 | `show_details.price_override` | `price_override` |
+
+**Language Version behaviour (same as AddShowPage):**
+- `movieLanguages` is initialized from `movie.language` on fetch — so the correct UI (input vs dropdown) is shown immediately on load
+- If the stored `language_version` matches one of the movie's languages, the dropdown pre-selects it
+- If it was stored in the old joined format (e.g. `"English, Tamil"`), it won't match any dropdown option — admin must re-select
+- Changing the movie resets `movieLanguages` and clears `language_version` (auto-sets if new movie has 1 language)
 
 Loading skeleton shown while fetching. On success → `navigate('/shows')`.
 Calls `showsAPI.editShow(id, formData)` → `PUT /api/shows/edit/:id`.
@@ -1130,7 +1137,8 @@ Configured for Vercel deployment:
 - New **`AddMultipleShowsPage`** at `/shows/bulk` — shared movie/screen/date/language/price section + dynamic time slots list (+ Add Slot / remove); calls `POST /api/shows/bulk`
 - **`MovieSearchDropdown`** extracted from `ShowsManagement.jsx` into `src/components/MovieSearchDropdown.jsx` — now shared across all three pages
 - **Auto-fill on screen select**: `price_override.premium/gold/silver` auto-populated from `screen.premium_price / gold_price / silver_price`
-- **Auto-fill on movie select**: if movie has **1 language**, `language_version` is auto-set and shown as a plain text input; if movie has **multiple languages**, a Select dropdown appears so the admin picks exactly one — `language_version` is not pre-set until a choice is made
+- **Auto-fill on movie select**: if movie has **1 language**, `language_version` is auto-set and shown as a plain text input; if movie has **multiple languages**, a Select dropdown appears so the admin picks exactly one — `language_version` is not pre-set until a choice is made; applies to `AddShowPage`, `EditShowPage`, and `AddMultipleShowsPage`
+- **EditShowPage**: `movieLanguages` initialized from fetched `movie.language` on mount so the language dropdown/input renders correctly on page load
 - `ShowsManagement.jsx` stripped to list-only (removed `ShowModal`, modal state, `screensAPI` call); Edit button navigates to `/shows/:id/edit`; header now has both `+ Add Multiple` and `+ Add Show` buttons
 
 ✅ **ShowsManagement UI redesign** (BookMyShow style):
