@@ -585,15 +585,24 @@ Displays all bookings for the logged-in customer, split into two tabs.
 Intermediate page between seat selection and Razorpay payment. Reached after seats are successfully held (5-min hold). Receives all booking context via `location.state`; redirects to `/movies` if accessed directly with no state.
 
 **Layout (two-column on desktop, stacked on mobile):**
-- **Left panel** — Razorpay payment section: lock icon + "Secure Payment via Razorpay" branding, amount summary badge, "Pay ₹XXX" button
-- **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + ₹15/ticket convenience fee + amount payable), "Cancel and release seats" link
+- **Left panel** — Razorpay payment section: lock icon + "Secure Payment via Razorpay" branding, amount summary badge, "Pay ₹XXX" button (disabled until settings load)
+- **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + amount payable), "Cancel and release seats" link
+
+**Pricing (dynamic — fetched from API):**
+- On mount, fetches `GET /api/settings` to get `convenience_fee_per_ticket` and `gst_percentage`
+- Calculates:
+  - `convenienceTotal = numSeats × convenience_fee_per_ticket`
+  - `gstAmount = convenienceTotal × (gst_percentage / 100)` (GST only on convenience fee)
+  - `grandTotal = seatTotal + convenienceTotal + gstAmount`
+- Price breakdown shows three line items: Ticket(s) price, Convenience fees (₹X/ticket), GST (Y% on conv. fee)
+- Displays `...` while settings are loading; Pay button disabled until loaded
 
 **Countdown timer:**
 - Reads `holdExpiry` from `location.state`, ticks down MM:SS in the header
 - On expiry: shows toast error, releases seats, navigates back to `/show/:showId`
 
 **Pay button:**
-- Calls `useRazorpayPayment.initiatePayment()` with `totalAmount + convenienceFees`
+- Calls `useRazorpayPayment.initiatePayment()` with `show_id`, `seats`, `customer` — **no amount sent** (backend calculates it)
 - On success: navigates to `/booking/success?payment_id=xxx`
 - On cancel: shows info toast (no seat release — hold is still active)
 
@@ -689,12 +698,14 @@ graph LR
     A --> D[bookingAPI]
     A --> E[paymentAPI]
     A --> F2[adsAPI]
+    A --> G2[settingsAPI]
 
     B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp]
     C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes, getTheatresWithShows]
     D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings]
     E --> I[createOrder, verifyPayment]
     F2 --> J[getActive, recordClick]
+    G2 --> K[getSettings]
 ```
 
 ### customerAuthAPI
@@ -743,6 +754,18 @@ graph LR
 ```
 
 Used by `AdBanner.jsx` (placement `'banner'`) and `MovieInfoPage.jsx` (placement `'side'`). `recordClick` is fire-and-forget — errors are silently caught.
+
+### settingsAPI
+
+**Endpoints:**
+
+```javascript
+{
+  getSettings(),  // GET /api/settings — public, no auth required
+}
+```
+
+Returns `{ convenience_fee_per_ticket: number, gst_percentage: number }`. Called by `OrderSummaryPage` on mount to dynamically calculate the booking fee breakdown.
 
 ### API Request Flow
 
@@ -1303,7 +1326,8 @@ npm run build
   - `SeatSelectionPage` fully redesigned: dark seat grid (`bg-gray-50 dark:bg-zinc-950`), small square buttons with zero-padded 2-digit column numbers (`01`, `02`…), theme-adaptive colors for available/sold/selected states, row labels on both sides, "Proceed to Payment" holds seats then navigates to `/order-summary` via `location.state`
   - Mobile-responsive seat grid: `overflow-x-auto` container + `w-max mx-auto` inner div prevents squishing on small screens; compact header on mobile
   - `screenPosition` from `screen.layout` still controls "All Eyes This Way" bar placement (`top` | `bottom`)
-  - **New `OrderSummaryPage`** at `/order-summary` — receives booking state, shows Razorpay payment panel (left) + order summary card (right), includes countdown timer, price breakdown with ₹15/ticket convenience fee, Pay button triggers Razorpay, Cancel releases seats and navigates back
+  - **New `OrderSummaryPage`** at `/order-summary` — receives booking state, shows Razorpay payment panel (left) + order summary card (right), includes countdown timer, price breakdown with dynamic convenience fee + GST, Pay button triggers Razorpay, Cancel releases seats and navigates back
+- **Dynamic Convenience Fee + GST** (March 16, 2026): `OrderSummaryPage` now fetches fee settings from `GET /api/settings` — convenience fee and GST percentage are configurable by Super Admin. GST is applied only on the convenience fee. Price breakdown shows three line items: Ticket(s) price, Convenience fees (₹X/ticket), GST (Y% on conv. fee). The Razorpay order amount is now calculated entirely server-side in `createOrder` — the frontend no longer sends an amount, preventing price tampering.
 - Interactive seat selection with 5-minute hold mechanism
 - Razorpay payment integration
 - Booking confirmation page (fetches from API, survives page refresh)
@@ -1336,4 +1360,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 16, 2026 (SeatSelectionPage BMS-style redesign + new OrderSummaryPage at /order-summary)
+**Last Updated**: March 16, 2026 (Dynamic convenience fee + GST — admin-configurable via Settings page)

@@ -721,8 +721,17 @@ QR code ticket verification page for cinema entrance staff.
 
 #### SettingsPage
 
-- Application settings
-- Preferences
+**Route**: `/settings`
+**Component**: `SettingsPage.jsx`
+**Access**: Super Admin only (read is open, save calls a SuperAdmin-protected endpoint)
+
+Configure system-wide booking fees:
+
+- **Convenience Fee (₹ per ticket)** — flat fee added to every ticket
+- **GST Percentage (%)** — applied only on the convenience fee (not on seat prices)
+- **Live preview** — card below the inputs shows the per-ticket fee + GST + total in real time as you type
+- On save, calls `PUT /api/settings` (SuperAdmin auth required); shows success/error toast
+- Loads current values from `GET /api/settings` on mount
 
 ---
 
@@ -739,12 +748,14 @@ graph LR
     A --> D[moviesAPI]
     A --> E[showsAPI]
     A --> F[bookingAPI]
+    A --> G2[settingsAPI]
 
     B --> G[register, login, logout, getMe, refresh]
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
     D --> I[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
     F --> K[getCinemaHallBookings, verifyBooking]
+    G2 --> L[getSettings, updateSettings]
 ```
 
 ### API Configuration
@@ -1171,7 +1182,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (ShowPage — aisle gaps + screenPosition; ShadCN date pickers; Shows Management — separate routes, bulk create, auto-fill)
+**Last Updated**: March 16, 2026 (SettingsPage — configurable convenience fee + GST; settingsAPI added)
 
 ---
 
@@ -1222,4 +1233,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 12, 2026 (ShowPage — aisle gaps + screenPosition; ShadCN date pickers; Shows Management — separate routes, bulk create, auto-fill)
+**Last Updated**: March 16, 2026 (SettingsPage — configurable convenience fee + GST; settingsAPI added)

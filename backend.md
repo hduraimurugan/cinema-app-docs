@@ -32,6 +32,12 @@ erDiagram
     customers ||--o{ ad_clicks : "clicks"
     ads ||--o{ ad_clicks : "receives"
 
+    settings {
+        text key PK
+        text value
+        timestamptz updated_at
+    }
+
     cinema_admin_user {
         uuid id PK
         text email UK
@@ -1027,6 +1033,71 @@ Looks up a booking by its full UUID — used by the admin QR code scanner to ver
 
 ---
 
+### Settings (`/api/settings`)
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| GET    | `/`      | None (public) | Get current system settings |
+| PUT    | `/`      | SuperAdmin | Update convenience fee and/or GST percentage |
+
+#### GET `/api/settings`
+
+Returns system-wide booking fee configuration. Used by the user frontend to calculate the order total.
+
+**Response (200):**
+
+```json
+{
+  "convenience_fee_per_ticket": 15,
+  "gst_percentage": 18
+}
+```
+
+#### PUT `/api/settings`
+
+Updates one or both settings. SuperAdmin only.
+
+**Request Body:**
+
+```json
+{
+  "convenience_fee_per_ticket": 20,
+  "gst_percentage": 18
+}
+```
+
+Both fields are optional — only the fields provided are updated.
+
+**Response (200):**
+
+```json
+{ "message": "Settings updated successfully" }
+```
+
+**Validation:**
+- `convenience_fee_per_ticket` must be ≥ 0
+- `gst_percentage` must be between 0 and 100
+
+#### settings table
+
+```sql
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Default seed values
+INSERT INTO settings (key, value) VALUES
+  ('convenience_fee_per_ticket', '15'),
+  ('gst_percentage', '18')
+ON CONFLICT (key) DO NOTHING;
+```
+
+**Migration**: Run `migration_settings.sql`
+
+---
+
 ### Ads (`/api/ads`)
 
 | Method | Endpoint         | Auth          | Description                                      |
@@ -1457,7 +1528,7 @@ CREATE TABLE bookings (
 
 **POST** `/api/payment/create-order`
 
-Creates a Razorpay order before initiating payment.
+Creates a Razorpay order before initiating payment. **Amount is calculated server-side** — the frontend does not send an amount.
 
 **Auth**: Customer required
 
@@ -1466,17 +1537,28 @@ Creates a Razorpay order before initiating payment.
 ```json
 {
   "show_id": "550e8400-e29b-41d4-a716-446655440000",
-  "seats": ["A1", "A2", "A3"],
-  "amount": 450
+  "seats": ["seatId1", "seatId2", "seatId3"]
 }
 ```
+
+**Server-Side Amount Calculation**:
+
+1. Fetches `shows.price_override` and `screens.layout` (seats + pricing) from DB
+2. Resolves per-seat price (price_override takes priority over layout.pricing)
+3. Fetches `convenience_fee_per_ticket` and `gst_percentage` from `settings` table
+4. Calculates:
+   - `seatTotal = sum of per-seat prices`
+   - `convenienceTotal = numSeats × convenience_fee_per_ticket`
+   - `gstAmount = convenienceTotal × (gst_percentage / 100)`
+   - `grandTotal = seatTotal + convenienceTotal + gstAmount`
+5. Creates Razorpay order with `Math.round(grandTotal * 100)` paise
 
 **Response** (200 OK):
 
 ```json
 {
   "order_id": "order_MlOhPxFJdD8SQy",
-  "amount": 45000,
+  "amount": 45270,
   "currency": "INR",
   "key_id": "rzp_test_XXXXXXXXXXXXX"
 }
@@ -1650,6 +1732,7 @@ const initiatePayment = async ({ show_id, seats, amount, customer }) => {
 - **Atomic Transactions**: Database ACID compliance
 - **Receipt ID Validation**: Max 40 chars, format: `TKT-{timestamp}-{customer}`
 - **HTTPS Only**: Razorpay requires TLS 1.2+
+- **Server-Side Amount Calculation**: `createOrder` ignores any frontend-provided amount — recalculates from DB seat prices + settings, preventing price tampering
 
 ⚠️ **Important**:
 
@@ -1685,6 +1768,7 @@ Name:   Test User
 | Seats no longer held   | Hold expired         | Refresh and select seats again     |
 | Receipt too long       | Receipt > 40 chars   | Fixed: `TKT-{time}-{customer}`     |
 | payment_orders missing | Migration not run    | Run `migration_payment_tables.sql` |
+| settings missing       | Migration not run    | Run `migration_settings.sql`       |
 | Duplicate booking      | Race condition       | Use database unique constraints    |
 
 ### Migration
@@ -1754,4 +1838,4 @@ CREATE TABLE IF NOT EXISTS bookings (...);
 
 ---
 
-**Last Updated**: March 7, 2026
+**Last Updated**: March 16, 2026
