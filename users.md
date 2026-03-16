@@ -184,6 +184,16 @@ flowchart TD
     M -->|No| O[Render nothing]
 ```
 
+#### Location Context Strip
+
+A slim strip rendered at the top of `MoviesPage` when the customer has a saved location.
+
+- **Desktop (`sm+`):** Shows `📍 Showing results near Tirunelveli, Tamil Nadu`
+- **Mobile:** Shows only `📍 Tirunelveli, Tamil Nadu` — the "Showing results near" label is hidden (`hidden sm:inline`) to save space
+- The district and state are inline within a single `<span>` (not separate flex items) so text wraps naturally on very small screens
+
+---
+
 #### AdBanner Component
 
 **Component**: `AdBanner.jsx`
@@ -357,18 +367,25 @@ sequenceDiagram
 ```mermaid
 graph LR
     A[TopBar] --> B[Logo]
-    A --> C[Search Bar]
+    A --> C[Search Bar / Mobile Search Expand]
     A --> D[Location Selector]
-    A --> E[User Menu]
-    A --> F[Theme Toggle]
+    A --> E[Notifications Bell]
+    A --> F[User Menu]
+    A --> G[Theme Toggle - desktop only]
+    A --> H[Hamburger Menu - mobile only]
 
-    E --> G{Logged In?}
-    G -->|Yes| H[Profile Dropdown]
-    G -->|No| I[Login Button]
+    F --> I{Logged In?}
+    I -->|Yes| J[Avatar Dropdown]
+    I -->|No| K[Sign In Button - always visible]
 
-    H --> J[Profile]
-    H --> K[Settings]
-    H --> L[Logout]
+    J --> L[Profile]
+    J --> M[My Bookings]
+    J --> N[Settings]
+    J --> O[Logout]
+
+    H --> P[Theme Toggle]
+    H --> Q[Location]
+    H --> R[My Bookings - if logged in]
 ```
 
 #### Auto-Open Login Modal (Protected Route Redirect)
@@ -381,35 +398,42 @@ When a user is redirected from a protected route (e.g. `/bookings` while logged 
 
 #### Search Functionality
 
-**Features:**
+**Desktop (`sm+`):** Full-width pill-shaped input bar (max `xl`) centered in the header. Submits via Enter and navigates to `/search?q=<term>`.
 
-- Real-time search input
-- Search icon
-- Placeholder text
-- Submit on Enter key
-- Responsive width
+**Mobile:** A `Search` icon button is always visible. Tapping it replaces the entire TopBar content with an inline search input + `X` cancel button (full-width). Cancelling clears the query and restores the normal bar. No alert — fully functional.
 
 #### Location Selector
 
-**Features:**
+**Desktop (`sm+`):** Pill-shaped button showing `<MapPin icon> District · State`. State abbreviation is only shown on `lg+` screens. No `max-width` or `truncate` — the full location name is always displayed. Clicking opens `LocationModal`.
 
-- Display current location (district, state)
-- Opens `LocationModal` on click
-- Auto-opens on first load if no location is cached
+**Mobile:** Shows only a `MapPin` icon button. A small primary-coloured dot appears in the corner when a location is set (visual indicator). Full location label is accessible via the hamburger menu.
+
+**Auto-open:** If no location is cached on first load (`!district && !state`), `LocationModal` opens automatically.
+
+#### Notifications
+
+A `Bell` icon button is always visible. When there are unread notifications, a **numeric badge** (e.g. `2`) appears at the top-right of the bell instead of a pulsing dot — more informative and less distracting.
+
+The dropdown (`w-80`) shows:
+- Header: "Notifications" label + unread count
+- Each notification: coloured dot (primary = unread, transparent = read) + title + timestamp
+- "View all notifications" footer link → `/notifications`
 
 #### User Menu
 
 **Logged Out State:**
 
-- "Sign in" button — opens `LoginModal`
+- "Sign in" pill button — always visible in the bar on all screen sizes (not hidden in the hamburger menu), opens `LoginModal`
 
 **Logged In State:**
 
-- User avatar with initials
+- Avatar button (initials, gradient background, `border-2 border-primary/30`)
+- Dropdown header shows avatar + full name + email side-by-side
 - Dropdown menu:
-  - Profile
-  - Settings
-  - Logout
+  - Profile → `/profile`
+  - My Bookings → `/bookings`
+  - Settings → `/settings`
+  - Logout (destructive style)
 
 #### Theme Toggle
 
@@ -419,10 +443,16 @@ When a user is redirected from a protected route (e.g. `/bookings` while logged 
 - Dark mode (Moon icon)
 - Toggle between themes
 - Persisted in localStorage
+- **Desktop only** — visible as a standalone icon button; on mobile it lives in the hamburger menu
 
 #### Mobile Dropdown Menu
 
-On small screens (`sm:hidden`), a hamburger menu (`Menu` icon) consolidates Theme, Location, and Sign In into a single `DropdownMenu`.
+On small screens (`sm:hidden`), a hamburger menu (`Menu` icon) contains only:
+- Theme toggle (Light / Dark Mode)
+- Location item — shows full `District, State` label; clicking opens `LocationModal` (deferred)
+- **My Bookings** link (shown only when customer is logged in)
+
+> **Sign In is no longer in the hamburger menu** — it is always directly visible in the bar as a pill button.
 
 **Known Fix — Radix UI DropdownMenu + Dialog conflict:**
 
@@ -455,15 +485,19 @@ This results in the Dialog visually closing but leaving the page frozen (no clic
 
 #### Navigation Items
 
-| Position | Item | Auth Required | Route |
-|----------|------|---------------|-------|
-| Left | Movies | No | `/movies` |
-| Left | Theatres | No | `/theatres` |
-| Right | My Bookings | **Yes** | `/bookings` |
-| Right | Offers | No | `/offers` |
-| Right | Gift Cards | No | `/gift-cards` |
+| Position | Item | Auth Required | Visible |
+|----------|------|---------------|---------|
+| Left | Movies | No | Always |
+| Left | Theatres | No | Always |
+| Right | My Bookings | **Yes** | `sm+`, logged in only |
+| Right | Offers | No | `sm+` |
+| Right | Gift Cards | No | `sm+` |
 
-**"My Bookings"** is conditionally rendered — it only appears in the navbar when the customer is logged in (`customer` truthy from `useCustomerAuth()`). It is completely hidden for logged-out users.
+**Active indicator:** Each link uses `border-b-2 -mb-px` — the active link's `border-primary` bottom border visually bleeds into the container's `border-b` for a seamless tab underline. Inactive links show `border-transparent` by default and `border-border` on hover as a subtle preview.
+
+**"My Bookings"** is conditionally rendered — only appears when the customer is logged in. Right nav items are hidden below `sm` breakpoint (was `lg` previously).
+
+**Height & padding:** `h-11` with `px-3 sm:px-6 lg:px-8` — matching TopBar's spacing system.
 
 ---
 
@@ -1345,6 +1379,14 @@ npm run build
 - **TheatresPage UI redesign** (BookMyShow style): same 3-part date buttons and availability legend, rounded-xl hall cards with heart icon, clickable movie poster + title, green-bordered show time buttons with language version, `formatDuration` helper, shows sorted by time per screen
 - **MovieInfoPage** (new page, BookMyShow style): `/movie/:movieId` now shows a dedicated movie info page — large poster, title, duration/genres/release date, 2D + language badges, "Book Tickets" CTA → `/movie/shows/:movieId`, "About the movie" section, inline YouTube trailer embed with smooth-scroll from poster overlay button. Route `/movie/shows/:movieId` now serves the existing cinema-halls/showtimes page. Back button on shows page explicitly returns to `/movie/:movieId`.
 - **Dynamic Ads** (March 14, 2026): `AdBanner.jsx` now fetches live banner ads from `GET /api/ads/active?placement=banner`; renders nothing if no active ads. Clicking an ad records the click-through and opens the destination URL. `MovieInfoPage.jsx` fetches `placement=side` ads and shows a sticky right-side column on `md+` screens when ads are available. `adsAPI` added to `cinema-hall-users/src/services/api.js`.
+- **TopBar + TopNavbar UI/UX redesign** (March 16, 2026):
+  - **TopBar — mobile search**: tapping the search icon now expands a full-width inline search input with an `X` cancel button; submitting navigates to `/search?q=<term>`. No more `alert()`.
+  - **TopBar — location pill**: desktop pill no longer has `max-w-[180px]` or `truncate`; full district + state is always shown. Mobile shows a `MapPin` icon with a primary dot indicator when location is set.
+  - **TopBar — notifications**: pulsing dot replaced with a numeric unread-count badge (e.g. `2`). Dropdown redesigned with per-item read/unread dot indicators.
+  - **TopBar — user dropdown**: header now shows avatar + name/email side-by-side. Added "My Bookings" link. Sign In button is always visible in the bar (not hidden in hamburger menu).
+  - **TopBar — hamburger menu**: simplified to theme toggle + location + "My Bookings" (if logged in). Sign In removed since it's always in the bar.
+  - **TopNavbar**: active tab indicator changed from `pb-3 border-b-2` to clean `-mb-px border-b-2` (border bleeds into container edge). Hover shows `border-border` preview. Right nav items now visible at `sm+` (was `lg+`). Height `h-11`, padding matches TopBar.
+  - **MoviesPage — location strip**: "Showing results near" label hidden on mobile (`hidden sm:inline`); district + state merged into one inline `<span>` to prevent awkward flex-wrap.
 
 💡 **Potential Features:**
 
@@ -1360,4 +1402,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 16, 2026 (Dynamic convenience fee + GST — admin-configurable via Settings page)
+**Last Updated**: March 16, 2026 (TopBar + TopNavbar UI/UX redesign — responsive mobile search, full location pill, numeric notification badge, simplified hamburger menu; TopNavbar border-overlap active indicator; MoviesPage location strip mobile fix)
