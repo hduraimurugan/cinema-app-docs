@@ -576,9 +576,11 @@ sequenceDiagram
 Full-page form. On success → navigates back to `/shows`.
 
 **Auto-fill behaviour:**
-- **Select movie** → `language_version` auto-filled from `movie.language.join(", ")`
+- **Select movie** → `language_version` auto-filled smartly:
+  - 1 language → auto-set, plain text input shown
+  - Multiple languages → `language_version` cleared; a **Select dropdown** appears with each language as an option (admin must pick one)
 - **Select screen** → `price_override.premium/gold/silver` auto-filled from `screen.premium_price / gold_price / silver_price`
-- Both auto-fills can be manually overridden
+- Price override can be manually overridden; language input (single-language case) can also be edited manually
 
 **Form fields:**
 
@@ -589,7 +591,7 @@ Full-page form. On success → navigates back to `/shows`.
   show_date: "2024-02-15",       // ShadCN Popover + Calendar picker; stored as YYYY-MM-DD via dayjs
   start_time: "14:00",           // time input
   end_time: "16:30",             // time input
-  language_version: "Tamil, English",  // auto-filled from movie; editable
+  language_version: "Tamil",     // auto-set (1 lang) or chosen from dropdown (multiple langs); editable when single
   price_override: {              // auto-filled from screen defaults; editable
     premium: 200,
     gold: 150,
@@ -619,7 +621,7 @@ Calls `showsAPI.editShow(id, formData)` → `PUT /api/shows/edit/:id`.
 
 #### Add Multiple Shows Page (`/shows/bulk`)
 
-Same auto-fill behaviour as AddShowPage. Instead of a single start/end time, there is a **dynamic time slots list**:
+Same auto-fill behaviour as AddShowPage (language dropdown for multi-language movies, auto-set for single). Instead of a single start/end time, there is a **dynamic time slots list**:
 - Minimum 1 slot; "+ Add Slot" button appends a new row
 - Each row: `Slot N — Start` (time) + `End` (time) + trash icon (disabled when only 1 slot)
 - Footer label: `N slot(s) → N show(s) will be created`
@@ -636,7 +638,7 @@ Payload sent:
     { start_time: "14:00", end_time: "16:30" },
     { start_time: "19:00", end_time: "21:30" }
   ],
-  language_version: "Tamil, English",
+  language_version: "Tamil",     // single language chosen from dropdown or auto-set
   price_override: { premium: 200, gold: 150, silver: 130 }
 }
 ```
@@ -978,11 +980,11 @@ sequenceDiagram
     ShowsPage->>AddShowPage: navigate('/shows/new')
 
     Admin->>AddShowPage: Search + select movie
-    Note over AddShowPage: language_version auto-filled from movie.language
+    Note over AddShowPage: 1 language → auto-set; multiple → language dropdown shown
     Admin->>AddShowPage: Select screen
     Note over AddShowPage: price_override auto-filled from screen.premium/gold/silver_price
     Admin->>AddShowPage: Set date, start/end time
-    Admin->>AddShowPage: Review / adjust language & prices
+    Admin->>AddShowPage: Pick language (if dropdown) / review prices
     Admin->>AddShowPage: Click "Add Show"
 
     AddShowPage->>API: POST /api/shows/create
@@ -1003,7 +1005,7 @@ sequenceDiagram
     Admin->>ShowsPage: Click "+ Add Multiple"
     ShowsPage->>BulkPage: navigate('/shows/bulk')
 
-    Admin->>BulkPage: Select movie → language auto-filled
+    Admin->>BulkPage: Select movie → language auto-set or dropdown shown
     Admin->>BulkPage: Select screen → prices auto-filled
     Admin->>BulkPage: Set date
     Admin->>BulkPage: Add time slots (+ Add Slot button)
@@ -1128,7 +1130,7 @@ Configured for Vercel deployment:
 - New **`AddMultipleShowsPage`** at `/shows/bulk` — shared movie/screen/date/language/price section + dynamic time slots list (+ Add Slot / remove); calls `POST /api/shows/bulk`
 - **`MovieSearchDropdown`** extracted from `ShowsManagement.jsx` into `src/components/MovieSearchDropdown.jsx` — now shared across all three pages
 - **Auto-fill on screen select**: `price_override.premium/gold/silver` auto-populated from `screen.premium_price / gold_price / silver_price`
-- **Auto-fill on movie select**: `language_version` auto-populated from `movie.language.join(", ")` — both fields remain manually editable
+- **Auto-fill on movie select**: if movie has **1 language**, `language_version` is auto-set and shown as a plain text input; if movie has **multiple languages**, a Select dropdown appears so the admin picks exactly one — `language_version` is not pre-set until a choice is made
 - `ShowsManagement.jsx` stripped to list-only (removed `ShowModal`, modal state, `screensAPI` call); Edit button navigates to `/shows/:id/edit`; header now has both `+ Add Multiple` and `+ Add Show` buttons
 
 ✅ **ShowsManagement UI redesign** (BookMyShow style):
