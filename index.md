@@ -30,6 +30,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/offers/active` | List active, eligible, non-expired offers for the logged-in customer |
 | POST | `/api/offers/validate` | Validate a coupon code + calculate discount preview (customer auth) |
 | GET | `/api/offers` | List all offers with filters — SuperAdmin only |
+| GET | `/api/offers/:id` | Fetch single offer by ID — SuperAdmin only (used by edit page) |
 | POST | `/api/offers/create` | Create a new offer — SuperAdmin only |
 | PUT | `/api/offers/update/:id` | Update an offer — SuperAdmin only |
 | DELETE | `/api/offers/delete/:id` | Delete an offer — SuperAdmin only |
@@ -87,6 +88,7 @@ BookingSuccessPage
 | Offers routes | `cinema-hall-api/routes/offers.routes.js` |
 | Offers DB migration | `cinema-hall-api/migrations/migration_offers.sql` |
 | Admin Offers management page | `cinema-hall-admin/src/pages/OffersManagement.jsx` |
+| Admin Offer create/edit page | `cinema-hall-admin/src/pages/OfferFormPage.jsx` |
 | User Offers browse page | `cinema-hall-users/src/pages/OffersPage.jsx` |
 | Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
@@ -118,6 +120,8 @@ BookingSuccessPage
 *March 12, 2026 — Added Payment Orders page to admin panel. New backend endpoint `GET /api/payment/admin/orders` (auth: `verifyCinemaAdminAccessToken` + `verifyCinemaHall`) returns paginated `payment_orders` with JOINed customer/movie/show/screen data and derived seat labels from screen layout JSONB. Filters: order date, status (created/paid/failed/expired), customer name/email search, movie title search. Frontend: `PaymentOrders.jsx` at `/payment-orders` follows same pattern as `Bookings.jsx` (4-column filter card, shadcn Table, skeleton loading, empty/error states, pagination). Sidebar nav link added under Operations between Bookings and Verify Ticket. `paymentAPI.getOrders()` added to `cinema-hall-admin/src/services/api.js`.*
 
 *March 12, 2026 — Added Refresh button to admin `Bookings.jsx` and `PaymentOrders.jsx`. Button sits in the page header alongside the total count badge; clicking re-fetches with current active filters and page. Icon spins (`animate-spin`) and button is disabled while loading.*
+
+*March 17, 2026 — OffersManagement refactored: Create/Edit Dialog replaced with route-based pages (`/offers/new`, `/offers/:id/edit`) rendered by new `OfferFormPage.jsx`. `OffersManagement.jsx` is now list-only (no form state). `GET /api/offers/:id` endpoint added (backend + `offersAPI.getById`). Date pickers use standard `Popover + Calendar` (no `createPortal` needed outside a Dialog).*
 
 *March 17, 2026 — Offers/coupon system: `offers` + `offer_redemptions` DB tables (`migration_offers.sql`); `ALTER TABLE bookings/payment_orders` adds `offer_code` + `discount_amount` columns. New `GET+POST /api/offers/*` routes (SuperAdmin CRUD + customer validate/active). `createOrder` applies offer discount server-side; `verifyPayment` records redemption atomically. Admin: `OffersManagement.jsx` at `/offers` (SuperAdmin); Offers nav item in AppSidebar. User: `OffersPage.jsx` at `/offers` (card grid + copy-code); coupon input + apply/remove UI in `OrderSummaryPage`; discount line in price breakdown; `offer_code` flows through `useRazorpayPayment` → `paymentAPI.createOrder`.*
 

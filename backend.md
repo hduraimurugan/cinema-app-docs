@@ -1224,6 +1224,7 @@ Records a click-through. If a valid `cusAccessToken` cookie is present, attaches
 | ------ | -------------------- | ------------- | -------------------------------------------------------- |
 | GET    | `/cinema-halls`      | SuperAdmin    | List all cinema halls (for hall-selector in admin form)  |
 | GET    | `/`                  | SuperAdmin    | List all offers (paginated, filters: scope/is_active/search) |
+| GET    | `/:id`               | SuperAdmin    | Fetch a single offer by ID (used by edit page)           |
 | POST   | `/create`            | SuperAdmin    | Create a new offer                                       |
 | PUT    | `/update/:id`        | SuperAdmin    | Update an existing offer                                 |
 | DELETE | `/delete/:id`        | SuperAdmin    | Delete an offer (cascades redemptions)                   |

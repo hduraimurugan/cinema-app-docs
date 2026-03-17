@@ -47,6 +47,8 @@ graph TD
     N --> O[/movies - MovieManagement]
     N --> O2[/ads - AdsManagement]
     N --> O3[/offers - OffersManagement]
+    N --> O4[/offers/new - OfferFormPage create]
+    N --> O5[/offers/:id/edit - OfferFormPage edit]
 
     C --> P[/register - RegisterPage]
 ```
@@ -157,8 +159,11 @@ sequenceDiagram
 
 ### 1. Offers Management (SuperAdmin Only)
 
-**Route**: `/offers`
-**Component**: `OffersManagement.jsx`
+**Routes**:
+- `/offers` — `OffersManagement.jsx` (list, filters, delete)
+- `/offers/new` — `OfferFormPage.jsx` (create form)
+- `/offers/:id/edit` — `OfferFormPage.jsx` (edit form, fetches offer by ID)
+
 **Access**: SuperAdmin role required
 **API**: `offersAPI` in `src/services/api.js`
 
@@ -166,29 +171,33 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    A[Offers Management] --> B[Filter Card]
+    A[/offers - OffersManagement] --> B[Filter Card]
     A --> C[Offers Table]
 
     B --> B1[Search by code / title]
     B --> B2[Scope filter: Global / Hall]
     B --> B3[Status filter: Active / Inactive]
 
-    C --> D[Create Offer button]
-    C --> E[Edit button per row]
-    C --> F[Delete button per row]
+    C --> D[Create Offer button → navigates to /offers/new]
+    C --> E[Edit button → navigates to /offers/:id/edit]
+    C --> F[Delete button → AlertDialog confirmation]
 
-    D --> G[Create / Edit Dialog]
-    G --> G1[Code - uppercase monospace]
-    G --> G2[Title + Description]
-    G --> G3[Discount Type: Percentage or Fixed]
-    G --> G4[Discount Value + Max Cap for %]
-    G --> G5[Min Booking Amount]
-    G --> G6[Scope: Global or Hall-Specific]
-    G --> G7[Cinema Hall selector when scope=hall]
-    G --> G8[User Eligibility: All or Joined After]
-    G --> G9[Joined After Date picker]
-    G --> G10[Valid Until date picker]
-    G --> G11[Is Active toggle]
+    D --> G[/offers/new - OfferFormPage]
+    E --> H[/offers/:id/edit - OfferFormPage]
+
+    G --> F1[Code - uppercase monospace]
+    G --> F2[Title + Description]
+    G --> F3[Discount Type: Percentage or Fixed]
+    G --> F4[Discount Value + Max Cap for %]
+    G --> F5[Min Booking Amount]
+    G --> F6[Scope: Global or Hall-Specific]
+    G --> F7[Cinema Hall selector when scope=hall]
+    G --> F8[User Eligibility: All or Joined After]
+    G --> F9[Joined After Date picker - Popover + Calendar]
+    G --> F10[Valid Until date picker - Popover + Calendar]
+    G --> F11[Is Active toggle]
+
+    H --> F1
 ```
 
 #### Table Columns
@@ -202,13 +211,13 @@ flowchart TD
 | **Eligibility** | `All users` or `Joined after DD MMM YYYY` |
 | **Valid Until** | Date in red if already expired |
 | **Status** | `Active` (emerald) or `Inactive` (zinc) badge |
-| **Actions** | Edit (pencil) / Delete (trash) icon buttons |
+| **Actions** | Edit (pencil) → navigates to `/offers/:id/edit` / Delete (trash) → AlertDialog |
 
 #### Offer Form Fields
 
 | Field | Type | Notes |
 |-------|------|-------|
-| Offer Code | Text | Stored uppercase; must be unique |
+| Offer Code | Text | Stored uppercase; must be unique. **Read-only on edit page** |
 | Title | Text | Display name shown to users |
 | Description | Textarea | Optional short description on offers page |
 | Discount Type | Select | `Percentage` or `Fixed Amount` |
@@ -224,32 +233,26 @@ flowchart TD
 
 #### Date Picker Implementation Note
 
-The **Valid Until** and **Joined After** date pickers use `createPortal` (rendered directly into `document.body`) instead of the standard Radix `Popover + Calendar` pattern used elsewhere.
+The **Valid Until** and **Joined After** date pickers use the standard shadcn `Popover + Calendar` pattern. Because the form is on a standalone page (not inside a Radix `Dialog`), there is no `pointer-events: none` conflict.
 
-**Why:** The Radix `Dialog` (used for the Create/Edit offer form) sets `document.body.style.pointerEvents = "none"` via its `DismissableLayer`. A `Popover` rendered inside this Dialog creates its content in a separate portal — outside the Dialog's DOM subtree — so its Calendar buttons inherit `pointer-events: none` from `body` and cannot be clicked.
-
-**Pattern used:**
+**Pattern used (`OfferFormPage.jsx`):**
 ```jsx
-// Capture button position on click
-const r = btnRef.current.getBoundingClientRect()
-setPickerPos({ top: r.bottom + 4, left: r.left })
-setPickerOpen(true)
-
-// Render portal directly in document.body
-{pickerOpen && createPortal(
-    <>
-        <div className="fixed inset-0 z-[100]" onClick={() => setPickerOpen(false)} />
-        <div className="fixed z-[101] rounded-md border bg-popover shadow-md pointer-events-auto"
-             style={{ top: pickerPos.top, left: pickerPos.left }}>
-            <Calendar mode="single" selected={value}
-                onSelect={d => { setValue(d); setPickerOpen(false) }} />
-        </div>
-    </>,
-    document.body
-)}
+<Popover open={validUntilPickerOpen} onOpenChange={setValidUntilPickerOpen}>
+    <PopoverTrigger asChild>
+        <Button variant="outline" className="w-full justify-start text-left font-normal text-sm h-9">
+            <CalendarIcon className="mr-2 w-4 h-4" />
+            {form.valid_until ? dayjs(form.valid_until).format("DD MMM YYYY") : "Pick expiry date"}
+        </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-auto p-0" align="start">
+        <Calendar mode="single" selected={form.valid_until}
+            onSelect={d => { setField("valid_until", d); setValidUntilPickerOpen(false) }}
+            initialFocus />
+    </PopoverContent>
+</Popover>
 ```
 
-The `pointer-events-auto` class on the calendar container explicitly overrides the `pointer-events: none` inherited from body, making dates fully clickable. The transparent `fixed inset-0` backdrop closes the picker on outside clicks.
+> **Historical note:** When the form was inside a Radix `Dialog`, a `createPortal`-based workaround was used because `Dialog` sets `body.style.pointerEvents = "none"`, blocking nested `Popover` content. Moving to a route-based page eliminated the conflict entirely.
 
 #### Sidebar Navigation
 
@@ -1264,11 +1267,15 @@ Configured for Vercel deployment:
 - Edit/Delete hover actions preserved on `group-hover`
 - Removed unused `Tabs, TabsContent, TabsList, TabsTrigger` imports
 
-✅ **OffersManagement — date picker fix via createPortal** (March 17, 2026):
-- Replaced Radix `Popover + Calendar` with a `createPortal`-based floating calendar for **Valid Until** and **Joined After** date pickers
-- **Root cause**: Radix `Dialog` (`disableOutsidePointerEvents: true`) sets `body.style.pointerEvents = "none"` on open; a nested `Popover` renders its content in a separate portal outside the Dialog DOM, inheriting `pointer-events: none` and making Calendar day buttons unclickable
-- **Fix**: `createPortal` to `document.body` with `pointer-events: auto` explicitly set on the calendar container overrides the body restriction
-- Position calculated from `getBoundingClientRect()` on the trigger button; transparent `fixed inset-0` backdrop handles outside-click dismissal — visually identical to a Popover
+✅ **OffersManagement — route-based create/edit pages** (March 17, 2026):
+- Replaced the Create/Edit `Dialog` with dedicated route-based pages: `/offers/new` and `/offers/:id/edit` (both render `OfferFormPage.jsx`)
+- `OffersManagement.jsx` stripped to list-only: "Create Offer" button navigates to `/offers/new`; pencil icon navigates to `/offers/:id/edit`; only the delete `AlertDialog` remains
+- `OfferFormPage.jsx` (new): fetches offer by ID via `GET /api/offers/:id` when editing; navigates back to `/offers` on save or cancel; offer code field is read-only on edit
+- Date pickers reverted from `createPortal` to standard `Popover + Calendar` — the pointer-events conflict only existed because the form was inside a Radix `Dialog`
+- `offersAPI.getById(id)` added to `cinema-hall-admin/src/services/api.js`
+
+✅ **OffersManagement — date picker fix via createPortal** (March 17, 2026 — superseded):
+- ~~Replaced Radix `Popover + Calendar` with a `createPortal`-based floating calendar~~ — this workaround was made obsolete by the route-based refactor above
 
 ✅ **ShadCN date pickers — AddShowPage, AddMultipleShowsPage, Bookings** (March 12, 2026):
 - Replaced all `<input type="date">` fields with ShadCN **Popover + Calendar** date picker pattern
@@ -1342,4 +1349,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 17, 2026 (OffersManagement — date picker fix: replaced Popover+Calendar with createPortal pattern to bypass Radix Dialog pointer-events conflict)
+**Last Updated**: March 17, 2026 (OffersManagement — Create/Edit Dialog replaced with route-based pages `/offers/new` + `/offers/:id/edit` using `OfferFormPage.jsx`; date pickers reverted to standard Popover+Calendar; `GET /api/offers/:id` endpoint added)
