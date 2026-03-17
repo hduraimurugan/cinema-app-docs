@@ -34,6 +34,7 @@ graph TD
     C --> G[/booking/success - BookingSuccessPage]
     C --> G2[/booking/failure - BookingFailurePage]
     C --> H[/theatres - TheatresPage]
+    C --> H2[/offers - OffersPage]
 
     P --> I[/bookings - Bookings]
     P --> J[/profile - ProfilePage]
@@ -612,6 +613,38 @@ Displays all bookings for the logged-in customer, split into two tabs.
 - `qrcode.react` — `QRCodeSVG` component for QR generation
 - `@/components/ui/dialog` — shadcn Dialog for the QR modal
 
+#### OffersPage
+
+**Route**: `/offers`
+**Component**: `OffersPage.jsx`
+**Access**: Requires login (shows "Please log in" prompt if not authenticated)
+
+Displays all active, non-expired offers that the logged-in user is eligible for. Reached from the "Offers" link in the top navigation bar.
+
+**Layout:**
+- Page header with Tag icon, title, and description
+- Responsive card grid (1 / 2 / 3 columns)
+
+**Each offer card shows:**
+- Title + "Ending soon" amber badge (if expiry ≤ 3 days)
+- Discount value in large violet text (e.g. `₹50 OFF` or `10% OFF up to ₹150`)
+- Description (optional)
+- Min. booking amount (if set)
+- Valid until date
+- Eligibility note (if `joined_after`)
+- Hall restriction note (if `scope = "hall"`)
+- Offer code in a dashed border chip with "Copy" button — copies to clipboard + toast
+
+**Filtering:** The backend filters out:
+- Expired offers (`valid_until ≤ NOW()`)
+- Inactive offers (`is_active = false`)
+- Offers the user has already redeemed (`offer_redemptions` check)
+- Offers the user is not eligible for (`joined_after` date check)
+
+**API used:** `GET /api/offers/active` (requires `cusAccessToken` cookie)
+
+---
+
 #### OrderSummaryPage
 
 **Route**: `/order-summary`
@@ -620,17 +653,25 @@ Displays all bookings for the logged-in customer, split into two tabs.
 Intermediate page between seat selection and Razorpay payment. Reached after seats are successfully held (5-min hold). Receives all booking context via `location.state`; redirects to `/movies` if accessed directly with no state.
 
 **Layout (two-column on desktop, stacked on mobile):**
-- **Left panel** — Razorpay payment section: lock icon + "Secure Payment via Razorpay" branding, amount summary badge, "Pay ₹XXX" button (disabled until settings load)
-- **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + amount payable), "Cancel and release seats" link
+- **Left panel** — Coupon input section, Razorpay payment section: lock icon + "Secure Payment via Razorpay" branding, amount summary badge, "Pay ₹XXX" button (disabled until settings load)
+- **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + optional discount line + amount payable), "Cancel and release seats" link
 
 **Pricing (dynamic — fetched from API):**
 - On mount, fetches `GET /api/settings` to get `convenience_fee_per_ticket` and `gst_percentage`
 - Calculates:
   - `convenienceTotal = numSeats × convenience_fee_per_ticket`
   - `gstAmount = convenienceTotal × (gst_percentage / 100)` (GST only on convenience fee)
-  - `grandTotal = seatTotal + convenienceTotal + gstAmount`
-- Price breakdown shows three line items: Ticket(s) price, Convenience fees (₹X/ticket), GST (Y% on conv. fee)
+  - `subtotal = seatTotal + convenienceTotal + gstAmount`
+  - `grandTotal = subtotal − discountAmount` (0 if no coupon)
+- Price breakdown shows: Ticket(s) price, Convenience fees (₹X/ticket), GST (Y% on conv. fee), Discount (OFFERCODE) in green when applied, Amount Payable
 - Displays `...` while settings are loading; Pay button disabled until loaded
+
+**Coupon / Offer Code section (left panel):**
+- Input field (uppercase monospace) + "Apply" button (violet)
+- On apply: calls `POST /api/offers/validate` with `{ offer_code, show_id, total_amount }`
+- On success: shows green "applied" row with offer code, discount amount, and ✕ remove button
+- On error: shows red error message below input
+- Offer is re-validated server-side in `createOrder` — frontend discount preview is never trusted for the final charge
 
 **Countdown timer:**
 - Reads `holdExpiry` from `location.state`, ticks down MM:SS in the header
@@ -1435,4 +1476,4 @@ npm run build
 
 ---
 
-**Last Updated**: March 16, 2026 (TopBar + TopNavbar UI/UX redesign — responsive mobile search, full location pill, numeric notification badge, simplified hamburger menu; TopNavbar border-overlap active indicator; MoviesPage location strip mobile fix)
+**Last Updated**: March 17, 2026 — Offers system: new `OffersPage` at `/offers` (card grid of eligible active offers, copy-code button); coupon input added to `OrderSummaryPage` (Apply/Remove UI, discount line in price breakdown); `offersAPI.validateOffer` called on apply; `offer_code` passed through `useRazorpayPayment` → `paymentAPI.createOrder` for server-side re-validation.

@@ -132,7 +132,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 | Total Lines           | 4,000+ |
 | Mermaid Diagrams      | 35+    |
 | API Endpoints         | 40+    |
-| Database Tables       | 12     |
+| Database Tables       | 14     |
 | Components Documented | 25+    |
 
 ---
@@ -159,6 +159,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ Bulk show creation
 ✅ Image upload (Cloudinary)
 ✅ **Ads management (SuperAdmin only) — banner + sidebar ads with click-through tracking**
+✅ **Offers / coupon system (SuperAdmin only) — global or hall-scoped percentage/fixed discount codes with expiry, eligibility targeting, and redemption tracking**
 
 ### User Features
 
@@ -173,6 +174,8 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Booking confirmation page (API-fetched, refresh-safe)**
 ✅ **MovieInfoPage — BookMyShow-style movie detail with trailer embed**
 ✅ **Dynamic ad banners (carousel on /movies, sidebar on /movie/:id) with click-through recording**
+✅ **Offers page (/offers) — browse eligible discount codes, copy with one click**
+✅ **Coupon input at checkout — apply offer code on Order Summary page with live discount preview**
 
 ---
 
@@ -273,7 +276,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: March 16, 2026
+**Last Updated**: March 17, 2026
 
 ---
 

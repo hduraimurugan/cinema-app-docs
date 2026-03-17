@@ -46,6 +46,7 @@ graph TD
     D --> N[SuperAdmin Routes]
     N --> O[/movies - MovieManagement]
     N --> O2[/ads - AdsManagement]
+    N --> O3[/offers - OffersManagement]
 
     C --> P[/register - RegisterPage]
 ```
@@ -154,7 +155,80 @@ sequenceDiagram
 
 ## Features Documentation
 
-### 1. Ads Management (SuperAdmin Only)
+### 1. Offers Management (SuperAdmin Only)
+
+**Route**: `/offers`
+**Component**: `OffersManagement.jsx`
+**Access**: SuperAdmin role required
+**API**: `offersAPI` in `src/services/api.js`
+
+#### Feature Overview
+
+```mermaid
+flowchart TD
+    A[Offers Management] --> B[Filter Card]
+    A --> C[Offers Table]
+
+    B --> B1[Search by code / title]
+    B --> B2[Scope filter: Global / Hall]
+    B --> B3[Status filter: Active / Inactive]
+
+    C --> D[Create Offer button]
+    C --> E[Edit button per row]
+    C --> F[Delete button per row]
+
+    D --> G[Create / Edit Dialog]
+    G --> G1[Code - uppercase monospace]
+    G --> G2[Title + Description]
+    G --> G3[Discount Type: Percentage or Fixed]
+    G --> G4[Discount Value + Max Cap for %]
+    G --> G5[Min Booking Amount]
+    G --> G6[Scope: Global or Hall-Specific]
+    G --> G7[Cinema Hall selector when scope=hall]
+    G --> G8[User Eligibility: All or Joined After]
+    G --> G9[Joined After Date picker]
+    G --> G10[Valid Until date picker]
+    G --> G11[Is Active toggle]
+```
+
+#### Table Columns
+
+| Column | Description |
+|--------|-------------|
+| **Code** | Monospace badge (uppercase) — e.g. `SAVE50` |
+| **Title** | Display name + truncated description |
+| **Discount** | e.g. `10% off · max ₹150` or `₹50 flat`, with min amount |
+| **Scope** | `Global` (violet) or `Hall` (sky) badge + hall name |
+| **Eligibility** | `All users` or `Joined after DD MMM YYYY` |
+| **Valid Until** | Date in red if already expired |
+| **Status** | `Active` (emerald) or `Inactive` (zinc) badge |
+| **Actions** | Edit (pencil) / Delete (trash) icon buttons |
+
+#### Offer Form Fields
+
+| Field | Type | Notes |
+|-------|------|-------|
+| Offer Code | Text | Stored uppercase; must be unique |
+| Title | Text | Display name shown to users |
+| Description | Textarea | Optional short description on offers page |
+| Discount Type | Select | `Percentage` or `Fixed Amount` |
+| Discount Value | Number | Percentage (e.g. `10`) or rupee amount (e.g. `50`) |
+| Max Discount Cap | Number | Only shown for percentage type; `null` = no cap |
+| Min Booking Amount | Number | Grand total must be ≥ this to apply (0 = none) |
+| Scope | Select | `Global` or `Hall-Specific` |
+| Cinema Hall | Select | Shown only when scope = Hall (fetches all halls) |
+| Applicable To | Select | `All Users` or `Users who joined after a date` |
+| Joined After | Date | Shown only when eligibility = `joined_after` |
+| Valid Until | Date | Offer expires after midnight of this date |
+| Is Active | Switch | Toggle to disable without deleting |
+
+#### Sidebar Navigation
+
+"Offers" (Tag icon) is added under the **Operations** section of `AppSidebar.jsx`, visible only to SuperAdmin (same pattern as Movies/Ads).
+
+---
+
+### 2. Ads Management (SuperAdmin Only)
 
 **Route**: `/ads`
 **Component**: `AdsManagement.jsx`
@@ -1233,4 +1307,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 16, 2026 (SettingsPage — configurable convenience fee + GST; settingsAPI added)
+**Last Updated**: March 17, 2026 (Offers Management — full coupon/offer system; SuperAdmin can create global or hall-scoped percentage/fixed discount codes with expiry, eligibility, min-amount, and max-cap controls)

@@ -27,6 +27,12 @@ Quick reference for all documentation files in this folder.
 | POST | `/api/ads/click/:id` | Record a click-through on an ad (optional customer auth) |
 | GET | `/api/ads` | List all ads with click counts — SuperAdmin only |
 | GET | `/api/ads/:id/clicks` | List click-through details (customer name/email/phone, timestamp) — SuperAdmin only |
+| GET | `/api/offers/active` | List active, eligible, non-expired offers for the logged-in customer |
+| POST | `/api/offers/validate` | Validate a coupon code + calculate discount preview (customer auth) |
+| GET | `/api/offers` | List all offers with filters — SuperAdmin only |
+| POST | `/api/offers/create` | Create a new offer — SuperAdmin only |
+| PUT | `/api/offers/update/:id` | Update an offer — SuperAdmin only |
+| DELETE | `/api/offers/delete/:id` | Delete an offer — SuperAdmin only |
 | GET | `/api/payment/admin/orders` | List all payment orders for admin's cinema hall (with filters) |
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
@@ -41,9 +47,10 @@ Select Seats (/show/:showId)
   → Hold seats (POST /api/booking/hold)
   → Navigate to /order-summary (location.state with seat + show info)
 Order Summary (/order-summary)
-  → Show price breakdown (tickets + ₹15/ticket convenience fee)
-  → Pay button → Razorpay Checkout modal
-  → Verify payment (POST /api/payment/verify)
+  → Show price breakdown (tickets + ₹15/ticket convenience fee + GST)
+  → [Optional] Enter coupon code → POST /api/offers/validate → discount applied
+  → Pay button → Razorpay Checkout modal (offer_code passed to createOrder)
+  → Verify payment (POST /api/payment/verify) → offer redemption recorded
   → Navigate to /booking/success?payment_id=pay_xxx
 BookingSuccessPage
   → GET /api/booking/by-payment/:id
@@ -76,6 +83,11 @@ BookingSuccessPage
 | Ads routes | `cinema-hall-api/routes/ads.routes.js` |
 | Admin Ads management page | `cinema-hall-admin/src/pages/AdsManagement.jsx` |
 | Ads DB migration | `cinema-hall-api/migration_ads.sql` |
+| Offers controller | `cinema-hall-api/controllers/offers.Controller.js` |
+| Offers routes | `cinema-hall-api/routes/offers.routes.js` |
+| Offers DB migration | `cinema-hall-api/migrations/migration_offers.sql` |
+| Admin Offers management page | `cinema-hall-admin/src/pages/OffersManagement.jsx` |
+| User Offers browse page | `cinema-hall-users/src/pages/OffersPage.jsx` |
 | Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
 | User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
@@ -106,6 +118,8 @@ BookingSuccessPage
 *March 12, 2026 — Added Payment Orders page to admin panel. New backend endpoint `GET /api/payment/admin/orders` (auth: `verifyCinemaAdminAccessToken` + `verifyCinemaHall`) returns paginated `payment_orders` with JOINed customer/movie/show/screen data and derived seat labels from screen layout JSONB. Filters: order date, status (created/paid/failed/expired), customer name/email search, movie title search. Frontend: `PaymentOrders.jsx` at `/payment-orders` follows same pattern as `Bookings.jsx` (4-column filter card, shadcn Table, skeleton loading, empty/error states, pagination). Sidebar nav link added under Operations between Bookings and Verify Ticket. `paymentAPI.getOrders()` added to `cinema-hall-admin/src/services/api.js`.*
 
 *March 12, 2026 — Added Refresh button to admin `Bookings.jsx` and `PaymentOrders.jsx`. Button sits in the page header alongside the total count badge; clicking re-fetches with current active filters and page. Icon spins (`animate-spin`) and button is disabled while loading.*
+
+*March 17, 2026 — Offers/coupon system: `offers` + `offer_redemptions` DB tables (`migration_offers.sql`); `ALTER TABLE bookings/payment_orders` adds `offer_code` + `discount_amount` columns. New `GET+POST /api/offers/*` routes (SuperAdmin CRUD + customer validate/active). `createOrder` applies offer discount server-side; `verifyPayment` records redemption atomically. Admin: `OffersManagement.jsx` at `/offers` (SuperAdmin); Offers nav item in AppSidebar. User: `OffersPage.jsx` at `/offers` (card grid + copy-code); coupon input + apply/remove UI in `OrderSummaryPage`; discount line in price breakdown; `offer_code` flows through `useRazorpayPayment` → `paymentAPI.createOrder`.*
 
 *March 16, 2026 — TopBar + TopNavbar UI/UX redesign: mobile search expands inline (no alert), location pill shows full text on desktop, MapPin dot indicator on mobile, numeric notification badge replaces pulsing dot, Sign In always visible (removed from hamburger), user dropdown gains "My Bookings" + avatar header, hamburger simplified to theme/location/bookings. TopNavbar: `-mb-px border-b-2` active indicator, right nav visible at `sm+`, height `h-11`. MoviesPage location strip: "Showing results near" hidden on mobile.*
 

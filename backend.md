@@ -31,6 +31,11 @@ erDiagram
     customers ||--o{ otp_verifications : "verifies"
     customers ||--o{ ad_clicks : "clicks"
     ads ||--o{ ad_clicks : "receives"
+    offers ||--o{ offer_redemptions : "redeemed via"
+    customers ||--o{ offer_redemptions : "uses"
+    bookings ||--o| offer_redemptions : "linked to"
+    cinema_hall ||--o{ offers : "scoped to (optional)"
+    cinema_admin_user ||--o{ offers : "created by"
 
     settings {
         text key PK
@@ -115,6 +120,34 @@ erDiagram
         timestamptz lock_expires_at
     }
 
+    offers {
+        uuid id PK
+        varchar code UK
+        varchar title
+        text description
+        varchar discount_type
+        numeric discount_value
+        numeric max_discount_amount
+        numeric min_booking_amount
+        boolean is_active
+        timestamptz valid_until
+        varchar scope
+        uuid cinema_hall_id FK
+        varchar user_eligibility
+        timestamptz user_joined_after
+        uuid created_by FK
+        timestamptz created_at
+    }
+
+    offer_redemptions {
+        uuid id PK
+        uuid offer_id FK
+        uuid customer_id FK
+        uuid booking_id FK
+        numeric discount_applied
+        timestamptz created_at
+    }
+
     bookings {
         uuid id PK
         uuid customer_id FK
@@ -124,6 +157,8 @@ erDiagram
         varchar payment_status
         varchar payment_id
         varchar booking_status
+        varchar offer_code
+        numeric discount_amount
         timestamptz created_at
         timestamptz updated_at
     }
@@ -151,6 +186,8 @@ erDiagram
         varchar status
         varchar payment_id
         varchar payment_signature
+        varchar offer_code
+        numeric discount_amount
         timestamptz created_at
         timestamptz updated_at
     }
@@ -1181,6 +1218,99 @@ Records a click-through. If a valid `cusAccessToken` cookie is present, attaches
 
 ---
 
+### Offers (`/api/offers`)
+
+| Method | Endpoint             | Auth          | Description                                              |
+| ------ | -------------------- | ------------- | -------------------------------------------------------- |
+| GET    | `/cinema-halls`      | SuperAdmin    | List all cinema halls (for hall-selector in admin form)  |
+| GET    | `/`                  | SuperAdmin    | List all offers (paginated, filters: scope/is_active/search) |
+| POST   | `/create`            | SuperAdmin    | Create a new offer                                       |
+| PUT    | `/update/:id`        | SuperAdmin    | Update an existing offer                                 |
+| DELETE | `/delete/:id`        | SuperAdmin    | Delete an offer (cascades redemptions)                   |
+| GET    | `/active`            | Customer      | List active, eligible, non-expired offers for the logged-in user |
+| POST   | `/validate`          | Customer      | Validate an offer code and calculate the discount preview |
+
+#### Offer Fields
+
+| Field                | Type    | Required | Description                                                          |
+| -------------------- | ------- | -------- | -------------------------------------------------------------------- |
+| `code`               | string  | Yes      | Unique coupon code (stored uppercase)                                |
+| `title`              | string  | Yes      | Short display name shown to users                                    |
+| `description`        | string  | No       | Longer description shown on the Offers page                          |
+| `discount_type`      | string  | Yes      | `"percentage"` or `"fixed"`                                          |
+| `discount_value`     | number  | Yes      | Percentage (e.g. `10` for 10%) or flat rupee amount (e.g. `50`)     |
+| `max_discount_amount`| number  | No       | Maximum discount cap for percentage offers (e.g. `150` → max ₹150). `null` = no cap |
+| `min_booking_amount` | number  | No       | Minimum grand total required for the offer to apply (default `0`)   |
+| `is_active`          | boolean | No       | Manual on/off toggle (default `true`)                                |
+| `valid_until`        | datetime| Yes      | Offer expires after this timestamp                                   |
+| `scope`              | string  | Yes      | `"global"` (all halls) or `"hall"` (specific cinema hall)           |
+| `cinema_hall_id`     | uuid    | No       | Required when `scope = "hall"`                                       |
+| `user_eligibility`   | string  | Yes      | `"all"` or `"joined_after"`                                         |
+| `user_joined_after`  | datetime| No       | Required when `user_eligibility = "joined_after"`. Only customers who registered after this date are eligible |
+
+#### POST `/api/offers/validate`
+
+Validates an offer code server-side and returns the calculated discount amount. **Does not record the redemption** — that happens in `verifyPayment`.
+
+**Request Body:**
+
+```json
+{
+  "offer_code": "SAVE50",
+  "show_id": "uuid",
+  "total_amount": 395.4
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "offer_id": "uuid",
+  "offer_code": "SAVE50",
+  "offer_title": "Flat ₹50 Off",
+  "discount_amount": 50,
+  "final_amount": 345.4
+}
+```
+
+**Validation checks (in order):**
+1. Offer exists and `is_active = true`
+2. `valid_until > NOW()`
+3. `total_amount >= min_booking_amount`
+4. If `scope = "hall"`: show's cinema hall matches offer's `cinema_hall_id`
+5. If `user_eligibility = "joined_after"`: customer joined after `user_joined_after`
+6. No prior entry in `offer_redemptions` for `(offer_id, customer_id)` (once per user)
+7. Discount calculation: fixed → `discount_value`; percentage → `min(total × val/100, max_discount_amount)`
+
+#### Offer Redemption Flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant FE as OrderSummaryPage
+    participant API as /api/offers/validate
+    participant PAY as /api/payment/create-order
+    participant VER as /api/payment/verify
+
+    U->>FE: Enter coupon code
+    FE->>API: POST /validate { offer_code, show_id, total_amount }
+    API-->>FE: { discount_amount, final_amount }
+    FE->>FE: Show discount in price breakdown
+    U->>FE: Click Pay
+    FE->>PAY: POST /create-order { show_id, seats, offer_code }
+    PAY->>PAY: Re-validate offer server-side
+    PAY->>PAY: Calculate final_amount = grandTotal - discount
+    PAY-->>FE: Razorpay order with discounted amount
+    FE->>VER: POST /verify { razorpay_order_id, ... }
+    VER->>VER: Confirm booking + INSERT offer_redemptions
+    VER-->>FE: { success: true, booking }
+```
+
+> **Security note:** The offer is always re-validated server-side in `createOrder` — the frontend discount preview is never trusted for the final charge.
+
+---
+
 ## Middleware
 
 ### Authentication Middleware
@@ -1811,7 +1941,7 @@ CREATE TABLE IF NOT EXISTS bookings (...);
 - 📧 Email receipts after successful payment
 - 📱 QR code generation for ticket verification
 - 💰 Partial payments and split payments
-- 🎫 Discount codes and promotional offers
+- ~~🎫 Discount codes and promotional offers~~ ✅ Implemented (Offers system)
 - 📊 Revenue analytics dashboard
 
 ---
@@ -1838,4 +1968,4 @@ CREATE TABLE IF NOT EXISTS bookings (...);
 
 ---
 
-**Last Updated**: March 16, 2026
+**Last Updated**: March 17, 2026
