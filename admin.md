@@ -222,6 +222,35 @@ flowchart TD
 | Valid Until | Date | Offer expires after midnight of this date |
 | Is Active | Switch | Toggle to disable without deleting |
 
+#### Date Picker Implementation Note
+
+The **Valid Until** and **Joined After** date pickers use `createPortal` (rendered directly into `document.body`) instead of the standard Radix `Popover + Calendar` pattern used elsewhere.
+
+**Why:** The Radix `Dialog` (used for the Create/Edit offer form) sets `document.body.style.pointerEvents = "none"` via its `DismissableLayer`. A `Popover` rendered inside this Dialog creates its content in a separate portal — outside the Dialog's DOM subtree — so its Calendar buttons inherit `pointer-events: none` from `body` and cannot be clicked.
+
+**Pattern used:**
+```jsx
+// Capture button position on click
+const r = btnRef.current.getBoundingClientRect()
+setPickerPos({ top: r.bottom + 4, left: r.left })
+setPickerOpen(true)
+
+// Render portal directly in document.body
+{pickerOpen && createPortal(
+    <>
+        <div className="fixed inset-0 z-[100]" onClick={() => setPickerOpen(false)} />
+        <div className="fixed z-[101] rounded-md border bg-popover shadow-md pointer-events-auto"
+             style={{ top: pickerPos.top, left: pickerPos.left }}>
+            <Calendar mode="single" selected={value}
+                onSelect={d => { setValue(d); setPickerOpen(false) }} />
+        </div>
+    </>,
+    document.body
+)}
+```
+
+The `pointer-events-auto` class on the calendar container explicitly overrides the `pointer-events: none` inherited from body, making dates fully clickable. The transparent `fixed inset-0` backdrop closes the picker on outside clicks.
+
 #### Sidebar Navigation
 
 "Offers" (Tag icon) is added under the **Operations** section of `AppSidebar.jsx`, visible only to SuperAdmin (same pattern as Movies/Ads).
@@ -1235,6 +1264,12 @@ Configured for Vercel deployment:
 - Edit/Delete hover actions preserved on `group-hover`
 - Removed unused `Tabs, TabsContent, TabsList, TabsTrigger` imports
 
+✅ **OffersManagement — date picker fix via createPortal** (March 17, 2026):
+- Replaced Radix `Popover + Calendar` with a `createPortal`-based floating calendar for **Valid Until** and **Joined After** date pickers
+- **Root cause**: Radix `Dialog` (`disableOutsidePointerEvents: true`) sets `body.style.pointerEvents = "none"` on open; a nested `Popover` renders its content in a separate portal outside the Dialog DOM, inheriting `pointer-events: none` and making Calendar day buttons unclickable
+- **Fix**: `createPortal` to `document.body` with `pointer-events: auto` explicitly set on the calendar container overrides the body restriction
+- Position calculated from `getBoundingClientRect()` on the trigger button; transparent `fixed inset-0` backdrop handles outside-click dismissal — visually identical to a Popover
+
 ✅ **ShadCN date pickers — AddShowPage, AddMultipleShowsPage, Bookings** (March 12, 2026):
 - Replaced all `<input type="date">` fields with ShadCN **Popover + Calendar** date picker pattern
 - `AddShowPage` (`show_date`), `AddMultipleShowsPage` (`show_date`), `Bookings` (Show Date filter)
@@ -1307,4 +1342,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 17, 2026 (Offers Management — full coupon/offer system; SuperAdmin can create global or hall-scoped percentage/fixed discount codes with expiry, eligibility, min-amount, and max-cap controls)
+**Last Updated**: March 17, 2026 (OffersManagement — date picker fix: replaced Popover+Calendar with createPortal pattern to bypass Radix Dialog pointer-events conflict)
