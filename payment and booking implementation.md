@@ -534,10 +534,14 @@ stateDiagram-v2
     OrderSummary --> SeatsReleased: User cancels / timer expires
 
     Payment --> Booked: Payment success + signature verified
-    Payment --> OrderSummary: Payment cancelled (hold still active)
+    Payment --> FailurePage: Payment cancelled or failed (hold still active)
     Payment --> SeatsReleased: Payment fails (webhook)
 
+    FailurePage --> OrderSummary: Click "Try Again" (hold intact)
+    FailurePage --> SeatsReleased: Click "Release seats"
+
     Booked --> [*]: /booking/success page
+    FailurePage --> [*]: /booking/failure page
     SeatsReleased --> [*]: Seats available again
 ```
 
@@ -1220,13 +1224,17 @@ stateDiagram-v2
     CreateOrder --> RazorpayCheckout: Open Razorpay modal
 
     RazorpayCheckout --> VerifyPayment: Payment success
-    RazorpayCheckout --> OrderSummary: Payment cancelled (hold intact)
-    RazorpayCheckout --> SeatsReleased: Payment failed
+    RazorpayCheckout --> FailurePage: Payment cancelled (hold intact)
+    RazorpayCheckout --> SeatsReleased: Payment failed (webhook)
 
     VerifyPayment --> BookingConfirmed: Signature valid
-    VerifyPayment --> SeatsReleased: Signature invalid
+    VerifyPayment --> FailurePage: Signature invalid (hold intact)
+
+    FailurePage --> OrderSummary: Click "Try Again"
+    FailurePage --> SeatsReleased: Click "Release seats"
 
     BookingConfirmed --> [*]: /booking/success?payment_id=
+    FailurePage --> [*]: /booking/failure
     SeatsReleased --> [*]
 
     note right of OrderSummary: 5-min hold timer ticking

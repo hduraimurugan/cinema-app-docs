@@ -32,6 +32,7 @@ graph TD
     C --> F[/show/:showId - SeatSelectionPage]
     C --> F2[/order-summary - OrderSummaryPage]
     C --> G[/booking/success - BookingSuccessPage]
+    C --> G2[/booking/failure - BookingFailurePage]
     C --> H[/theatres - TheatresPage]
 
     P --> I[/bookings - Bookings]
@@ -638,7 +639,7 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
 **Pay button:**
 - Calls `useRazorpayPayment.initiatePayment()` with `show_id`, `seats`, `customer` — **no amount sent** (backend calculates it)
 - On success: navigates to `/booking/success?payment_id=xxx`
-- On cancel: shows info toast (no seat release — hold is still active)
+- On cancel or failure: navigates to `/booking/failure` with `reason` (`'cancelled'` or `'failed'`) + full booking state — seats remain held
 
 **Cancel/Back button:**
 - Calls `bookingAPI.releaseSeats()` then navigates back to `/show/:showId`
@@ -694,9 +695,41 @@ Displayed after successful Razorpay payment, and also accessible by clicking a b
 - `qrcode.react` — `QRCodeSVG` component (SVG-based, serializes correctly with `html-to-image`)
 - `lucide-react` — `CheckCircle`, `CalendarDays`, `Clock`, `Hash`, `Ticket`, `Download`, `Loader2`
 
+#### BookingFailurePage
+
+**Route**: `/booking/failure`
+**Component**: `BookingFailurePage.jsx`
+
+Shown when Razorpay payment fails or the user dismisses the Razorpay modal. Receives full booking context via `location.state`; redirects to `/movies` if accessed with no state.
+
+**Reason variants:**
+- `reason: 'cancelled'` — user dismissed the modal → amber icon, "Payment Cancelled" title
+- `reason: 'failed'` — `verifyPayment` threw an error → red icon, "Payment Failed" title
+
+**Countdown timer:** Same hold-expiry logic as `OrderSummaryPage` — ticks in the header and auto-navigates to `/show/:showId` when the hold expires.
+
+**Actions:**
+- **"Try Again"** (primary blue button) — navigates back to `/order-summary` with all original state; no new seat hold required (existing hold is still active)
+- **"Release seats and go back"** (text link) — calls `bookingAPI.releaseSeats()`, then navigates to `/show/:showId`
+- **Back arrow** in header — same as "Release seats and go back"
+
+**State received from `OrderSummaryPage`:**
+
+```js
+{
+  reason,          // 'cancelled' | 'failed'
+  showId, selectedSeats, seatLabels,
+  holdExpiry, totalAmount,
+  movieTitle, language, showDate, startTime,
+  screenType, cinemaName
+}
+```
+
+---
+
 #### ProfilePage
 
-**Route**: `/profile`  
+**Route**: `/profile`
 **Component**: `ProfilePage.jsx`
 
 Customer profile management:
