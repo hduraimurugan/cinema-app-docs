@@ -653,7 +653,9 @@ Displays all active, non-expired offers that the logged-in user is eligible for.
 Intermediate page between seat selection and Razorpay payment. Reached after seats are successfully held (5-min hold). Receives all booking context via `location.state`; redirects to `/movies` if accessed directly with no state.
 
 **Layout (two-column on desktop, stacked on mobile):**
-- **Left panel** — Coupon input section, Razorpay payment section: lock icon + "Secure Payment via Razorpay" branding, amount summary badge, "Pay ₹XXX" button (disabled until settings load)
+- **Left column** (stacked cards):
+  - **Available Offers card** — fetches `GET /api/offers/active` on mount; shows a scrollable list of offer cards (up to 3 by default, expandable); applicable vs. ineligible offers visually differentiated
+  - **Secure Payment card** — Razorpay branding banner (lightning-bolt icon, `PCI-DSS` badge, 256-bit SSL note), payment method chips (Cards, UPI, Wallets, Net Banking, EMI), coupon input, amount summary, Pay button, trust row
 - **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + optional discount line + amount payable), "Cancel and release seats" link
 
 **Pricing (dynamic — fetched from API):**
@@ -666,10 +668,23 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
 - Price breakdown shows: Ticket(s) price, Convenience fees (₹X/ticket), GST (Y% on conv. fee), Discount (OFFERCODE) in green when applied, Amount Payable
 - Displays `...` while settings are loading; Pay button disabled until loaded
 
-**Coupon / Offer Code section (left panel):**
-- Input field (uppercase monospace) + "Apply" button (violet)
+**Available Offers panel:**
+- On mount, fetches `GET /api/offers/active` (returns user-eligible, non-expired, non-redeemed offers)
+- Offers sorted: applicable ones first (subtotal ≥ `min_booking_amount`), then locked
+- Each **offer card** shows:
+  - Coloured left accent bar (violet = applicable, grey = locked)
+  - Discount badge: `₹X OFF` (fixed) or `X% OFF upto ₹Y` (percentage)
+  - Offer code (monospace), title, description
+  - Min booking amount + expiry date; `Hall Offer` badge for hall-scoped offers
+  - `"Add ₹X more to unlock"` amber hint when not applicable due to amount
+- Clicking an applicable card directly calls `applyOffer(code)` — no typing required
+- Shows 3 offers by default; "N more offers" toggle to expand
+- Skeleton placeholders shown while loading; hides the panel if no offers exist
+
+**Coupon / Offer Code section:**
+- Input field (uppercase monospace, percent icon prefix) + "Apply" button (violet) — manual code entry
 - On apply: calls `POST /api/offers/validate` with `{ offer_code, show_id, total_amount }`
-- On success: shows green "applied" row with offer code, discount amount, and ✕ remove button
+- On success: shows green "applied" row with offer code, discount amount, and ✕ remove button; applied offer card in the offers panel shows a green checkmark
 - On error: shows red error message below input
 - Offer is re-validated server-side in `createOrder` — frontend discount preview is never trusted for the final charge
 
