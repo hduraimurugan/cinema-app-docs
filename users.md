@@ -961,6 +961,7 @@ sequenceDiagram
 
 - Consistent layout
 - Header + content area
+- Smooth scroll-to-top on every route navigation (scrolls the `<main>` container, not `window`)
 
 **LoginModal** - Authentication modal
 
