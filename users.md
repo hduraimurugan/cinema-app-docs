@@ -532,8 +532,7 @@ Browse cinema halls by location with their movies and showtimes. Uses a **BookMy
   - Clickable poster thumbnail (navigates to `/movie/:movieId`)
   - Clickable title (same navigation)
   - Duration badge (`2h 13m` format via `formatDuration`) + genre pills
-  - Shows **grouped by screen** with screen name as a left-aligned label
-  - **Green-bordered outlined show time buttons** — time on line 1, language version on line 2; sorted by time; hover changes to primary color
+  - **Green-bordered outlined show time buttons** — time (bold) on line 1, `screen_name · language_version` on line 2; sorted by time; hover changes to primary color
   - "Non-cancellable" label below each movie's shows
 - Skeleton loader covers the cinema halls section (date selector stays visible during refetch)
 - Empty state with cinema icon when no shows are scheduled for the selected date
@@ -656,7 +655,10 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
 - **Left column** (stacked cards):
   - **Available Offers card** — fetches `GET /api/offers/active` on mount; shows a scrollable list of offer cards (up to 3 by default, expandable); applicable vs. ineligible offers visually differentiated
   - **Secure Payment card** — Razorpay branding banner (lightning-bolt icon, `PCI-DSS` badge, 256-bit SSL note), payment method chips (Cards, UPI, Wallets, Net Banking, EMI), coupon input, amount summary, Pay button, trust row
-- **Right panel (sticky)** — Order summary card: movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + optional discount line + amount payable), "Cancel and release seats" link
+- **Right panel (sticky)** — Order summary card: poster thumbnail (`h-16 w-11`) + movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + optional discount line + amount payable), "Cancel and release seats" link
+
+**Sticky header:**
+- Back button → poster thumbnail (`h-14 w-10`, shown when `posterUrl` available) → movie title + show meta + countdown timer
 
 **Pricing (dynamic — fetched from API):**
 - On mount, fetches `GET /api/settings` to get `convenience_fee_per_ticket` and `gst_percentage`
@@ -707,7 +709,8 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
   showId, selectedSeats, seatLabels,
   holdExpiry, totalAmount,
   movieTitle, language, showDate, startTime,
-  screenName, screenType, cinemaName
+  screenName, screenType, cinemaName,
+  posterUrl   // movie poster URL for thumbnail display
 }
 ```
 
@@ -1178,7 +1181,7 @@ Displays a date selector and the list of cinema halls + showtimes for the select
 **Cinema Hall Cards** (`rounded-xl p-5`):
 - Building icon + hall name + location + heart icon (visual-only)
 - Shows as a **flat sorted list** (all shows for the hall sorted by `start_time`)
-- **Green-bordered outlined buttons** — time (bold) on line 1, screen name on line 2; hover changes to primary color
+- **Green-bordered outlined buttons** — time (bold) on line 1, `screen_name · language_version` on line 2; hover changes to primary color
 - "Non-cancellable" label below buttons
 
 **Data flow:**
@@ -1451,6 +1454,7 @@ npm run build
   - Mobile-responsive seat grid: `overflow-x-auto` container + `w-max mx-auto` inner div prevents squishing on small screens; compact header on mobile
   - `screenPosition` from `screen.layout` still controls "All Eyes This Way" bar placement (`top` | `bottom`)
   - **New `OrderSummaryPage`** at `/order-summary` — receives booking state, shows Razorpay payment panel (left) + order summary card (right), includes countdown timer, price breakdown with dynamic convenience fee + GST, Pay button triggers Razorpay, Cancel releases seats and navigates back
+- **OrderSummaryPage — poster thumbnails** (March 17, 2026): `SeatSelectionPage` now passes `posterUrl` (movie poster URL) in `location.state`. `OrderSummaryPage` uses it to display a small poster image in the sticky header (between back button and title) and in the right-side order summary card, replacing the `Film` icon.
 - **Dynamic Convenience Fee + GST** (March 16, 2026): `OrderSummaryPage` now fetches fee settings from `GET /api/settings` — convenience fee and GST percentage are configurable by Super Admin. GST is applied only on the convenience fee. Price breakdown shows three line items: Ticket(s) price, Convenience fees (₹X/ticket), GST (Y% on conv. fee). The Razorpay order amount is now calculated entirely server-side in `createOrder` — the frontend no longer sends an amount, preventing price tampering.
 - Interactive seat selection with 5-minute hold mechanism
 - Razorpay payment integration
