@@ -38,6 +38,8 @@ Quick reference for all documentation files in this folder.
 | POST | `/api/booking/release` | Release held seats |
 | GET | `/api/shows/get/:id` | Get show with seat layout |
 | GET | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage) |
+| GET | `/api/customers` | List all platform customers with search + pagination — SuperAdmin only |
+| GET | `/api/auth/admins` | List all cinema hall admins with their hall info — SuperAdmin only |
 
 ---
 
@@ -89,6 +91,10 @@ BookingSuccessPage
 | Offers DB migration | `cinema-hall-api/migrations/migration_offers.sql` |
 | Admin Offers management page | `cinema-hall-admin/src/pages/OffersManagement.jsx` |
 | Admin Offer create/edit page | `cinema-hall-admin/src/pages/OfferFormPage.jsx` |
+| Admin Customers list page | `cinema-hall-admin/src/pages/UsersPage.jsx` |
+| Admin Cinema Hall Admins list page | `cinema-hall-admin/src/pages/AdminsPage.jsx` |
+| Customers controller | `cinema-hall-api/controllers/customers.Controller.js` |
+| Customers routes | `cinema-hall-api/routes/customers.routes.js` |
 | User Offers browse page | `cinema-hall-users/src/pages/OffersPage.jsx` |
 | Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
@@ -122,6 +128,8 @@ BookingSuccessPage
 *March 12, 2026 — Added Refresh button to admin `Bookings.jsx` and `PaymentOrders.jsx`. Button sits in the page header alongside the total count badge; clicking re-fetches with current active filters and page. Icon spins (`animate-spin`) and button is disabled while loading.*
 
 *March 17, 2026 — OffersManagement refactored: Create/Edit Dialog replaced with route-based pages (`/offers/new`, `/offers/:id/edit`) rendered by new `OfferFormPage.jsx`. `OffersManagement.jsx` is now list-only (no form state). `GET /api/offers/:id` endpoint added (backend + `offersAPI.getById`). Date pickers use standard `Popover + Calendar` (no `createPortal` needed outside a Dialog).*
+
+*March 20, 2026 — Added Customers list and Cinema Hall Admins list pages (SuperAdmin only). New `GET /api/customers` endpoint returns all platform customers with pagination, debounced search (name/email/phone), total count, and stats (total + verified). New `GET /api/auth/admins` endpoint returns all non-superAdmin cinema hall admins joined with their hall info, with pagination and search (name/email/hall name). Both endpoints protected by `verifySuperAdmin`. Admin panel: `UsersPage.jsx` at `/customers` (stats cards for total/verified, avatar initials, table with name/email/phone/location/verified badge/booking count); `AdminsPage.jsx` at `/admins` (table with admin name/email/phone/hall name/location/joined date). Both pages moved to `AdminProtectedRoute`. Sidebar: Customers and Hall Admins nav items restricted to `roles: ["superAdmin"]`. `customersAPI` and `adminsAPI` added to `cinema-hall-admin/src/services/api.js`.*
 
 *March 20, 2026 — Admin Bookings: added 4 filter-aware stats cards (Total Bookings, Total Revenue, Convenience Fees Collected, GST Collected) above the filters section. Backend `getCinemaHallBookings` returns a `stats` aggregate using the same WHERE clause as the data query. New `convenience_fee` and `gst_amount` columns added to `bookings` and `payment_orders` tables (`migration_fee_columns.sql`); stored at booking time via `createOrder` → `payment_orders` → `verifyPayment` → `bookings`. New `BookingDetailPage` at `/bookings/:id`: full detail view with Show Details, Customer, Payment, Price Breakdown (computed seat subtotal + fee line-items), and Offer Applied card (only when offer was used). Bookings list rows are now clickable. Reuses `GET /api/booking/admin/verify/:booking_id` — no new backend endpoint needed. `bookingAPI.getBookingById` added to `api.js`.*
 

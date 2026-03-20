@@ -1325,6 +1325,96 @@ sequenceDiagram
 
 ---
 
+### Customers (`/api/customers`)
+
+| Method | Endpoint | Auth       | Description                              |
+| ------ | -------- | ---------- | ---------------------------------------- |
+| GET    | `/`      | SuperAdmin | List all customers with search + stats   |
+
+#### GET `/api/customers` *(SuperAdmin)*
+
+Returns a paginated list of all registered platform customers. Supports search across name, email, and phone.
+
+**Query Parameters:**
+
+| Param    | Type   | Default | Description                         |
+| -------- | ------ | ------- | ----------------------------------- |
+| `search` | string | —       | Filter by name, email, or phone     |
+| `page`   | number | `1`     | Page number (50 results per page)   |
+
+**Response (200):**
+
+```json
+{
+  "customers": [
+    {
+      "id": "uuid",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "9876543210",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "is_verified": true,
+      "created_at": "2025-01-15T10:30:00Z",
+      "booking_count": 5
+    }
+  ],
+  "total": 120,
+  "stats": {
+    "total": 120,
+    "verified": 98
+  }
+}
+```
+
+`booking_count` is the number of confirmed (paid) bookings for each customer. `stats` always reflects the full unfiltered totals.
+
+---
+
+### Cinema Hall Admins (`/api/auth/admins`)
+
+| Method | Endpoint   | Auth       | Description                                         |
+| ------ | ---------- | ---------- | --------------------------------------------------- |
+| GET    | `/admins`  | SuperAdmin | List all cinema hall admins with their hall details |
+
+#### GET `/api/auth/admins` *(SuperAdmin)*
+
+Returns a paginated list of all registered cinema hall admins (excludes SuperAdmin). Supports search by admin name, email, or hall name.
+
+**Query Parameters:**
+
+| Param    | Type   | Default | Description                              |
+| -------- | ------ | ------- | ---------------------------------------- |
+| `search` | string | —       | Filter by name, email, or hall name      |
+| `page`   | number | `1`     | Page number (50 results per page)        |
+
+**Response (200):**
+
+```json
+{
+  "admins": [
+    {
+      "id": "uuid",
+      "name": "Ravi Kumar",
+      "email": "ravi@example.com",
+      "phone": "9876543210",
+      "role": "admin",
+      "created_at": "2025-02-01T08:00:00Z",
+      "hall_id": "uuid",
+      "hall_name": "Ravi Cinemas",
+      "location": "Tirunelveli",
+      "district": "Tirunelveli",
+      "state": "Tamil Nadu"
+    }
+  ],
+  "total": 12
+}
+```
+
+`hall_id` / `hall_name` / `location` will be `null` if the admin has not yet created a cinema hall.
+
+---
+
 ## Middleware
 
 ### Authentication Middleware
@@ -1354,7 +1444,7 @@ flowchart TD
 | ------------------------------- | ----------------------------- | ---------------- |
 | `verifyCinemaAdminAccessToken`  | Verify admin access token     | Admin routes     |
 | `verifyCinemaAdminRefreshToken` | Verify admin refresh token    | Token refresh    |
-| `verifySuperAdmin`              | Verify SuperAdmin role        | Movie CRUD       |
+| `verifySuperAdmin`              | Verify SuperAdmin role        | Movie CRUD, Ads, Offers, Customers, Admins list |
 | `verifyCinemaHall`              | Verify admin owns cinema hall | Shows management |
 | `verifyScreenOwnership`         | Verify admin owns screen      | Show creation    |
 | `verifyCustomer`                | Verify customer access token  | Customer routes  |

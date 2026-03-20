@@ -50,6 +50,8 @@ graph TD
     N --> O3[/offers - OffersManagement]
     N --> O4[/offers/new - OfferFormPage create]
     N --> O5[/offers/:id/edit - OfferFormPage edit]
+    N --> O6[/customers - UsersPage]
+    N --> O7[/admins - AdminsPage]
 
     C --> P[/register - RegisterPage]
 ```
