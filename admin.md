@@ -776,7 +776,6 @@ Calls `showsAPI.createMultipleShows(payload)` → `POST /api/shows/bulk`. Backen
 #### HomePage
 
 - Dashboard overview
-- Quick stats (if implemented)
 - Recent activity
 
 #### Bookings
@@ -784,9 +783,12 @@ Calls `showsAPI.createMultipleShows(payload)` → `POST /api/shows/bulk`. Backen
 **Route**: `/bookings`
 **Component**: `Bookings.jsx`
 
-Displays all bookings for the admin's cinema hall in a paginated table.
+Displays all bookings for the admin's cinema hall in a paginated table, with filter-aware aggregate stats cards.
 
 **Features:**
+- **Stats cards** (4-card grid above filters): Total Bookings, Total Revenue, Convenience Fees Collected, GST Collected — all scoped to active filters and updated on every fetch
+  - Skeleton loading state while data is in flight
+  - Icons: `Ticket` (primary), `IndianRupee` (emerald), `Receipt` (sky), `Percent` (amber)
 - Table columns: Customer (avatar + name + email), Movie, Show date/time, Screen (pill badge with monitor icon), Seats (primary-tinted chips), Amount, Status badge, Booking ID (monospace code)
 - Filters (4-column grid layout): show date (ShadCN Popover + Calendar picker), movie title search (debounced 400ms), screen dropdown (populated from `screensAPI.getMyScreens()`), booking status dropdown
   - Filter params: `date`, `search`, `screen_id`, `status` (all / confirmed / cancelled / completed)
@@ -797,7 +799,7 @@ Displays all bookings for the admin's cinema hall in a paginated table.
 - Screen column: rendered as a `<Monitor>` icon pill using `screensAPI.getMyScreens()` data loaded on mount
 - Pagination: 50 bookings per page with Prev/Next controls and "Showing X of Y" count
 - Loading skeleton, contextual empty state (with "Clear filters" CTA when filters active), and error state
-- Calls `GET /api/booking/admin/all` with `{ date, search, status, screen_id, page }` query params on filter/page change
+- Calls `GET /api/booking/admin/all` with `{ date, search, status, screen_id, page }` query params on filter/page change; response includes `stats` aggregate
 
 #### VerifyTicket
 

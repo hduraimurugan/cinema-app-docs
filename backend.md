@@ -154,6 +154,8 @@ erDiagram
         uuid show_id FK
         text[] seats
         decimal total_amount
+        decimal convenience_fee
+        decimal gst_amount
         varchar payment_status
         varchar payment_id
         varchar booking_status
@@ -183,6 +185,8 @@ erDiagram
         uuid customer_id FK
         jsonb seats
         decimal amount
+        decimal convenience_fee
+        decimal gst_amount
         varchar status
         varchar payment_id
         varchar payment_signature
@@ -1018,6 +1022,8 @@ Lists all bookings for shows in the admin's cinema hall. Supports filtering and 
       "show_id": "show-uuid",
       "seats": ["0-0", "1-1"],
       "total_amount": "440.00",
+      "convenience_fee": "30.00",
+      "gst_amount": "5.40",
       "booking_status": "confirmed",
       "movie_title": "Paranthu Po",
       "show_date": "2026-03-06",
@@ -1029,9 +1035,16 @@ Lists all bookings for shows in the admin's cinema hall. Supports filtering and 
     }
   ],
   "total": 120,
-  "page": 1
+  "page": 1,
+  "stats": {
+    "total_revenue": 52800.00,
+    "total_convenience_fee": 3600.00,
+    "total_gst": 648.00
+  }
 }
 ```
+
+> `stats` aggregates are scoped to the same filters as the `bookings` array — they reflect only the filtered result set, not all bookings.
 
 #### GET `/api/booking/admin/verify/:booking_id`
 
@@ -1626,9 +1639,13 @@ CREATE TABLE payment_orders (
   customer_id UUID NOT NULL REFERENCES customers(id),
   seats JSONB NOT NULL,                        -- ["A1", "A2"]
   amount DECIMAL(10, 2) NOT NULL,
+  convenience_fee DECIMAL(10, 2) NOT NULL DEFAULT 0,
+  gst_amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
   status VARCHAR(20) DEFAULT 'created',        -- created, paid, failed, expired
   payment_id VARCHAR(255),                     -- Filled after payment
   payment_signature VARCHAR(500),
+  offer_code VARCHAR(50),
+  discount_amount NUMERIC(10, 2) DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
@@ -1643,11 +1660,15 @@ CREATE TABLE bookings (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   customer_id UUID NOT NULL REFERENCES customers(id),
   show_id UUID NOT NULL REFERENCES shows(id),
-  seats TEXT[] NOT NULL,                      -- {"A1", "A2"}
-  total_amount DECIMAL(10, 2) NOT NULL,
+  seats TEXT[] NOT NULL,                      -- seat IDs e.g. {"0-0", "1-1"}
+  total_amount DECIMAL(10, 2) NOT NULL,       -- seat subtotal + convenience + GST - discount
+  convenience_fee DECIMAL(10, 2) NOT NULL DEFAULT 0,
+  gst_amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
   payment_status VARCHAR(20) DEFAULT 'pending',
   payment_id VARCHAR(255),                    -- Razorpay payment ID
   booking_status VARCHAR(20) DEFAULT 'confirmed',
+  offer_code VARCHAR(50),
+  discount_amount NUMERIC(10, 2) DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
@@ -1683,6 +1704,7 @@ Creates a Razorpay order before initiating payment. **Amount is calculated serve
    - `gstAmount = convenienceTotal × (gst_percentage / 100)`
    - `grandTotal = seatTotal + convenienceTotal + gstAmount`
 5. Creates Razorpay order with `Math.round(grandTotal * 100)` paise
+6. Stores `convenience_fee` and `gst_amount` in `payment_orders` for later retrieval during booking confirmation
 
 **Response** (200 OK):
 
@@ -1899,24 +1921,20 @@ Name:   Test User
 | Seats no longer held   | Hold expired         | Refresh and select seats again     |
 | Receipt too long       | Receipt > 40 chars   | Fixed: `TKT-{time}-{customer}`     |
 | payment_orders missing | Migration not run    | Run `migration_payment_tables.sql` |
+| convenience_fee missing | Migration not run   | Run `migration_fee_columns.sql`    |
 | settings missing       | Migration not run    | Run `migration_settings.sql`       |
 | Duplicate booking      | Race condition       | Use database unique constraints    |
 
 ### Migration
 
-Run this SQL to create payment tables:
+Run these SQL migrations in order:
 
 ```bash
 psql -U postgres -d cinema_hall -f migration_payment_tables.sql
+psql -U postgres -d cinema_hall -f migration_fee_columns.sql
 ```
 
-Or manually:
-
-```sql
--- See migration_payment_tables.sql for full schema
-CREATE TABLE IF NOT EXISTS payment_orders (...);
-CREATE TABLE IF NOT EXISTS bookings (...);
-```
+`migration_fee_columns.sql` adds `convenience_fee` and `gst_amount` columns to both `payment_orders` and `bookings`. Existing rows default to `0`.
 
 ### Monitoring & Logs
 
