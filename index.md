@@ -40,6 +40,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage) |
 | GET | `/api/customers` | List all platform customers with search + pagination — SuperAdmin only |
 | GET | `/api/auth/admins` | List all cinema hall admins with their hall info — SuperAdmin only |
+| GET | `/api/dashboard/stats` | All dashboard metrics in one call (today stats, 7-day trend, recent bookings, today's shows) — Admin + Cinema Hall required |
 
 ---
 
@@ -95,6 +96,9 @@ BookingSuccessPage
 | Admin Cinema Hall Admins list page | `cinema-hall-admin/src/pages/AdminsPage.jsx` |
 | Customers controller | `cinema-hall-api/controllers/customers.Controller.js` |
 | Customers routes | `cinema-hall-api/routes/customers.routes.js` |
+| Admin dashboard page | `cinema-hall-admin/src/pages/HomePage.jsx` |
+| Dashboard controller | `cinema-hall-api/controllers/dashboard.Controller.js` |
+| Dashboard routes | `cinema-hall-api/routes/dashboard.routes.js` |
 | User Offers browse page | `cinema-hall-users/src/pages/OffersPage.jsx` |
 | Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
 | User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
@@ -108,6 +112,8 @@ BookingSuccessPage
 | Admin screen designer (add/edit) | `cinema-hall-admin/src/pages/ScreenDesignerPage.jsx` |
 
 ---
+
+*March 20, 2026 — Admin Dashboard (`HomePage.jsx` at `/`): full rewrite from placeholder to analytics dashboard. New `GET /api/dashboard/stats` endpoint (`dashboard.Controller.js` + `dashboard.routes.js`) returns all metrics in a single parallel DB call: today's revenue/bookings/fees, all-time totals, total customers, active offers count, screens count, last 7-day revenue trend, recent 5 bookings, today's shows with seat occupancy. Frontend: 4 KPI cards, recharts `BarChart` for revenue trend (7 days), today's shows list (occupancy color-coded green/amber/red), recent bookings list with status badges. `recharts` + `react-is` packages added to `cinema-hall-admin`. `dashboardAPI.getStats()` added to `cinema-hall-admin/src/services/api.js`.*
 
 *Last Updated: March 9, 2026 — Admin Bookings page: added Screen filter dropdown (fetches from `screensAPI.getMyScreens()`, passes `screen_id` to `GET /api/booking/admin/all`); backend query updated with `$5::uuid` screen filter; full visual redesign (avatar initials, glass-style status pills, screen pill badge, primary-tinted seat chips, 4-column filter grid).*
 

@@ -14,6 +14,7 @@ The Cinema Hall Admin Panel is a **React-based web application** built for cinem
 - **HTTP Client**: Fetch API
 - **Image Upload**: Cloudinary
 - **Authentication**: JWT with HttpOnly cookies
+- **Charts**: recharts (BarChart for dashboard revenue trend)
 
 ---
 
@@ -159,6 +160,47 @@ sequenceDiagram
 ---
 
 ## Features Documentation
+
+### 0. Dashboard (All Admins)
+
+**Route**: `/`
+**Component**: `HomePage.jsx`
+**Access**: All authenticated cinema admins
+**API**: `dashboardAPI.getStats()` → `GET /api/dashboard/stats`
+
+The dashboard loads all metrics in a single API call and renders four sections:
+
+#### KPI Cards
+
+| Card | Value | Sub-text |
+|------|-------|----------|
+| Today's Revenue | Sum of `total_amount` for today's shows | Count of today's bookings |
+| Today's Bookings | Count of bookings for today's shows | All-time booking count |
+| Total Customers | Count of all platform customers | Screen count |
+| Active Offers | Count of non-expired active offers (hall + global) | All-time revenue |
+
+#### Revenue Trend Chart
+
+- `recharts` `BarChart` with `ResponsiveContainer` — fills full card width
+- X-axis: 7 day labels (Mon–Sun) via `dayjs(date).format('ddd')`
+- Y-axis: ₹ amounts (abbreviated to `₹2k`, `₹10k`, etc.)
+- Custom `Tooltip`: shows `₹revenue` + `bookings_count` on hover
+- Bar fill: `#10b981` (emerald) — CSS variables are not supported in SVG/recharts
+
+#### Today's Shows
+
+List of all shows scheduled for today, ordered by `start_time`. Each row shows movie title, start time, screen name, and seat occupancy (`booked/total`).
+
+Occupancy color-coding:
+- `< 50%` → emerald (green)
+- `50–79%` → amber (yellow)
+- `≥ 80%` → red
+
+#### Recent Bookings
+
+Last 5 bookings across the cinema hall, ordered by `created_at DESC`. Each row shows customer name, movie title, amount, and booking status badge (same color scheme as `Bookings.jsx`). Rows are clickable and navigate to `/bookings/:id`.
+
+---
 
 ### 1. Offers Management (SuperAdmin Only)
 

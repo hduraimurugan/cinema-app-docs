@@ -1415,6 +1415,77 @@ Returns a paginated list of all registered cinema hall admins (excludes SuperAdm
 
 ---
 
+### Dashboard (`/api/dashboard`)
+
+| Method | Endpoint  | Auth                   | Description                          |
+| ------ | --------- | ---------------------- | ------------------------------------ |
+| GET    | `/stats`  | Admin + Cinema Hall    | All dashboard metrics in one call    |
+
+#### GET `/api/dashboard/stats` *(Admin + Cinema Hall)*
+
+Returns everything the admin dashboard needs in a single request. All DB queries run in parallel via `Promise.all`. Scoped to `req.my_cinema_hall.id` (set by `verifyCinemaHall` middleware).
+
+**Response (200):**
+
+```json
+{
+  "today": {
+    "bookings": 24,
+    "revenue": 12400.00,
+    "convenience_fee": 480.00,
+    "gst": 480.00
+  },
+  "allTime": {
+    "bookings": 1204,
+    "revenue": 620000.00
+  },
+  "customers": 980,
+  "activeOffers": 3,
+  "screens": 3,
+  "revenueTrend": [
+    { "date": "2026-03-14", "revenue": 8200.00, "bookings_count": 18 },
+    { "date": "2026-03-15", "revenue": 11500.00, "bookings_count": 24 }
+  ],
+  "recentBookings": [
+    {
+      "id": "uuid",
+      "total_amount": "385.00",
+      "booking_status": "confirmed",
+      "created_at": "2026-03-20T14:32:00Z",
+      "movie_title": "Superman",
+      "customer_name": "Duraimurugan Don H",
+      "seat_labels": ["C3", "C4"]
+    }
+  ],
+  "todayShows": [
+    {
+      "id": "uuid",
+      "start_time": "10:00:00",
+      "status": "open",
+      "movie_title": "KGF Chapter 2",
+      "screen_name": "Screen 1",
+      "total_seats": 120,
+      "booked_seats": 45
+    }
+  ]
+}
+```
+
+**Data sources:**
+
+| Field | Query |
+|-------|-------|
+| `today` | `SUM(total_amount / convenience_fee / gst_amount)` + `COUNT(*)` filtered by `show_date = CURRENT_DATE` |
+| `allTime` | Same aggregation without date filter |
+| `customers` | `COUNT(*) FROM customers` (platform-wide) |
+| `activeOffers` | `COUNT(*) FROM offers WHERE (cinema_hall_id = ? OR scope = 'global') AND is_active AND valid_until >= NOW()` |
+| `screens` | `COUNT(*) FROM screens WHERE cinema_hall_id = ?` |
+| `revenueTrend` | `generate_series(CURRENT_DATE - 6 days, CURRENT_DATE)` LEFT JOINed with bookings |
+| `recentBookings` | Last 5 bookings with customer + movie + seat labels |
+| `todayShows` | Shows with `show_date = CURRENT_DATE`, seat counts from `show_booked_seats` |
+
+---
+
 ## Middleware
 
 ### Authentication Middleware
