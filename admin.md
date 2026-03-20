@@ -39,7 +39,8 @@ graph TD
     E --> I4[/shows/:id/edit - EditShowPage]
     E --> J[/show/:id - ShowPage]
     E --> K[/bookings - Bookings]
-    E --> K2[/verify-ticket - VerifyTicket]
+    E --> K2[/bookings/:id - BookingDetailPage]
+    E --> K3[/verify-ticket - VerifyTicket]
     E --> L[/profile - ProfilePage]
     E --> M[/settings - SettingsPage]
 
@@ -797,9 +798,49 @@ Displays all bookings for the admin's cinema hall in a paginated table, with fil
 - Status badges: custom glass-style pills — emerald (confirmed), red (cancelled), blue (completed)
 - Customer column: coloured avatar circle with initials derived from name
 - Screen column: rendered as a `<Monitor>` icon pill using `screensAPI.getMyScreens()` data loaded on mount
+- **Clickable rows** — clicking any booking row navigates to `/bookings/:id` (BookingDetailPage)
 - Pagination: 50 bookings per page with Prev/Next controls and "Showing X of Y" count
 - Loading skeleton, contextual empty state (with "Clear filters" CTA when filters active), and error state
 - Calls `GET /api/booking/admin/all` with `{ date, search, status, screen_id, page }` query params on filter/page change; response includes `stats` aggregate
+
+#### BookingDetailPage
+
+**Route**: `/bookings/:id`
+**Component**: `BookingDetailPage.jsx`
+
+Full detail view for a single booking. Accessible by clicking a row in the Bookings list or via direct URL.
+
+**Data source**: reuses `GET /api/booking/admin/verify/:booking_id` (same endpoint as VerifyTicket QR scanner) via `bookingAPI.getBookingById(id)`.
+
+**Layout** (responsive: stacked on mobile, 2-col on `lg`):
+
+Left column (`lg:col-span-2`):
+- **Show Details card** — movie title, date (`DD MMM YYYY`), time, screen (pill badge), seat chips
+- **Customer card** — coloured avatar circle with initials, name, email
+- **Payment card** — payment status badge, Razorpay payment ID (monospace), booked-at timestamp
+
+Right column (`lg:col-span-1`):
+- **Price Breakdown card** — receipt-style line items:
+  - Tickets (N) — computed: `total_amount + discount_amount − convenience_fee − gst_amount`
+  - Convenience fee
+  - GST
+  - Offer discount (only shown if `discount_amount > 0`)
+  - Divider + bold **Total**
+- **Offer Applied card** — only rendered when `offer_code` is present; shows offer code (styled green monospace chip) + discount amount. Hidden entirely when no offer was used.
+
+**Header**: movie title + booking status badge + full booking UUID in a code element.
+
+**States**:
+- Loading: full-page skeleton grid matching the 2-col layout
+- Error / not found: centred icon + message + "Back to Bookings" button
+- Back button (ghost) at top navigates to `/bookings`
+
+**Price formula** (frontend-computed, no extra API call):
+```
+seatSubtotal = total_amount + discount_amount − convenience_fee − gst_amount
+```
+
+**Icons**: `ArrowLeft`, `User`, `CreditCard`, `Ticket`, `Monitor`, `CalendarDays`, `Clock`, `Tag`, `IndianRupee`, `Receipt`, `Percent`
 
 #### VerifyTicket
 
@@ -862,7 +903,7 @@ graph LR
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
     D --> I[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
-    F --> K[getCinemaHallBookings, verifyBooking]
+    F --> K[getCinemaHallBookings, verifyBooking, getBookingById]
     G2 --> L[getSettings, updateSettings]
 ```
 
