@@ -618,27 +618,29 @@ Displays all bookings for the logged-in customer, split into two tabs.
 **Component**: `OffersPage.jsx`
 **Access**: Requires login (shows "Please log in" prompt if not authenticated)
 
-Displays all active, non-expired offers that the logged-in user is eligible for. Reached from the "Offers" link in the top navigation bar.
+Displays all active, non-expired offers the logged-in user is eligible for — including already-redeemed offers shown as disabled. Reached from the "Offers" link in the top navigation bar.
 
 **Layout:**
 - Page header with Tag icon, title, and description
 - Responsive card grid (1 / 2 / 3 columns)
+- Available offers appear first; already-used offers are sorted to the bottom
 
 **Each offer card shows:**
-- Title + "Ending soon" amber badge (if expiry ≤ 3 days)
-- Discount value in large violet text (e.g. `₹50 OFF` or `10% OFF up to ₹150`)
+- Title + badge:
+  - **Available**: "Ending soon" amber badge if expiry ≤ 3 days
+  - **Redeemed**: green "Applied" badge (✓ Check icon)
+- Discount value — violet text for available; muted text for redeemed
 - Description (optional)
 - Min. booking amount (if set)
 - Valid until date
 - Eligibility note (if `joined_after`)
 - Hall restriction note (if `scope = "hall"`)
-- Offer code in a dashed border chip with "Copy" button — copies to clipboard + toast
+- **Available**: dashed violet code chip with "Copy" button — copies to clipboard + toast
+- **Redeemed**: strikethrough offer code + "Already used" label; card is `opacity-60` with a gray top band and no copy button
 
-**Filtering:** The backend filters out:
-- Expired offers (`valid_until ≤ NOW()`)
-- Inactive offers (`is_active = false`)
-- Offers the user has already redeemed (`offer_redemptions` check)
-- Offers the user is not eligible for (`joined_after` date check)
+**Filtering:** The backend:
+- Filters out: expired offers (`valid_until ≤ NOW()`), inactive offers (`is_active = false`), offers the user is ineligible for (`joined_after` date check)
+- Includes redeemed offers with `is_redeemed: true` (no longer filtered out — displayed as disabled cards)
 
 **API used:** `GET /api/offers/active` (requires `cusAccessToken` cookie)
 
@@ -1497,3 +1499,5 @@ npm run build
 ---
 
 **Last Updated**: March 17, 2026 — Offers system: new `OffersPage` at `/offers` (card grid of eligible active offers, copy-code button); coupon input added to `OrderSummaryPage` (Apply/Remove UI, discount line in price breakdown); `offersAPI.validateOffer` called on apply; `offer_code` passed through `useRazorpayPayment` → `paymentAPI.createOrder` for server-side re-validation.
+
+*March 20, 2026 — OffersPage now shows redeemed offers as disabled cards: `getActiveOffers` backend no longer filters out redeemed offers — returns them with `is_redeemed: true`, sorted available-first. Frontend renders redeemed cards at `opacity-60` with gray top band, green "Applied" badge, muted discount text, strikethrough code, and "Already used" label (copy button hidden).*

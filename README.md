@@ -174,7 +174,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Booking confirmation page (API-fetched, refresh-safe)**
 ✅ **MovieInfoPage — BookMyShow-style movie detail with trailer embed**
 ✅ **Dynamic ad banners (carousel on /movies, sidebar on /movie/:id) with click-through recording**
-✅ **Offers page (/offers) — browse eligible discount codes, copy with one click**
+✅ **Offers page (/offers) — browse eligible discount codes, copy with one click; redeemed offers shown as disabled with "Applied" badge**
 ✅ **Coupon input at checkout — apply offer code on Order Summary page with live discount preview**
 
 ---
@@ -276,7 +276,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: March 17, 2026
+**Last Updated**: March 20, 2026
 
 ---
 

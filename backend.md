@@ -1228,7 +1228,7 @@ Records a click-through. If a valid `cusAccessToken` cookie is present, attaches
 | POST   | `/create`            | SuperAdmin    | Create a new offer                                       |
 | PUT    | `/update/:id`        | SuperAdmin    | Update an existing offer                                 |
 | DELETE | `/delete/:id`        | SuperAdmin    | Delete an offer (cascades redemptions)                   |
-| GET    | `/active`            | Customer      | List active, eligible, non-expired offers for the logged-in user |
+| GET    | `/active`            | Customer      | List active, eligible, non-expired offers for the logged-in user — includes redeemed offers with `is_redeemed: true` (sorted: available first) |
 | POST   | `/validate`          | Customer      | Validate an offer code and calculate the discount preview |
 
 #### Offer Fields
