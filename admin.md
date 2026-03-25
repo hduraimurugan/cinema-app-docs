@@ -420,34 +420,66 @@ Opened by clicking the **click count** in either the Ads card or the Analytics t
 
 ```mermaid
 flowchart TD
-    A[Movie Management] --> B[Add Movie]
-    A --> C[Edit Movie]
-    A --> D[Delete Movie]
-    A --> E[Filter Movies]
-    A --> F[Search Movies]
+    A[Movie Management] --> B[My Movies Tab]
+    A --> C[Browse Movies Tab]
 
-    B --> G[Upload Poster to Cloudinary]
-    B --> H[Set Genres & Languages]
-    B --> I[Set Release Date & Status]
+    B --> D[Add Movie]
+    B --> E[Edit Movie]
+    B --> F[Delete Movie]
+    B --> G[Filter Movies]
 
-    E --> J[Filter by Genre]
-    E --> K[Filter by Language]
-    E --> L[Filter by Status]
+    D --> H[Upload Poster to Cloudinary]
+    D --> I[Set Genres & Languages]
+    D --> J[Set Release Date & Status]
+    D --> K[Add Cast Members]
+    D --> L[Set Vote Average & Count]
+
+    E --> M[Sync from TMDB]
+    M --> N[Auto-fill empty fields from TMDB]
+
+    C --> O[Browse Popular / Now Playing / Upcoming / Top Rated / In Theatres]
+    C --> P[Search TMDB Movies]
+    C --> Q[Import Movie from TMDB]
+    Q --> R[Maps title, poster, trailer, cast, votes, runtime]
+
+    G --> S[Filter by Genre / Language / Status]
 ```
+
+#### Layout Behavior
+
+The `/movies` route uses a **fixed-height tab layout** to avoid double-scrollbars:
+
+- The page occupies the full viewport height minus the global header (`h-[calc(100vh-4rem)]`)  
+- The tab bar (`My Movies` / `Browse Movies`) is fixed at the top (`shrink-0`)
+- The **filter sidebar** (left) and **movie grid** (right) sit inside a `flex-1 min-h-0` row — the sidebar is `overflow-y-auto` and the grid is `overflow-y-auto`, keeping each independently scrollable
+- The outer `CinemaLayout` scroll container hides its scrollbar on `/movies` (`scrollbarWidth: none`) so only the inner movie grid scrolls
+- The "Movie Management" heading is **hidden on small screens** (`hidden sm:block`)
 
 #### Movie Form Fields
 
-| Field        | Type         | Required | Description                        |
-| ------------ | ------------ | -------- | ---------------------------------- |
-| Title        | Text         | Yes      | Movie title                        |
-| Description  | Textarea     | Yes      | Movie synopsis                     |
-| Poster URL   | File Upload  | Yes      | Uploaded to Cloudinary             |
-| Trailer URL  | URL          | No       | YouTube/video link                 |
-| Duration     | Number       | Yes      | Duration in minutes                |
-| Genres       | Multi-select | Yes      | Array of genres                    |
-| Languages    | Multi-select | Yes      | Array of languages                 |
-| Release Date | Date         | Yes      | Release date                       |
-| Status       | Select       | Yes      | `upcoming`, `now_showing`, `ended` |
+| Field          | Type         | Required | Description                              |
+| -------------- | ------------ | -------- | ---------------------------------------- |
+| Title          | Text         | Yes      | Movie title                              |
+| Description    | Textarea     | Yes      | Movie synopsis                           |
+| Poster URL     | File Upload  | Yes      | Uploaded to Cloudinary                   |
+| Trailer URL    | URL          | No       | YouTube/video link                       |
+| Duration       | Number       | Yes      | Duration in minutes                      |
+| Genres         | Multi-select | Yes      | Array of genres                          |
+| Languages      | Multi-select | Yes      | Array of languages                       |
+| Release Date   | Date         | Yes      | Release date                             |
+| Status         | Select       | Yes      | `upcoming`, `now_showing`, `ended`       |
+| Vote Average   | Number       | No       | TMDB score (0–10, step 0.1)              |
+| Vote Count     | Number       | No       | Number of TMDB votes                     |
+| Cast           | List         | No       | Up to 10 cast members with profile photo |
+
+#### Cast Management UI
+
+The cast section in `MovieForm.jsx` renders an interactive list of cast member cards:
+
+- Each card shows the TMDB profile image (or a placeholder), the actor's **name**, and the **character** they play
+- Hover a card to reveal a **remove (×)** button
+- Use the **"Add Member"** inline form to manually add new cast entries (name + character fields)
+- When importing from TMDB, the top 10 cast members are pre-populated automatically
 
 #### Available Genres
 
@@ -468,7 +500,55 @@ Each movie card shows:
 - Duration
 - Release date
 - Status badge (color-coded)
+- **Vote average** (star icon) and **vote count** sourced from the database
 - Edit/Delete actions
+
+#### TMDB Integration
+
+##### Browse Movies Tab
+
+The **Browse Movies** tab (`TMDBBrowser` component) lets a SuperAdmin explore TMDB catalogs directly inside the admin panel:
+
+| Category      | TMDB Endpoint proxied           |
+| ------------- | ------------------------------- |
+| Popular       | `GET /api/tmdb/popular`         |
+| Now Playing   | `GET /api/tmdb/now-playing`     |
+| In Theatres   | `GET /api/tmdb/in-theatres`     |
+| Upcoming      | `GET /api/tmdb/upcoming`        |
+| Top Rated     | `GET /api/tmdb/top-rated`       |
+| Search        | `GET /api/tmdb/search?query=…`  |
+
+Each movie card has an **Import** button. Clicking it calls `GET /api/tmdb/movie/:tmdbId` (`append_to_response=videos,credits`) to fetch full details, then pre-fills the Add Movie dialog with:
+
+| Mapped field   | TMDB source                                       |
+| -------------- | ------------------------------------------------- |
+| Title          | `title`                                           |
+| Description    | `overview`                                        |
+| Poster URL     | `https://image.tmdb.org/t/p/w500{poster_path}`    |
+| Trailer URL    | YouTube key from `videos.results` (type=Trailer)  |
+| Duration       | `runtime` (minutes)                               |
+| Release Date   | `release_date`                                    |
+| Vote Average   | `vote_average`                                    |
+| Vote Count     | `vote_count`                                      |
+| Cast           | `credits.cast` (top 10, with name/character/photo)|
+| `tmdb_id`      | `id` (stored for future sync)                     |
+
+##### Sync from TMDB (Edit Mode)
+
+When editing a movie that has a linked `tmdb_id`, the **MovieForm** shows a blue banner:
+
+> *"Linked to TMDB #\<id\> — fill empty fields from TMDB"*
+
+The **"Sync from TMDB"** button (with a spinning `RefreshCw` icon during the request) calls `GET /api/tmdb/movie/:tmdbId` and performs a **selective merge** — it only overwrites fields that are currently empty or null in the form, preserving any manually entered values:
+
+| Field          | Synced only when…                         |
+| -------------- | ----------------------------------------- |
+| Cast           | `cast` array is empty                     |
+| Vote Average   | `vote_average` is null                    |
+| Vote Count     | `vote_count` is null                      |
+| Trailer URL    | `trailer_url` is empty                    |
+| Duration       | `duration_mins` is empty / 0              |
+| Poster URL     | `poster_url` is empty                     |
 
 #### Filtering System
 

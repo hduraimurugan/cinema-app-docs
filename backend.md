@@ -83,6 +83,7 @@ erDiagram
 
     movies {
         uuid id PK
+        int tmdb_id
         text title
         text description
         text poster_url
@@ -92,6 +93,9 @@ erDiagram
         text[] language
         text status
         date release_date
+        jsonb cast
+        numeric vote_average
+        int vote_count
         timestamptz created_at
     }
 
@@ -553,7 +557,13 @@ sequenceDiagram
   "genre": ["Action", "Sci-Fi", "Thriller"],
   "language": ["English", "Hindi"],
   "release_date": "2024-02-15",
-  "status": "upcoming"
+  "status": "upcoming",
+  "tmdb_id": 27205,
+  "vote_average": 8.4,
+  "vote_count": 35820,
+  "cast": [
+    { "name": "Leonardo DiCaprio", "character": "Cobb", "profile_path": "/path.jpg", "order": 0 }
+  ]
 }
 ```
 
@@ -571,9 +581,17 @@ sequenceDiagram
   "language": ["English", "Hindi"],
   "release_date": "2024-02-15",
   "status": "upcoming",
+  "tmdb_id": 27205,
+  "vote_average": "8.40",
+  "vote_count": 35820,
+  "cast": [
+    { "name": "Leonardo DiCaprio", "character": "Cobb", "profile_path": "/path.jpg", "order": 0 }
+  ],
   "created_at": "2024-01-29T10:00:00Z"
 }
 ```
+
+> **Note:** `cast` is a PostgreSQL reserved keyword — the column is stored as `"cast"` (double-quoted) in all SQL queries.
 
 #### GET `/api/movies`
 
@@ -606,6 +624,73 @@ sequenceDiagram
   "total": 25
 }
 ```
+
+---
+
+### TMDB Proxy (`/api/tmdb`)
+
+All endpoints require **SuperAdmin** authentication. The backend proxies requests to the TMDB API using a server-side bearer token (`TMDB_API_KEY` env var), so the key is never exposed to the browser.
+
+| Method | Endpoint             | Auth       | Description                                  |
+| ------ | -------------------- | ---------- | -------------------------------------------- |
+| GET    | `/popular`           | SuperAdmin | Popular movies (paginated)                   |
+| GET    | `/now-playing`       | SuperAdmin | Now-playing movies (paginated)               |
+| GET    | `/in-theatres`       | SuperAdmin | Theatrical releases in the past 30 days      |
+| GET    | `/upcoming`          | SuperAdmin | Upcoming movies (paginated)                  |
+| GET    | `/top-rated`         | SuperAdmin | Top-rated movies (paginated)                 |
+| GET    | `/search`            | SuperAdmin | Search TMDB by title (`?query=…`)            |
+| GET    | `/movie/:tmdbId`     | SuperAdmin | Full movie details with videos + cast        |
+
+#### Common Query Parameters (list endpoints)
+
+| Parameter              | Type   | Description                                  |
+| ---------------------- | ------ | -------------------------------------------- |
+| `page`                 | number | TMDB page number (default: 1)                |
+| `with_original_language` | string | ISO 639-1 language code filter (e.g. `ta`, `hi`) |
+
+#### GET `/api/tmdb/movie/:tmdbId`
+
+Fetches a single movie's full details including trailers and cast via TMDB's `append_to_response=videos,credits`.
+
+**Response structure (relevant fields):**
+
+```json
+{
+  "id": 27205,
+  "title": "Inception",
+  "overview": "A thief who steals corporate secrets...",
+  "poster_path": "/edv5CZvWj09paQCbCcBnLkk8pYn.jpg",
+  "runtime": 148,
+  "release_date": "2010-07-16",
+  "vote_average": 8.4,
+  "vote_count": 35820,
+  "videos": {
+    "results": [
+      { "key": "YoHD9XEInc0", "site": "YouTube", "type": "Trailer", "official": true }
+    ]
+  },
+  "credits": {
+    "cast": [
+      { "name": "Leonardo DiCaprio", "character": "Cobb", "profile_path": "/path.jpg", "order": 0 }
+    ]
+  }
+}
+```
+
+**Import mapping in the admin panel:**
+
+| TMDB field                        | Saved as            |
+| --------------------------------- | ------------------- |
+| `id`                              | `tmdb_id`           |
+| `title`                           | `title`             |
+| `overview`                        | `description`       |
+| `https://image.tmdb.org/t/p/w500` + `poster_path` | `poster_url` |
+| First YouTube Trailer key         | `trailer_url`       |
+| `runtime`                         | `duration_mins`     |
+| `release_date`                    | `release_date`      |
+| `vote_average`                    | `vote_average`      |
+| `vote_count`                      | `vote_count`        |
+| `credits.cast` (top 10)           | `cast` (JSONB)      |
 
 ---
 
