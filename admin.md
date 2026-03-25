@@ -654,6 +654,7 @@ sequenceDiagram
 | `/shows/new` | `AddShowPage.jsx` | Create a single show |
 | `/shows/bulk` | `AddMultipleShowsPage.jsx` | Create multiple time slots at once |
 | `/shows/:id/edit` | `EditShowPage.jsx` | Edit an existing show |
+| `/show/:id` | `ShowPage.jsx` | View seat layout + live status + revenue for a specific show |
 
 **Access**: Admin (any role)
 
@@ -802,6 +803,52 @@ Payload sent:
 ```
 
 Calls `showsAPI.createMultipleShows(payload)` → `POST /api/shows/bulk`. Backend creates one show per `screen × date × time_slot` (cartesian product).
+
+#### Show Detail Page (`/show/:id`)
+
+Read-only view for a specific show. Navigated to from `ShowsManagement` when an admin clicks a show time button.
+
+**Data fetched on mount (in parallel):**
+- `showsAPI.getShowById(id)` → `GET /api/shows/get/:id` — full seat layout, show metadata, price override
+- `settingsAPI.getSettings()` → `GET /api/settings` — `convenience_fee_per_ticket` + `gst_percentage` (falls back to ₹15 / 18% if request fails)
+
+**Left panel (3/4 width) — Seat Layout:**
+- Legend: AVAILABLE (green border) / HELD (yellow) / BOOKED (red)
+- Seats rendered by category section (Premium → Gold → Silver) via `renderSeatSection`
+- Aisle gaps and `screenPosition` honoured (same logic as user `SeatSelectionPage`)
+- Screen indicator bar positioned above or below seats based on `screen.layout.screenPosition`
+- Seats are display-only — no click interaction (admin view)
+
+**Right panel (1/4 width) — Seat Status Overview card (sticky):**
+
+*Seat counts:*
+- Available (green tile), Held (yellow tile), Booked (red tile)
+- Booked Seats grid — shows each booked seat label (e.g. `A4`) in a 4-column grid, max-height scrollable
+
+*Revenue Breakdown section:*
+- Per-category rows (only rendered if count > 0): `Premium (N × ₹price) — ₹subtotal`
+- **Ticket Revenue** subtotal (sum across all categories)
+- **Conv. Fee** row: `₹{fee} × {totalBooked tickets}` — flat per-ticket rate from settings
+- **GST** row: `{gst_percentage}% on conv.` — GST applied only on convenience fee (not on ticket price), matching backend logic
+- **Total Revenue** — highlighted green box: `ticketRevenue + convFee + gst`
+
+*All amounts formatted in Indian locale:* `₹1,90,000` via `toLocaleString('en-IN')`
+
+**Price resolution helpers:**
+```javascript
+getPrice(type)      // price_override[type] ?? layout.pricing[type] ?? 0
+formatCurrency(amt) // `₹${Math.round(amt).toLocaleString('en-IN')}`
+```
+
+**Revenue formula:**
+$$\text{ticketRevenue} = \sum_{\text{booked seats}} \text{getPrice}(\text{seat.type})$$
+$$\text{convFee} = \text{totalBookedCount} \times \text{convenienceFeePerTicket}$$
+$$\text{gst} = \text{convFee} \times \frac{\text{gstPercentage}}{100}$$
+$$\text{total} = \text{ticketRevenue} + \text{convFee} + \text{gst}$$
+
+> Revenue counts **booked** seats only — `status === "booked" | "BOOKED"`. Held seats (`in_booking` / `HELD`) are excluded.
+
+---
 
 #### Movie Search Component
 
@@ -1308,6 +1355,16 @@ Configured for Vercel deployment:
 
 ## Recently Implemented
 
+✅ **ShowPage — Revenue Breakdown** (March 25, 2026):
+- New **Revenue Breakdown** section added to the Seat Status Overview sidebar card
+- Settings fetched in parallel (`settingsAPI.getSettings()`) on page mount; defaults to ₹15/ticket + 18% GST if request fails
+- Per-category rows (Premium / Gold / Silver) — each shows `N seats × ₹price = ₹subtotal` (row hidden when count is 0)
+- Ticket Revenue subtotal, Convenience Fee row (`₹fee × N tickets`), GST row (`X% on conv.`)
+- **Total Revenue** highlighted green tile: `ticketRevenue + convFee + gst` — only booked seats counted, held seats excluded
+- GST applied on convenience fee only (not ticket price), matching backend `payment.Controller.js` logic
+- All currency values formatted in Indian comma style: `₹1,90,000` via `toLocaleString('en-IN')`
+- `getPrice(type)` helper resolves `price_override → layout.pricing → 0`; `formatCurrency(amt)` helper added
+
 ✅ **ShowPage — aisle gaps + screenPosition** (March 12, 2026):
 - `renderSeatSection` now reads `aisleAfterColumns` and `aisleAfterRows` from `screen.layout` (same logic as user `SeatSelectionPage`)
   - `aisleAfterColumns: number[]` — inserts a `w-3` gap div after the matching column number in every row
@@ -1436,4 +1493,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 17, 2026 (OffersManagement — Create/Edit Dialog replaced with route-based pages `/offers/new` + `/offers/:id/edit` using `OfferFormPage.jsx`; date pickers reverted to standard Popover+Calendar; `GET /api/offers/:id` endpoint added)
+**Last Updated**: March 25, 2026 (ShowPage — Revenue Breakdown added to Seat Status Overview sidebar: per-category ticket revenue, convenience fee, GST, and Indian-formatted total; `settingsAPI` fetched in parallel on mount)
