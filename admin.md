@@ -590,14 +590,59 @@ Aisles are **gaps** in the grid, not seats. Stored in the layout as:
 - **Edit mode**: changing rows or columns **reconciles** — existing seat configurations are preserved; only new seats (for the expanded dimensions) are added as `silver`; seats for removed rows/columns are dropped.
 - **Debounced input** (600 ms): the Rows and Columns inputs are controlled by separate `inputRows`/`inputColumns` state that updates immediately for a responsive feel. The actual layout update (and seat reconciliation) fires only after the user stops typing for 600 ms, preventing unnecessary re-renders on every keystroke.
 
+#### UI Layout
+
+The designer uses a **3-column layout** inside a sticky-header shell:
+
+| Area | Description |
+|---|---|
+| **Sticky top navbar** | Back arrow, "Screen Designer" title, screen name badge; action buttons: Clear Selection, Reset Grid, Preview, Save Screen |
+| **Left panel** (~240px) | Screen Settings · Seat Summary · Pricing · Selection Mode · Tools |
+| **Center panel** (flex) | Zoom bar + scrollable/scalable seat canvas |
+| **Right panel** (~220px) | Selected Seat inspector · Quick Apply · History log · Keyboard Shortcuts |
+
+#### Seat Summary
+
+Live counts derived from `layout.seats` + `selectedSeats` (updates on every seat change):
+
+| Metric | Description |
+|---|---|
+| TOTAL | Non-blocked seats |
+| PREMIUM / GOLD / SILVER | Count by type (non-blocked) |
+| BLOCKED | Seats with `isBlocked: true` |
+| SELECTED | Currently selected seat count |
+
+#### Zoom Controls
+
+Canvas is wrapped in a `transform: scale()` div. Controls in the zoom bar:
+
+| Control | Action |
+|---|---|
+| `−` / `+` | Decrease / increase zoom by 10% (range 20–200%) |
+| `Fit` | Calculates zoom to fit the grid into the center panel |
+| `80%` display | Shows current zoom level |
+
+#### Undo / Redo
+
+Before every destructive operation (`updateMultipleSeats`, aisle toggles, reset), the current `layout` snapshot is pushed to `undoStack` (capped at 50). Redo stack is cleared on new edits.
+
+- Keyboard: `Ctrl+Z` / `Ctrl+Shift+Z` (Mac: `⌘Z` / `⌘⇧Z`)
+- Buttons in zoom bar: `← Undo` / `Redo →` (disabled when stack is empty)
+
 #### Interactive Features
 
-**Selection Modes:**
+**Selection Modes** (buttons in left panel):
 
-1. **Single** - Click a seat to apply the active tool immediately
-2. **Multi** - `Ctrl+Click` to toggle individual seats, `Shift+Click` to range-select; apply tool to all selected at once
-3. **Row Select** - Click row `⬌` button (non-aisle mode)
-4. **Column Select** - Click column number header (non-aisle mode)
+| Mode | Behaviour |
+|---|---|
+| **Single** | Click a seat to apply the active tool immediately; click clears selection after applying |
+| **Multi** | `Ctrl+Click` to toggle individual seats; `Shift+Click` to range-select a rectangle; tool applies to all selected on next click |
+| **Row** | Click any seat to select its entire row |
+
+**Additional selection actions:**
+- **Column Select** — Click column number header (any mode except Aisle)
+- **Row ⬌ button** — Click row's `⬌` button to select full row (or toggle aisle in Aisle mode)
+- **Select All** (`Ctrl+A`) — Selects all non-blocked seats
 
 **Tools:**
 
@@ -608,14 +653,40 @@ Aisles are **gaps** in the grid, not seats. Stored in the layout as:
 | Entrance / Door | Mark seat as entrance or door (price = 0) |
 | Block/Unblock | Toggle `isBlocked` on selected seats |
 
+**Quick Apply panel** (right panel):
+
+| Button | Action |
+|---|---|
+| Fill Selected Row | Selects all seats in the row of the last-selected seat |
+| Apply to All Selected | Applies the current tool to all selected seats at once |
+| Clear Selected | Clears the current selection |
+
+**Selected Seat Inspector** (right panel):
+
+When exactly 1 seat is selected, the right panel shows: Row, Column, Type badge, Price, Blocked status.
+
+**History Log** (right panel):
+
+Every action (grid generated, type applied, aisle toggled, undo/redo, save) is prepended to a 50-entry scrollable log with a colored dot and timestamp.
+
 **Visual Indicators:**
 
 - **Premium**: Yellow gradient
-- **Gold**: Blue gradient
-- **Silver**: Gray gradient
+- **Gold**: Violet gradient
+- **Silver**: Slate gradient
 - **Entrance/Door**: Green/Orange gradient
 - **Blocked**: Red background + ✕
-- **Selected**: Blue border + ring
+- **Selected**: Blue border + ring + scale-up
+
+**Keyboard Shortcuts:**
+
+| Shortcut | Action |
+|---|---|
+| `⌘Z` / `Ctrl+Z` | Undo |
+| `⌘⇧Z` / `Ctrl+Shift+Z` | Redo |
+| `⌘A` / `Ctrl+A` | Select All |
+| `⌘+Click` / `Ctrl+Click` | Toggle individual seat in Multi mode |
+| `⇧+Click` / `Shift+Click` | Range-select in Multi mode |
 
 #### Layout Designer Workflow
 
@@ -1354,6 +1425,21 @@ Configured for Vercel deployment:
 ---
 
 ## Recently Implemented
+
+✅ **Screen Designer — full UI redesign** (March 25, 2026):
+- Replaced 2-column layout with a **3-column layout**: left settings panel (240px) | center canvas | right inspector panel (220px)
+- New **sticky top navbar**: back arrow, "Screen Designer" title, screen name badge, and action buttons (Clear Selection, Reset Grid, Preview, Save Screen)
+- **Seat Summary** cards in left panel: live counts for Total / Premium / Gold / Silver / Blocked / Selected (updates reactively)
+- **Selection Mode** buttons now include a **Row** mode (clicking any seat selects its entire row), alongside Single and Multi
+- **Zoom controls** in center toolbar: `−` / `%` / `+` / `Fit`; grid scales via CSS `transform: scale()` (range 20–200%)
+- **Undo/Redo** (`Ctrl+Z` / `Ctrl+Shift+Z`): 50-step layout snapshot stack; cleared on new edits; buttons disabled when stack is empty
+- **Select All** (`Ctrl+A`): selects all non-blocked seats
+- **History log** (right panel): 50-entry scrollable log of every action with colored dots and timestamps
+- **Selected Seat inspector** (right panel): shows Row / Column / Type / Price / Blocked when exactly 1 seat is selected
+- **Quick Apply** (right panel): Fill Selected Row, Apply to All Selected, Clear Selected
+- **Keyboard Shortcuts** reference table (right panel): static display of Undo, Redo, Select All, Multi-select, Row select
+- **Preview dialog**: read-only grid rendered at 70% scale in a full-width modal
+- Tool buttons restyled as pill buttons with active ring highlight; gold changed from blue → violet gradient
 
 ✅ **ShowPage — Revenue Breakdown** (March 25, 2026):
 - New **Revenue Breakdown** section added to the Seat Status Overview sidebar card
