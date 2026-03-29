@@ -550,6 +550,34 @@ The **"Sync from TMDB"** button (with a spinning `RefreshCw` icon during the req
 | Duration       | `duration_mins` is empty / 0              |
 | Poster URL     | `poster_url` is empty                     |
 
+#### Movie Detail Page
+
+**Route**: `/movie/:id`
+**Component**: `MoviePage.jsx`
+
+Clicking a movie card navigates to the dedicated admin movie detail page.
+
+**Hero Banner:**
+- Full-width blurred poster background with `bg-black/50` overlay
+- Back button (top-left ghost button with animated arrow)
+- Large poster (`lg:col-span-1`, `rounded-xl`) with hover scale transition
+- Movie details (`lg:col-span-2`): title with purple gradient text, status badge, description, duration + release date info grid, genre badges, language badges
+- **SuperAdmin only**: inline status select (`upcoming` / `now_showing` / `ended`) + **Update** button; calls `moviesAPI.updateStatus()` and patches local state on success
+
+**Cast section** (only rendered when `cast` array is non-empty):
+- Circular TMDB profile photos (`w-20 h-20 rounded-full`) fetched from `https://image.tmdb.org/t/p/w185{profile_path}`
+- Falls back to the actor's initial letter when `profile_path` is missing
+- Actor **name** and **character** shown below each avatar
+- Rendered in a shadcn `Card` between the Trailer and Additional Info sections
+
+**Trailer section** (only rendered when `trailer_url` is set):
+- Responsive `aspect-video` iframe inside a shadcn `Card`
+- URL normalized via `getYouTubeEmbedUrl()` helper
+
+**Additional Info cards:**
+- **Movie Details** card: Duration, Release Date, Status badge, Added date; when `vote_average` / `vote_count` are present — star rating row (`vote_average / 10`, yellow) and vote count row with `ThumbsUp` icon
+- **Synopsis** card: full description text
+
 #### Filtering System
 
 ```mermaid
@@ -1591,6 +1619,10 @@ Configured for Vercel deployment:
 ---
 
 ## Recently Implemented
+
+✅ **MoviePage — Cast section + Ratings display** (March 29, 2026):
+- New **Cast section** in `MoviePage.jsx` (between Trailer and Additional Info): circular TMDB profile photos (`w-20 h-20 rounded-full`, border, shadow), actor name, character name; initial-letter fallback when `profile_path` is absent. Rendered inside a shadcn `Card` with a `Users` icon heading.
+- **Movie Details card** now shows `vote_average` (star icon, yellow, formatted to 1 decimal, `/ 10` suffix) and `vote_count` (`ThumbsUp` icon, `toLocaleString()`) — rows hidden entirely when fields are absent.
 
 ✅ **Screen Designer — full UI redesign** (March 25, 2026):
 - Replaced 2-column layout with a **3-column layout**: left settings panel (240px) | center canvas | right inspector panel (220px)

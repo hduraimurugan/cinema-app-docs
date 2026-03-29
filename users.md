@@ -1103,10 +1103,16 @@ Dedicated movie detail page — BookMyShow style — showing movie metadata, a p
 - Full-width blurred `poster_url` background (`blur-md opacity-40`) with dark gradient overlay
 - Back button (top-left, frosted glass) → `/movies`
 - Large poster left (`w-40 sm:w-52 md:w-60`, `aspect-[2/3]`, `rounded-2xl`) with **Trailer overlay button** at the bottom (shown only when `trailer_url` exists) — clicking scrolls to the Trailer section
-- Movie metadata right: title (`text-3xl sm:text-5xl font-bold`), duration + genres + release date in a meta row, format (`2D`) + language badges, **Book Tickets** primary button → `/movie/shows/:movieId`
+- Movie metadata right: title (`text-3xl sm:text-5xl font-bold`), duration + genres + release date in a meta row, star rating + vote count (hidden when `vote_average` is `0`), format (`2D`) + language badges, **Book Tickets** primary button → `/movie/shows/:movieId`
 
 **About the movie:**
 - Full description text, separated by `border-b`
+
+**Cast section** (only rendered when `cast` array is non-empty):
+- Circular profile photos (`w-16 h-16 rounded-full`) fetched from `https://image.tmdb.org/t/p/w185{profile_path}`
+- Falls back to the actor's initial letter on image error or when `profile_path` is absent
+- Actor **name** and **character** shown below each avatar
+- Separated by `border-b`, sits between "About the movie" and "Trailer"
 
 **Trailer section** (only rendered when `trailer_url` is set):
 - Responsive `aspect-video` iframe (`rounded-xl overflow-hidden shadow-2xl`, `max-w-3xl`)
@@ -1474,6 +1480,7 @@ npm run build
 - **MovieDetailsPage section loading**: date change triggers skeleton only on the Cinema Halls section; movie info and date selector stay visible (`refetching` state separate from initial `loading`)
 - **MovieDetailsPage UI redesign** (BookMyShow style): cinematic blurred-poster banner header, 3-part vertical date buttons (DOW/day/month), language chip, availability legend, green-bordered outlined show time buttons with screen name, expandable description, heart icon on hall cards
 - **TheatresPage UI redesign** (BookMyShow style): same 3-part date buttons and availability legend, rounded-xl hall cards with heart icon, clickable movie poster + title, green-bordered show time buttons with language version, `formatDuration` helper, shows sorted by time per screen
+- **MovieInfoPage — Cast + Ratings** (March 29, 2026): `MovieInfoPage.jsx` now displays a **Cast section** between "About the movie" and "Trailer" — circular TMDB profile photos, actor name, and character; falls back to the actor's initial. The hero meta row now shows a **star rating** (`vote_average / 10`) and formatted vote count (e.g. `330K Votes`) in yellow; the entire rating line is hidden when `vote_average` is `0.00`.
 - **MovieInfoPage** (new page, BookMyShow style): `/movie/:movieId` now shows a dedicated movie info page — large poster, title, duration/genres/release date, 2D + language badges, "Book Tickets" CTA → `/movie/shows/:movieId`, "About the movie" section, inline YouTube trailer embed with smooth-scroll from poster overlay button. Route `/movie/shows/:movieId` now serves the existing cinema-halls/showtimes page. Back button on shows page explicitly returns to `/movie/:movieId`.
 - **Dynamic Ads** (March 14, 2026): `AdBanner.jsx` now fetches live banner ads from `GET /api/ads/active?placement=banner`; renders nothing if no active ads. Clicking an ad records the click-through and opens the destination URL. `MovieInfoPage.jsx` fetches `placement=side` ads and shows a sticky right-side column on `md+` screens when ads are available. `adsAPI` added to `cinema-hall-users/src/services/api.js`.
 - **TopBar + TopNavbar UI/UX redesign** (March 16, 2026):
