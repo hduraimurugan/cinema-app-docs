@@ -41,6 +41,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/customers` | List all platform customers with search + pagination — SuperAdmin only |
 | GET | `/api/auth/admins` | List all cinema hall admins with their hall info — SuperAdmin only |
 | GET | `/api/dashboard/stats` | All dashboard metrics in one call (today stats, 7-day trend, recent bookings, today's shows) — Admin + Cinema Hall required |
+| GET | `/api/cron/jobs` | Vercel Cron endpoint — runs `cleanupExpiredHolds` + `updateShowStatuses`; protected by `Authorization: Bearer <CRON_SECRET>` |
 
 ---
 

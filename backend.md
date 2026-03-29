@@ -1844,9 +1844,18 @@ The API is configured for Vercel serverless deployment via `vercel.json`:
       "src": "/(.*)",
       "dest": "server.js"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/jobs",
+      "schedule": "*/1 * * * *"
+    }
   ]
 }
 ```
+
+**Why crons are required:**  
+Vercel runs Express as **serverless functions** — there is no long-lived process. Any `setInterval` in `server.js` is killed when the function instance freezes between requests. The `setInterval` blocks are therefore guarded with `NODE_ENV !== 'production'` (local only). In production, Vercel Cron takes over and calls `GET /api/cron/jobs` every minute.
 
 ### CORS Configuration
 
@@ -1908,18 +1917,40 @@ scheduled → booking_started → in_progress → show_ended
 
 ### Show Status Auto-Update (Background Job)
 
-Show statuses transition automatically via a `setInterval` job in `server.js` (runs every 60 seconds):
+Show statuses transition automatically via two mechanisms:
+
+**Local development** — `setInterval` in `server.js` (only runs when `NODE_ENV !== 'production'`):
+
+```javascript
+// Runs every 30s (local only)
+setInterval(async () => { await cleanupExpiredHolds(); }, 30000);
+
+// Runs every 60s (local only)
+setInterval(async () => { await updateShowStatuses(); }, 60000);
+```
+
+**Production (Vercel)** — Vercel Cron triggers `GET /api/cron/jobs` every minute:
+
+```javascript
+// server.js — cron route
+app.get('/api/cron/jobs', async (req, res) => {
+  // Protected by CRON_SECRET env var
+  if (process.env.NODE_ENV === 'production' &&
+      req.headers['authorization'] !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  await cleanupExpiredHolds();
+  await updateShowStatuses();
+  res.status(200).json({ ok: true, time: new Date().toISOString() });
+});
+```
+
+Vercel automatically injects `Authorization: Bearer <CRON_SECRET>` on cron invocations. Add `CRON_SECRET` as an environment variable in the Vercel project dashboard.
 
 Times are compared in **IST (`Asia/Kolkata`)** since show times are stored in local time.
 
-```javascript
-// server.js
-setInterval(async () => {
-  await updateShowStatuses();
-}, 60000);
-```
-
-> **Production note:** `setInterval` only runs when `NODE_ENV !== 'production'`. For Vercel deployments, use Vercel Cron Jobs to call `GET /api/shows/update-statuses`.
+**Transient error handling:**  
+Both `cleanupExpiredHolds` and `updateShowStatuses` silently skip their tick on transient DB connectivity errors (`ENOTFOUND`, `ECONNRESET`, `ETIMEDOUT`, `ECONNREFUSED`) and log a short warning instead of a full stack trace. Real unexpected errors still log the full error.
 
 ### Auto-Update Timestamp
 
