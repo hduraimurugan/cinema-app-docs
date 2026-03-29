@@ -564,6 +564,90 @@ sequenceDiagram
     TheatresPage->>User: navigate('/show/:showId')
 ```
 
+#### SeatSelectionPage
+
+**Route**: `/show/:showId`
+**Component**: `SeatSelectionPage.jsx`
+
+Interactive seat selection UI for a given show. Fetches live seat availability from the API, lets users select seats, then holds them for 5 minutes before navigating to `OrderSummaryPage`.
+
+**Layout:**
+- **Sticky header** — back button, movie poster thumbnail, title + language, show time badge, screen type badge (2D/3D/IMAX). Compact on mobile.
+- **Legend + toolbar row** — Available / Sold / Selected color swatches on the left; **Select / Pan mode toggle** button on the right.
+- **Seat grid** — horizontally scrollable, zero-padded column numbers (`01`, `02`…), row labels on both sides. Sections separated by a price header (`₹350 PREMIUM`). Screen indicator ("All Eyes This Way" blue line) positioned at `top` or `bottom` based on `screenPosition` from the layout.
+- **Floating zoom controls** — `+` / `−` circular buttons on the bottom-right of the seat grid with a percentage readout.
+- **Fixed minimap panel** — `"Layout Overview"` card fixed to the top-right of the viewport (below the sticky header); only shown on `sm+` screens when the layout overflows horizontally.
+- **Bottom payment bar** — fixed footer with ticket count, total price, and "Proceed to Payment" button; only visible when seats are selected.
+
+**Key Features:**
+
+| Feature | Detail |
+|---|---|
+| **Seat hold** | `POST /api/booking/hold` — 5-minute row-level lock; on success navigates to `/order-summary` with full state |
+| **Hand / Pan tool** | Toggle between Select and Pan modes; in Pan mode dragging moves the seat grid instead of selecting seats. Cursor becomes `grab` / `grabbing`. Document-level `mousemove`+`mouseup` listeners attached while pan mode is active. |
+| **Layout Minimap** | 300×200px canvas fixed at `top-right` of viewport. Draws all seats as colored rectangles (amber = premium, yellow = gold, gray = silver, zinc = sold, emerald = selected). Blue rectangle shows the current scroll viewport. Click or drag on the minimap to jump to that area. Only visible when the grid overflows. |
+| **Zoom** | CSS `zoom` property applied to the content div. Range 50%–150%, step 10%. Zoom buttons float on the right edge of the seat grid. Minimap viewport rectangle updates automatically on zoom. |
+| **Aisle gaps** | `aisleAfterColumns` inserts horizontal gaps; `aisleAfterRows` inserts vertical gaps between rows |
+| **Login gate** | If the user is not logged in and clicks "Proceed", a `LoginModal` opens instead of navigating |
+
+**State:**
+
+```js
+selectedSeats   // string[] of seat IDs
+isPanMode       // bool — whether drag pans instead of selects
+isDraggingActive // bool — for grabbing cursor re-render
+isOverflowing   // bool — controls minimap visibility
+zoom            // number — 0.5 to 1.5, applied via CSS zoom
+```
+
+**Refs:**
+
+```js
+scrollContainerRef  // the overflow-x-auto scroll div
+contentDivRef       // the w-max content div (zoom applied here)
+minimapCanvasRef    // the minimap <canvas>
+isDraggingRef       // tracks active pan drag (not state — avoids re-renders)
+dragStartXRef       // clientX at pan drag start
+dragStartScrollLeftRef // scrollLeft at pan drag start
+isMinimapDraggingRef   // tracks minimap drag
+```
+
+**Minimap — position math:**
+```
+seatPositionMap: Map<seatId, {x, y}> built from layout data (mirrors renderSeatSection math)
+scaleX = MINIMAP_W (300) / contentEl.scrollWidth
+scaleY = MINIMAP_H (200) / contentEl.scrollHeight
+viewportRect.left = scrollEl.scrollLeft * scaleX
+viewportRect.width = scrollEl.clientWidth * scaleX
+```
+CSS `zoom` automatically adjusts `scrollWidth`, so the minimap viewport rectangle correctly shrinks/grows when zoomed.
+
+**Data flow:**
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant SeatSelectionPage
+    participant API
+
+    SeatSelectionPage->>API: GET /api/shows/:showId
+    API-->>SeatSelectionPage: showData (seats with status, layout, pricing)
+
+    User->>SeatSelectionPage: Click seat (Select mode)
+    SeatSelectionPage->>SeatSelectionPage: toggleSeat() → update selectedSeats
+
+    User->>SeatSelectionPage: Toggle Pan mode
+    SeatSelectionPage->>SeatSelectionPage: isPanMode = true; drag moves scrollLeft
+
+    User->>SeatSelectionPage: Zoom in/out
+    SeatSelectionPage->>SeatSelectionPage: zoom ±0.1; CSS zoom applied; minimap redraws
+
+    User->>SeatSelectionPage: Click "Proceed to Payment"
+    SeatSelectionPage->>API: POST /api/booking/hold { showId, seatIds }
+    API-->>SeatSelectionPage: { success, hold_expires_at }
+    SeatSelectionPage->>User: navigate('/order-summary', { state: bookingContext })
+```
+
 #### HallManagement
 
 **Component**: `HallManagement.jsx`
@@ -1463,6 +1547,13 @@ npm run build
 ## Future Enhancements
 
 ✅ **Recently Implemented:**
+
+- **SeatSelectionPage — Hand tool, Minimap, Zoom** (March 29, 2026):
+  - **Hand / Pan tool**: Select ↔ Pan mode toggle button added to the legend toolbar. In Pan mode, clicking and dragging anywhere on the seat grid pans it horizontally instead of selecting seats. Cursor changes to `grab` / `grabbing`. Document-level mouse listeners are attached while pan mode is active and removed on exit.
+  - **Layout Minimap**: Fixed `300×200px` canvas panel ("Layout Overview") pinned to the top-right of the viewport below the sticky header. Draws all seats as colored rectangles (amber = premium, yellow = gold, gray = silver, zinc = sold/held, emerald = selected). A blue semi-transparent rectangle tracks the current scroll viewport. Clicking or dragging on the minimap scrolls the main view to that position. Updates live on scroll, seat selection, and zoom changes. Hidden on mobile and when the layout doesn't overflow.
+  - **Zoom controls**: `+` / `−` floating circular buttons on the bottom-right of the seat grid with a `%` readout. CSS `zoom` property applied to the content div — range 50%–150%, step 10%. Zoom correctly expands/shrinks the scrollable area (unlike `transform: scale`). Minimap viewport rectangle auto-updates when zoomed.
+  - **`seatPositionMap` (useMemo)**: Builds a `Map<seatId, {x,y}>` mathematically from layout data at render time — avoids DOM queries during minimap drawing.
+  - **`formatTime` helper**: Added to format `HH:MM:SS` → `H:MM AM/PM` for the sticky header time badge.
 
 - **SeatSelectionPage + OrderSummaryPage — BMS-style redesign** (March 16, 2026):
   - `SeatSelectionPage` fully redesigned: dark seat grid (`bg-gray-50 dark:bg-zinc-950`), small square buttons with zero-padded 2-digit column numbers (`01`, `02`…), theme-adaptive colors for available/sold/selected states, row labels on both sides, "Proceed to Payment" holds seats then navigates to `/order-summary` via `location.state`
