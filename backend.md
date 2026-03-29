@@ -766,10 +766,14 @@ Fetches a single movie's full details including trailers and cast via TMDB's `ap
 | POST   | `/create`               | Admin + Screen Owner | Create single show                                |
 | POST   | `/bulk`                 | Admin + Screen Owner | Create multiple shows                             |
 | PUT    | `/edit/:id`             | Admin + Screen Owner | Edit show details                                 |
-| DELETE | `/delete/:id`           | Admin                | Delete show                                       |
+| DELETE | `/delete/:id`           | Admin                | Delete single show                                |
+| DELETE | `/bulk`                 | Admin                | Bulk delete shows by ID array                     |
 | GET    | `/date/:date`           | Admin                | Get shows by date (grouped by movie)              |
-| PUT    | `/booking-status/:id`   | Admin                | Open bookings (`open`) or revert to scheduled (`revert`) |
+| PUT    | `/booking-status/:id`   | Admin                | Open (`open`), revert (`revert`), or restore (`restore`) booking status |
 | PUT    | `/cancel/:id`           | Admin                | Cancel show + cancel bookings + initiate refunds  |
+| PUT    | `/bulk-cancel`          | Admin                | Bulk cancel shows + bookings + refunds            |
+| PUT    | `/bulk-booking-open`    | Admin                | Bulk open booking for scheduled shows             |
+| PUT    | `/bulk-restore`         | Admin                | Bulk restore cancelled shows to scheduled         |
 | GET    | `/get/:id`              | None                 | Get show details with seat layout                 |
 | POST   | `/book/:showId`         | None                 | Book seats for show                               |
 
@@ -868,7 +872,7 @@ Fetches a single movie's full details including trailers and cast via TMDB's `ap
 
 #### PUT `/api/shows/booking-status/:id`
 
-Opens or reverts booking availability for a show. Admin only.
+Opens, reverts, or restores booking availability for a show. Admin only.
 
 **Request Body:**
 
@@ -880,6 +884,7 @@ Opens or reverts booking availability for a show. Admin only.
 |---|---|---|---|
 | `"open"` | `scheduled` | `booking_started` | Always allowed |
 | `"revert"` | `booking_started` | `scheduled` | Only if zero confirmed bookings exist |
+| `"restore"` | `cancelled` | `scheduled` | Always allowed |
 
 **Response (200):**
 
@@ -887,7 +892,7 @@ Opens or reverts booking availability for a show. Admin only.
 { "message": "Booking opened successfully", "status": "booking_started" }
 ```
 
-Returns `400` if the action is invalid, the show is in the wrong state, or (for revert) confirmed bookings already exist.
+Returns `400` if the action is invalid or the show is in the wrong state. For `revert`, also returns `400` if confirmed bookings already exist.
 
 #### PUT `/api/shows/cancel/:id`
 
@@ -910,6 +915,99 @@ Returns `400` if the show is already `cancelled` or `show_ended`.
   ]
 }
 ```
+
+#### DELETE `/api/shows/bulk`
+
+Bulk-delete multiple shows. Admin only.
+
+**Request Body:**
+
+```json
+{ "ids": ["uuid1", "uuid2"] }
+```
+
+**Response (200):** `{ "message": "Shows deleted" }`
+
+#### PUT `/api/shows/bulk-cancel`
+
+Bulk cancel shows. Each show is processed in its own transaction. Skips shows already `cancelled` or `show_ended`. Initiates Razorpay refunds for any paid bookings.
+
+**Request Body:**
+
+```json
+{ "ids": ["uuid1", "uuid2"] }
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "2 of 3 show(s) cancelled",
+  "results": [
+    { "id": "uuid1", "success": true, "bookings_cancelled": 2 },
+    { "id": "uuid2", "success": true, "bookings_cancelled": 0 },
+    { "id": "uuid3", "success": false, "error": "Show already ended" }
+  ]
+}
+```
+
+#### PUT `/api/shows/bulk-booking-open`
+
+Bulk open booking for shows. Only affects shows with `status = 'scheduled'`; skips others.
+
+**Request Body:**
+
+```json
+{ "ids": ["uuid1", "uuid2"] }
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "Booking opened for 2 of 2 show(s)",
+  "results": [{ "id": "uuid1", "success": true }, { "id": "uuid2", "success": true }]
+}
+```
+
+#### PUT `/api/shows/bulk-restore`
+
+Bulk restore cancelled shows back to `scheduled`. Only affects shows with `status = 'cancelled'`; skips others.
+
+**Request Body:**
+
+```json
+{ "ids": ["uuid1", "uuid2"] }
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "2 of 2 show(s) restored to scheduled",
+  "results": [{ "id": "uuid1", "success": true }, { "id": "uuid2", "success": true }]
+}
+```
+
+#### Background Job — `updateShowStatuses`
+
+Runs every 30 seconds via the server's background job. Automatically transitions show statuses based on the current IST time.
+
+| Transition | Condition |
+|---|---|
+| `booking_started` → `in_progress` | `start_time` has passed AND actual end hasn't |
+| `in_progress` → `show_ended` | Actual end timestamp has passed |
+| `booking_started` → `show_ended` | End passed without ever entering `in_progress` |
+| `scheduled` → `show_ended` | End passed without ever opening for booking |
+
+> **Midnight-crossing shows:** Shows that run past midnight (e.g. 10:30 PM + 3h 49m → 2:19 AM) have `end_time < start_time`. The job detects this and computes the actual end timestamp as `show_date + 1 day + end_time`, preventing premature `show_ended` transitions.
+>
+> ```sql
+> CASE WHEN end_time < start_time
+>   THEN (show_date + INTERVAL '1 day')::timestamp + end_time
+>   ELSE show_date::timestamp + end_time
+> END
+> ```
 
 ---
 

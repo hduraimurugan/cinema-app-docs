@@ -801,7 +801,7 @@ sequenceDiagram
 
 | Route | Component | Purpose |
 |---|---|---|
-| `/shows` | `ShowsManagement.jsx` | List shows by date; status badges + Open/Revert/Cancel actions |
+| `/shows` | `ShowsManagement.jsx` | List shows by date; status badges + per-show and bulk actions |
 | `/shows/new` | `AddShowPage.jsx` | Create a single show |
 | `/shows/bulk` | `AddMultipleShowsPage.jsx` | Create multiple time slots at once |
 | `/shows/:id/edit` | `EditShowPage.jsx` | Edit an existing show |
@@ -811,7 +811,7 @@ sequenceDiagram
 
 #### Feature Overview
 
-Manage movie showtimes with date-based scheduling. Add/Edit are **separate routes** — navigating to them changes the URL, enabling back-button support. Deleting a show stays on the list page via `window.confirm`.
+Manage movie showtimes with date-based scheduling. Add/Edit are **separate routes** — navigating to them changes the URL, enabling back-button support. All destructive/state-changing actions use a custom **`AlertDialog` confirm modal** (not `window.confirm`).
 
 ```mermaid
 flowchart TD
@@ -819,18 +819,28 @@ flowchart TD
     A --> C[navigate /shows/new]
     A --> D[navigate /shows/bulk]
     A --> E[navigate /shows/:id/edit]
-    A --> F[Delete Show - confirm dialog]
 
     B --> G[Group by Movie]
     G --> H[Display Show Time Buttons with Status Badge]
 
-    H --> OB[Open Booking button - scheduled only]
-    H --> RV[Revert button - booking_started only]
-    H --> CN[Cancel Show button - scheduled or booking_started]
+    H --> OB[Open Booking - scheduled only]
+    H --> RV[Revert - booking_started only]
+    H --> CN[Cancel Show - scheduled or booking_started]
+    H --> RS[Restore - cancelled only]
+    H --> DEL[Delete - always]
 
     OB --> OBA[PUT /api/shows/booking-status/:id action=open]
     RV --> RVA[PUT /api/shows/booking-status/:id action=revert]
     CN --> CNA[PUT /api/shows/cancel/:id]
+    RS --> RSA[PUT /api/shows/booking-status/:id action=restore]
+    DEL --> DELA[DELETE /api/shows/delete/:id]
+
+    A --> SEL[Select Mode]
+    SEL --> BULK[Sticky bottom bar]
+    BULK --> BOR[Open Booking → PUT /api/shows/bulk-booking-open]
+    BULK --> BCN[Cancel Shows → PUT /api/shows/bulk-cancel]
+    BULK --> BRS[Restore → PUT /api/shows/bulk-restore]
+    BULK --> BDL[Delete → DELETE /api/shows/bulk]
 
     C --> I[AddShowPage - single show form]
     D --> J[AddMultipleShowsPage - shared details + time slots list]
@@ -847,24 +857,27 @@ flowchart TD
 
 #### UI Layout — Shows List (`/shows`)
 
-**Header row:** "Shows Management" title + description + `+ Add Multiple` (outline) + `+ Add Show` (primary) buttons (top-right)
+**Header row:** "Shows Management" title + description + `Select` (toggle multi-select) + `+ Add Multiple` (outline) + `+ Add Show` (primary) buttons (top-right). In select mode the Select button changes to `Cancel Select`.
 
 **Date Selector shelf** (`bg-card border-b border-border`):
 - **3-part vertical date buttons** (DOW / day number / month) — 7 days, `w-14` fixed width, hidden scrollbar
 - Selected: `bg-primary text-primary-foreground`; others: `border border-border hover:border-primary`
 - `selectedDate` stored as a `Date` object; formatted to `YYYY-MM-DD` string only when calling `showsAPI.getShowsByDate(dateStr)`
+- In select mode, a red badge on each date pill shows the count of selected shows for that date
 
 **Availability Legend:** `● AVAILABLE` (green) + `● FAST FILLING` (amber) aligned right
 
 **Movie Cards** (`rounded-xl`, shadcn `Card`):
 - Poster (`rounded-lg shadow-md`) + movie title + duration badge + genre/language pills (`rounded-full`)
 - Show time buttons — border color varies by status (green = `booking_started`, blue = `in_progress`, red = `cancelled`, muted = `scheduled`/`show_ended`); content: screen info (MapPin + name + seat count), time (bold), language + price, **status badge** (bottom)
-- **Hover actions** — appear absolutely positioned at top-right of each button on `group-hover` (hidden in select mode):
-  - Edit → `navigate('/shows/:id/edit')` (always shown)
-  - **Open Booking** (green, BookOpen icon) — shown when `status = 'scheduled'` → `showsAPI.updateBookingStatus(id, 'open')`
-  - **Revert** (amber, RotateCcw icon) — shown when `status = 'booking_started'` → `showsAPI.updateBookingStatus(id, 'revert')`
-  - **Cancel Show** (red outline, XCircle icon) — shown when `status = 'scheduled'` or `'booking_started'` → `showsAPI.cancelShow(id)` with `window.confirm`
-  - Delete (destructive) → `window.confirm` → `showsAPI.deleteShow(id)` → refresh
+- Clicking a show button in normal mode → `navigate('/show/:id')`; in select mode → toggles selection (checkbox indicator shown top-left of button)
+- **Hover actions** — appear absolutely positioned at top-right of each button on `group-hover` (hidden in select mode). All use `AlertDialog` confirm modals:
+  - Edit (pencil icon) → `navigate('/shows/:id/edit')` — always shown
+  - **Open Booking** (green, `BookOpen`) — `status = 'scheduled'` → `showsAPI.updateBookingStatus(id, 'open')`
+  - **Revert** (amber, `RotateCcw`) — `status = 'booking_started'` → `showsAPI.updateBookingStatus(id, 'revert')`
+  - **Cancel Show** (red, `XCircle`) — `status = 'scheduled'` or `'booking_started'` → `showsAPI.cancelShow(id)`
+  - **Restore** (blue, `Undo2`) — `status = 'cancelled'` → `showsAPI.updateBookingStatus(id, 'restore')`
+  - Delete (destructive, `Trash2`) → `showsAPI.deleteShow(id)` → refresh
 
 **Status badge color coding:**
 
@@ -894,6 +907,26 @@ sequenceDiagram
     ShowsPage->>API: Refetch with new date
     ShowsPage->>Admin: Update shows section (isLoading skeleton)
 ```
+
+#### Multi-Select Mode & Bulk Actions
+
+Activated by clicking the **Select** button in the header. In select mode:
+- Show time buttons display a checkbox indicator (top-left); clicking toggles selection
+- Date pills show a red badge with the count of selected shows for that date
+- A **sticky bottom bar** appears with the count of selected shows and bulk action buttons:
+
+| Button | Color | Action | Skips |
+|---|---|---|---|
+| **Open Booking** | Green (`BookOpen`) | `PUT /api/shows/bulk-booking-open` | Shows not `scheduled` |
+| **Cancel Shows** | Amber (`XCircle`) | `PUT /api/shows/bulk-cancel` + Razorpay refunds | Shows already `cancelled` or `show_ended` |
+| **Restore** | Blue (`Undo2`) | `PUT /api/shows/bulk-restore` | Shows not `cancelled` |
+| **Delete** | Destructive (`Trash2`) | `DELETE /api/shows/bulk` | — |
+
+All bulk actions require confirmation via `AlertDialog` before executing. The bottom bar also shows "across X dates" when selections span multiple dates.
+
+#### Confirm Dialog (`AlertDialog`)
+
+All destructive and state-changing actions (single and bulk) use a shared `AlertDialog` modal driven by `confirmDialog` state: `{ title, description, actionLabel, actionVariant, onConfirm }`. The action button uses `bg-destructive` styling when `actionVariant = "destructive"`.
 
 #### Add Show Page (`/shows/new`)
 
@@ -1143,15 +1176,22 @@ QR code ticket verification page for cinema entrance staff.
 
 **Route**: `/settings`
 **Component**: `SettingsPage.jsx`
-**Access**: Super Admin only (read is open, save calls a SuperAdmin-protected endpoint)
+**Access**: All admins can view; only Super Admins can edit
 
-Configure system-wide booking fees:
+Configure system-wide booking fees. Behavior differs by role:
 
-- **Convenience Fee (₹ per ticket)** — flat fee added to every ticket
-- **GST Percentage (%)** — applied only on the convenience fee (not on seat prices)
+**Super Admin (editable):**
+- **Convenience Fee (₹ per ticket)** — editable number input; flat fee added to every ticket
+- **GST Percentage (%)** — editable number input; applied only on the convenience fee (not on seat prices)
 - **Live preview** — card below the inputs shows the per-ticket fee + GST + total in real time as you type
-- On save, calls `PUT /api/settings` (SuperAdmin auth required); shows success/error toast
-- Loads current values from `GET /api/settings` on mount
+- **Save Settings** button — calls `PUT /api/settings` (SuperAdmin auth required); shows success/error toast
+
+**Cinema Admin (read-only):**
+- Same Convenience Fee and GST Percentage values displayed as styled read-only text (no inputs)
+- Same live preview card showing per-ticket breakdown
+- No Save button; a note reads "Only Super Admins can modify booking fee settings"
+
+Both roles load current values from `GET /api/settings` on mount. Role is determined via `isSuperAdmin` from `AuthContext` (`user.role === 'superAdmin'`).
 
 ---
 
@@ -1637,7 +1677,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 16, 2026 (SettingsPage — configurable convenience fee + GST; settingsAPI added)
+**Last Updated**: March 29, 2026 (SettingsPage — role-based access: Super Admins can edit booking fees; Cinema Admins see read-only view)
 
 ---
 
