@@ -536,7 +536,7 @@ Browse cinema halls by location with their movies and showtimes. Uses a **BookMy
   - "Non-cancellable" label below each movie's shows
 - Skeleton loader covers the cinema halls section (date selector stays visible during refetch)
 - Empty state with cinema icon when no shows are scheduled for the selected date
-- "Set Your Location" state when user has no location set
+- **No-location state** — when `district`/`state` are not set, renders a full-page prompt with a location pin icon, "Set Your Location" heading, and a **Select City** button that opens `LocationModal`; after the user picks a city the `useEffect` dependency on `[district, state]` re-fires and fetches theatres automatically
 
 **Helper functions:**
 - `formatDuration(mins)` — converts `144` → `"2h 24m"`
@@ -1171,6 +1171,11 @@ sequenceDiagram
 
 Displays a date selector and the list of cinema halls + showtimes for the selected date. Reached by clicking "Book Tickets" on the Movie Info Page. Uses a **BookMyShow-style UI**.
 
+**No-location guard:**
+- When `district` and `state` are both empty the `useEffect` immediately sets `loading = false` and opens `LocationModal`
+- If `movie` is still null after the effect runs and there is no location, a dedicated prompt is rendered (instead of "Movie not found") — location pin icon, "Select your city to see showtimes" copy, and a **Select City** button that re-opens `LocationModal`
+- After the user picks a city `district`/`state` update in context, the `useEffect` (which depends on `[movieId, selectedDate, district, state]`) re-fires and calls `fetchMovieShowtimes()` automatically
+
 **Features:**
 
 **Cinematic Banner Header:**
@@ -1224,6 +1229,7 @@ sequenceDiagram
 | `refetching` | boolean | `true` when date changes — shows section skeleton only |
 | `selectedDate` | Date | Currently selected date (defaults to today) |
 | `descExpanded` | boolean | Controls description expand/collapse |
+| `locationModalOpen` | boolean | Controls `LocationModal` open state |
 
 **Helper functions:**
 - `formatDuration(mins)` — converts `144` → `"2h 24m"`
