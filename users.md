@@ -1185,6 +1185,7 @@ Displays a date selector and the list of cinema halls + showtimes for the select
 - Shows as a **flat sorted list** (all shows for the hall sorted by `start_time`)
 - **Green-bordered outlined buttons** — time (bold) on line 1, `screen_name · language_version` on line 2; hover changes to primary color
 - "Non-cancellable" label below buttons
+- **Only shows with `status = 'booking_started'` are returned** — `scheduled`, `in_progress`, `show_ended`, and `cancelled` shows are excluded from the API response
 
 **Data flow:**
 
@@ -1501,3 +1502,5 @@ npm run build
 **Last Updated**: March 17, 2026 — Offers system: new `OffersPage` at `/offers` (card grid of eligible active offers, copy-code button); coupon input added to `OrderSummaryPage` (Apply/Remove UI, discount line in price breakdown); `offersAPI.validateOffer` called on apply; `offer_code` passed through `useRazorpayPayment` → `paymentAPI.createOrder` for server-side re-validation.
 
 *March 20, 2026 — OffersPage now shows redeemed offers as disabled cards: `getActiveOffers` backend no longer filters out redeemed offers — returns them with `is_redeemed: true`, sorted available-first. Frontend renders redeemed cards at `opacity-60` with gray top band, green "Applied" badge, muted discount text, strikethrough code, and "Already used" label (copy button hidden).*
+
+*March 29, 2026 — Show status lifecycle: `MovieDetailsPage` and all user-facing showtime queries now filter `status = 'booking_started'` only. Shows in `scheduled`, `in_progress`, `show_ended`, or `cancelled` state are not returned to users.*

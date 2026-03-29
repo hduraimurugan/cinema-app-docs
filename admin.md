@@ -801,11 +801,11 @@ sequenceDiagram
 
 | Route | Component | Purpose |
 |---|---|---|
-| `/shows` | `ShowsManagement.jsx` | List shows by date, delete |
+| `/shows` | `ShowsManagement.jsx` | List shows by date; status badges + Open/Revert/Cancel actions |
 | `/shows/new` | `AddShowPage.jsx` | Create a single show |
 | `/shows/bulk` | `AddMultipleShowsPage.jsx` | Create multiple time slots at once |
 | `/shows/:id/edit` | `EditShowPage.jsx` | Edit an existing show |
-| `/show/:id` | `ShowPage.jsx` | View seat layout + live status + revenue for a specific show |
+| `/show/:id` | `ShowPage.jsx` | Seat layout + revenue + status badge + Open/Revert/Cancel actions |
 
 **Access**: Admin (any role)
 
@@ -822,7 +822,15 @@ flowchart TD
     A --> F[Delete Show - confirm dialog]
 
     B --> G[Group by Movie]
-    G --> H[Display Show Time Buttons]
+    G --> H[Display Show Time Buttons with Status Badge]
+
+    H --> OB[Open Booking button - scheduled only]
+    H --> RV[Revert button - booking_started only]
+    H --> CN[Cancel Show button - scheduled or booking_started]
+
+    OB --> OBA[PUT /api/shows/booking-status/:id action=open]
+    RV --> RVA[PUT /api/shows/booking-status/:id action=revert]
+    CN --> CNA[PUT /api/shows/cancel/:id]
 
     C --> I[AddShowPage - single show form]
     D --> J[AddMultipleShowsPage - shared details + time slots list]
@@ -850,10 +858,23 @@ flowchart TD
 
 **Movie Cards** (`rounded-xl`, shadcn `Card`):
 - Poster (`rounded-lg shadow-md`) + movie title + duration badge + genre/language pills (`rounded-full`)
-- Show time buttons: **green-bordered outlined style** — screen info (MapPin icon + name + seat count) on line 1, time (bold) on line 2, language + price on line 3
-- **Edit/Delete hover actions** — appear absolutely positioned at top-right of each button on `group-hover`
-  - Edit → `navigate('/shows/:id/edit')`
-  - Delete → `window.confirm` → `showsAPI.deleteShow(id)` → refresh
+- Show time buttons — border color varies by status (green = `booking_started`, blue = `in_progress`, red = `cancelled`, muted = `scheduled`/`show_ended`); content: screen info (MapPin + name + seat count), time (bold), language + price, **status badge** (bottom)
+- **Hover actions** — appear absolutely positioned at top-right of each button on `group-hover` (hidden in select mode):
+  - Edit → `navigate('/shows/:id/edit')` (always shown)
+  - **Open Booking** (green, BookOpen icon) — shown when `status = 'scheduled'` → `showsAPI.updateBookingStatus(id, 'open')`
+  - **Revert** (amber, RotateCcw icon) — shown when `status = 'booking_started'` → `showsAPI.updateBookingStatus(id, 'revert')`
+  - **Cancel Show** (red outline, XCircle icon) — shown when `status = 'scheduled'` or `'booking_started'` → `showsAPI.cancelShow(id)` with `window.confirm`
+  - Delete (destructive) → `window.confirm` → `showsAPI.deleteShow(id)` → refresh
+
+**Status badge color coding:**
+
+| Status | Badge color |
+|---|---|
+| `scheduled` | Muted / gray |
+| `booking_started` | Green |
+| `in_progress` | Blue |
+| `show_ended` | Muted / gray |
+| `cancelled` | Red |
 
 **Show list data flow:**
 ```mermaid
@@ -957,11 +978,19 @@ Calls `showsAPI.createMultipleShows(payload)` → `POST /api/shows/bulk`. Backen
 
 #### Show Detail Page (`/show/:id`)
 
-Read-only view for a specific show. Navigated to from `ShowsManagement` when an admin clicks a show time button.
+Navigated to from `ShowsManagement` when an admin clicks a show time button.
 
 **Data fetched on mount (in parallel):**
 - `showsAPI.getShowById(id)` → `GET /api/shows/get/:id` — full seat layout, show metadata, price override
 - `settingsAPI.getSettings()` → `GET /api/settings` — `convenience_fee_per_ticket` + `gst_percentage` (falls back to ₹15 / 18% if request fails)
+
+**Sticky header:**
+- Movie poster + title + language + show date + screen name
+- **Status badge** — color-coded pill showing current show status (`scheduled` / `booking_started` / `in_progress` / `show_ended` / `cancelled`)
+- **Action buttons** (shown based on status, update `show_details.status` in local state on success):
+  - `scheduled` → **Open Booking** (green, BookOpen icon) → `showsAPI.updateBookingStatus(id, 'open')`
+  - `booking_started` → **Revert to Scheduled** (amber, RotateCcw icon) → `showsAPI.updateBookingStatus(id, 'revert')`
+  - `scheduled` or `booking_started` → **Cancel Show** (red outline, XCircle icon) → `showsAPI.cancelShow(id)` with `window.confirm`
 
 **Left panel (3/4 width) — Seat Layout:**
 - Legend: AVAILABLE (green border) / HELD (yellow) / BOOKED (red)
@@ -1659,4 +1688,4 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: March 25, 2026 (ShowPage — Revenue Breakdown added to Seat Status Overview sidebar: per-category ticket revenue, convenience fee, GST, and Indian-formatted total; `settingsAPI` fetched in parallel on mount)
+**Last Updated**: March 29, 2026 (Show status lifecycle — new statuses `booking_started`, `in_progress`, `show_ended`; admin can Open Booking / Revert / Cancel shows from both `ShowsManagement` and `ShowPage`; status badges added to show cards; cancellation marks bookings cancelled + initiates Razorpay refunds)

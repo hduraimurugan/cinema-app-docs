@@ -236,7 +236,7 @@ erDiagram
 
 - **Unique screen showtime**: Prevents double-booking same screen at same time
 - **Show overlap prevention**: Trigger function prevents overlapping shows on same screen
-- **Show status values**: `scheduled` | `running` | `cancelled` | `completed`
+- **Show status values**: `scheduled` | `booking_started` | `in_progress` | `show_ended` | `cancelled`
 
 #### Triggers
 
@@ -761,15 +761,17 @@ Fetches a single movie's full details including trailers and cast via TMDB's `ap
 
 ### Shows Management (`/api/shows`)
 
-| Method | Endpoint        | Auth                 | Description                          |
-| ------ | --------------- | -------------------- | ------------------------------------ |
-| POST   | `/create`       | Admin + Screen Owner | Create single show                   |
-| POST   | `/bulk`         | Admin + Screen Owner | Create multiple shows                |
-| PUT    | `/edit/:id`     | Admin + Screen Owner | Edit show details                    |
-| DELETE | `/delete/:id`   | Admin                | Delete show                          |
-| GET    | `/date/:date`   | Admin                | Get shows by date (grouped by movie) |
-| GET    | `/get/:id`      | None                 | Get show details with seat layout    |
-| POST   | `/book/:showId` | None                 | Book seats for show                  |
+| Method | Endpoint                | Auth                 | Description                                       |
+| ------ | ----------------------- | -------------------- | ------------------------------------------------- |
+| POST   | `/create`               | Admin + Screen Owner | Create single show                                |
+| POST   | `/bulk`                 | Admin + Screen Owner | Create multiple shows                             |
+| PUT    | `/edit/:id`             | Admin + Screen Owner | Edit show details                                 |
+| DELETE | `/delete/:id`           | Admin                | Delete show                                       |
+| GET    | `/date/:date`           | Admin                | Get shows by date (grouped by movie)              |
+| PUT    | `/booking-status/:id`   | Admin                | Open bookings (`open`) or revert to scheduled (`revert`) |
+| PUT    | `/cancel/:id`           | Admin                | Cancel show + cancel bookings + initiate refunds  |
+| GET    | `/get/:id`              | None                 | Get show details with seat layout                 |
+| POST   | `/book/:showId`         | None                 | Book seats for show                               |
 
 #### POST `/api/shows/create`
 
@@ -860,6 +862,51 @@ Fetches a single movie's full details including trailers and cast via TMDB's `ap
         }
       ]
     }
+  ]
+}
+```
+
+#### PUT `/api/shows/booking-status/:id`
+
+Opens or reverts booking availability for a show. Admin only.
+
+**Request Body:**
+
+```json
+{ "action": "open" }
+```
+
+| `action` value | From status | To status | Condition |
+|---|---|---|---|
+| `"open"` | `scheduled` | `booking_started` | Always allowed |
+| `"revert"` | `booking_started` | `scheduled` | Only if zero confirmed bookings exist |
+
+**Response (200):**
+
+```json
+{ "message": "Booking opened successfully", "status": "booking_started" }
+```
+
+Returns `400` if the action is invalid, the show is in the wrong state, or (for revert) confirmed bookings already exist.
+
+#### PUT `/api/shows/cancel/:id`
+
+Cancels a show. Admin only. This action:
+1. Sets `shows.status = 'cancelled'`
+2. Sets `bookings.booking_status = 'cancelled'` for all paid bookings
+3. Sets `payment_orders.status = 'refunded'` for related orders
+4. Calls `razorpay.payments.refund()` for each paid booking's `payment_id`
+
+Returns `400` if the show is already `cancelled` or `show_ended`.
+
+**Response (200):**
+
+```json
+{
+  "message": "Show cancelled successfully",
+  "bookings_cancelled": 3,
+  "refunds": [
+    { "payment_id": "pay_xxx", "status": "refund_initiated" }
   ]
 }
 ```
@@ -1741,14 +1788,29 @@ FOR EACH ROW
 EXECUTE FUNCTION prevent_overlapping_shows();
 ```
 
+### Show Status Lifecycle
+
+Shows follow a controlled lifecycle. Admin-triggered transitions are manual; time-based transitions are automatic.
+
+```
+scheduled → booking_started → in_progress → show_ended
+                ↘                  ↘
+              (revert)           cancelled (with refunds)
+```
+
+| Transition | Trigger | Condition |
+|---|---|---|
+| `scheduled` → `booking_started` | Admin (PUT `/booking-status/:id` `open`) | Manual |
+| `booking_started` → `scheduled` | Admin (PUT `/booking-status/:id` `revert`) | No confirmed bookings |
+| `booking_started` → `in_progress` | Auto (background job) | `show_date = today AND start_time <= now < end_time` |
+| `in_progress` → `show_ended` | Auto (background job) | `show_date < today` OR `end_time <= now` |
+| `booking_started` → `show_ended` | Auto (background job) | Missed in_progress window; end_time passed |
+| `scheduled` → `show_ended` | Auto (background job) | Never opened for booking; end_time passed |
+| Any → `cancelled` | Admin (PUT `/cancel/:id`) | Not already `cancelled` or `show_ended` |
+
 ### Show Status Auto-Update (Background Job)
 
 Show statuses transition automatically via a `setInterval` job in `server.js` (runs every 60 seconds):
-
-| Transition | Condition |
-|---|---|
-| `scheduled` → `running` | `show_date = today AND start_time <= now < end_time` |
-| `scheduled`/`running` → `completed` | `show_date < today` OR `(show_date = today AND end_time <= now)` |
 
 Times are compared in **IST (`Asia/Kolkata`)** since show times are stored in local time.
 
@@ -2233,4 +2295,4 @@ psql -U postgres -d cinema_hall -f migration_fee_columns.sql
 
 ---
 
-**Last Updated**: March 17, 2026
+**Last Updated**: March 29, 2026 — Show status lifecycle: new statuses `booking_started`, `in_progress`, `show_ended`; two new admin routes (`PUT /api/shows/booking-status/:id`, `PUT /api/shows/cancel/:id`); background job updated to use new transitions; user-facing showtime queries now filter `booking_started` only.
