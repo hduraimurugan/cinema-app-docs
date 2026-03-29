@@ -219,7 +219,7 @@ Fetches active `banner` placement ads from the API on mount. Renders a full-widt
   district: "Mumbai",             // Filter by district
   state: "Maharashtra",           // Filter by state
   filters: {                      // Additional filters
-    status: "now_showing",
+    status: "now_showing",        // "now_showing" | "upcoming" — also controls Book Now visibility
     limit: 20,
     genre: ["Action"],
     language: ["English"]
@@ -227,28 +227,36 @@ Fetches active `banner` placement ads from the API on mount. Renders a full-widt
 }
 ```
 
+**`showBookNow` logic:** Derived automatically from `filters.status`. When `status === 'upcoming'` the "Book Now" CTA is hidden on every card in that list; all other statuses show it.
+
 #### Movie Card Display
 
 ```mermaid
 graph TD
     A[Movie Card] --> B[Lazy Loaded Poster]
     A --> C[Movie Title]
-    A --> D[Genres]
-    A --> E[Languages]
-    A --> F[Rating Badge]
+    A --> D[Genres below title]
+    A --> E[Hover Overlay]
 
-    B --> G[Blur Effect on Load]
-    F --> H[Star Icon + Score]
+    B --> F[Blur Effect on Load]
+    B --> G[Rating Badge — always visible, top-left]
+
+    E --> H[Genre pill badges]
+    E --> I[Language text]
+    E --> J[Book Now button — hidden for upcoming]
 ```
 
 **Card Information:**
 
-- Poster image (lazy loaded with blur effect)
-- Movie title
-- Genres (formatted as "Action/Sci-Fi/Thriller")
-- Languages (formatted as "English, Hindi")
-- Rating (if available)
-- Hover effect with scale animation
+- Poster image (lazy loaded with blur effect), `rounded-xl`, scales up on hover (`scale-110`)
+- Rating badge (⭐ yellow, top-left corner) — always visible when `rating` is present
+- Hover overlay: gradient from black → transparent, reveals genre pill badges, language, and "Book Now" CTA
+- Movie title and genres shown below the poster at all times
+- "Book Now" button hidden when the parent `MoviesList` has `filters.status === 'upcoming'`
+
+#### Scroll Navigation
+
+Each `MoviesList` section includes left/right chevron arrow buttons (desktop `sm+` only) in the section header. Buttons are enabled/disabled reactively via a `scroll` event listener and `ResizeObserver` on the scroll container. Clicking scrolls 75% of the container width with `behavior: 'smooth'`.
 
 #### Location-Based Filtering
 
@@ -1042,9 +1050,11 @@ sequenceDiagram
 
 **MoviesList** - Movie grid display
 
-- Horizontal scrolling
-- Lazy loading
-- Filter support
+- Horizontal scrolling with left/right arrow navigation (desktop)
+- Lazy loading with blur effect
+- Cinematic hover overlay (genre badges, language, Book Now CTA)
+- Rating badge always visible on poster (top-left)
+- `showBookNow` auto-derived from `filters.status` — hidden for `upcoming` lists
 
 **CinemaLayout** - Page wrapper
 
@@ -1577,6 +1587,7 @@ npm run build
 - **MovieDetailsPage section loading**: date change triggers skeleton only on the Cinema Halls section; movie info and date selector stay visible (`refetching` state separate from initial `loading`)
 - **MovieDetailsPage UI redesign** (BookMyShow style): cinematic blurred-poster banner header, 3-part vertical date buttons (DOW/day/month), language chip, availability legend, green-bordered outlined show time buttons with screen name, expandable description, heart icon on hall cards
 - **TheatresPage UI redesign** (BookMyShow style): same 3-part date buttons and availability legend, rounded-xl hall cards with heart icon, clickable movie poster + title, green-bordered show time buttons with language version, `formatDuration` helper, shows sorted by time per screen
+- **MoviesList UI redesign** (March 29, 2026): `MoviesList.jsx` and `MovieCard` fully redesigned for a cinematic look. Poster now uses `rounded-xl` with a `scale-110` hover zoom. Rating badge (⭐ yellow) moved to always-visible top-left corner. Hover overlay (dark gradient) reveals genre pill badges, language, and a "Book Now" CTA. Section header gains a red vertical accent bar and left/right scroll arrow buttons (desktop only) that enable/disable reactively via `ResizeObserver`. "Book Now" button is automatically hidden when `filters.status === 'upcoming'` — no extra prop required in `MoviesPage`.
 - **MovieInfoPage — Cast + Ratings** (March 29, 2026): `MovieInfoPage.jsx` now displays a **Cast section** between "About the movie" and "Trailer" — circular TMDB profile photos, actor name, and character; falls back to the actor's initial. The hero meta row now shows a **star rating** (`vote_average / 10`) and formatted vote count (e.g. `330K Votes`) in yellow; the entire rating line is hidden when `vote_average` is `0.00`.
 - **MovieInfoPage** (new page, BookMyShow style): `/movie/:movieId` now shows a dedicated movie info page — large poster, title, duration/genres/release date, 2D + language badges, "Book Tickets" CTA → `/movie/shows/:movieId`, "About the movie" section, inline YouTube trailer embed with smooth-scroll from poster overlay button. Route `/movie/shows/:movieId` now serves the existing cinema-halls/showtimes page. Back button on shows page explicitly returns to `/movie/:movieId`.
 - **Dynamic Ads** (March 14, 2026): `AdBanner.jsx` now fetches live banner ads from `GET /api/ads/active?placement=banner`; renders nothing if no active ads. Clicking an ad records the click-through and opens the destination URL. `MovieInfoPage.jsx` fetches `placement=side` ads and shows a sticky right-side column on `md+` screens when ads are available. `adsAPI` added to `cinema-hall-users/src/services/api.js`.
