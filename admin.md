@@ -1266,12 +1266,16 @@ try {
 
 ### Custom Components
 
-**AppSidebar** - Navigation sidebar
+**AppSidebar** (`src/components/AppSidebar.jsx`) - Navigation sidebar
 
-- Collapsible menu
-- Active route highlighting
-- User profile section
-- Theme toggle
+- Three labelled nav groups: **Operations**, **Management**, **System** — each with an inline section-label + horizontal divider line
+- Each nav item wraps its icon in a rounded container (`p-0.5 rounded`, `size-3.5`) — `bg-primary/15` when active, `bg-muted` on hover
+- Active state: `bg-primary/10 rounded-lg` pill + `font-semibold` label + small dot indicator; no `border-r-2` accent
+- Collapsed mode (`collapsed` prop): icon-only (`w-16`); all nav items and logout button are wrapped in `<Tooltip side="right">` via `TooltipProvider` so titles appear on hover — no text overflow
+- Expanded mode width: `w-64` (256 px) set in `CinemaLayout.jsx`
+- Footer: `<Separator />` + user avatar card (`bg-muted/40 rounded-lg px-3 py-2.5`) with name, role, and ghost logout button; collapsed footer shows icon-only logout with tooltip
+- Role filtering: items with `roles: ["superAdmin"]` are hidden when `user.role !== "superAdmin"`
+- Active route detection via `useLocation()` — exact path match
 
 **Loader** - Loading spinner
 
@@ -1348,14 +1352,27 @@ flowchart TD
 
 **Sidebar Menu Items:**
 
-1. Home
-2. Movies (SuperAdmin only)
-3. Screens
-4. Shows
-5. Bookings
-6. Verify Ticket
-7. Profile
-8. Settings
+The sidebar is divided into three labelled sections. Each section header renders as a small uppercase label with a horizontal rule extending to the right. Role-restricted items are hidden when `user.role !== "superAdmin"`.
+
+**Operations**
+1. Dashboard (`/`) — `Home` icon
+2. Screens (`/screens`) — `Monitor` icon
+3. Movies (`/movies`) — `Film` icon — SuperAdmin only
+4. Ads (`/ads`) — `Megaphone` icon — SuperAdmin only
+5. Offers (`/offers`) — `Tag` icon — SuperAdmin only
+6. Showtimes (`/shows`) — `Calendar` icon
+7. Bookings (`/bookings`) — `Ticket` icon
+8. Payment Orders (`/payment-orders`) — `CreditCard` icon
+9. Verify Ticket (`/verify-ticket`) — `ScanLine` icon
+
+**Management**
+1. Customers (`/customers`) — `Users` icon — SuperAdmin only
+2. Hall Admins (`/admins`) — `Building2` icon — SuperAdmin only
+3. Revenue (`/revenue`) — `DollarSign` icon
+4. Analytics (`/analytics`) — `BarChart3` icon
+
+**System**
+1. Settings (`/settings`) — `Settings` icon
 
 ---
 
@@ -1675,9 +1692,18 @@ Configured for Vercel deployment:
 - Booking ID: monospace `<code>` element with muted background
 - Empty state: icon-in-circle, descriptive sub-text, "Clear filters" CTA
 
+✅ **AppSidebar — professional redesign + width increase** (March 29, 2026):
+- Nav items redesigned: icon wrapped in `p-0.5 rounded` container (`bg-primary/15` active, `bg-muted` hover); active state is a clean `bg-primary/10 rounded-lg` pill with `font-semibold` label + small primary dot — no `border-r-2` right accent or gradient background
+- Nav item size reduced to `text-xs`, `px-2.5 py-1.5`, `size-3.5` icons
+- Section headers (Operations / Management / System) render as inline label + `flex-1 h-px bg-border/50` rule extending to the right; short centered line in collapsed mode
+- Collapsed tooltips: every nav item and logout button wrapped in `<Tooltip side="right">` inside `<TooltipProvider delayDuration={0}>` — title appears on hover when sidebar is icon-only
+- Footer upgraded: `<Separator />` replaces plain `border-t`; user info in a `bg-muted/40 rounded-lg px-3 py-2.5` card; logout is a ghost icon button (turns destructive red on hover); collapsed mode shows icon-only logout with "Sign out" tooltip
+- Expanded sidebar width increased from `w-52` (208 px) → `w-64` (256 px) in `CinemaLayout.jsx`
+- `Star` import and unused `pageTitle` / `isSuperAdmin` destructuring removed; `Separator` and `Tooltip` components imported
+
 ---
 
-**Last Updated**: March 29, 2026 (SettingsPage — role-based access: Super Admins can edit booking fees; Cinema Admins see read-only view)
+**Last Updated**: March 29, 2026 (AppSidebar — professional redesign: icon containers, clean active pill, section dividers, collapsed tooltips, wider w-64 sidebar)
 
 ---
 

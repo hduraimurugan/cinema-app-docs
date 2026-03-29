@@ -2123,6 +2123,20 @@ Creates a Razorpay order before initiating payment. **Amount is calculated serve
 }
 ```
 
+**Error Responses**:
+
+| Status | Cause |
+|--------|-------|
+| `400` | Seats no longer held / hold expired / offer invalid |
+| `502` | Razorpay gateway error (HTTP error from Razorpay API or network failure) |
+| `500` | Unexpected server error |
+
+> **Razorpay SDK error handling:** The `razorpay.orders.create()` call is wrapped in its own try-catch separate from the outer handler. The Razorpay SDK v2 has a known issue where network-level failures (no HTTP response — e.g. timeout, DNS failure) cause its internal `normalizeError` function to throw a `TypeError` instead of a structured error. The inner catch handles both shapes:
+> - **HTTP errors** from Razorpay: `{ statusCode, error: { description, code } }`
+> - **Network failures**: plain `Error` / `TypeError` (no `statusCode`)
+>
+> Both cases return `502` to the client with a generic message. The server logs include `statusCode` (if available) and the description/message for debugging.
+
 **Validations**:
 
 - Seats must still be held by requesting customer
