@@ -695,6 +695,15 @@ Displays all bookings for the logged-in customer, split into two tabs.
 - **Upcoming tab** — shows with `show_date >= today`, sorted by date ascending
 - **Past tab** — shows with `show_date < today`
 - Each booking card shows: movie title, show date/time, cinema hall name, screen name, seat chips (e.g. "A1"), total amount, booking status badge (capitalized), booking ID (first 8 chars)
+- **Refund status badge** — when `booking_status === 'cancelled'` and `refund_status` is present, the card shows **two** badges stacked: a `Cancelled` badge (red) and a coloured refund badge below it:
+
+  | `refund_status` | Badge label | Badge colour |
+  |-----------------|-------------|--------------|
+  | `initiated` | Refund Initiated | Amber |
+  | `settled` | Refund Settled | Green |
+  | `failed` | Refund Failed | Red |
+
+  When `refund_status` is absent (e.g. booking cancelled without a refund record), only the standard `Cancelled` badge is shown.
 - **Clickable cards** — clicking any booking card navigates to `/booking/success?payment_id=xxx` to view full details
 - **Show QR button** — each card has a "Show QR" button that opens a `Dialog` containing a `QRCodeSVG` (180×180) encoding the full booking UUID, movie title, and show date. Uses `e.stopPropagation()` to prevent card navigation
 - Loading skeleton and empty state per tab

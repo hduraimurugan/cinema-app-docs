@@ -1245,11 +1245,17 @@ Lists all confirmed bookings for the currently logged-in customer, ordered by sh
       "start_time": "11:00:00",
       "screen_name": "Screen 1",
       "cinema_hall_name": "Grand Cinema",
-      "seat_labels": ["A1", "B2"]
+      "seat_labels": ["A1", "B2"],
+      "refund_status": null,
+      "razorpay_refund_id": null,
+      "refund_initiated_at": null,
+      "refund_settled_at": null
     }
   ]
 }
 ```
+
+> `refund_status`, `razorpay_refund_id`, `refund_initiated_at`, and `refund_settled_at` are populated via a LEFT JOIN to the `refunds` table. They are non-null only when `booking_status = 'cancelled'` and a refund record exists.
 
 ---
 
@@ -1263,7 +1269,8 @@ Lists all bookings for shows in the admin's cinema hall. Supports filtering and 
 
 | Param       | Type   | Description                                                        |
 | ----------- | ------ | ------------------------------------------------------------------ |
-| `date`      | date   | Filter by show date (e.g. `2026-03-07`)                            |
+| `from_date` | date   | Show date range start (e.g. `2026-03-01`, `YYYY-MM-DD`). `null` = no lower bound |
+| `to_date`   | date   | Show date range end (e.g. `2026-03-31`, `YYYY-MM-DD`). `null` = no upper bound |
 | `search`    | string | Filter by movie title (partial, case-insensitive)                  |
 | `status`    | string | Filter by booking status (`confirmed`, `cancelled`, `completed`)   |
 | `screen_id` | uuid   | Filter by screen ID (scoped to admin's cinema hall)                |
@@ -2140,6 +2147,56 @@ CREATE TABLE bookings (
 
 ### API Endpoints
 
+#### GET `/api/payment/admin/orders` *(Admin)*
+
+Lists all Razorpay payment orders for shows in the admin's cinema hall. Supports filtering and pagination (50 per page).
+
+**Auth**: Admin required (`verifyCinemaAdminAccessToken` + `verifyCinemaHall`)
+
+**Query Parameters:**
+
+| Param       | Type   | Description                                                           |
+| ----------- | ------ | --------------------------------------------------------------------- |
+| `from_date` | date   | Show date range start (`YYYY-MM-DD`). Filters on `shows.show_date >=` |
+| `to_date`   | date   | Show date range end (`YYYY-MM-DD`). Filters on `shows.show_date <=`   |
+| `status`    | string | Filter by order status (`created`, `paid`, `failed`, `expired`)       |
+| `customer`  | string | Search by customer name or email (partial, case-insensitive)          |
+| `movie`     | string | Search by movie title (partial, case-insensitive)                     |
+| `page`      | number | Page number (default: 1), 50 results per page                         |
+
+**Response (200):**
+
+```json
+{
+  "orders": [
+    {
+      "id": "uuid",
+      "order_id": "order_MlOhPxFJdD8SQy",
+      "show_id": "uuid",
+      "customer_id": "uuid",
+      "seats": ["A1", "A2"],
+      "amount": "440.00",
+      "convenience_fee": "30.00",
+      "gst_amount": "5.40",
+      "status": "paid",
+      "payment_id": "pay_MlOhsFJKxD8SQz",
+      "offer_code": null,
+      "discount_amount": "0.00",
+      "created_at": "2026-03-06T08:30:00Z",
+      "customer_name": "Jane Smith",
+      "customer_email": "jane@example.com",
+      "movie_title": "Paranthu Po",
+      "show_date": "2026-03-06",
+      "start_time": "11:00:00",
+      "screen_name": "Screen 1"
+    }
+  ],
+  "total": 85
+}
+```
+
+---
+
 #### 1. Create Payment Order
 
 **POST** `/api/payment/create-order`
@@ -2460,7 +2517,7 @@ CREATE TABLE refunds (
 
 #### GET `/api/refunds`
 
-**Query params:** `status` (`initiated` | `settled` | `failed` | `all`), `page` (default 1)
+**Query params:** `status` (`initiated` | `settled` | `failed` | `all`), `from_date` (`YYYY-MM-DD`, filters on `initiated_at >=`), `to_date` (`YYYY-MM-DD`, filters on `initiated_at <=`), `page` (default 1)
 
 **Response (200):**
 
