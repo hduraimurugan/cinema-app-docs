@@ -1185,6 +1185,7 @@ Returns all cinema halls in a location for a specific date, with their movies an
 | POST   | `/release`                   | Customer | Release held seats voluntarily                 |
 | GET    | `/by-payment/:payment_id`    | Customer | Fetch confirmed booking by Razorpay payment ID |
 | GET    | `/my-bookings`               | Customer | List all bookings for the logged-in customer   |
+| GET    | `/:booking_id`               | Customer | Fetch a single booking by UUID (detail view)   |
 | GET    | `/admin/all`                 | Admin    | List all bookings for admin's cinema hall      |
 | GET    | `/admin/verify/:booking_id`  | Admin    | Verify a booking by UUID (QR scan lookup)      |
 
@@ -1256,6 +1257,60 @@ Lists all confirmed bookings for the currently logged-in customer, ordered by sh
 ```
 
 > `refund_status`, `razorpay_refund_id`, `refund_initiated_at`, and `refund_settled_at` are populated via a LEFT JOIN to the `refunds` table. They are non-null only when `booking_status = 'cancelled'` and a refund record exists.
+
+---
+
+#### GET `/api/booking/:booking_id`
+
+Fetches a single booking by its UUID for the logged-in customer. Used by `BookingDetailPage` — works on direct URL load and page refresh.
+
+**Auth**: Customer required (ownership enforced — customer can only fetch their own booking)
+
+**Path Param**: `booking_id` — must be a valid UUID v4. Returns `400` if format is invalid.
+
+**Response (200):**
+
+```json
+{
+  "booking": {
+    "id": "booking-uuid",
+    "customer_id": "customer-uuid",
+    "show_id": "show-uuid",
+    "seats": ["0-0", "1-1"],
+    "total_amount": "440.00",
+    "convenience_fee": "30.00",
+    "gst_amount": "5.40",
+    "discount_amount": "50.00",
+    "payment_status": "completed",
+    "payment_id": "pay_MlOhsFJKxD8SQz",
+    "booking_status": "confirmed",
+    "offer_code": "SAVE50",
+    "created_at": "2026-03-06T08:30:00Z",
+    "movie_title": "Inception",
+    "poster_url": "https://example.com/poster.jpg",
+    "duration_mins": 148,
+    "genre": ["Action", "Sci-Fi", "Thriller"],
+    "language": ["English"],
+    "show_date": "2026-03-10",
+    "start_time": "14:00:00",
+    "screen_name": "Screen 1",
+    "cinema_hall_name": "Grand Cinema",
+    "seat_labels": ["A1", "B2"],
+    "refund_status": null,
+    "razorpay_refund_id": null,
+    "refund_amount": null,
+    "refund_initiated_at": null,
+    "refund_settled_at": null,
+    "refund_failure_reason": null
+  }
+}
+```
+
+**Notes:**
+- `genre` and `language` are `TEXT[]` arrays (PostgreSQL) — serialized as JSON arrays
+- `seat_labels` are derived from `screens.layout` JSONB
+- `refund_*` fields are non-null only when `booking_status = 'cancelled'` and a refund record exists
+- Returns `404` if booking not found or belongs to another customer
 
 ---
 

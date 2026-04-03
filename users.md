@@ -37,6 +37,7 @@ graph TD
     C --> H2[/offers - OffersPage]
 
     P --> I[/bookings - Bookings]
+    P --> I2[/bookings/:id - BookingDetailPage]
     P --> J[/profile - ProfilePage]
     P --> K[/settings - SettingsPage]
 
@@ -704,14 +705,59 @@ Displays all bookings for the logged-in customer, split into two tabs.
   | `failed` | Refund Failed | Red |
 
   When `refund_status` is absent (e.g. booking cancelled without a refund record), only the standard `Cancelled` badge is shown.
-- **Clickable cards** — clicking any booking card navigates to `/booking/success?payment_id=xxx` to view full details
+- **Clickable cards** — clicking any booking card navigates to `/bookings/:id` (the `BookingDetailPage`) for a full detail view
 - **Show QR button** — each card has a "Show QR" button that opens a `Dialog` containing a `QRCodeSVG` (180×180) encoding the full booking UUID, movie title, and show date. Uses `e.stopPropagation()` to prevent card navigation
+- **View Ticket button** — each non-cancelled card has a "View Ticket" button (`ExternalLink` icon) that navigates to `/booking/success?payment_id=xxx` — opens the `BookingSuccessPage` (Booking Confirmed! screen) where the ticket can be downloaded. Uses `e.stopPropagation()`. Hidden for cancelled bookings
 - Loading skeleton and empty state per tab
 - Calls `GET /api/booking/my-bookings` on mount
 
 **Dependencies:**
 - `qrcode.react` — `QRCodeSVG` component for QR generation
 - `@/components/ui/dialog` — shadcn Dialog for the QR modal
+
+#### BookingDetailPage
+
+**Route**: `/bookings/:id`  
+**Component**: `BookingDetailPage.jsx`  
+**Access**: Protected (requires login)
+
+Full detail view for a single customer booking. Fetches from `/api/booking/:id` on mount using the UUID from the URL param — no dependency on navigation state, so direct URL access and page refresh both work.
+
+**Sections:**
+
+1. **Back button** — navigates to `/bookings`
+2. **Hero ticket card** (`ticketRef` — captured for JPEG download):
+   - Gradient header — deep red (`#e11d48 → #9f1239`) for active bookings; grey (`#374151 → #1f2937`) for cancelled
+   - CineMax branding pill top-left
+   - Movie title (large bold white), language · genre (comma-separated) · duration in muted white below
+   - Show date, time, cinema hall, screen in icon rows
+   - Movie poster thumbnail (`w-16 h-24`) on the right — only rendered when `poster_url` is present
+   - **Perforated divider** — dashed border with half-circle notches (same style as `BookingSuccessPage`)
+   - Ticket body: Booking ID (first 8 chars, monospace) with copy button, status badge, seat label chips, total amount `text-3xl`, QR code (`QRCodeSVG` 80×80, level M)
+   - "Present this QR code at the cinema entrance" hint
+3. **Download Ticket button** — captures `ticketRef` as JPEG using `html-to-image` at 3× pixel ratio (same logic as `BookingSuccessPage`); falls back to navigating to `/booking/success?payment_id=…` if capture fails. Hidden for cancelled bookings.
+4. **Price Breakdown card** — Seats (calculated as `total − discount − convenience − gst`), Convenience Fee, GST, Offer Discount (green, shown only when `discount_amount > 0`), Total
+5. **Refund Details card** — only rendered when `booking_status === 'cancelled'` AND `refund_status` is set:
+   - Refund status badge (amber = initiated, green = settled, red = failed)
+   - Refund amount, Razorpay Refund ID (with copy button), initiated/settled timestamps, failure reason
+6. **Payment Info card** — Payment ID (with copy button), Booked At timestamp
+
+**Copy buttons** — `Copy` / `Check` icon toggle with 2-second reset. Covers: Booking ID, Payment ID, Razorpay Refund ID.
+
+**Genre display** — `genre` is a `TEXT[]` in PostgreSQL; rendered as `Array.join(', ')` (e.g. `Action, Drama, Thriller`). Has an `Array.isArray` guard for safety.
+
+**Loading state** — Four skeleton boxes (back button, hero card, breakdown, payment).
+
+**Error state** — Ticket icon + error message + "Back to Bookings" button.
+
+**API**: `GET /api/booking/:booking_id` — customer-scoped, returns 404 for another user's booking or invalid UUID.
+
+**Dependencies:**
+- `html-to-image` — `toJpeg` for ticket download
+- `qrcode.react` — `QRCodeSVG` for inline QR code
+- `lucide-react` — `ArrowLeft`, `CalendarDays`, `Clock`, `MapPin`, `Monitor`, `Ticket`, `Hash`, `CreditCard`, `Tag`, `Percent`, `Download`, `IndianRupee`, `CheckCircle2`, `XCircle`, `Copy`, `Check`
+
+---
 
 #### OffersPage
 
@@ -931,7 +977,7 @@ graph LR
 
     B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp]
     C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes, getTheatresWithShows]
-    D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings]
+    D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings, getBookingById]
     E --> I[createOrder, verifyPayment]
     F2 --> J[getActive, recordClick]
     G2 --> K[getSettings]
