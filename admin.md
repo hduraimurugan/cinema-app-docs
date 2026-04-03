@@ -1124,17 +1124,18 @@ Displays all bookings for the admin's cinema hall in a paginated table, with fil
   - Skeleton loading state while data is in flight
   - Icons: `Ticket` (primary), `IndianRupee` (emerald), `Receipt` (sky), `Percent` (amber)
 - Table columns: Customer (avatar + name + email), Movie, Show date/time, Screen (pill badge with monitor icon), Seats (primary-tinted chips), Amount, Status badge, Booking ID (monospace code + **copy button**)
-- Filters (5-column grid layout): show date range (**From** date + **To** date — each a ShadCN Popover + Calendar picker formatted with dayjs to `YYYY-MM-DD`), movie title search (debounced 400ms), screen dropdown (populated from `screensAPI.getMyScreens()`), booking status dropdown
+- **Collapsible filter card** — the filter panel starts **collapsed** by default. Clicking anywhere on the thin header bar toggles it open/closed. A rotating `ChevronDown` icon indicates the current state. The active filter count badge remains visible in the header even when collapsed, so applied filters are always evident. The "Clear" button inside the header uses `e.stopPropagation()` to clear filters without toggling the card.
+- Filters (5-column grid, `h-8` compact inputs with `text-xs` labels): show date range (**From** date + **To** date — each a ShadCN Popover + Calendar picker formatted with dayjs to `YYYY-MM-DD`), movie title search (debounced 400ms), screen dropdown (populated from `screensAPI.getMyScreens()`), booking status dropdown
   - Filter params: `from_date`, `to_date`, `search`, `screen_id`, `status` (all / confirmed / cancelled / completed)
-  - Active filter count badge on the Filters header counts each active filter param individually
-  - "Clear all" button shown when any filter is active
+  - Active filter count badge counts each active filter param individually
 - **Booking ID copy button** — a small `Copy` icon button (lucide `Copy`/`Check`) next to the monospace Booking ID in each row. Clicking copies the full UUID to the clipboard via `navigator.clipboard.writeText()` and briefly shows a `Check` icon for 2 seconds. Uses `e.stopPropagation()` to prevent row navigation when copying.
 - Status badges: custom glass-style pills — emerald (confirmed), red (cancelled), blue (completed)
 - Customer column: coloured avatar circle with initials derived from name
 - Screen column: rendered as a `<Monitor>` icon pill using `screensAPI.getMyScreens()` data loaded on mount
 - **Clickable rows** — clicking any booking row navigates to `/bookings/:id` (BookingDetailPage)
 - Pagination: 50 bookings per page with Prev/Next controls and "Showing X of Y" count
-- Loading skeleton, contextual empty state (with "Clear filters" CTA when filters active), and error state
+- **Structured loading skeleton** — the table loading state renders a full `<Table>` with real column headers and per-column skeleton shapes that mirror actual cell content (rounded-full circle for avatar, two stacked lines for name/email, pill shapes for screen badge and status, small squares for seat chips, code-block + copy-icon for Booking ID), eliminating layout shift when data loads
+- Contextual empty state (with "Clear filters" CTA when filters active) and error state
 - Calls `GET /api/booking/admin/all` with `{ from_date, to_date, search, status, screen_id, page }` query params on filter/page change; response includes `stats` aggregate
 
 #### BookingDetailPage
@@ -1218,12 +1219,14 @@ Lists all refund records for the cinema hall. Accessible from the sidebar or via
 
 **Features:**
 - **Summary cards** (top row) — clickable count cards for Initiated / Settled / Failed; clicking a card filters the table to that status
-- **Status filter** dropdown (`all` / `initiated` / `settled` / `failed`) + **date range pickers** (**From** / **To** Popover+Calendar, formatted with dayjs to `YYYY-MM-DD`) + Clear button; active filter count badge shown on header
+- **Collapsible filter card** — starts **collapsed** by default. Clicking the slim header bar toggles it; a rotating `ChevronDown` icon indicates state. Active filter count badge stays visible when collapsed. "Clear" button uses `e.stopPropagation()`.
+- Filters (3-column grid, `h-8` compact inputs with `text-xs` labels): **Status** dropdown (`all` / `initiated` / `settled` / `failed`) + **From** date + **To** date (Popover + Calendar, formatted `YYYY-MM-DD`)
 - **Refresh** button — re-fetches current page
 - **Table columns**: Customer (avatar + name + email), Movie / Show (title + date + time), Seats (primary-tinted chips), Amount, Status badge (with icon), Initiated at, Settled at, Actions
 - **"Mark Settled"** button — shown for `initiated` rows only; calls `POST /api/refunds/:refund_id/settle` on click (stops row-click propagation so it doesn't navigate away)
 - **Row click** → navigates to `/bookings/:booking_id` (BookingDetailPage)
 - Pagination: 50 rows/page
+- **Structured loading skeleton** — table loading state renders a full `<Table>` with real column headers and per-column shapes (avatar circle, two stacked text lines, seat-chip pair, amount line, `rounded-full` status pill, date lines, button-shaped skeleton flush right for Actions), preventing layout shift
 
 **Refund status badge colours:**
 
@@ -1244,12 +1247,14 @@ Lists all refund records for the cinema hall. Accessible from the sidebar or via
 Lists all Razorpay payment orders for the cinema hall in a paginated table. Shows order lifecycle from creation through payment.
 
 **Features:**
-- **Filters** (5-column grid layout): **From** date + **To** date range pickers (Popover + Calendar, formatted `YYYY-MM-DD`), customer search (debounced 400ms, by name or email), movie search (debounced 400ms), payment status dropdown
+- **Collapsible filter card** — starts **collapsed** by default. Clicking the slim header bar toggles it; a rotating `ChevronDown` icon indicates state. Active filter count badge stays visible when collapsed. "Clear" button uses `e.stopPropagation()`.
+- **Filters** (5-column grid, `h-8` compact inputs with `text-xs` labels): **From** date + **To** date range pickers (Popover + Calendar, formatted `YYYY-MM-DD`), customer search (debounced 400ms, by name or email), movie search (debounced 400ms), payment status dropdown
   - Filter params: `from_date`, `to_date`, `status`, `customer`, `movie`, `page`
-  - Active filter count badge on Filters header; "Clear all" button when any filter is active
+  - Active filter count badge counts each active filter param individually
 - **Refresh** button — re-fetches current page
 - Table columns: Customer (avatar + name + email), Movie / Show (title + date + time), Screen, Seats (primary-tinted chips), Amount, Status badge, Order ID (monospace + copy), Payment ID (copy button)
 - **Copy button** — small `Copy`/`Check` icon button next to both the Razorpay Order ID and the Razorpay Payment ID (when present). Clicking copies to clipboard and shows `Check` briefly (2 seconds).
+- **Structured loading skeleton** — table loading state renders a full `<Table>` with real column headers and per-column shapes (avatar circle + two stacked lines, movie text, show date/time lines, seat-chip pair, amount, `rounded-full` status pill, code-block + copy-icon for Order ID and Payment ID), preventing layout shift
 - Status badges:
 
 | Status | Badge colour |
