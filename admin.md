@@ -41,6 +41,7 @@ graph TD
     E --> J[/show/:id - ShowPage]
     E --> K[/bookings - Bookings]
     E --> K2[/bookings/:id - BookingDetailPage]
+    E --> K4[/refunds - RefundsPage]
     E --> K3[/verify-ticket - VerifyTicket]
     E --> L[/profile - ProfilePage]
     E --> M[/settings - SettingsPage]
@@ -903,7 +904,7 @@ flowchart TD
   - Edit (pencil icon) → `navigate('/shows/:id/edit')` — always shown
   - **Open Booking** (green, `BookOpen`) — `status = 'scheduled'` → `showsAPI.updateBookingStatus(id, 'open')`
   - **Revert** (amber, `RotateCcw`) — `status = 'booking_started'` → `showsAPI.updateBookingStatus(id, 'revert')`
-  - **Cancel Show** (red, `XCircle`) — `status = 'scheduled'` or `'booking_started'` → `showsAPI.cancelShow(id)`
+  - **Cancel Show** (red, `XCircle`) — `status = 'scheduled'` or `'booking_started'` → first fetches `showsAPI.getShowBookingCount(id)` to show booking count + total refund amount in the `AlertDialog` description, then calls `showsAPI.cancelShow(id)` on confirm
   - **Restore** (blue, `Undo2`) — `status = 'cancelled'` → `showsAPI.updateBookingStatus(id, 'restore')`
   - Delete (destructive, `Trash2`) → `showsAPI.deleteShow(id)` → refresh
 
@@ -946,7 +947,7 @@ Activated by clicking the **Select** button in the header. In select mode:
 | Button | Color | Action | Skips |
 |---|---|---|---|
 | **Open Booking** | Green (`BookOpen`) | `PUT /api/shows/bulk-booking-open` | Shows not `scheduled` |
-| **Cancel Shows** | Amber (`XCircle`) | `PUT /api/shows/bulk-cancel` + Razorpay refunds | Shows already `cancelled` or `show_ended` |
+| **Cancel Shows** | Amber (`XCircle`) | Fetches booking counts for all selected shows in parallel → `AlertDialog` with aggregate count + total → `PUT /api/shows/bulk-cancel` + Razorpay refunds + refund records | Shows already `cancelled` or `show_ended` |
 | **Restore** | Blue (`Undo2`) | `PUT /api/shows/bulk-restore` | Shows not `cancelled` |
 | **Delete** | Destructive (`Trash2`) | `DELETE /api/shows/bulk` | — |
 
@@ -1051,7 +1052,7 @@ Navigated to from `ShowsManagement` when an admin clicks a show time button.
 - **Action buttons** (shown based on status, update `show_details.status` in local state on success):
   - `scheduled` → **Open Booking** (green, BookOpen icon) → `showsAPI.updateBookingStatus(id, 'open')`
   - `booking_started` → **Revert to Scheduled** (amber, RotateCcw icon) → `showsAPI.updateBookingStatus(id, 'revert')`
-  - `scheduled` or `booking_started` → **Cancel Show** (red outline, XCircle icon) → `showsAPI.cancelShow(id)` with `window.confirm`
+  - `scheduled` or `booking_started` → **Cancel Show** (red outline, XCircle icon) → first calls `showsAPI.getShowBookingCount(id)`, then opens an `AlertDialog` showing the confirmed booking count and total refund amount (e.g. "⚠ This show has 6 confirmed booking(s). Refunds totalling ₹1,305.60 will be initiated."), then calls `showsAPI.cancelShow(id)` on confirm
 
 **Left panel (3/4 width) — Seat Layout:**
 - Legend: AVAILABLE (green border) / HELD (yellow) / BOOKED (red)
@@ -1159,6 +1160,17 @@ Right column (`lg:col-span-1`):
   - Offer discount (only shown if `discount_amount > 0`)
   - Divider + bold **Total**
 - **Offer Applied card** — only rendered when `offer_code` is present; shows offer code (styled green monospace chip) + discount amount. Hidden entirely when no offer was used.
+- **Refund card** — rendered only when `booking_status === 'cancelled'`. Shows:
+  - Status badge (`initiated` → amber, `settled` → green, `failed` → red)
+  - Refund amount
+  - Razorpay refund ID (`rfnd_xxx`) — only when populated
+  - Initiated at / Settled at timestamps
+  - Failure reason (if `failed`)
+  - **"Mark as Settled"** button (green outline) — shown only for `initiated` refunds; calls `POST /api/refunds/:refund_id/settle` → reloads booking data
+  - **"View All Refunds"** link — navigates to `/refunds`
+  - If no refund record exists for a cancelled booking: shows "No refund record found"
+
+**API note**: `GET /api/booking/admin/verify/:booking_id` now LEFT JOINs the `refunds` table and returns `refund_id`, `refund_status`, `razorpay_refund_id`, `refund_amount`, `refund_initiated_at`, `refund_settled_at`, `refund_failure_reason`.
 
 **Header**: movie title + booking status badge + full booking UUID in a code element.
 
@@ -1194,6 +1206,33 @@ QR code ticket verification page for cinema entrance staff.
 **Dependencies:**
 - `html5-qrcode` — `Html5Qrcode` class for camera-based QR scanning
 - `qrcode.react` — not used here (QR display is user-side only)
+
+#### RefundsPage
+
+**Route**: `/refunds`
+**Component**: `RefundsPage.jsx`
+**Sidebar**: Operations → Refunds (`RefreshCw` icon, between Bookings and Payment Orders)
+
+Lists all refund records for the cinema hall. Accessible from the sidebar or via the "View All Refunds" link in BookingDetailPage.
+
+**Features:**
+- **Summary cards** (top row) — clickable count cards for Initiated / Settled / Failed; clicking a card filters the table to that status
+- **Status filter** dropdown (`all` / `initiated` / `settled` / `failed`) + Clear button
+- **Refresh** button — re-fetches current page
+- **Table columns**: Customer (avatar + name + email), Movie / Show (title + date + time), Seats (primary-tinted chips), Amount, Status badge (with icon), Initiated at, Settled at, Actions
+- **"Mark Settled"** button — shown for `initiated` rows only; calls `POST /api/refunds/:refund_id/settle` on click (stops row-click propagation so it doesn't navigate away)
+- **Row click** → navigates to `/bookings/:booking_id` (BookingDetailPage)
+- Pagination: 50 rows/page
+
+**Refund status badge colours:**
+
+| Status | Badge colour |
+|--------|-------------|
+| `initiated` | Amber |
+| `settled` | Emerald |
+| `failed` | Red |
+
+**Data source**: `GET /api/refunds?status=&page=` via `refundAPI.getRefunds()`
 
 #### ProfilePage
 
@@ -1787,3 +1826,5 @@ Configured for Vercel deployment:
 ---
 
 **Last Updated**: March 29, 2026 (Show status lifecycle — new statuses `booking_started`, `in_progress`, `show_ended`; admin can Open Booking / Revert / Cancel shows from both `ShowsManagement` and `ShowPage`; status badges added to show cards; cancellation marks bookings cancelled + initiates Razorpay refunds)
+
+**Last Updated**: April 3, 2026 (Refunds system — new `refunds` DB table tracks per-booking refund lifecycle; `cancelShow` + `bulkCancelShows` now insert refund records and store Razorpay refund IDs; `refund.processed` + `refund.failed` webhook events auto-update status; cancel dialog in `ShowsManagement` and `ShowPage` now fetches booking count + total refund amount before confirming; `BookingDetailPage` shows a Refund card with status, timestamps, and "Mark as Settled" button for cancelled bookings; new `RefundsPage` at `/refunds` lists all refunds with filter + manual settle; user `Bookings.jsx` shows refund status badge for cancelled bookings)

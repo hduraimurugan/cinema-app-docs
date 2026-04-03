@@ -129,11 +129,11 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 | Metric                | Count  |
 | --------------------- | ------ |
 | Documentation Files   | 5      |
-| Total Lines           | 4,000+ |
+| Total Lines           | 4,500+ |
 | Mermaid Diagrams      | 35+    |
-| API Endpoints         | 40+    |
-| Database Tables       | 14     |
-| Components Documented | 25+    |
+| API Endpoints         | 47+    |
+| Database Tables       | 15     |
+| Components Documented | 26+    |
 
 ---
 
@@ -148,8 +148,9 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ Show overlap prevention  
 ✅ **Seat booking with hold mechanism**  
 ✅ **Razorpay payment integration**  
-✅ **Webhook handling for payment events**  
+✅ **Webhook handling for payment events** (+ `refund.processed` / `refund.failed`)
 ✅ **Atomic booking transactions**
+✅ **Show cancellation with per-booking refund tracking** (`refunds` table, Razorpay refund IDs, webhook settlement)
 
 ### Admin Features
 
@@ -160,6 +161,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ Image upload (Cloudinary)
 ✅ **Ads management (SuperAdmin only) — banner + sidebar ads with click-through tracking**
 ✅ **Offers / coupon system (SuperAdmin only) — global or hall-scoped percentage/fixed discount codes with expiry, eligibility targeting, and redemption tracking**
+✅ **Refunds management — `/refunds` page lists all refund records; cancel dialog shows booking count + refund total; BookingDetailPage shows refund card with manual settle button**
 
 ### User Features
 
@@ -172,6 +174,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Real-time seat availability**
 ✅ **Secure payment with Razorpay**
 ✅ **Booking confirmation page (API-fetched, refresh-safe)**
+✅ **Refund status badge in My Bookings** — cancelled bookings show "Refund Initiated" / "Refund Settled" / "Refund Failed" badge
 ✅ **MovieInfoPage — BookMyShow-style movie detail with trailer embed**
 ✅ **Dynamic ad banners (carousel on /movies, sidebar on /movie/:id) with click-through recording**
 ✅ **Offers page (/offers) — browse eligible discount codes, copy with one click; redeemed offers shown as disabled with "Applied" badge**
@@ -276,7 +279,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: March 20, 2026
+**Last Updated**: April 3, 2026
 
 ---
 

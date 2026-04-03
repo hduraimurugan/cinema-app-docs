@@ -20,9 +20,13 @@ Quick reference for all documentation files in this folder.
 | POST | `/api/payment/create-order` | Create Razorpay order |
 | POST | `/api/payment/verify` | Verify signature + confirm booking |
 | GET | `/api/booking/by-payment/:id` | Fetch booking by payment_id (success page) |
-| GET | `/api/booking/my-bookings` | List all bookings for logged-in customer |
+| GET | `/api/booking/my-bookings` | List all bookings for logged-in customer (includes refund status via LEFT JOIN) |
 | GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
-| GET | `/api/booking/admin/verify/:id` | Verify a booking by UUID — admin QR scan (scoped to cinema hall) |
+| GET | `/api/booking/admin/verify/:id` | Verify a booking by UUID — admin QR scan; includes refund fields |
+| GET | `/api/shows/booking-count/:id` | Confirmed booking count + total refund amount for a show (used by cancel dialog) |
+| GET | `/api/refunds` | List all refunds for admin's cinema hall (filterable by status, paginated) |
+| GET | `/api/refunds/booking/:booking_id` | Get refund record for a specific booking |
+| POST | `/api/refunds/:refund_id/settle` | Manually mark a refund as settled |
 | GET | `/api/ads/active?placement=` | Fetch currently active ads by placement (`banner` or `side`) — public |
 | POST | `/api/ads/click/:id` | Record a click-through on an ad (optional customer auth) |
 | GET | `/api/ads` | List all ads with click counts — SuperAdmin only |
@@ -77,8 +81,13 @@ BookingSuccessPage
 | Success page | `cinema-hall-users/src/pages/BookingSuccessPage.jsx` |
 | User bookings page | `cinema-hall-users/src/pages/Bookings.jsx` |
 | Admin bookings page | `cinema-hall-admin/src/pages/Bookings.jsx` |
+| Admin booking detail page | `cinema-hall-admin/src/pages/BookingDetailPage.jsx` |
+| Admin refunds page | `cinema-hall-admin/src/pages/RefundsPage.jsx` |
 | Admin payment orders page | `cinema-hall-admin/src/pages/PaymentOrders.jsx` |
 | Admin verify ticket page | `cinema-hall-admin/src/pages/VerifyTicket.jsx` |
+| Refund controller | `cinema-hall-api/controllers/refund.Controller.js` |
+| Refund routes | `cinema-hall-api/routes/refund.routes.js` |
+| Refund migration | `cinema-hall-api/migrations/migration_refunds.sql` |
 | Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
 | Order summary (pre-payment) | `cinema-hall-users/src/pages/OrderSummaryPage.jsx` |
 | Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |

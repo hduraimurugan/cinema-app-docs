@@ -169,6 +169,19 @@ erDiagram
         timestamptz updated_at
     }
 
+    refunds {
+        uuid id PK
+        uuid booking_id FK
+        varchar payment_id
+        varchar razorpay_refund_id
+        decimal amount
+        varchar refund_status
+        timestamptz initiated_at
+        timestamptz settled_at
+        text failure_reason
+        timestamptz created_at
+    }
+
     customers {
         uuid id PK
         text email UK
@@ -769,9 +782,10 @@ Fetches a single movie's full details including trailers and cast via TMDB's `ap
 | DELETE | `/delete/:id`           | Admin                | Delete single show                                |
 | DELETE | `/bulk`                 | Admin                | Bulk delete shows by ID array                     |
 | GET    | `/date/:date`           | Admin                | Get shows by date (grouped by movie)              |
+| GET    | `/booking-count/:id`    | Admin                | Get confirmed booking count + total refund amount for a show (used by cancel dialog) |
 | PUT    | `/booking-status/:id`   | Admin                | Open (`open`), revert (`revert`), or restore (`restore`) booking status |
-| PUT    | `/cancel/:id`           | Admin                | Cancel show + cancel bookings + initiate refunds  |
-| PUT    | `/bulk-cancel`          | Admin                | Bulk cancel shows + bookings + refunds            |
+| PUT    | `/cancel/:id`           | Admin                | Cancel show + cancel bookings + create refund records + initiate Razorpay refunds |
+| PUT    | `/bulk-cancel`          | Admin                | Bulk cancel shows + bookings + refund records     |
 | PUT    | `/bulk-booking-open`    | Admin                | Bulk open booking for scheduled shows             |
 | PUT    | `/bulk-restore`         | Admin                | Bulk restore cancelled shows to scheduled         |
 | GET    | `/get/:id`              | None                 | Get show details with seat layout                 |
@@ -894,13 +908,26 @@ Opens, reverts, or restores booking availability for a show. Admin only.
 
 Returns `400` if the action is invalid or the show is in the wrong state. For `revert`, also returns `400` if confirmed bookings already exist.
 
+#### GET `/api/shows/booking-count/:id`
+
+Returns confirmed booking count and total refund amount for a show. Used by the admin cancel dialog to warn before proceeding. Requires `verifyCinemaHall`.
+
+**Response (200):**
+
+```json
+{ "booking_count": 3, "total_amount": 1305.60 }
+```
+
 #### PUT `/api/shows/cancel/:id`
 
-Cancels a show. Admin only. This action:
+Cancels a show. Admin only. This action (all DB steps in a single atomic transaction):
 1. Sets `shows.status = 'cancelled'`
-2. Sets `bookings.booking_status = 'cancelled'` for all paid bookings
-3. Sets `payment_orders.status = 'refunded'` for related orders
-4. Calls `razorpay.payments.refund()` for each paid booking's `payment_id`
+2. Sets `bookings.booking_status = 'cancelled'` for all bookings with `payment_status = 'completed'`
+3. Inserts a row into `refunds` per booking (`refund_status = 'initiated'`)
+
+Then outside the transaction, for each booking:
+- Calls `razorpay.payments.refund(payment_id, {})` and stores the returned `razorpay_refund_id`
+- On failure: updates `refunds.refund_status = 'failed'` and stores `failure_reason`
 
 Returns `400` if the show is already `cancelled` or `show_ended`.
 
@@ -930,7 +957,7 @@ Bulk-delete multiple shows. Admin only.
 
 #### PUT `/api/shows/bulk-cancel`
 
-Bulk cancel shows. Each show is processed in its own transaction. Skips shows already `cancelled` or `show_ended`. Initiates Razorpay refunds for any paid bookings.
+Bulk cancel shows. Each show is processed in its own transaction. Skips shows already `cancelled` or `show_ended`. Creates `refunds` records and initiates Razorpay refunds for any paid bookings (`payment_status = 'completed'`).
 
 **Request Body:**
 
@@ -2230,9 +2257,11 @@ Receives webhook events from Razorpay (backup confirmation).
 
 **Events Handled**:
 
-- `payment.captured` - Payment successful
-- `payment.failed` - Payment failed, release seats
-- `order.paid` - Order fully paid (backup)
+- `payment.captured` — Payment successful; confirms booking
+- `payment.failed` — Payment failed; release seats
+- `order.paid` — Order fully paid (backup confirmation)
+- `refund.processed` — Razorpay has settled the refund; sets `refunds.refund_status = 'settled'` and `settled_at = NOW()`
+- `refund.failed` — Razorpay refund failed; sets `refunds.refund_status = 'failed'` and stores `failure_reason`
 
 **Signature Verification**:
 
@@ -2387,6 +2416,88 @@ psql -U postgres -d cinema_hall -f migration_fee_columns.sql
 
 `migration_fee_columns.sql` adds `convenience_fee` and `gst_amount` columns to both `payment_orders` and `bookings`. Existing rows default to `0`.
 
+`migration_refunds.sql` creates the `refunds` table and its indexes. Must be run before deploying the show cancellation refund feature.
+
+---
+
+## 💸 Refunds API
+
+Tracks per-booking refund lifecycle for cancelled shows. All endpoints require `verifyCinemaHall` middleware.
+
+### `refunds` Table
+
+```sql
+CREATE TABLE refunds (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  booking_id UUID NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+  payment_id VARCHAR(255) NOT NULL,       -- Razorpay payment_id (pay_xxx)
+  razorpay_refund_id VARCHAR(255),        -- Razorpay refund ID (rfnd_xxx), set after API call
+  amount DECIMAL(10, 2) NOT NULL,
+  refund_status VARCHAR(30) NOT NULL DEFAULT 'initiated'
+    CHECK (refund_status IN ('initiated', 'settled', 'failed')),
+  initiated_at TIMESTAMPTZ DEFAULT NOW(),
+  settled_at TIMESTAMPTZ,
+  failure_reason TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+**`refund_status` lifecycle:**
+
+| Status | Set when |
+|--------|----------|
+| `initiated` | Row inserted inside `cancelShow` transaction |
+| `settled` | Razorpay fires `refund.processed` webhook OR admin manually settles |
+| `failed` | Razorpay API call threw an error OR `refund.failed` webhook |
+
+### Endpoints
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/refunds` | Admin | List all refunds (filterable by `status`, paginated 50/page) |
+| GET | `/api/refunds/booking/:booking_id` | Admin | Get refund record for a specific booking |
+| POST | `/api/refunds/:refund_id/settle` | Admin | Manually mark refund as settled |
+
+#### GET `/api/refunds`
+
+**Query params:** `status` (`initiated` | `settled` | `failed` | `all`), `page` (default 1)
+
+**Response (200):**
+
+```json
+{
+  "refunds": [
+    {
+      "refund_id": "uuid",
+      "booking_id": "uuid",
+      "payment_id": "pay_xxx",
+      "razorpay_refund_id": "rfnd_xxx",
+      "amount": "1088.50",
+      "refund_status": "initiated",
+      "initiated_at": "2026-04-03T10:15:00Z",
+      "settled_at": null,
+      "failure_reason": null,
+      "movie_title": "Dhurandhar The Revenge",
+      "show_date": "2026-04-03",
+      "start_time": "14:30:00",
+      "screen_name": "Imax Screen 2",
+      "customer_name": "Duraimurugan Don H",
+      "customer_email": "durai@gmail.com",
+      "seat_labels": ["D12", "D13", "D14", "D15", "D16"]
+    }
+  ],
+  "total": 5
+}
+```
+
+#### POST `/api/refunds/:refund_id/settle`
+
+Manually marks a refund as `settled`. Use when the Razorpay `refund.processed` webhook was missed (e.g. ngrok was down in development, server was restarting).
+
+Returns `400` if already settled.
+
+**Response (200):** `{ "message": "Refund marked as settled" }`
+
 ### Monitoring & Logs
 
 **Backend Logs**:
@@ -2407,7 +2518,7 @@ psql -U postgres -d cinema_hall -f migration_fee_columns.sql
 
 ### Future Enhancements
 
-- 🔄 Automatic refunds for cancelled bookings
+- ~~🔄 Automatic refunds for cancelled bookings~~ ✅ Implemented (Refunds system with `refunds` table + Razorpay webhook settlement)
 - 📧 Email receipts after successful payment
 - 📱 QR code generation for ticket verification
 - 💰 Partial payments and split payments
