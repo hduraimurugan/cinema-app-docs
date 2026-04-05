@@ -959,7 +959,7 @@ All destructive and state-changing actions (single and bulk) use a shared `Alert
 
 #### Add Show Page (`/shows/new`)
 
-Full-page form. On success → navigates back to `/shows`.
+Full-width page form (no `max-w-2xl` constraint — fills the available content area). Action buttons (**Cancel** / **Add Show**) are right-aligned (`justify-end`) with `min-w-[120px]` and sit at the bottom of the form. On success → navigates back to `/shows`.
 
 **Auto-fill behaviour:**
 - **Select movie** → `language_version` auto-filled smartly:
@@ -1009,15 +1009,26 @@ Fetches show by ID on mount (`showsAPI.getShowById(id)`), maps response to form 
 - If it was stored in the old joined format (e.g. `"English, Tamil"`), it won't match any dropdown option — admin must re-select
 - Changing the movie resets `movieLanguages` and clears `language_version` (auto-sets if new movie has 1 language)
 
-Loading skeleton shown while fetching. On success → `navigate('/shows')`.
+Loading skeleton shown while fetching. Skeleton wrapper also uses full-width layout (no `max-w-2xl` constraint). On success → `navigate('/shows')`.
+Action buttons (**Cancel** / **Update Show**) are right-aligned (`justify-end`) with `min-w-[120px]`.
 Calls `showsAPI.editShow(id, formData)` → `PUT /api/shows/edit/:id`.
 
 #### Add Multiple Shows Page (`/shows/bulk`)
 
+Full-width page form (no `max-w-2xl` constraint). The form body uses a **two-column side-by-side layout** (`grid grid-cols-2 gap-5 items-start`):
+
+| Column | Card | Contents |
+|--------|------|----------|
+| Left | **Show Details** | Movie, Screen, Show Date range (From / To), Language Version, Price Override |
+| Right | **Time Slots** | Quick-add preset chips + manual slot rows + summary label |
+
+Action buttons (**Cancel** / **Create N Shows**) sit below the two-column grid, right-aligned (`justify-end`) with `min-w-[120px]`.
+
 Same auto-fill behaviour as AddShowPage (language dropdown for multi-language movies, auto-set for single). Instead of a single start/end time, there is a **dynamic time slots list**:
-- Minimum 1 slot; "+ Add Slot" button appends a new row
+- Minimum 1 slot; "+ Add Slot" button (top-right of Time Slots card header) appends a new row
 - Each row: `Slot N — Start` (time) + `End` (time) + trash icon (disabled when only 1 slot)
-- Footer label: `N slot(s) → N show(s) will be created`
+- **Quick-add preset chips** (Morning / Matinee / Afternoon / Evening / Night) — clicking a chip fills the first empty slot (or appends); clicking an active chip removes it. Active chips show a filled dot + primary colour styling.
+- Footer label: `N date(s) × N slot(s) → N show(s) will be created` (or `N slot(s) → N show(s)` when no date range is set)
 - Submit button label updates dynamically: `Create N Show(s)`
 
 Payload sent:
