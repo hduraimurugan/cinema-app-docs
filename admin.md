@@ -1046,33 +1046,63 @@ Navigated to from `ShowsManagement` when an admin clicks a show time button.
 - `showsAPI.getShowById(id)` → `GET /api/shows/get/:id` — full seat layout, show metadata, price override
 - `settingsAPI.getSettings()` → `GET /api/settings` — `convenience_fee_per_ticket` + `gst_percentage` (falls back to ₹15 / 18% if request fails)
 
-**Sticky header:**
-- Movie poster + title + language + show date + screen name
-- **Status badge** — color-coded pill showing current show status (`scheduled` / `booking_started` / `in_progress` / `show_ended` / `cancelled`)
-- **Action buttons** (shown based on status, update `show_details.status` in local state on success):
-  - `scheduled` → **Open Booking** (green, BookOpen icon) → `showsAPI.updateBookingStatus(id, 'open')`
-  - `booking_started` → **Revert to Scheduled** (amber, RotateCcw icon) → `showsAPI.updateBookingStatus(id, 'revert')`
-  - `scheduled` or `booking_started` → **Cancel Show** (red outline, XCircle icon) → first calls `showsAPI.getShowBookingCount(id)`, then opens an `AlertDialog` showing the confirmed booking count and total refund amount (e.g. "⚠ This show has 6 confirmed booking(s). Refunds totalling ₹1,305.60 will be initiated."), then calls `showsAPI.cancelShow(id)` on confirm
+**Sticky header (compact, single row):**
+- Back button → `/shows`
+- Movie poster thumbnail (`h-14 w-10`)
+- Movie title + language in parentheses + **status badge** (color-coded pill)
+- Metadata row: `Calendar` icon + show date · `Monitor` icon + screen name · blue time pill (`formatTime` — 12-hr AM/PM) · screen type badge
+- **Action buttons** (shown based on status, update `show_details.status` in local state on success — all use the shared `AlertDialog` modal, **no `window.confirm`**):
+  - `scheduled` → **Open Booking** (green, `BookOpen` icon) → `showsAPI.updateBookingStatus(id, 'open')`
+  - `booking_started` → **Revert** (amber, `RotateCcw` icon) → opens `AlertDialog` asking "Are you sure you want to revert this show back to Scheduled? This will close bookings…" → `showsAPI.updateBookingStatus(id, 'revert')` on confirm
+  - `scheduled` or `booking_started` → **Cancel** (red outline, `XCircle` icon) → first calls `showsAPI.getShowBookingCount(id)`, then opens `AlertDialog` showing the confirmed booking count and total refund amount (e.g. "⚠ This show has 6 confirmed booking(s). Refunds totalling ₹1,305.60 will be initiated."), then calls `showsAPI.cancelShow(id)` on confirm
+
+> **All status-change actions use `AlertDialog` modal** — `window.confirm` is not used anywhere on this page.
 
 **Left panel (3/4 width) — Seat Layout:**
-- Legend: AVAILABLE (green border) / HELD (yellow) / BOOKED (red)
-- Seats rendered by category section (Premium → Gold → Silver) via `renderSeatSection`
-- Aisle gaps and `screenPosition` honoured (same logic as user `SeatSelectionPage`)
-- Screen indicator bar positioned above or below seats based on `screen.layout.screenPosition`
-- Seats are display-only — no click interaction (admin view)
 
-**Right panel (1/4 width) — Seat Status Overview card (sticky):**
+The seat layout section is rendered in a user-side style container instead of a plain Card:
 
-*Seat counts:*
-- Available (green tile), Held (yellow tile), Booked (red tile)
-- Booked Seats grid — shows each booked seat label (e.g. `A4`) in a 4-column grid, max-height scrollable
+- Container: `bg-gray-50 dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-xl`
+- **Legend bar + Pan toggle** (top of container):
+  - Legend items (11–12px): Available (gray border square) · Held (amber square) · Booked (red square)
+  - **Pan mode toggle button** (top-right): switches between `Select` (default cursor) and `Pan` (grab cursor) mode. In Pan mode, clicking and dragging the scroll container scrolls it horizontally. Uses `Hand` / `MousePointer2` lucide icon.
+- **Zoom controls** (absolute-positioned bottom-right, desktop only):
+  - `ZoomIn` / `ZoomOut` round buttons — step ±10%, range 50%–150%
+  - Zoom % label beneath the buttons
+- **Scroll container** (`ref={scrollContainerRef}`): `overflow-x-auto overflow-y-visible`, cursor driven by pan/drag state
+- **Zoomable content div** (`ref={contentDivRef}`): `w-max mx-auto px-4 sm:px-8`, `style={{ zoom }}`
+- Seat sections rendered by category (Premium → Gold → Silver) via `renderSeatSection` — identical layout to user `SeatSelectionPage`:
+  - Section header: `₹{price} · {sectionTitle}` in 11px tracking-widest uppercase
+  - Each row: `flex items-center gap-1` with row letter label on **both** left and right sides (`w-5`)
+  - Each seat: `w-7 h-7` div with two-digit padded column number (`01`, `02`, …), `rounded-sm`
+  - Aisle gaps and `screenPosition` honoured
+  - Seats are **display-only** — no click interaction (admin read-only view)
+- **Screen indicator** positioned above or below seats based on `screen.layout.screenPosition`:
+  - Gradient line + "All Eyes This Way" text (matches user-side style)
 
-*Revenue Breakdown section:*
-- Per-category rows (only rendered if count > 0): `Premium (N × ₹price) — ₹subtotal`
-- **Ticket Revenue** subtotal (sum across all categories)
-- **Conv. Fee** row: `₹{fee} × {totalBooked tickets}` — flat per-ticket rate from settings
-- **GST** row: `{gst_percentage}% on conv.` — GST applied only on convenience fee (not on ticket price), matching backend logic
-- **Total Revenue** — highlighted green box: `ticketRevenue + convFee + gst`
+**Seat color scheme (admin read-only):**
+
+| State | Class |
+|---|---|
+| `booked` / `BOOKED` | `bg-red-500 text-white border border-red-500` |
+| `in_booking` / `HELD` | `bg-amber-400 text-amber-900 border border-amber-400` |
+| Available | `bg-transparent border border-gray-300 dark:border-zinc-600` |
+| `passage` / `blocked` | `invisible pointer-events-none` |
+
+**Right panel (1/4 width) — Seat Overview card (sticky `top-[84px]`):**
+
+*Seat counts (with lucide icons):*
+- `CheckCircle2` Available (green tile)
+- `Clock` Held (amber tile)
+- `XCircle` Booked (red tile)
+- Booked Seats grid — shows each booked seat label in a 4-column grid (`max-h-48` scrollable)
+
+*Revenue section (with `TrendingUp` icon header):*
+- Per-category rows (only rendered if count > 0): `{type} (N × ₹price) — ₹subtotal` (xs text)
+- **Ticket Revenue** subtotal (dashed border-top separator)
+- **Conv. Fee** row: `₹{fee} × {totalBooked tickets}`
+- **GST** row: `{gst_percentage}% on conv.`
+- **Total** — green highlighted box: `ticketRevenue + convFee + gst`
 
 *All amounts formatted in Indian locale:* `₹1,90,000` via `toLocaleString('en-IN')`
 
@@ -1089,6 +1119,16 @@ $$\text{gst} = \text{convFee} \times \frac{\text{gstPercentage}}{100}$$
 $$\text{total} = \text{ticketRevenue} + \text{convFee} + \text{gst}$$
 
 > Revenue counts **booked** seats only — `status === "booked" | "BOOKED"`. Held seats (`in_booking` / `HELD`) are excluded.
+
+**Pan mode implementation:**
+- `isPanMode`, `isDraggingActive` state + `isDraggingRef`, `dragStartXRef`, `dragStartScrollLeftRef` refs
+- `handlePanMouseDown` / `handlePanMouseMove` / `handlePanMouseUp` — attached to `scrollContainerRef` container; pan listeners added to `document` while pan mode is active and cleaned up on deactivate
+- Zoom state triggers overflow recheck (`setIsOverflowing`) and updates cursor on `scrollContainerRef`
+
+**Zoom implementation:**
+- `zoom` state (default `1`), constants `MIN_ZOOM = 0.5`, `MAX_ZOOM = 1.5`, `ZOOM_STEP = 0.1`
+- `style={{ zoom }}` applied to the inner content div
+- Overflow recheck `useEffect` fires on every zoom change
 
 ---
 
