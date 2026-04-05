@@ -10,6 +10,8 @@ The Cinema Hall Ticket Booking backend is built with **Express.js** and **Postgr
 - **Database**: PostgreSQL (Neon serverless)
 - **Authentication**: JWT with HttpOnly cookies (access + refresh tokens)
 - **Deployment**: Vercel-ready with local development support
+- **Monitoring**: Sentry (`@sentry/node`) for error tracking and performance traces
+- **Logging**: Winston — JSON in production (Vercel Function Logs), colorized in development
 
 ---
 
@@ -1873,12 +1875,18 @@ sequenceDiagram
 
 ### Global Error Handler
 
-All errors are caught by the global error handler in `server.js`:
+All unhandled errors are caught by two layers:
+
+1. **Sentry** — `Sentry.setupExpressErrorHandler(app)` is registered after all routes and before other error middleware. It captures every unhandled Express error and forwards it to the Sentry dashboard.
+2. **Winston logger** — The custom error handler logs the error with structured metadata.
 
 ```javascript
+// Sentry must come first — after all routes, before other error middleware
+Sentry.setupExpressErrorHandler(app);
+
 app.use((err, req, res, next) => {
-  console.error("🔥 Global Error:", err.stack);
-  res.status(500).json({ error: "Something went wrong!" });
+  logger.error('Global Error', { message: err.message, stack: err.stack });
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 ```
 
@@ -1912,7 +1920,84 @@ NODE_ENV=production
 EMAIL_SERVICE=gmail
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-app-password
+
+# Sentry (optional — falls back to hardcoded DSN in instrument.js if not set)
+SENTRY_DSN=https://<key>@o<org>.ingest.us.sentry.io/<project>
+
+# Vercel Cron protection
+CRON_SECRET=your-cron-secret
+
+# Razorpay
+RAZORPAY_KEY_ID=rzp_live_xxx
+RAZORPAY_KEY_SECRET=your-razorpay-secret
+RAZORPAY_WEBHOOK_SECRET=your-webhook-secret
+
+# TMDB
+TMDB_API_KEY=your-tmdb-bearer-token
 ```
+
+---
+
+## Monitoring & Logging
+
+### Sentry (Error Tracking)
+
+The backend uses [`@sentry/node`](https://docs.sentry.io/platforms/javascript/guides/express/) for error tracking and performance monitoring.
+
+**Initialisation strategy (ESM + Vercel):**
+
+Because this is an ESM project, static `import` statements are hoisted before any code runs — so a top-level `import "./instrument.js"` alone is not enough. Sentry's module hooks must be registered _before_ Express is resolved, using Node's `--import` flag.
+
+| File | Role |
+|---|---|
+| `instrument.js` | Calls `Sentry.init()` — DSN, environment, `tracesSampleRate` |
+| `server.js` | `import "./instrument.js"` (ensures file is included in Vercel's bundle via nft tracing) + `Sentry.setupExpressErrorHandler(app)` after all routes |
+| `nodemon.json` | `execArgs: ["--import=@sentry/node/preload"]` — registers hooks before Express in local dev |
+| `package.json` `start` | `node --import=@sentry/node/preload server.js` |
+
+> **Why not `NODE_OPTIONS` in `vercel.json`?**  
+> `@vercel/node` uses file tracing (`nft`) to bundle only imported files. `NODE_OPTIONS` is an env var — `nft` cannot trace it, so `@sentry/node/preload` would not be included in the deployment bundle and the function would crash at startup.
+
+**Verifying Sentry is working:**
+
+```
+GET /debug-sentry
+```
+
+This route intentionally throws an error. An event named _"Sentry test error from cinema-hall-api"_ should appear in your Sentry dashboard within ~30 seconds. Remove this route after confirming.
+
+---
+
+### Winston (Structured Logging)
+
+All `console.log` / `console.error` / `console.warn` calls across the entire codebase (19 files — all controllers, middleware, `db.js`, `mail/emails.js`) have been replaced with structured Winston logger calls.
+
+**Logger config** (`utils/logger.js`):
+
+| Environment | Format | Transport |
+|---|---|---|
+| Production (`NODE_ENV=production`) | `winston.format.json()` | Console only (Vercel captures stdout in Function Logs) |
+| Development | Colorized + timestamp printf | Console only |
+
+**Log levels used:**
+
+| Level | When |
+|---|---|
+| `logger.info` | Successful operations, startup, every HTTP request/response, webhook events, background job results |
+| `logger.warn` | Transient DB errors in background jobs (`ENOTFOUND`, `ECONNRESET`), unhandled webhook events |
+| `logger.error` | All caught exceptions in controllers, middleware, and background jobs |
+| `logger.debug` | Dev-only diagnostic values (e.g. show date normalization, customer ID) |
+
+**Request logging middleware** (registered in `server.js` after `cookieParser`):
+
+Every HTTP request is logged on response finish with method, URL, status code, and duration:
+
+```json
+{ "level": "info", "message": "GET /api/movies", "method": "GET", "url": "/api/movies", "status": 200, "duration": "23ms", "timestamp": "2026-04-05T16:00:00.000Z" }
+```
+
+**Viewing logs on Vercel:**  
+Vercel dashboard → Project → **Functions** tab → select a function invocation → logs appear as structured JSON in the _Function Logs_ panel.
 
 ---
 

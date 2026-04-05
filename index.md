@@ -5,7 +5,7 @@ Quick reference for all documentation files in this folder.
 | File | Description | Key Topics |
 |------|-------------|------------|
 | [README.md](./README.md) | Project overview and navigation guide | Tech stack, quick start, doc structure |
-| [backend.md](./backend.md) | Backend API reference | All endpoints, DB schema, auth, middleware, payment integration |
+| [backend.md](./backend.md) | Backend API reference | All endpoints, DB schema, auth, middleware, payment integration, Sentry monitoring, Winston logging |
 | [users.md](./users.md) | User frontend documentation | Pages, components, auth flow, booking + payment flow |
 | [admin.md](./admin.md) | Admin panel documentation | Movie management, screen designer, show scheduling, bookings overview |
 | [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page |
