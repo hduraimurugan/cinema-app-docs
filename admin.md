@@ -259,6 +259,23 @@ flowchart TD
 | **Status** | `Active` (emerald) or `Inactive` (zinc) badge |
 | **Actions** | Edit (pencil) → navigates to `/offers/:id/edit` / Delete (trash) → AlertDialog |
 
+**Loading skeleton** — table-shaped skeleton: a `<thead>` with skeleton header cells + 6 `<tbody>` rows mirroring actual column shapes (monospace badge width, two-line title cell, rounded-full badge pills for Scope/Status, icon-button pair for Actions).
+
+**Error state** — shows an `AlertCircle` icon, error message, and a **"Try Again"** button (`RefreshCw` icon) that re-runs the current fetch with active filters. The header area also always shows a standalone **Refresh** button regardless of error state.
+
+#### Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`)
+
+Full-width page (no `max-w-2xl` constraint). The form is split into a **two-column side-by-side layout** (`grid grid-cols-1 lg:grid-cols-2 gap-6 items-start`) on large screens, stacking to a single column on smaller screens:
+
+| Column | Card | Fields |
+|--------|------|--------|
+| Left | **Offer Details** | Code, Active toggle, Title, Description, Discount Type, Discount Value, Max Cap (% only), Min Booking Amount |
+| Right | **Schedule & Targeting** | Valid Until, Scope, Cinema Hall (hall scope only), Applicable To, Joined After (joined_after only) |
+
+Action buttons (**Cancel** / **Create Offer / Save Changes**) sit below the two-column grid, right-aligned (`justify-end`) with `min-w-[100px]`.
+
+**Loading skeleton** (shown while fetching an existing offer on the edit page): matches the two-column card layout — header row with back-button + title skeletons, then two cards each with label + input skeleton rows.
+
 #### Offer Form Fields
 
 | Field | Type | Notes |
@@ -270,11 +287,11 @@ flowchart TD
 | Discount Value | Number | Percentage (e.g. `10`) or rupee amount (e.g. `50`) |
 | Max Discount Cap | Number | Only shown for percentage type; `null` = no cap |
 | Min Booking Amount | Number | Grand total must be ≥ this to apply (0 = none) |
+| Valid Until | Date | Offer expires after midnight of this date |
 | Scope | Select | `Global` or `Hall-Specific` |
 | Cinema Hall | Select | Shown only when scope = Hall (fetches all halls) |
 | Applicable To | Select | `All Users` or `Users who joined after a date` |
 | Joined After | Date | Shown only when eligibility = `joined_after` |
-| Valid Until | Date | Offer expires after midnight of this date |
 | Is Active | Switch | Toggle to disable without deleting |
 
 #### Date Picker Implementation Note
