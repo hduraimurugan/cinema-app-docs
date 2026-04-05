@@ -456,6 +456,24 @@ The `/movies` route uses a **fixed-height tab layout** to avoid double-scrollbar
 - The outer `CinemaLayout` scroll container hides its scrollbar on `/movies` (`scrollbarWidth: none`) so only the inner movie grid scrolls
 - The "Movie Management" heading is **hidden on small screens** (`hidden sm:block`)
 
+#### Add / Edit Movie — Right-Side Sheet
+
+Both **Add Movie** and **Edit Movie** open as a **right-side sliding sheet** (`Sheet` with `side="right"`, `sm:max-w-2xl`), not a center dialog. The background is blurred (`overlayClassName="backdrop-blur-sm"`).
+
+**Sheet structure:**
+
+| Area | Component | Description |
+|------|-----------|-------------|
+| Header | `SheetHeader` (`shrink-0`, `border-b`) | Title + description, always visible |
+| Body | Scrollable `div` (`overflow-y-auto flex-1`) | `MovieForm` fields (cast, genres, etc.) |
+| Footer | Fixed `div` (`shrink-0`, `border-t`) | **Cancel** + **Add Movie / Update Movie** buttons, right-aligned |
+
+The footer is always visible regardless of scroll position — action buttons never scroll out of view.
+
+**`MovieForm` props used in sheet context:**
+- `hideActions={true}` — suppresses the inline Cancel/Submit buttons that are normally rendered inside the form
+- `formId="add-movie-form"` / `formId="edit-movie-form"` — sets an `id` on the `<form>` element so the external footer submit button can target it via `form="..."` (HTML form association), allowing `type="submit"` outside the form element to trigger validation and submission normally
+
 #### Movie Form Fields
 
 | Field          | Type         | Required | Description                              |
@@ -519,7 +537,7 @@ The **Browse Movies** tab (`TMDBBrowser` component) lets a SuperAdmin explore TM
 | Top Rated     | `GET /api/tmdb/top-rated`       |
 | Search        | `GET /api/tmdb/search?query=…`  |
 
-Each movie card has an **Import** button. Clicking it calls `GET /api/tmdb/movie/:tmdbId` (`append_to_response=videos,credits`) to fetch full details, then pre-fills the Add Movie dialog with:
+Each movie card has an **Import** button. Clicking it calls `GET /api/tmdb/movie/:tmdbId` (`append_to_response=videos,credits`) to fetch full details, then pre-fills the Add Movie sheet with:
 
 | Mapped field   | TMDB source                                       |
 | -------------- | ------------------------------------------------- |
