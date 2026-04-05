@@ -386,6 +386,20 @@ Full-width scrollable table with the following columns:
 
 Table footer row displays summary metrics: total ads · active ads · total clicks across all ads.
 
+#### Create / Edit Ad — Right-Side Sheet
+
+Both **New Ad** and **Edit Ad** open as a **right-side sliding sheet** (`Sheet` with `side="right"`, `sm:max-w-xl`), not a center dialog. The background is blurred (`overlayClassName="backdrop-blur-sm"`).
+
+**Sheet structure:**
+
+| Area | Description |
+|------|-------------|
+| Header (`SheetHeader`, `shrink-0`, `border-b`) | Title ("New Ad" / "Edit Ad") + description, always visible |
+| Body (scrollable `div`, `overflow-y-auto flex-1`) | All form fields |
+| Footer (`shrink-0`, `border-t`) | **Cancel** + **Create Ad / Save Changes** buttons, right-aligned with `min-w-[100px]` |
+
+The footer is always visible regardless of scroll position. The submit button targets the form via `form="ad-form"` (HTML form association).
+
 #### Create/Edit Form Fields
 
 | Field        | Type     | Required | Description                          |
