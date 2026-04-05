@@ -1316,20 +1316,21 @@ Fetches a single booking by its UUID for the logged-in customer. Used by `Bookin
 
 #### GET `/api/booking/admin/all`
 
-Lists all bookings for shows in the admin's cinema hall. Supports filtering and pagination (50 per page).
+Lists all bookings for shows in the admin's cinema hall. Supports filtering and pagination.
 
 **Auth**: Admin required (`verifyCinemaAdminAccessToken` + `verifyCinemaHall`)
 
 **Query Parameters:**
 
-| Param       | Type   | Description                                                        |
-| ----------- | ------ | ------------------------------------------------------------------ |
-| `from_date` | date   | Show date range start (e.g. `2026-03-01`, `YYYY-MM-DD`). `null` = no lower bound |
-| `to_date`   | date   | Show date range end (e.g. `2026-03-31`, `YYYY-MM-DD`). `null` = no upper bound |
-| `search`    | string | Filter by movie title (partial, case-insensitive)                  |
-| `status`    | string | Filter by booking status (`confirmed`, `cancelled`, `completed`)   |
-| `screen_id` | uuid   | Filter by screen ID (scoped to admin's cinema hall)                |
-| `page`      | number | Page number (default: 1)                                           |
+| Param       | Type   | Default | Description                                                        |
+| ----------- | ------ | ------- | ------------------------------------------------------------------ |
+| `from_date` | date   | —       | Show date range start (e.g. `2026-03-01`, `YYYY-MM-DD`). `null` = no lower bound |
+| `to_date`   | date   | —       | Show date range end (e.g. `2026-03-31`, `YYYY-MM-DD`). `null` = no upper bound |
+| `search`    | string | —       | Filter by movie title (partial, case-insensitive)                  |
+| `status`    | string | —       | Filter by booking status (`confirmed`, `cancelled`, `completed`)   |
+| `screen_id` | uuid   | —       | Filter by screen ID (scoped to admin's cinema hall)                |
+| `page`      | number | `1`     | Page number                                                        |
+| `limit`     | number | `10`    | Results per page (max 100, controlled by frontend rows-per-page)   |
 
 **Response (200):**
 
@@ -1656,10 +1657,11 @@ Returns a paginated list of all registered platform customers. Supports search a
 
 **Query Parameters:**
 
-| Param    | Type   | Default | Description                         |
-| -------- | ------ | ------- | ----------------------------------- |
-| `search` | string | —       | Filter by name, email, or phone     |
-| `page`   | number | `1`     | Page number (50 results per page)   |
+| Param    | Type   | Default | Description                                                      |
+| -------- | ------ | ------- | ---------------------------------------------------------------- |
+| `search` | string | —       | Filter by name, email, or phone                                  |
+| `page`   | number | `1`     | Page number                                                      |
+| `limit`  | number | `10`    | Results per page (max 100, controlled by frontend rows-per-page) |
 
 **Response (200):**
 
@@ -1702,10 +1704,11 @@ Returns a paginated list of all registered cinema hall admins (excludes SuperAdm
 
 **Query Parameters:**
 
-| Param    | Type   | Default | Description                              |
-| -------- | ------ | ------- | ---------------------------------------- |
-| `search` | string | —       | Filter by name, email, or hall name      |
-| `page`   | number | `1`     | Page number (50 results per page)        |
+| Param    | Type   | Default | Description                                                      |
+| -------- | ------ | ------- | ---------------------------------------------------------------- |
+| `search` | string | —       | Filter by name, email, or hall name                              |
+| `page`   | number | `1`     | Page number                                                      |
+| `limit`  | number | `10`    | Results per page (max 100, controlled by frontend rows-per-page) |
 
 **Response (200):**
 
@@ -2101,7 +2104,7 @@ curl -X POST http://localhost:5000/api/shows/create \
 - **Connection Pooling**: PostgreSQL connection pool managed by `pg`
 - **Indexing**: Primary keys (UUID), foreign keys, and unique constraints
 - **Query Optimization**: JOIN queries for related data (admin + hall, shows + movies)
-- **Pagination**: Implemented for movies listing
+- **Pagination**: Implemented for all admin list endpoints (bookings, refunds, payment orders, customers, hall admins) and movies listing; `page` + `limit` query params (limit capped at 100, default 10, controlled by frontend rows-per-page selector)
 - **JSONB**: Efficient storage for flexible data (layouts, price overrides)---
 
 ## 💳 Payment Integration (Razorpay)
@@ -2204,20 +2207,21 @@ CREATE TABLE bookings (
 
 #### GET `/api/payment/admin/orders` *(Admin)*
 
-Lists all Razorpay payment orders for shows in the admin's cinema hall. Supports filtering and pagination (50 per page).
+Lists all Razorpay payment orders for shows in the admin's cinema hall. Supports filtering and pagination.
 
 **Auth**: Admin required (`verifyCinemaAdminAccessToken` + `verifyCinemaHall`)
 
 **Query Parameters:**
 
-| Param       | Type   | Description                                                           |
-| ----------- | ------ | --------------------------------------------------------------------- |
-| `from_date` | date   | Show date range start (`YYYY-MM-DD`). Filters on `shows.show_date >=` |
-| `to_date`   | date   | Show date range end (`YYYY-MM-DD`). Filters on `shows.show_date <=`   |
-| `status`    | string | Filter by order status (`created`, `paid`, `failed`, `expired`)       |
-| `customer`  | string | Search by customer name or email (partial, case-insensitive)          |
-| `movie`     | string | Search by movie title (partial, case-insensitive)                     |
-| `page`      | number | Page number (default: 1), 50 results per page                         |
+| Param       | Type   | Default | Description                                                           |
+| ----------- | ------ | ------- | --------------------------------------------------------------------- |
+| `from_date` | date   | —       | Show date range start (`YYYY-MM-DD`). Filters on `shows.show_date >=` |
+| `to_date`   | date   | —       | Show date range end (`YYYY-MM-DD`). Filters on `shows.show_date <=`   |
+| `status`    | string | —       | Filter by order status (`created`, `paid`, `failed`, `expired`)       |
+| `customer`  | string | —       | Search by customer name or email (partial, case-insensitive)          |
+| `movie`     | string | —       | Search by movie title (partial, case-insensitive)                     |
+| `page`      | number | `1`     | Page number                                                           |
+| `limit`     | number | `10`    | Results per page (max 100, controlled by frontend rows-per-page)      |
 
 **Response (200):**
 
@@ -2566,13 +2570,13 @@ CREATE TABLE refunds (
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/api/refunds` | Admin | List all refunds (filterable by `status`, paginated 50/page) |
+| GET | `/api/refunds` | Admin | List all refunds (filterable by `status`, paginated; limit via `?limit=`) |
 | GET | `/api/refunds/booking/:booking_id` | Admin | Get refund record for a specific booking |
 | POST | `/api/refunds/:refund_id/settle` | Admin | Manually mark refund as settled |
 
 #### GET `/api/refunds`
 
-**Query params:** `status` (`initiated` | `settled` | `failed` | `all`), `from_date` (`YYYY-MM-DD`, filters on `initiated_at >=`), `to_date` (`YYYY-MM-DD`, filters on `initiated_at <=`), `page` (default 1)
+**Query params:** `status` (`initiated` | `settled` | `failed` | `all`), `from_date` (`YYYY-MM-DD`, filters on `initiated_at >=`), `to_date` (`YYYY-MM-DD`, filters on `initiated_at <=`), `page` (default 1), `limit` (default 10, max 100)
 
 **Response (200):**
 

@@ -1133,10 +1133,10 @@ Displays all bookings for the admin's cinema hall in a paginated table, with fil
 - Customer column: coloured avatar circle with initials derived from name
 - Screen column: rendered as a `<Monitor>` icon pill using `screensAPI.getMyScreens()` data loaded on mount
 - **Clickable rows** — clicking any booking row navigates to `/bookings/:id` (BookingDetailPage)
-- Pagination: 50 bookings per page with Prev/Next controls and "Showing X of Y" count
+- **Pagination bar** (shared `Pagination` component): always visible when data exists; shows "Showing X–Y of Z" range text on the left and **Rows per page** dropdown (5 / 10 / 25 / 50, default 10) + numbered page buttons with ellipsis + Prev/Next on the right; changing rows per page resets to page 1
 - **Structured loading skeleton** — the table loading state renders a full `<Table>` with real column headers and per-column skeleton shapes that mirror actual cell content (rounded-full circle for avatar, two stacked lines for name/email, pill shapes for screen badge and status, small squares for seat chips, code-block + copy-icon for Booking ID), eliminating layout shift when data loads
 - Contextual empty state (with "Clear filters" CTA when filters active) and error state
-- Calls `GET /api/booking/admin/all` with `{ from_date, to_date, search, status, screen_id, page }` query params on filter/page change; response includes `stats` aggregate
+- Calls `GET /api/booking/admin/all` with `{ from_date, to_date, search, status, screen_id, page, limit }` query params on filter/page/limit change; response includes `stats` aggregate
 
 #### BookingDetailPage
 
@@ -1225,7 +1225,7 @@ Lists all refund records for the cinema hall. Accessible from the sidebar or via
 - **Table columns**: Customer (avatar + name + email), Movie / Show (title + date + time), Seats (primary-tinted chips), Amount, Status badge (with icon), Initiated at, Settled at, Actions
 - **"Mark Settled"** button — shown for `initiated` rows only; calls `POST /api/refunds/:refund_id/settle` on click (stops row-click propagation so it doesn't navigate away)
 - **Row click** → navigates to `/bookings/:booking_id` (BookingDetailPage)
-- Pagination: 50 rows/page
+- **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
 - **Structured loading skeleton** — table loading state renders a full `<Table>` with real column headers and per-column shapes (avatar circle, two stacked text lines, seat-chip pair, amount line, `rounded-full` status pill, date lines, button-shaped skeleton flush right for Actions), preventing layout shift
 
 **Refund status badge colours:**
@@ -1236,7 +1236,7 @@ Lists all refund records for the cinema hall. Accessible from the sidebar or via
 | `settled` | Emerald |
 | `failed` | Red |
 
-**Data source**: `GET /api/refunds?status=&from_date=&to_date=&page=` via `refundAPI.getRefunds()`
+**Data source**: `GET /api/refunds?status=&from_date=&to_date=&page=&limit=` via `refundAPI.getRefunds()`
 
 #### PaymentOrders
 
@@ -1249,7 +1249,7 @@ Lists all Razorpay payment orders for the cinema hall in a paginated table. Show
 **Features:**
 - **Collapsible filter card** — starts **collapsed** by default. Clicking the slim header bar toggles it; a rotating `ChevronDown` icon indicates state. Active filter count badge stays visible when collapsed. "Clear" button uses `e.stopPropagation()`.
 - **Filters** (5-column grid, `h-8` compact inputs with `text-xs` labels): **From** date + **To** date range pickers (Popover + Calendar, formatted `YYYY-MM-DD`), customer search (debounced 400ms, by name or email), movie search (debounced 400ms), payment status dropdown
-  - Filter params: `from_date`, `to_date`, `status`, `customer`, `movie`, `page`
+  - Filter params: `from_date`, `to_date`, `status`, `customer`, `movie`, `page`, `limit`
   - Active filter count badge counts each active filter param individually
 - **Refresh** button — re-fetches current page
 - Table columns: Customer (avatar + name + email), Movie / Show (title + date + time), Screen, Seats (primary-tinted chips), Amount, Status badge, Order ID (monospace + copy), Payment ID (copy button)
@@ -1264,9 +1264,50 @@ Lists all Razorpay payment orders for the cinema hall in a paginated table. Show
 | `failed` | Red |
 | `expired` | Muted gray |
 
-- Pagination: 50 orders per page with Prev/Next controls and "Showing X of Y" count
-- Loading skeleton, contextual empty state (with "Clear filters" CTA), error state
-- **Data source**: `GET /api/payment/admin/orders?from_date=&to_date=&status=&customer=&movie=&page=` via `paymentAPI.getOrders()`
+- **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
+- Contextual empty state (with "Clear filters" CTA), error state
+- **Data source**: `GET /api/payment/admin/orders?from_date=&to_date=&status=&customer=&movie=&page=&limit=` via `paymentAPI.getOrders()`
+
+#### Customers
+
+**Route**: `/customers`
+**Component**: `UsersPage.jsx`
+**Access**: SuperAdmin only
+**Sidebar**: Management → Customers (`Users` icon)
+
+Lists all registered platform customers in a paginated table with search and stats.
+
+**Features:**
+- **Stats cards** (2-card grid): Total Customers (all-time count), Verified (email-verified count) — scoped to unfiltered totals; skeleton loading state while in flight
+- **Search bar** — debounced 400ms, searches across name, email, and phone; "Clear" button shown when input has a value
+- **Refresh** button — re-fetches with current filters
+- **Table columns**: Customer (coloured avatar circle with initials + name + email), Phone, Location (district + state), Status (Verified / Unverified badge), Joined (date), Bookings (booking count badge)
+  - Verified badge: emerald pill with `CheckCircle2` icon; Unverified: amber pill
+  - Booking count: primary-tinted rounded badge showing confirmed booking count
+- **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
+- **Structured loading skeleton** — full `<Table>` with column headers and per-column shapes: avatar circle + two stacked text lines, phone line, location line, `rounded-full` status pill, date line, small rounded badge for booking count
+- Contextual empty state with "Clear search" CTA when search is active; error state with icon
+- **Data source**: `GET /api/customers?search=&page=&limit=` via `customersAPI.getAll()`
+
+---
+
+#### Hall Admins
+
+**Route**: `/admins`
+**Component**: `AdminsPage.jsx`
+**Access**: SuperAdmin only
+**Sidebar**: Management → Hall Admins (`Building2` icon)
+
+Lists all registered cinema hall admins (excludes SuperAdmin) with their associated hall details.
+
+**Features:**
+- **Search bar** — debounced 400ms, searches by admin name, email, or hall name; "Clear" button shown when input has a value
+- **Refresh** button — re-fetches with current filters
+- **Table columns**: Admin (coloured avatar circle with initials + name + email), Phone, Cinema Hall (`Building2` icon + hall name, or "No hall" fallback), Location (`MapPin` icon + location/district/state), Registered (date)
+- **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
+- **Structured loading skeleton** — full `<Table>` with column headers and per-column shapes: avatar circle + two stacked text lines, phone line, small icon skeleton + hall name line, small icon skeleton + location line, date line; mirrors actual table layout eliminating shift on load
+- Contextual empty state with "Clear search" CTA when search is active; error state with icon
+- **Data source**: `GET /api/auth/admins?search=&page=&limit=` via `adminsAPI.getAll()`
 
 ---
 
@@ -1312,6 +1353,10 @@ graph LR
     A --> E[showsAPI]
     A --> F[bookingAPI]
     A --> G2[settingsAPI]
+    A --> G3[customersAPI]
+    A --> G4[adminsAPI]
+    A --> G5[paymentAPI]
+    A --> G6[refundAPI]
 
     B --> G[register, login, logout, getMe, refresh]
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
@@ -1319,7 +1364,36 @@ graph LR
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
     F --> K[getCinemaHallBookings, verifyBooking, getBookingById]
     G2 --> L[getSettings, updateSettings]
+    G3 --> M[getAll - search/page/limit]
+    G4 --> N[getAll - search/page/limit]
+    G5 --> O[getOrders - filters/page/limit, createOrder, verifyPayment]
+    G6 --> P[getRefunds - filters/page/limit, settleRefund]
 ```
+
+### Pagination — Shared Component
+
+**Location**: `src/components/ui/Pagination.jsx`
+
+All five paginated admin list pages (Bookings, Refunds, Payment Orders, Customers, Hall Admins) use the same shared `Pagination` component.
+
+**Props:**
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `page` | number | Current page number |
+| `totalPages` | number | Total page count (`Math.ceil(total / limit)`) |
+| `total` | number | Total record count from API |
+| `limit` | number | Current rows-per-page value |
+| `onPageChange` | fn(page) | Called when a page button is clicked |
+| `onLimitChange` | fn(limit) | Called when rows-per-page changes; parent resets `page` to 1 |
+
+**Behaviour:**
+- Always rendered when `total > 0` (visible even on a single page)
+- Left side: "Rows per page" `<Select>` (options: 5 / 10 / 25 / 50, default 10) + "Showing X–Y of Z" text
+- Right side: `Prev` button → numbered page buttons (smart windowed ellipsis) → `Next` button
+- Numbered buttons only rendered when `totalPages > 1`; active page uses the `default` button variant
+- Ellipsis (`…`) appears when total pages exceed 7 and the window skips pages (e.g. `1 … 4 5 6 … 10`)
+- Changing rows-per-page calls `onLimitChange`, which the page component handles by setting `limit` state and resetting `page` to 1
 
 ### API Configuration
 
