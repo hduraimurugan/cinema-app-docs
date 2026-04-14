@@ -7,7 +7,7 @@ The Cinema Hall Ticket Booking backend is built with **Express.js** and **Postgr
 **Tech Stack:**
 
 - **Runtime**: Node.js with Express.js
-- **Database**: PostgreSQL (Neon serverless)
+- **Database**: PostgreSQL — Neon serverless (production), local PostgreSQL 18 via pgAdmin (development)
 - **Authentication**: JWT with HttpOnly cookies (access + refresh tokens)
 - **Deployment**: Vercel-ready with local development support
 - **Monitoring**: Sentry (`@sentry/node`) for error tracking and performance traces
@@ -217,7 +217,7 @@ erDiagram
 
     otp_verifications {
         uuid id PK
-        text email FK
+        text email FK "UK — required for ON CONFLICT upsert"
         text otp
         boolean is_verified
         timestamptz created_at
@@ -1998,6 +1998,56 @@ Every HTTP request is logged on response finish with method, URL, status code, a
 
 **Viewing logs on Vercel:**  
 Vercel dashboard → Project → **Functions** tab → select a function invocation → logs appear as structured JSON in the _Function Logs_ panel.
+
+---
+
+## Local Development Database
+
+### Setup (April 2026)
+
+For development, the project runs against a local **PostgreSQL 18** instance instead of Neon. The one-shot setup script at `docs/db_setup.sql` creates the full schema from scratch and is idempotent (safe to re-run).
+
+**Connection string (`.env`):**
+```
+DATABASE_URL=postgresql://postgres:<password>@localhost:5432/cinema_hall_db
+```
+
+**SSL handling (`db.js`):**
+```js
+ssl: process.env.DATABASE_URL?.includes('localhost') ? false : { rejectUnauthorized: false }
+```
+SSL is disabled automatically for local connections and kept on for Neon.
+
+### Running the Setup Script
+
+```bash
+# via psql
+psql -U postgres -d cinema_hall_db -f docs/db_setup.sql
+
+# or paste into pgAdmin Query Tool / Neon SQL Editor
+```
+
+> The script covers all tables, indexes, triggers, and the `settings` seed rows. It uses `CREATE TABLE IF NOT EXISTS` and `ADD COLUMN IF NOT EXISTS` everywhere — safe to run against an existing DB to apply missing columns.
+
+### Schema Notes vs. Original `psql.sql`
+
+| Issue in `psql.sql` | Fixed in `db_setup.sql` |
+|---------------------|------------------------|
+| `show_booked_seats` references `customers(id)` before `customers` is defined | Tables created in correct FK order |
+| `cinema_admin_user` has no `role` column | `role VARCHAR(20) DEFAULT 'admin' CHECK (role IN ('admin','superAdmin'))` included |
+| `otp_verifications.email` has no UNIQUE constraint | `UNIQUE` added — required for `ON CONFLICT (email)` upsert in `otp.Controller.js` |
+| Multiple overlapping migration files | All changes consolidated into single idempotent script |
+
+### Creating a SuperAdmin
+
+```bash
+# 1. Generate bcrypt hash
+node -e "import('bcrypt').then(b => b.default.hash('YourPassword', 10).then(console.log))"
+
+# 2. Insert in pgAdmin / psql
+INSERT INTO cinema_admin_user (email, password, name, phone, role)
+VALUES ('superadmin@cinemahall.com', '<hash>', 'Super Admin', '9999999999', 'superAdmin');
+```
 
 ---
 

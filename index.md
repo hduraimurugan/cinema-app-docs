@@ -9,6 +9,7 @@ Quick reference for all documentation files in this folder.
 | [users.md](./users.md) | User frontend documentation | Pages, components, auth flow, booking + payment flow |
 | [admin.md](./admin.md) | Admin panel documentation | Movie management, screen designer, show scheduling, bookings overview |
 | [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page |
+| [db_setup.sql](./db_setup.sql) | One-shot idempotent DB setup script | Full schema for both local PostgreSQL and Neon; run to create or update any DB |
 
 ---
 

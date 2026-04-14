@@ -44,7 +44,24 @@ This folder contains complete documentation for all components of the applicatio
 
 ---
 
-### 3. [User Application Documentation](./users.md)
+### 3. [Database Setup Script](./db_setup.sql)
+
+**What's inside:**
+
+- Full idempotent schema: all 16 tables, indexes, triggers, seed data
+- Works on both local PostgreSQL and Neon (paste into pgAdmin or Neon SQL Editor)
+- Fixes ordering bugs in the original `psql.sql` (FK dependencies, missing `role` column, missing UNIQUE on `otp_verifications.email`)
+- Commented superAdmin INSERT template at the bottom
+
+**Start here if you're:**
+
+- Setting up a fresh local development database
+- Syncing a new Neon project with the current schema
+- Onboarding to the project
+
+---
+
+### 4. [User Application Documentation](./users.md)
 
 **What's inside:**
 
@@ -128,11 +145,11 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 
 | Metric                | Count  |
 | --------------------- | ------ |
-| Documentation Files   | 5      |
-| Total Lines           | 4,500+ |
+| Documentation Files   | 6      |
+| Total Lines           | 4,800+ |
 | Mermaid Diagrams      | 35+    |
 | API Endpoints         | 47+    |
-| Database Tables       | 15     |
+| Database Tables       | 16     |
 | Components Documented | 26+    |
 
 ---
@@ -201,7 +218,7 @@ Each documentation file follows this structure:
 ### Backend
 
 - Express.js
-- PostgreSQL (Neon)
+- PostgreSQL — Neon (production), local PostgreSQL 18 (development)
 - JWT Authentication
 - Bcrypt
 - Nodemailer (OTP)
@@ -279,7 +296,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: April 3, 2026
+**Last Updated**: April 14, 2026
 
 ---
 
