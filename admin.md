@@ -297,6 +297,14 @@ flowchart TD
 
 **Error state** — shows an `AlertCircle` icon, error message, and a **"Try Again"** button (`RefreshCw` icon) that re-runs the current fetch with active filters. The header area also always shows a standalone **Refresh** button regardless of error state.
 
+#### Export — Offers Management
+
+An **Export** dropdown button sits in the header action row between **Refresh** and **Create Offer**.
+
+| Filename | Columns exported |
+|----------|------------------|
+| `offers.csv/.xlsx` | Code, Title, Discount, Scope, Cinema Hall, Eligibility, Valid Until, Status |
+
 #### Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`)
 
 Full-width page (no `max-w-2xl` constraint). The form is split into a **two-column side-by-side layout** (`grid grid-cols-1 lg:grid-cols-2 gap-6 items-start`) on large screens, stacking to a single column on smaller screens:
@@ -473,6 +481,19 @@ Opened by clicking the **click count** in either the Ads card or the Analytics t
 | Email       | `customers.email`             |
 | Phone       | `customers.phone`             |
 | Clicked At  | `ad_clicks.clicked_at`        |
+
+A small **Export** dropdown button appears in the click-details modal header (alongside the click count) to export the per-ad click records. It is hidden while clicks are loading.
+
+#### Export — Ads Management
+
+Two independent export buttons:
+
+| Location | Filename | Columns exported |
+|----------|----------|------------------|
+| Page header (beside "New Ad") | `ads-performance.csv/.xlsx` | Title, Image URL, Click-through URL, Placement, Status, Start Date, End Date, Total Clicks |
+| Click-through modal header | `ad-clicks-<title>.csv/.xlsx` | Customer, Email, Phone, Clicked At |
+
+Both buttons export **all currently loaded records** (no extra API call). Disabled while data is loading or the list is empty.
 
 ---
 
@@ -1525,6 +1546,36 @@ graph LR
 
 All five paginated admin list pages (Bookings, Refunds, Payment Orders, Customers, Hall Admins) use the same shared `Pagination` component.
 
+### Export — Shared Utility
+
+**Location**: `src/utils/exportUtils.js`  
+**Dependency**: `xlsx` npm package
+
+Two named exports:
+
+```js
+// CSV: encodes values, wraps fields containing commas/quotes, triggers <a> download
+exportToCSV(data: Object[], filename: string): void
+
+// Excel: uses XLSX.utils.json_to_sheet + XLSX.writeFile to produce .xlsx download
+exportToExcel(data: Object[], filename: string): void
+```
+
+Both functions are no-ops when `data` is empty.
+
+**Export coverage by page** (all export current page / loaded data only — no extra API call):
+
+| Page | Button location | Filename | Exported columns |
+|------|----------------|----------|------------------|
+| Bookings | Header right (before Refresh) | `bookings` | Booking ID, Customer Name, Customer Email, Movie, Show Date, Start Time, Screen, Seats, Amount, Status |
+| Refunds | Header right (before Refresh) | `refunds` | Refund ID, Booking ID, Customer Name, Customer Email, Movie, Show Date, Start Time, Seats, Amount, Status, Initiated At, Settled At |
+| Payment Orders | Header right (before Refresh) | `payment-orders` | Order ID, Payment ID, Customer Name, Customer Email, Movie, Show Date, Start Time, Seats, Amount, Status |
+| Ads (summary) | Header beside "New Ad" | `ads-performance` | Title, Image URL, Click-through URL, Placement, Status, Start Date, End Date, Total Clicks |
+| Ads (clicks) | Click-through modal header | `ad-clicks-<title>` | Customer, Email, Phone, Clicked At |
+| Offers | Header between Refresh and Create | `offers` | Code, Title, Discount, Scope, Cinema Hall, Eligibility, Valid Until, Status |
+| Customers | Header right (before Refresh) | `customers` | Name, Email, Phone, Location, Verified, Joined, Bookings |
+| Hall Admins | Header right (before Refresh) | `hall-admins` | Name, Email, Phone, Cinema Hall, Location, Registered |
+
 **Props:**
 
 | Prop | Type | Description |
@@ -1576,19 +1627,20 @@ try {
 
 ### shadcn/ui Components Used
 
-| Component | Usage               |
-| --------- | ------------------- |
-| Button    | Actions, navigation |
-| Card      | Content containers  |
-| Dialog    | Modals for forms    |
-| Input     | Text fields         |
-| Select    | Dropdowns           |
-| Badge     | Status indicators   |
-| Separator | Visual dividers     |
-| Skeleton  | Loading states      |
-| Sonner    | Toast notifications |
-| Calendar  | Date pickers        |
-| Popover   | Contextual menus    |
+| Component       | Usage                           |
+| --------------- | ------------------------------- |
+| Button          | Actions, navigation             |
+| Card            | Content containers              |
+| Dialog          | Modals for forms                |
+| DropdownMenu    | Export format picker            |
+| Input           | Text fields                     |
+| Select          | Dropdowns                       |
+| Badge           | Status indicators               |
+| Separator       | Visual dividers                 |
+| Skeleton        | Loading states                  |
+| Sonner          | Toast notifications             |
+| Calendar        | Date pickers                    |
+| Popover         | Contextual menus                |
 
 ### Custom Components
 
@@ -1602,6 +1654,22 @@ try {
 - Footer: `<Separator />` + user avatar card (`bg-muted/40 rounded-lg px-3 py-2.5`) with name, role, and ghost logout button; collapsed footer shows icon-only logout with tooltip
 - Role filtering: items with `roles: ["superAdmin"]` are hidden when `user.role !== "superAdmin"`
 - Active route detection via `useLocation()` — exact path match
+
+**ExportButton** (`src/components/ExportButton.jsx`) — Reusable CSV / Excel export dropdown
+
+- Renders a shadcn `DropdownMenu` triggered by an outlined `Button` with a `Download` icon and "Export" label
+- Dropdown contains two items: **Export as CSV** (`FileText` icon) and **Export as Excel** (`FileSpreadsheet` icon)
+- Props:
+
+  | Prop | Type | Default | Description |
+  |------|------|---------|-------------|
+  | `data` | `Object[]` | `[]` | Flat array of plain objects; keys become column headers |
+  | `filename` | `string` | `"export"` | Base filename without extension |
+  | `disabled` | `boolean` | `false` | Disabled while data is loading or list is empty |
+
+- Automatically disabled when `data` is empty or `disabled` prop is `true`
+- Delegates to `exportToCSV` / `exportToExcel` in `src/utils/exportUtils.js`
+- `xlsx` npm package used for Excel output
 
 **Loader** - Loading spinner
 
@@ -2078,7 +2146,6 @@ Configured for Vercel deployment:
 - Revenue reports
 - Email notifications
 - Bulk operations
-- Export data (CSV/PDF)
 - Advanced filtering
 - Seat availability heatmap
 
@@ -2087,3 +2154,5 @@ Configured for Vercel deployment:
 **Last Updated**: March 29, 2026 (Show status lifecycle — new statuses `booking_started`, `in_progress`, `show_ended`; admin can Open Booking / Revert / Cancel shows from both `ShowsManagement` and `ShowPage`; status badges added to show cards; cancellation marks bookings cancelled + initiates Razorpay refunds)
 
 **Last Updated**: April 3, 2026 (Refunds system — new `refunds` DB table tracks per-booking refund lifecycle; `cancelShow` + `bulkCancelShows` now insert refund records and store Razorpay refund IDs; `refund.processed` + `refund.failed` webhook events auto-update status; cancel dialog in `ShowsManagement` and `ShowPage` now fetches booking count + total refund amount before confirming; `BookingDetailPage` shows a Refund card with status, timestamps, and "Mark as Settled" button for cancelled bookings; new `RefundsPage` at `/refunds` lists all refunds with filter + manual settle; user `Bookings.jsx` shows refund status badge for cancelled bookings)
+
+**Last Updated**: April 19, 2026 (CSV / Excel export — new `ExportButton` component (`src/components/ExportButton.jsx`) + `exportUtils.js` utility (`src/utils/exportUtils.js`); `xlsx` package installed; Export dropdown added to 7 admin pages: Bookings, Refunds, Payment Orders, Ads Management ×2 (ads summary in header + per-ad click records in click modal), Offers, Customers, Hall Admins; all exports cover current page / loaded data only; button is disabled while loading or when list is empty; "Export data (CSV/PDF)" removed from Future Enhancements)
