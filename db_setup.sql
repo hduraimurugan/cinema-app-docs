@@ -44,8 +44,14 @@ CREATE TABLE IF NOT EXISTS cinema_hall (
   location     TEXT NOT NULL,
   district     TEXT NOT NULL DEFAULT '',
   state        TEXT NOT NULL DEFAULT '',
+  latitude     NUMERIC(10,7),
+  longitude    NUMERIC(10,7),
   created_at   TIMESTAMPTZ DEFAULT now()
 );
+
+-- Add coordinates columns to existing cinema_hall tables (idempotent)
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS latitude  NUMERIC(10,7);
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS longitude NUMERIC(10,7);
 
 CREATE TABLE IF NOT EXISTS customers (
   id          UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
