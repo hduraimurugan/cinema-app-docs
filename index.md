@@ -47,6 +47,7 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/auth/admins` | List all cinema hall admins with their hall info — SuperAdmin only |
 | GET | `/api/dashboard/stats` | All dashboard metrics in one call (today stats, 7-day trend, recent bookings, today's shows) — Admin + Cinema Hall required |
 | GET | `/api/cron/jobs` | Vercel Cron endpoint — runs `cleanupExpiredHolds` + `updateShowStatuses`; protected by `Authorization: Bearer <CRON_SECRET>` |
+| PATCH | `/api/auth/hall` | Update cinema hall name, address, state, district, latitude, longitude — Admin auth required |
 
 ---
 
@@ -105,6 +106,9 @@ BookingSuccessPage
 | Admin Offer create/edit page | `cinema-hall-admin/src/pages/OfferFormPage.jsx` |
 | Admin Customers list page | `cinema-hall-admin/src/pages/UsersPage.jsx` |
 | Admin Cinema Hall Admins list page | `cinema-hall-admin/src/pages/AdminsPage.jsx` |
+| Admin registration page (multi-step + map) | `cinema-hall-admin/src/pages/RegisterPage.jsx` |
+| Admin profile + hall edit page | `cinema-hall-admin/src/pages/ProfilePage.jsx` |
+| Auth controller (register, login, updateHall) | `cinema-hall-api/controllers/auth.Controller.js` |
 | Customers controller | `cinema-hall-api/controllers/customers.Controller.js` |
 | Customers routes | `cinema-hall-api/routes/customers.routes.js` |
 | Admin dashboard page | `cinema-hall-admin/src/pages/HomePage.jsx` |
@@ -153,6 +157,8 @@ BookingSuccessPage
 *March 20, 2026 — Admin Bookings: added 4 filter-aware stats cards (Total Bookings, Total Revenue, Convenience Fees Collected, GST Collected) above the filters section. Backend `getCinemaHallBookings` returns a `stats` aggregate using the same WHERE clause as the data query. New `convenience_fee` and `gst_amount` columns added to `bookings` and `payment_orders` tables (`migration_fee_columns.sql`); stored at booking time via `createOrder` → `payment_orders` → `verifyPayment` → `bookings`. New `BookingDetailPage` at `/bookings/:id`: full detail view with Show Details, Customer, Payment, Price Breakdown (computed seat subtotal + fee line-items), and Offer Applied card (only when offer was used). Bookings list rows are now clickable. Reuses `GET /api/booking/admin/verify/:booking_id` — no new backend endpoint needed. `bookingAPI.getBookingById` added to `api.js`.*
 
 *March 20, 2026 — OffersPage: redeemed offers now shown as disabled cards instead of being hidden. `getActiveOffers` backend returns all eligible active/non-expired offers with `is_redeemed: true` flag for redeemed ones (sorted available-first). Frontend renders redeemed cards at `opacity-60` with gray top band, green "Applied" badge, muted discount text, strikethrough code, and "Already used" label (copy button hidden).*
+
+*April 19, 2026 — Cinema Hall Map Coordinates + RegisterPage redesign. DB: `ALTER TABLE cinema_hall ADD COLUMN latitude NUMERIC(10,7), longitude NUMERIC(10,7)` (nullable, idempotent; added to `db_setup.sql`). Backend: `registerCinemaAdmin` now accepts + stores `latitude`/`longitude`; `loginCinemaAdmin` + `getCinemaAdminMe` return them in the `hall` object; new `updateCinemaHall` handler for `PATCH /api/auth/hall` (admin auth, updates name/location/district/state/coordinates). `getTheatresWithShows` (userMovies controller) now returns `latitude`/`longitude` per hall. `getMyBookings` + `getBookingById` (booking controller) now return `cinema_hall_location`, `cinema_hall_latitude`, `cinema_hall_longitude`. Admin frontend: `leaflet` + `react-leaflet` added to `cinema-hall-admin` (`--legacy-peer-deps`). `RegisterPage` fully redesigned — dark full-viewport background (gradient + dot grid + glow orbs), 3-step wizard (Step 1: Personal Info → Step 2: Hall Details → Step 3: Map Location via Leaflet + Nominatim search). `ProfilePage` expanded into a real page: read-only admin profile card + editable cinema hall section with State/District dropdowns + Leaflet map picker + `PATCH /api/auth/hall` save. `authAPI.updateHall()` added to `cinema-hall-admin/src/services/api.js`; `updateHall()` added to `AuthContext`. User frontend: **Directions** button added to `TheatresPage` (per hall), `Bookings` list cards, and `BookingDetailPage` (alongside Download Ticket). Opens `google.com/maps/dir/?api=1&destination={lat},{lng}` in a new tab when coordinates are set, otherwise falls back to `google.com/maps/search/` with hall name + address.*
 
 *March 17, 2026 — Offers/coupon system: `offers` + `offer_redemptions` DB tables (`migration_offers.sql`); `ALTER TABLE bookings/payment_orders` adds `offer_code` + `discount_amount` columns. New `GET+POST /api/offers/*` routes (SuperAdmin CRUD + customer validate/active). `createOrder` applies offer discount server-side; `verifyPayment` records redemption atomically. Admin: `OffersManagement.jsx` at `/offers` (SuperAdmin); Offers nav item in AppSidebar. User: `OffersPage.jsx` at `/offers` (card grid + copy-code); coupon input + apply/remove UI in `OrderSummaryPage`; discount line in price breakdown; `offer_code` flows through `useRazorpayPayment` → `paymentAPI.createOrder`.*
 

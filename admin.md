@@ -126,7 +126,9 @@ sequenceDiagram
     name: "Grand Cinema",
     location: "Downtown Plaza",
     district: "Mumbai",
-    state: "Maharashtra"
+    state: "Maharashtra",
+    latitude: 19.07609,
+    longitude: 72.877426
   },
   isLoggedIn: boolean,
   loading: boolean
@@ -137,6 +139,8 @@ sequenceDiagram
 
 - `login(email, password)` - Authenticate admin
 - `logout()` - Clear session and redirect
+- `register(data)` - Register new admin + hall
+- `updateHall(data)` - Update hall details + coordinates; updates `cinemaHall` state in context
 - `checkAuth()` - Verify token on mount
 - `refreshToken()` - Auto-refresh access token
 
@@ -157,6 +161,36 @@ sequenceDiagram
   <MovieManagement />
 </AdminProtectedRoute>
 ```
+
+### RegisterPage
+
+**Route**: `/register`
+**Component**: `RegisterPage.jsx`
+**Access**: Public (unauthenticated only)
+
+Completely redesigned as a **3-step full-page form** — no left marketing panel. The entire viewport is a dark cinema-themed background (gradient + dot-grid pattern + floating glow orbs + `Film` watermark icon).
+
+**Layout:** Centered `max-w-lg` card with a step progress indicator (icon chips + connecting bar) at the top.
+
+**Step 1 — Personal Info:**
+- Full Name, Phone (2-column grid)
+- Email Address
+- Password (min 6 characters)
+- Validates all fields before allowing Next
+
+**Step 2 — Cinema Hall Details:**
+- Hall Name
+- Full Address (text input)
+- State + District dropdowns (populated from `country-state-city`)
+- Validates all fields before allowing Next
+
+**Step 3 — Set Location on Map:**
+- Address search bar → calls **Nominatim** free geocoding API; re-centers map and drops a pin
+- **Leaflet map** (`react-leaflet` + OpenStreetMap tiles) — click to drop a pin, drag pin to adjust
+- Coordinates displayed in a green badge (`lat, lng` to 6 decimal places)
+- Submit button collects all data from all 3 steps and calls `POST /api/auth/register`
+
+**Dependencies added:** `leaflet`, `react-leaflet` (installed with `--legacy-peer-deps`)
 
 ---
 
@@ -1413,8 +1447,23 @@ Lists all registered cinema hall admins (excludes SuperAdmin) with their associa
 
 #### ProfilePage
 
-- Admin profile information
-- Edit profile details
+**Route**: `/profile`
+**Component**: `ProfilePage.jsx`
+
+Two sections on one page:
+
+**Admin Profile (read-only):**
+- Avatar icon, name, role badge
+- Email and phone displayed with icons
+
+**Cinema Hall Details (editable):**
+- Hall Name, Full Address (text input), State dropdown, District dropdown (populated from `country-state-city`)
+- **Map location picker** — Leaflet (`react-leaflet`) map centered on India (or the hall's saved coordinates if already set)
+  - Click anywhere on the map to drop a pin → sets `latitude` / `longitude`
+  - Drag the pin to fine-tune position
+  - Address search bar using **Nominatim** (free OpenStreetMap geocoding API) — type a location and press Enter or click the search button; the map re-centers and drops a pin
+  - Current coordinates shown in a green badge below the map (`latitude, longitude` to 6 decimal places)
+- **Save Changes** button — calls `PATCH /api/auth/hall`; on success updates `cinemaHall` in `AuthContext` and shows a toast
 
 #### SettingsPage
 

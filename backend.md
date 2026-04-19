@@ -62,6 +62,8 @@ erDiagram
         text location
         text district
         text state
+        numeric latitude
+        numeric longitude
         timestamptz created_at
     }
 
@@ -370,6 +372,7 @@ sequenceDiagram
 | POST   | `/logout`   | None          | Clear auth cookies                  |
 | GET    | `/me`       | Access Token  | Get logged-in admin + hall info     |
 | POST   | `/refresh`  | Refresh Token | Refresh access token                |
+| PATCH  | `/hall`     | Access Token  | Update cinema hall details + coordinates |
 
 #### POST `/api/auth/register`
 
@@ -384,7 +387,9 @@ sequenceDiagram
   "hall_name": "Grand Cinema",
   "hall_location": "Downtown Plaza",
   "hall_district": "Mumbai",
-  "hall_state": "Maharashtra"
+  "hall_state": "Maharashtra",
+  "latitude": 19.076090,
+  "longitude": 72.877426
 }
 ```
 
@@ -406,6 +411,43 @@ sequenceDiagram
     "location": "Downtown Plaza",
     "district": "Mumbai",
     "state": "Maharashtra",
+    "latitude": 19.076090,
+    "longitude": 72.877426,
+    "created_at": "2024-01-29T10:00:00Z"
+  }
+}
+```
+
+#### PATCH `/api/auth/hall`
+
+Updates the logged-in admin's cinema hall details. Requires `Access Token`.
+
+**Request Body:**
+
+```json
+{
+  "hall_name": "Grand Cinema",
+  "hall_location": "Downtown Plaza, 1st Floor",
+  "hall_district": "Mumbai",
+  "hall_state": "Maharashtra",
+  "latitude": 19.076090,
+  "longitude": 72.877426
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "Cinema hall updated successfully.",
+  "hall": {
+    "id": "uuid",
+    "name": "Grand Cinema",
+    "location": "Downtown Plaza, 1st Floor",
+    "district": "Mumbai",
+    "state": "Maharashtra",
+    "latitude": 19.07609,
+    "longitude": 72.877426,
     "created_at": "2024-01-29T10:00:00Z"
   }
 }
@@ -443,6 +485,8 @@ sequenceDiagram
     "location": "Downtown Plaza",
     "district": "Mumbai",
     "state": "Maharashtra",
+    "latitude": 19.07609,
+    "longitude": 72.877426,
     "created_at": "2024-01-29T10:00:00Z"
   }
 }
@@ -1105,6 +1149,8 @@ Returns movie details with cinema halls and showtimes filtered to a specific dat
       "cinema_hall_location": "Downtown Plaza",
       "district": "Mumbai",
       "state": "Maharashtra",
+      "latitude": 19.07609,
+      "longitude": 72.877426,
       "shows": [
         {
           "show_id": "uuid",

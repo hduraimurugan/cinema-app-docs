@@ -536,7 +536,10 @@ Browse cinema halls by location with their movies and showtimes. Uses a **BookMy
 - **3-part vertical date buttons** (DOW / day number / month) — 7 days shown, inside a `bg-card border-b` shelf; selected date highlighted in cinema red (`bg-primary`)
 - **Availability legend** — `● AVAILABLE` (green) + `● FAST FILLING` (amber) aligned right below the date shelf
 - Fetches `GET /api/user/movies/location/theatres` with `district`, `state`, `date` from user's profile
-- **Cinema hall cards** (`rounded-xl`): building icon + hall name + location + heart icon (visual)
+- **Cinema hall cards** (`rounded-xl`): building icon + hall name + location + **Directions** button + heart icon (visual)
+  - **Directions button** — opens Google Maps in a new tab:
+    - If the hall has `latitude`/`longitude` → `google.com/maps/dir/?api=1&destination={lat},{lng}` (navigation mode)
+    - Else fallback → `google.com/maps/search/?api=1&query={hall_name+location}` (search mode)
 - Each hall shows its movies with:
   - Clickable poster thumbnail (navigates to `/movie/:movieId`)
   - Clickable title (same navigation)
@@ -706,6 +709,7 @@ Displays all bookings for the logged-in customer, split into two tabs.
 
   When `refund_status` is absent (e.g. booking cancelled without a refund record), only the standard `Cancelled` badge is shown.
 - **Clickable cards** — clicking any booking card navigates to `/bookings/:id` (the `BookingDetailPage`) for a full detail view
+- **Directions button** — each card has a `MapPin` + "Directions" button that opens Google Maps in a new tab (coordinates if available, else hall name + address fallback). Uses `e.stopPropagation()`
 - **Show QR button** — each card has a "Show QR" button that opens a `Dialog` containing a `QRCodeSVG` (180×180) encoding the full booking UUID, movie title, and show date. Uses `e.stopPropagation()` to prevent card navigation
 - **View Ticket button** — each non-cancelled card has a "View Ticket" button (`ExternalLink` icon) that navigates to `/booking/success?payment_id=xxx` — opens the `BookingSuccessPage` (Booking Confirmed! screen) where the ticket can be downloaded. Uses `e.stopPropagation()`. Hidden for cancelled bookings
 - Loading skeleton and empty state per tab
@@ -735,7 +739,9 @@ Full detail view for a single customer booking. Fetches from `/api/booking/:id` 
    - **Perforated divider** — dashed border with half-circle notches (same style as `BookingSuccessPage`)
    - Ticket body: Booking ID (first 8 chars, monospace) with copy button, status badge, seat label chips, total amount `text-3xl`, QR code (`QRCodeSVG` 80×80, level M)
    - "Present this QR code at the cinema entrance" hint
-3. **Download Ticket button** — captures `ticketRef` as JPEG using `html-to-image` at 3× pixel ratio (same logic as `BookingSuccessPage`); falls back to navigating to `/booking/success?payment_id=…` if capture fails. Hidden for cancelled bookings.
+3. **Action buttons row** (two side-by-side):
+   - **Get Directions** — opens Google Maps in a new tab (coordinates if available, else hall name + address fallback)
+   - **Download Ticket** — captures `ticketRef` as JPEG using `html-to-image` at 3× pixel ratio (same logic as `BookingSuccessPage`); falls back to navigating to `/booking/success?payment_id=…` if capture fails. Hidden for cancelled bookings.
 4. **Price Breakdown card** — Seats (calculated as `total − discount − convenience − gst`), Convenience Fee, GST, Offer Discount (green, shown only when `discount_amount > 0`), Total
 5. **Refund Details card** — only rendered when `booking_status === 'cancelled'` AND `refund_status` is set:
    - Refund status badge (amber = initiated, green = settled, red = failed)

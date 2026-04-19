@@ -149,7 +149,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 | Total Lines           | 4,800+ |
 | Mermaid Diagrams      | 35+    |
 | API Endpoints         | 47+    |
-| Database Tables       | 16     |
+| Database Tables       | 16 (+ 2 new columns) |
 | Components Documented | 26+    |
 
 ---
@@ -179,6 +179,8 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Ads management (SuperAdmin only) — banner + sidebar ads with click-through tracking**
 ✅ **Offers / coupon system (SuperAdmin only) — global or hall-scoped percentage/fixed discount codes with expiry, eligibility targeting, and redemption tracking**
 ✅ **Refunds management — `/refunds` page lists all refund records; cancel dialog shows booking count + refund total; BookingDetailPage shows refund card with manual settle button**
+✅ **Multi-step RegisterPage — 3-step wizard (Personal Info → Hall Details → Map Location) with dark cinema background, Leaflet map picker, Nominatim address search**
+✅ **ProfilePage hall editor — edit hall name, address, state, district + pick coordinates on Leaflet map; saved via `PATCH /api/auth/hall`**
 
 ### User Features
 
@@ -196,6 +198,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ **Dynamic ad banners (carousel on /movies, sidebar on /movie/:id) with click-through recording**
 ✅ **Offers page (/offers) — browse eligible discount codes, copy with one click; redeemed offers shown as disabled with "Applied" badge**
 ✅ **Coupon input at checkout — apply offer code on Order Summary page with live discount preview**
+✅ **Directions button on TheatresPage, My Bookings list, and Booking Detail — opens Google Maps navigation (coordinates-first, address fallback)**
 
 ---
 
@@ -296,7 +299,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: April 14, 2026
+**Last Updated**: April 19, 2026
 
 ---
 
