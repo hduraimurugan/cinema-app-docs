@@ -2190,7 +2190,17 @@ scheduled → booking_started → in_progress → show_ended
 
 ### Show Status Auto-Update (Background Job)
 
-Show statuses transition automatically via two mechanisms:
+Show statuses transition automatically via three mechanisms:
+
+**Middleware (Fallback)** — Called asynchronously on every request to the `/api/shows` route to compensate for any missed cron jobs in production:
+
+```javascript
+// server.js
+app.use('/api/shows', (req, res, next) => {
+  updateShowStatuses();
+  next();
+}, showsRoutes);
+```
 
 **Local development** — `setInterval` in `server.js` (only runs when `NODE_ENV !== 'production'`):
 
