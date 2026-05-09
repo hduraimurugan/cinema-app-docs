@@ -1362,3 +1362,212 @@ ARRAY(
 ✅ **Hold Validation** - Check seats still held before creating order  
 ✅ **Idempotency** - Webhook won't double-process  
 ✅ **Raw Body Parser** - Required for webhook signature verification
+
+---
+
+# Idempotency & Duplicate Booking Prevention — Walkthrough
+
+## What Was Changed
+
+5 files modified/created across 3 layers.
+
+---
+
+## 1. `migration_idempotency.sql` (NEW)
+
+Run this once against your PostgreSQL database (Neon production + local dev).
+
+```sql
+-- Run in psql or Neon SQL editor:
+\i migration_idempotency.sql
+```
+
+**What it does:**
+- Adds `UNIQUE(payment_id)` constraint to `bookings` — the DB-level backstop preventing duplicate booking rows
+- Adds `webhook_events` table for webhook deduplication
+- Adds indexes for fast idempotency lookups
+
+> [!CAUTION]
+> Before running: check for existing duplicate `payment_id` rows:
+> ```sql
+> SELECT payment_id, COUNT(*) FROM bookings GROUP BY 1 HAVING COUNT(*) > 1;
+> ```
+> If any exist, resolve them first or the `ALTER TABLE` will fail.
+
+---
+
+## 2. `controllers/payment.Controller.js` (MODIFIED)
+
+### Fix 1 — `createOrder`: Dedup active orders
+
+**Before:** Every call to `/create-order` (including network retries) created a new Razorpay order.
+
+**After:** Checks for an existing `'created'` order for the same `customer_id + show_id` within 10 minutes. Returns it instead of creating a new one.
+
+```js
+// New dedup check at top of createOrder
+const existingOrder = await db.query(`
+    SELECT * FROM payment_orders
+    WHERE customer_id = $1 AND show_id = $2 AND status = 'created'
+      AND created_at > NOW() - INTERVAL '10 minutes'
+    ORDER BY created_at DESC LIMIT 1
+`, [customer_id, show_id]);
+
+if (existingOrder.rowCount > 0) {
+    return res.status(200).json({ order_id: existing.order_id, ... });
+}
+```
+
+### Fix 2 — `verifyPayment`: Idempotency guard
+
+**Before:** No check — two parallel calls with the same payment created two `bookings` rows.
+
+**After:** Two-layer protection:
+1. **Pre-check**: If `payment_orders.status === 'paid'`, return existing booking immediately
+2. **`ON CONFLICT (payment_id) DO NOTHING`**: If two calls race past the pre-check, only one INSERT wins — the loser fetches the winner's row
+
+```js
+// Pre-check
+if (order.status === 'paid') {
+    const existing = await db.query(`SELECT * FROM bookings WHERE payment_id = $1`, [razorpay_payment_id]);
+    return res.status(200).json({ success: true, booking: existing.rows[0], _idempotent: true });
+}
+
+// Safe insert inside transaction
+const bookingResult = await client.query(`
+    INSERT INTO bookings (...) VALUES (...)
+    ON CONFLICT (payment_id) DO NOTHING
+    RETURNING *
+`);
+// If 0 rows returned, fetch the existing booking
+if (bookingResult.rowCount === 0) {
+    const fallback = await client.query(`SELECT * FROM bookings WHERE payment_id = $1`, [...]);
+    booking = fallback.rows[0];
+}
+```
+
+### Fix 3 — `handleWebhook`: Event deduplication table
+
+**Before:** No dedup — Razorpay webhook retries could process the same event multiple times.
+
+**After:** `X-Razorpay-Event-Id` header is used as a dedup key. First delivery inserts into `webhook_events`; subsequent deliveries hit `ON CONFLICT DO NOTHING` and return 200 immediately.
+
+```js
+const eventId = req.headers["x-razorpay-event-id"]
+    || crypto.createHash("sha256").update(rawBody).digest("hex"); // fallback
+
+const dedup = await db.query(`
+    INSERT INTO webhook_events (event_id, event_type, payload_hash)
+    VALUES ($1, $2, $3)
+    ON CONFLICT (event_id) DO NOTHING
+    RETURNING id
+`, [eventId, event, payloadHash]);
+
+if (dedup.rowCount === 0) {
+    return res.status(200).json({ received: true, _duplicate: true }); // already processed
+}
+```
+
+### Fix 4 — `handlePaymentCaptured`: `SELECT FOR UPDATE` to serialize concurrent deliveries
+
+**Before:** Simple `status === 'paid'` check — two concurrent webhook deliveries could both see `status = 'created'` before either commits.
+
+**After:** Locks the `payment_orders` row with `FOR UPDATE` inside a transaction, serializing all concurrent deliveries.
+
+### Fix 5 — `handlePaymentFailed`: Atomic seat release
+
+**Before:** Two separate queries — `SELECT show_id, seats` then `DELETE` — with a TOCTOU race window between them.
+
+**After:** All in one transaction with `FOR UPDATE` lock. Seat deletion uses the locked order data directly.
+
+---
+
+## 3. `routes/payment.routes.js` (MODIFIED)
+
+**The webhook route now uses `express.raw()`** instead of inheriting `express.json()` from the global middleware:
+
+```js
+router.post(
+    "/webhook",
+    express.raw({ type: "*/*" }), // req.body = Buffer, exact bytes Razorpay signed
+    handleWebhook
+);
+```
+
+**Why this matters:** `express.json()` parses the body into a JS object. Re-serializing with `JSON.stringify()` may not reproduce the original byte order, causing HMAC verification to fail on some payloads — intermittently and unpredictably in production.
+
+---
+
+## 4. `server.js` (MODIFIED)
+
+The global `express.json()` and `express.urlencoded()` middlewares now skip the webhook path:
+
+```js
+app.use((req, res, next) => {
+    if (req.path === '/api/payment/webhook') return next(); // skip for webhook
+    express.json()(req, res, next);
+});
+```
+
+---
+
+## 5. `hooks/useRazorpayPayment.js` (MODIFIED)
+
+Added a `useRef`-based in-flight guard:
+
+```js
+const inFlight = useRef(false);
+
+const initiatePayment = async (...) => {
+    if (inFlight.current) throw new Error('Payment already in progress');
+    inFlight.current = true;
+    try { ... }
+    finally { inFlight.current = false; }
+};
+```
+
+**Why `useRef` not `useState`:** State updates are batched and async in React — a second click can fire before the first `setState` re-renders the component and `disabled` kicks in. A ref update is synchronous and immediately visible to the next call in the same JS thread.
+
+Modal dismiss also releases the guard so the user can retry without a page reload.
+
+---
+
+## How to Deploy
+
+### Step 1 — Run the migration
+
+Open your Neon SQL editor (or local psql) and run the contents of `migration_idempotency.sql`.
+
+### Step 2 — Restart the API
+
+The dev server will auto-reload (nodemon). In production, redeploy.
+
+### Step 3 — Verify
+
+```sql
+-- Confirm constraint exists
+SELECT constraint_name FROM information_schema.table_constraints
+WHERE table_name = 'bookings' AND constraint_type = 'UNIQUE';
+
+-- Confirm webhook table
+SELECT COUNT(*) FROM webhook_events;
+
+-- Check for duplicates (should be 0)
+SELECT payment_id, COUNT(*) FROM bookings
+GROUP BY payment_id HAVING COUNT(*) > 1;
+```
+
+---
+
+## Threat Model: Before vs After
+
+| Scenario | Before | After |
+|---|---|---|
+| User double-clicks Pay button | ❌ 2 bookings | ✅ `useRef` blocks 2nd call |
+| Network timeout → frontend retry of `/verify` | ❌ 2 bookings | ✅ Idempotent pre-check + `ON CONFLICT` |
+| Two parallel `/verify` requests race | ❌ 2 bookings | ✅ `ON CONFLICT (payment_id) DO NOTHING` |
+| Network retry of `/create-order` | ⚠️ 2 Razorpay orders | ✅ Returns existing order |
+| Razorpay webhook retry (24h window) | ⚠️ Event re-processed | ✅ `webhook_events` dedup table |
+| Concurrent webhook deliveries of same event | ⚠️ Both process | ✅ `SELECT FOR UPDATE` serializes |
+| `payment.failed` webhook TOCTOU on seats | ⚠️ Race condition | ✅ Atomic transaction |
+| Webhook HMAC fails intermittently in prod | ⚠️ Body re-serialization | ✅ Raw Buffer preserved |
