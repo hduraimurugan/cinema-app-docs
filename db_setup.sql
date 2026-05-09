@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   seats           TEXT[]       NOT NULL,
   total_amount    DECIMAL(10,2) NOT NULL,
   payment_status  VARCHAR(20)  DEFAULT 'pending',
-  payment_id      VARCHAR(255),
+  payment_id      VARCHAR(255) UNIQUE,                    -- UNIQUE constraint for idempotency
   booking_status  VARCHAR(20)  DEFAULT 'confirmed'
                     CHECK (booking_status IN ('confirmed', 'cancelled', 'completed')),
   convenience_fee DECIMAL(10,2) NOT NULL DEFAULT 0,
@@ -250,6 +250,15 @@ CREATE TABLE IF NOT EXISTS bookings (
   discount_amount NUMERIC(10,2) DEFAULT 0,
   created_at      TIMESTAMPTZ  DEFAULT now(),
   updated_at      TIMESTAMPTZ  DEFAULT now()
+);
+
+-- Deduplication table for Razorpay webhooks
+CREATE TABLE IF NOT EXISTS webhook_events (
+  id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_id     VARCHAR(255) UNIQUE NOT NULL,      -- X-Razorpay-Event-Id
+  event_type   VARCHAR(50)  NOT NULL,            -- e.g. payment.captured
+  payload_hash VARCHAR(64)  NOT NULL,          -- SHA-256 of raw body
+  processed_at TIMESTAMPTZ  DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);

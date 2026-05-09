@@ -2385,7 +2385,7 @@ CREATE TABLE bookings (
   convenience_fee DECIMAL(10, 2) NOT NULL DEFAULT 0,
   gst_amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
   payment_status VARCHAR(20) DEFAULT 'pending',
-  payment_id VARCHAR(255),                    -- Razorpay payment ID
+  payment_id VARCHAR(255) UNIQUE,                    -- Razorpay payment ID (idempotency key)
   booking_status VARCHAR(20) DEFAULT 'confirmed',
   offer_code VARCHAR(50),
   discount_amount NUMERIC(10, 2) DEFAULT 0,
@@ -2393,6 +2393,43 @@ CREATE TABLE bookings (
   updated_at TIMESTAMPTZ DEFAULT now()
 );
 ```
+
+#### webhook_events
+
+Deduplication table for Razorpay webhooks. Prevents multiple processing of the same event delivery.
+
+```sql
+CREATE TABLE webhook_events (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  event_id VARCHAR(255) UNIQUE NOT NULL,      -- X-Razorpay-Event-Id
+  event_type VARCHAR(50) NOT NULL,            -- e.g. payment.captured
+  payload_hash VARCHAR(64) NOT NULL,          -- SHA-256 of raw body
+  processed_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+---
+
+## 🔒 Idempotency & Race Condition Prevention
+
+The booking and payment flow is hardened against double-payments, network retries, and concurrent processing.
+
+### 1. Database-Level Protections
+- **Booking Idempotency**: `bookings.payment_id` has a `UNIQUE` constraint. This is the final backstop against duplicate insertions during race conditions.
+- **Seat Serialization**: `SELECT FOR UPDATE` is used inside transactions during webhook processing to lock the `payment_orders` row, ensuring only one delivery processes a specific order at a time.
+- **Atomic Operations**: Releasing seats on failure is performed in a single atomic transaction using `DELETE FROM show_booked_seats WHERE ...` joined with the locked order data.
+
+### 2. API-Level Protections
+- **Order Deduplication**: `createOrder` checks for an existing `'created'` order for the same customer and show within the last 10 minutes before creating a new one in Razorpay.
+- **Webhook Deduplication**: All incoming webhook events are logged in `webhook_events`. Subsequent deliveries of the same `X-Razorpay-Event-Id` are ignored using `ON CONFLICT DO NOTHING`.
+- **Verify Idempotency**: `verifyPayment` returns the existing booking immediately if the order status is already `'paid'`, and uses `ON CONFLICT (payment_id) DO NOTHING` for parallel races.
+
+### 3. Frontend Hardening
+- **In-flight Guards**: `useRazorpayPayment.js` uses a `useRef` guard to synchronously prevent multiple clicks from initiating multiple payment flows, which React state cannot reliably block.
+
+### 4. Webhook Reliability
+- **Raw Body Preservations**: The webhook route uses `express.raw()` and the global JSON parser is bypassed for this path. This ensures the raw request bytes are preserved exactly for HMAC signature verification, preventing intermittent failures caused by re-serialization.
+
 
 ### API Endpoints
 

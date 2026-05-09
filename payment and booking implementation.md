@@ -1414,7 +1414,14 @@ const existingOrder = await db.query(`
 `, [customer_id, show_id]);
 
 if (existingOrder.rowCount > 0) {
-    return res.status(200).json({ order_id: existing.order_id, ... });
+    const existing = existingOrder.rows[0];
+    return res.status(200).json({
+        order_id: existing.order_id,
+        amount: Math.round(parseFloat(existing.amount) * 100),
+        currency: "INR",
+        key_id: process.env.RAZORPAY_KEY_ID,
+        _idempotent: true
+    });
 }
 ```
 
