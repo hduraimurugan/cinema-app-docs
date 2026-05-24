@@ -64,6 +64,9 @@ erDiagram
         text state
         numeric latitude
         numeric longitude
+        text phone
+        text description
+        boolean is_active
         timestamptz created_at
     }
 
@@ -280,8 +283,8 @@ sequenceDiagram
     participant JWT
 
     Client->>API: POST /api/auth/register
-    API->>DB: Insert cinema_admin_user + cinema_hall
-    DB-->>API: Return admin + hall data
+    API->>DB: Insert cinema_admin_user
+    DB-->>API: Return admin data
     API-->>Client: 201 Created
 
     Client->>API: POST /api/auth/login
@@ -367,7 +370,7 @@ sequenceDiagram
 
 | Method | Endpoint    | Auth          | Description                         |
 | ------ | ----------- | ------------- | ----------------------------------- |
-| POST   | `/register` | None          | Register cinema admin + create hall |
+| POST   | `/register` | None          | Register cinema admin (credentials only) |
 | POST   | `/login`    | None          | Login admin                         |
 | POST   | `/logout`   | None          | Clear auth cookies                  |
 | GET    | `/me`       | Access Token  | Get logged-in admin + hall info     |
@@ -383,13 +386,7 @@ sequenceDiagram
   "name": "John Doe",
   "email": "admin@cinema.com",
   "password": "securepass123",
-  "phone": "+1234567890",
-  "hall_name": "Grand Cinema",
-  "hall_location": "Downtown Plaza",
-  "hall_district": "Mumbai",
-  "hall_state": "Maharashtra",
-  "latitude": 19.076090,
-  "longitude": 72.877426
+  "phone": "+1234567890"
 }
 ```
 
@@ -403,16 +400,6 @@ sequenceDiagram
     "name": "John Doe",
     "email": "admin@cinema.com",
     "phone": "+1234567890",
-    "created_at": "2024-01-29T10:00:00Z"
-  },
-  "hall": {
-    "id": "uuid",
-    "name": "Grand Cinema",
-    "location": "Downtown Plaza",
-    "district": "Mumbai",
-    "state": "Maharashtra",
-    "latitude": 19.076090,
-    "longitude": 72.877426,
     "created_at": "2024-01-29T10:00:00Z"
   }
 }
@@ -489,6 +476,137 @@ Updates the logged-in admin's cinema hall details. Requires `Access Token`.
     "longitude": 72.877426,
     "created_at": "2024-01-29T10:00:00Z"
   }
+}
+```
+
+---
+
+### Cinema Halls Management (`/api/halls`)
+
+All endpoints require **Admin** authentication (verified via `verifyCinemaAdminAccessToken`).
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| GET    | `/`      | Admin | Get all cinema halls owned by the logged-in admin |
+| POST   | `/`      | Admin | Create a new cinema hall |
+| PUT    | `/:id`   | Admin | Update an existing cinema hall (must own the hall) |
+| DELETE | `/:id`   | Admin | Delete a cinema hall (cascades to screens/shows/bookings) |
+
+#### GET `/api/halls`
+
+Returns all halls owned by the authenticated admin.
+
+**Response (200):**
+
+```json
+{
+  "halls": [
+    {
+      "id": "uuid",
+      "admin_id": "uuid",
+      "name": "PVR Cinemas",
+      "location": "Mall Road, Anna Nagar",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "latitude": 13.0827,
+      "longitude": 80.2707,
+      "phone": "9876543210",
+      "description": "Premium multi-screen theater",
+      "is_active": true,
+      "created_at": "2026-05-24T10:00:00Z"
+    }
+  ]
+}
+```
+
+#### POST `/api/halls`
+
+Creates a new cinema hall for the authenticated admin.
+
+**Request Body:**
+
+```json
+{
+  "name": "PVR Cinemas",
+  "location": "Mall Road, Anna Nagar",
+  "district": "Chennai",
+  "state": "Tamil Nadu",
+  "latitude": 13.0827,
+  "longitude": 80.2707,
+  "phone": "9876543210",
+  "description": "Premium multi-screen theater"
+}
+```
+
+**Response (201):**
+
+```json
+{
+  "hall": {
+    "id": "uuid",
+    "name": "PVR Cinemas",
+    "location": "Mall Road, Anna Nagar",
+    "district": "Chennai",
+    "state": "Tamil Nadu",
+    "latitude": 13.0827,
+    "longitude": 80.2707,
+    "phone": "9876543210",
+    "description": "Premium multi-screen theater",
+    "is_active": true,
+    "created_at": "2026-05-24T10:00:00Z"
+  }
+}
+```
+
+#### PUT `/api/halls/:id`
+
+Updates details of a specific cinema hall. The admin must own the hall.
+
+**Request Body (all fields optional):**
+
+```json
+{
+  "name": "PVR Cinemas Updated",
+  "location": "Mall Road, Anna Nagar",
+  "district": "Chennai",
+  "state": "Tamil Nadu",
+  "latitude": 13.0827,
+  "longitude": 80.2707,
+  "phone": "9876543210",
+  "description": "Premium multi-screen theater",
+  "is_active": false
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "hall": {
+    "id": "uuid",
+    "name": "PVR Cinemas Updated",
+    "location": "Mall Road, Anna Nagar",
+    "district": "Chennai",
+    "state": "Tamil Nadu",
+    "latitude": 13.0827,
+    "longitude": 80.2707,
+    "phone": "9876543210",
+    "description": "Premium multi-screen theater",
+    "is_active": false,
+    "created_at": "2026-05-24T10:00:00Z"
+  }
+}
+```
+
+#### DELETE `/api/halls/:id`
+
+Deletes a specific cinema hall. The admin must own the hall. This action cascades and deletes all screens, shows, bookings, and refund records belonging to this hall.
+
+**Response (200):**
+
+```json
+{
+  "message": "Hall deleted successfully"
 }
 ```
 
@@ -2893,4 +3011,4 @@ Returns `400` if already settled.
 
 ---
 
-**Last Updated**: March 29, 2026 — Show status lifecycle: new statuses `booking_started`, `in_progress`, `show_ended`; two new admin routes (`PUT /api/shows/booking-status/:id`, `PUT /api/shows/cancel/:id`); background job updated to use new transitions; user-facing showtime queries now filter `booking_started` only.
+**Last Updated**: May 24, 2026 — Multi-Hall Support: Refactored database and API to support multiple cinema halls per admin. Simplified registration flow to collect admin credentials only, leaving hall creation to a dedicated onboarding flow or the new `/api/halls` endpoint group. Added a `halls` API group for full cinema hall CRUD operations, complete with location coordinates, phone numbers, descriptions, and activation statuses.

@@ -26,36 +26,44 @@ The Cinema Hall Admin Panel is a **React-based web application** built for cinem
 graph TD
     A[App.jsx] --> B{User Logged In?}
     B -->|No| C[/login]
-    B -->|Yes| D[CinemaLayout]
+    B -->|Yes| D{Has Halls?}
 
-    D --> E[Protected Routes]
-    E --> F[/ - HomePage]
-    E --> G[/movie/:id - MoviePage]
-    E --> H[/screens - CinemaScreens list]
-    E --> H2[/screens/new - ScreenDesignerPage add]
-    E --> H3[/screens/:id/edit - ScreenDesignerPage edit]
-    E --> I[/shows - ShowsManagement]
-    E --> I2[/shows/new - AddShowPage]
-    E --> I3[/shows/bulk - AddMultipleShowsPage]
-    E --> I4[/shows/:id/edit - EditShowPage]
-    E --> J[/show/:id - ShowPage]
-    E --> K[/bookings - Bookings]
-    E --> K2[/bookings/:id - BookingDetailPage]
-    E --> K4[/refunds - RefundsPage]
-    E --> K3[/verify-ticket - VerifyTicket]
-    E --> L[/profile - ProfilePage]
-    E --> M[/settings - SettingsPage]
+    D -->|No| E[/onboarding]
+    D -->|Yes| F[CinemaLayout with HallGuard]
 
-    D --> N[SuperAdmin Routes]
-    N --> O[/movies - MovieManagement]
-    N --> O2[/ads - AdsManagement]
-    N --> O3[/offers - OffersManagement]
-    N --> O4[/offers/new - OfferFormPage create]
-    N --> O5[/offers/:id/edit - OfferFormPage edit]
-    N --> O6[/customers - UsersPage]
-    N --> O7[/admins - AdminsPage]
+    F --> G[Exempt Routes]
+    G --> G1[/profile - ProfilePage]
+    G --> G2[/settings - SettingsPage]
+    G --> G3[/halls - HallsManagement]
 
-    C --> P[/register - RegisterPage]
+    F --> H[Hall-Gated Routes]
+    H --> H1[/ - HomePage]
+    H --> H2[/movie/:id - MoviePage]
+    H --> H3[/screens - CinemaScreens list]
+    H --> H4[/screens/new - ScreenDesignerPage add]
+    H --> H5[/screens/:id/edit - ScreenDesignerPage edit]
+    H --> H6[/shows - ShowsManagement]
+    H --> H7[/shows/new - AddShowPage]
+    H --> H8[/shows/bulk - AddMultipleShowsPage]
+    H --> H9[/shows/:id/edit - EditShowPage]
+    H --> H10[/show/:id - ShowPage]
+    H --> H11[/bookings - Bookings]
+    H --> H12[/bookings/:id - BookingDetailPage]
+    H --> H13[/refunds - RefundsPage]
+    H --> H14[/payment-orders - PaymentOrders]
+    H --> H15[/verify-ticket - VerifyTicket]
+
+    B -->|Yes + SuperAdmin| I[CinemaLayout without HallGuard]
+    I --> J[SuperAdmin Routes]
+    J --> J1[/movies - MovieManagement]
+    J --> J2[/ads - AdsManagement]
+    J --> J3[/offers - OffersManagement]
+    J --> J4[/offers/new - OfferFormPage create]
+    J --> J5[/offers/:id/edit - OfferFormPage edit]
+    J --> J6[/customers - UsersPage]
+    J --> J7[/admins - AdminsPage]
+
+    C --> K[/register - RegisterPage]
 ```
 
 ### Component Hierarchy
@@ -168,29 +176,42 @@ sequenceDiagram
 **Component**: `RegisterPage.jsx`
 **Access**: Public (unauthenticated only)
 
-Completely redesigned as a **3-step full-page form** — no left marketing panel. The entire viewport is a dark cinema-themed background (gradient + dot-grid pattern + floating glow orbs + `Film` watermark icon).
+Simplified credentials registration page. Collects Full Name, Phone number, Email Address, and Password. Upon successful registration, the admin is redirected to `/login` to sign in. The first-time cinema hall setup is offloaded to the **Onboarding Flow** after successful authentication.
 
-**Layout:** Centered `max-w-lg` card with a step progress indicator (icon chips + connecting bar) at the top.
+---
 
-**Step 1 — Personal Info:**
-- Full Name, Phone (2-column grid)
-- Email Address
-- Password (min 6 characters)
-- Validates all fields before allowing Next
+### Onboarding Flow & Multi-Hall Support
 
-**Step 2 — Cinema Hall Details:**
-- Hall Name
-- Full Address (text input)
-- State + District dropdowns (populated from `country-state-city`)
-- Validates all fields before allowing Next
+To support admins managing multiple cinema halls, the system divides the admin's workspace by the selected active hall.
 
-**Step 3 — Set Location on Map:**
-- Address search bar → calls **Nominatim** free geocoding API; re-centers map and drops a pin
-- **Leaflet map** (`react-leaflet` + OpenStreetMap tiles) — click to drop a pin, drag pin to adjust
-- Coordinates displayed in a green badge (`lat, lng` to 6 decimal places)
-- Submit button collects all data from all 3 steps and calls `POST /api/auth/register`
+#### 1. Onboarding Page (`/onboarding`)
+- **Access**: Gated behind `ProtectedRoute`. Displayed only if the logged-in admin has no cinema halls created.
+- **Wizard**: 2-step setup:
+  - **Step 1 — Hall Details**: Hall Name, Full Address, State, and District (populated via `country-state-city`).
+  - **Step 2 — Location Pinning**: Leaflet map for coordinate selection. Includes search functionality via Nominatim geocoding. Pin is draggable, and coordinates are saved automatically.
+- Upon completion, calls `POST /api/halls` to save the hall, refetches the user's halls list, sets the newly created hall as active, and redirects to the home dashboard.
 
-**Dependencies added:** `leaflet`, `react-leaflet` (installed with `--legacy-peer-deps`)
+#### 2. Hall Guard (`HallGuard.jsx`)
+- Gated routes are checked against the global `halls` context.
+- If the list of halls is empty, the admin is forced to redirect to `/onboarding`.
+- Protects all routes that depend on an active hall ID, preventing errors and invalid scoped DB queries.
+- Certain routes are exempt (e.g. `/profile`, `/settings`, `/halls`) to allow admins to manage their profile or create/delete/switch halls regardless of their active hall status.
+
+#### 3. Hall Switcher (`HallSwitcher.jsx`)
+- Dropdown component integrated into the sidebar layout header.
+- Displays the active hall name and location at a glance.
+- Clicking the switcher opens a dropdown displaying all halls owned by the admin, with the active one highlighted.
+- Selecting a different hall updates the global active hall, updates `localStorage`, and triggers state refetching on the current page.
+- Provides a direct link to the Halls Management page.
+
+#### 4. Halls Management (`/halls`)
+- **Route**: `/halls` (Exempt from HallGuard redirect).
+- Provides a comprehensive dashboard for admins to manage their halls.
+- **Features**:
+  - Grid list showing all halls with active/inactive status badges, name, address, phone number, and description.
+  - Active hall toggle (switch to set any hall as the active one).
+  - Create Hall form & Edit Hall dialog with embedded Leaflet map for location pinning.
+  - Delete Hall action (with warning about cascading deletions).
 
 ---
 

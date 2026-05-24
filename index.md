@@ -48,6 +48,10 @@ Quick reference for all documentation files in this folder.
 | GET | `/api/dashboard/stats` | All dashboard metrics in one call (today stats, 7-day trend, recent bookings, today's shows) — Admin + Cinema Hall required |
 | GET | `/api/cron/jobs` | Vercel Cron endpoint — runs `cleanupExpiredHolds` + `updateShowStatuses`; protected by `Authorization: Bearer <CRON_SECRET>` |
 | PATCH | `/api/auth/hall` | Update cinema hall name, address, state, district, latitude, longitude — Admin auth required |
+| GET | `/api/halls` | Get all cinema halls owned by the logged-in admin |
+| POST | `/api/halls` | Create a new cinema hall |
+| PUT | `/api/halls/:id` | Update an existing cinema hall (must own the hall) |
+| DELETE | `/api/halls/:id` | Delete a cinema hall (cascades to screens/shows/bookings) |
 
 ---
 
@@ -106,9 +110,16 @@ BookingSuccessPage
 | Admin Offer create/edit page | `cinema-hall-admin/src/pages/OfferFormPage.jsx` |
 | Admin Customers list page | `cinema-hall-admin/src/pages/UsersPage.jsx` |
 | Admin Cinema Hall Admins list page | `cinema-hall-admin/src/pages/AdminsPage.jsx` |
-| Admin registration page (multi-step + map) | `cinema-hall-admin/src/pages/RegisterPage.jsx` |
+| Admin registration page (simplified credentials) | `cinema-hall-admin/src/pages/RegisterPage.jsx` |
+| Admin first-time onboarding page | `cinema-hall-admin/src/pages/OnboardingPage.jsx` |
+| Admin halls management page | `cinema-hall-admin/src/pages/HallManagement.jsx` |
+| Admin hall switcher component | `cinema-hall-admin/src/components/HallSwitcher.jsx` |
+| Admin hall routing guard | `cinema-hall-admin/src/routes/HallGuard.jsx` |
+| Admin hall context provider | `cinema-hall-admin/src/context/HallContext.jsx` |
 | Admin profile + hall edit page | `cinema-hall-admin/src/pages/ProfilePage.jsx` |
 | Auth controller (register, login, updateHall) | `cinema-hall-api/controllers/auth.Controller.js` |
+| Cinema halls controller | `cinema-hall-api/controllers/halls.Controller.js` |
+| Cinema halls routes | `cinema-hall-api/routes/halls.routes.js` |
 | Customers controller | `cinema-hall-api/controllers/customers.Controller.js` |
 | Customers routes | `cinema-hall-api/routes/customers.routes.js` |
 | Admin dashboard page | `cinema-hall-admin/src/pages/HomePage.jsx` |
@@ -127,6 +138,8 @@ BookingSuccessPage
 | Admin screen designer (add/edit) | `cinema-hall-admin/src/pages/ScreenDesignerPage.jsx` |
 
 ---
+
+*May 24, 2026 — Multi-Hall Support and Onboarding Flow: Refactored database schema and API handlers to support multiple cinema halls per admin. Simplified registration flow to admin credentials only. Added a dedicated onboarding flow (`OnboardingPage.jsx`) at `/onboarding` for first-time hall creation with Leaflet maps integration for coordinate pinning. Implemented `HallGuard` to protect hall-dependent routes while keeping profile, settings, and halls management exempt. Added a `HallSwitcher` dropdown in the sidebar header to toggle active halls, and created a full `HallsManagement` panel at `/halls` for CRUD operations on an admin's halls list.*
 
 *March 20, 2026 — Admin Dashboard (`HomePage.jsx` at `/`): full rewrite from placeholder to analytics dashboard. New `GET /api/dashboard/stats` endpoint (`dashboard.Controller.js` + `dashboard.routes.js`) returns all metrics in a single parallel DB call: today's revenue/bookings/fees, all-time totals, total customers, active offers count, screens count, last 7-day revenue trend, recent 5 bookings, today's shows with seat occupancy. Frontend: 4 KPI cards, recharts `BarChart` for revenue trend (7 days), today's shows list (occupancy color-coded green/amber/red), recent bookings list with status badges. `recharts` + `react-is` packages added to `cinema-hall-admin`. `dashboardAPI.getStats()` added to `cinema-hall-admin/src/services/api.js`.*
 
