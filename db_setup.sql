@@ -38,20 +38,26 @@ CREATE TABLE IF NOT EXISTS cinema_admin_user (
 );
 
 CREATE TABLE IF NOT EXISTS cinema_hall (
-  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  admin_id     UUID REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
-  name         TEXT NOT NULL,
-  location     TEXT NOT NULL,
-  district     TEXT NOT NULL DEFAULT '',
-  state        TEXT NOT NULL DEFAULT '',
+  id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_id     UUID         REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  name         TEXT         NOT NULL,
+  location     TEXT         NOT NULL,
+  district     TEXT         NOT NULL DEFAULT '',
+  state        TEXT         NOT NULL DEFAULT '',
   latitude     NUMERIC(10,7),
   longitude    NUMERIC(10,7),
-  created_at   TIMESTAMPTZ DEFAULT now()
+  phone        TEXT,
+  description  TEXT,
+  is_active    BOOLEAN      NOT NULL DEFAULT TRUE,
+  created_at   TIMESTAMPTZ  DEFAULT now()
 );
 
--- Add coordinates columns to existing cinema_hall tables (idempotent)
-ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS latitude  NUMERIC(10,7);
-ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS longitude NUMERIC(10,7);
+-- Add columns to existing cinema_hall tables (idempotent)
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS latitude    NUMERIC(10,7);
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS longitude   NUMERIC(10,7);
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS phone       TEXT;
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS description TEXT;
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS is_active   BOOLEAN NOT NULL DEFAULT TRUE;
 
 CREATE TABLE IF NOT EXISTS customers (
   id          UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
