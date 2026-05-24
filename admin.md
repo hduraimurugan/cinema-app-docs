@@ -518,11 +518,11 @@ Both buttons export **all currently loaded records** (no extra API call). Disabl
 
 ---
 
-### 2. Movie Management (SuperAdmin Only)
+### 2. Movie Management
 
 **Route**: `/movies`  
 **Component**: `MovieManagement.jsx`  
-**Access**: SuperAdmin role required
+**Access**: All Admins (regular Admins can view movies and browse/search TMDB; adding, editing, deleting, and syncing movies requires SuperAdmin)
 
 #### Feature Overview
 
@@ -633,7 +633,7 @@ Each movie card shows:
 
 ##### Browse Movies Tab
 
-The **Browse Movies** tab (`TMDBBrowser` component) lets a SuperAdmin explore TMDB catalogs directly inside the admin panel:
+The **Browse Movies** tab (`TMDBBrowser` component) lets any Admin explore TMDB catalogs directly inside the admin panel:
 
 | Category      | TMDB Endpoint proxied           |
 | ------------- | ------------------------------- |

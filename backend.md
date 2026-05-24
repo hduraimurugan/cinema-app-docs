@@ -806,17 +806,17 @@ Deletes a specific cinema hall. The admin must own the hall. This action cascade
 
 ### TMDB Proxy (`/api/tmdb`)
 
-All endpoints require **SuperAdmin** authentication. The backend proxies requests to the TMDB API using a server-side bearer token (`TMDB_API_KEY` env var), so the key is never exposed to the browser.
+All endpoints require **Admin** (regular Admin or SuperAdmin) authentication. The backend proxies requests to the TMDB API using a server-side bearer token (`TMDB_API_KEY` env var), so the key is never exposed to the browser.
 
 | Method | Endpoint             | Auth       | Description                                  |
 | ------ | -------------------- | ---------- | -------------------------------------------- |
-| GET    | `/popular`           | SuperAdmin | Popular movies (paginated)                   |
-| GET    | `/now-playing`       | SuperAdmin | Now-playing movies (paginated)               |
-| GET    | `/in-theatres`       | SuperAdmin | Theatrical releases in the past 30 days      |
-| GET    | `/upcoming`          | SuperAdmin | Upcoming movies (paginated)                  |
-| GET    | `/top-rated`         | SuperAdmin | Top-rated movies (paginated)                 |
-| GET    | `/search`            | SuperAdmin | Search TMDB by title (`?query=…`)            |
-| GET    | `/movie/:tmdbId`     | SuperAdmin | Full movie details with videos + cast        |
+| GET    | `/popular`           | Admin      | Popular movies (paginated)                   |
+| GET    | `/now-playing`       | Admin      | Now-playing movies (paginated)               |
+| GET    | `/in-theatres`       | Admin      | Theatrical releases in the past 30 days      |
+| GET    | `/upcoming`          | Admin      | Upcoming movies (paginated)                  |
+| GET    | `/top-rated`         | Admin      | Top-rated movies (paginated)                 |
+| GET    | `/search`            | Admin      | Search TMDB by title (`?query=…`)            |
+| GET    | `/movie/:tmdbId`     | Admin      | Full movie details with videos + cast        |
 
 #### Common Query Parameters (list endpoints)
 

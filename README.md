@@ -30,7 +30,7 @@ This folder contains complete documentation for all components of the applicatio
 **What's inside:**
 
 - Complete feature documentation
-- Movie Management (SuperAdmin only)
+- Movie Management (SuperAdmin / Admin)
 - Interactive Screen Designer with seat layout
 - Shows Management with scheduling
 - Component architecture
