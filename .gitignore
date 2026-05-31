@@ -1,0 +1,5 @@
+# Graphify local environment files (interpreter path, local cache, and local Obsidian exports)
+graphify-out/.graphify_python
+graphify-out/cache/
+graphify-out/obsidian/
+graphify-out/*.canvas

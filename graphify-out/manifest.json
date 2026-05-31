@@ -1,0 +1,1297 @@
+{
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\components.json": {
+    "mtime": 1768821756.6521282,
+    "ast_hash": "c5c97a0eb62a4a85d4836c1cfe83c3d7",
+    "semantic_hash": "c5c97a0eb62a4a85d4836c1cfe83c3d7"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\eslint.config.js": {
+    "mtime": 1768821756.653155,
+    "ast_hash": "bcb22cc5b9b86c67f53ad73b1855f082",
+    "semantic_hash": "bcb22cc5b9b86c67f53ad73b1855f082"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\jsconfig.app.json": {
+    "mtime": 1768821756.653155,
+    "ast_hash": "832176d42374c2ef9e1568621685f703",
+    "semantic_hash": "832176d42374c2ef9e1568621685f703"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\jsconfig.json": {
+    "mtime": 1768821756.6541448,
+    "ast_hash": "fdb3eb9b072e7e9eadc2229c793fe180",
+    "semantic_hash": "fdb3eb9b072e7e9eadc2229c793fe180"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\package.json": {
+    "mtime": 1776590660.6909058,
+    "ast_hash": "42bdc63306a55ddcfae3df771cf9ba7e",
+    "semantic_hash": "42bdc63306a55ddcfae3df771cf9ba7e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\tailwind.config.js": {
+    "mtime": 1768821756.6822002,
+    "ast_hash": "382a5c7b497b269c18bc0531f630f8f0",
+    "semantic_hash": "382a5c7b497b269c18bc0531f630f8f0"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\vercel.json": {
+    "mtime": 1768821756.6831944,
+    "ast_hash": "f5d9db6e586128b194af921b942b7a2e",
+    "semantic_hash": "f5d9db6e586128b194af921b942b7a2e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\vite.config.js": {
+    "mtime": 1780217338.2732742,
+    "ast_hash": "63bda791a0913528f4402d54ce06dd25",
+    "semantic_hash": "63bda791a0913528f4402d54ce06dd25"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\App.jsx": {
+    "mtime": 1780213745.1184857,
+    "ast_hash": "2b94e3a84dda2788695f07a91d88a004",
+    "semantic_hash": "2b94e3a84dda2788695f07a91d88a004"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\main.jsx": {
+    "mtime": 1779608568.7613006,
+    "ast_hash": "d4c92f39c5bd735f2e465a4e8c4bdccf",
+    "semantic_hash": "d4c92f39c5bd735f2e465a4e8c4bdccf"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\AppSidebar.jsx": {
+    "mtime": 1779610999.2452803,
+    "ast_hash": "2190032bf88298b4b9aa10211a85e245",
+    "semantic_hash": "2190032bf88298b4b9aa10211a85e245"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\CinemaLayout.jsx": {
+    "mtime": 1779614096.3783114,
+    "ast_hash": "fb82915ae58d1f01ba206b80cd9b55bd",
+    "semantic_hash": "fb82915ae58d1f01ba206b80cd9b55bd"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ExportButton.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "bcaa02c14e67b6c6d9f479195336d362",
+    "semantic_hash": "bcaa02c14e67b6c6d9f479195336d362"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\HallSwitcher.jsx": {
+    "mtime": 1779614155.9135523,
+    "ast_hash": "6a7373e6fd63de5fd7e443d2e652db7f",
+    "semantic_hash": "6a7373e6fd63de5fd7e443d2e652db7f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\Loader.jsx": {
+    "mtime": 1768821756.6585114,
+    "ast_hash": "bda6bb623faf0be21971f79ff3ab8501",
+    "semantic_hash": "bda6bb623faf0be21971f79ff3ab8501"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\MovieSearchDropdown.jsx": {
+    "mtime": 1773327663.2079718,
+    "ast_hash": "c5837cb8211d08063f9a9470376728ad",
+    "semantic_hash": "c5837cb8211d08063f9a9470376728ad"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\SearchMovies.jsx": {
+    "mtime": 1768821756.659513,
+    "ast_hash": "f1972cda0eb3b10736c37103206797a2",
+    "semantic_hash": "f1972cda0eb3b10736c37103206797a2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\TMDBBrowser.jsx": {
+    "mtime": 1774455507.0034468,
+    "ast_hash": "6c6f0c283a96205fe26664b9fdda7cbb",
+    "semantic_hash": "6c6f0c283a96205fe26664b9fdda7cbb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\accordion.jsx": {
+    "mtime": 1768821756.6599586,
+    "ast_hash": "3eb8b94b8a17a57a4e2e16de20df5b14",
+    "semantic_hash": "3eb8b94b8a17a57a4e2e16de20df5b14"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\alert-dialog.jsx": {
+    "mtime": 1768821756.660278,
+    "ast_hash": "6d13b84fe5332abb70fa9189b11d1550",
+    "semantic_hash": "6d13b84fe5332abb70fa9189b11d1550"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\alert.jsx": {
+    "mtime": 1768821756.660278,
+    "ast_hash": "863b00bb10c66952016382d2e1e53eb6",
+    "semantic_hash": "863b00bb10c66952016382d2e1e53eb6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\avatar.jsx": {
+    "mtime": 1768821756.660278,
+    "ast_hash": "3c60e862f921b6a3d96508258e65074c",
+    "semantic_hash": "3c60e862f921b6a3d96508258e65074c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\badge.jsx": {
+    "mtime": 1768821756.660278,
+    "ast_hash": "fef495b6ca7bcdfef64c1212aac8d426",
+    "semantic_hash": "fef495b6ca7bcdfef64c1212aac8d426"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\breadcrumb.jsx": {
+    "mtime": 1768821756.6614423,
+    "ast_hash": "61778fa8b118f4906b66bde6691481c5",
+    "semantic_hash": "61778fa8b118f4906b66bde6691481c5"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\button.jsx": {
+    "mtime": 1768821756.6624484,
+    "ast_hash": "02d52140b5ddace5025a7f3a0900b4ce",
+    "semantic_hash": "02d52140b5ddace5025a7f3a0900b4ce"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\calendar.jsx": {
+    "mtime": 1768821756.6634424,
+    "ast_hash": "07fbe00db94fcf35b480d79a37c4fb38",
+    "semantic_hash": "07fbe00db94fcf35b480d79a37c4fb38"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\card.jsx": {
+    "mtime": 1768821756.6634424,
+    "ast_hash": "82d5a837644d75e48d48680c620da53f",
+    "semantic_hash": "82d5a837644d75e48d48680c620da53f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\checkbox.jsx": {
+    "mtime": 1768821756.6634424,
+    "ast_hash": "04ab3b6a5f3b55bc03b222e6b113d90f",
+    "semantic_hash": "04ab3b6a5f3b55bc03b222e6b113d90f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\command.jsx": {
+    "mtime": 1768821756.6644418,
+    "ast_hash": "e11569d615efad131254da7de1f89617",
+    "semantic_hash": "e11569d615efad131254da7de1f89617"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\dialog.jsx": {
+    "mtime": 1768821756.6644418,
+    "ast_hash": "ee2eb198b7a7a6b97637e628209d69fc",
+    "semantic_hash": "ee2eb198b7a7a6b97637e628209d69fc"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\drawer.jsx": {
+    "mtime": 1768821756.6644418,
+    "ast_hash": "cc60cbf8cfef2396e47c96c3a595372a",
+    "semantic_hash": "cc60cbf8cfef2396e47c96c3a595372a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\dropdown-menu.jsx": {
+    "mtime": 1768821756.6652427,
+    "ast_hash": "88155f1c978e8c92885441ca69c02dee",
+    "semantic_hash": "88155f1c978e8c92885441ca69c02dee"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\form.jsx": {
+    "mtime": 1768821756.6652427,
+    "ast_hash": "6d7ec1edba7eaab42df25c56713a9283",
+    "semantic_hash": "6d7ec1edba7eaab42df25c56713a9283"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\hover-card.jsx": {
+    "mtime": 1768821756.6652427,
+    "ast_hash": "7f4cd16b5d2dc0eb1399caccea663251",
+    "semantic_hash": "7f4cd16b5d2dc0eb1399caccea663251"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\input-otp.jsx": {
+    "mtime": 1768821756.666303,
+    "ast_hash": "07b41cbd7868e019c0dcb543c33e1387",
+    "semantic_hash": "07b41cbd7868e019c0dcb543c33e1387"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\input.jsx": {
+    "mtime": 1768821756.666303,
+    "ast_hash": "f53f3df45123ad874106d1b735a60a56",
+    "semantic_hash": "f53f3df45123ad874106d1b735a60a56"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\label.jsx": {
+    "mtime": 1768821756.6673057,
+    "ast_hash": "869ec5e1888c40fc20151f3d600389bf",
+    "semantic_hash": "869ec5e1888c40fc20151f3d600389bf"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\Pagination.jsx": {
+    "mtime": 1775374302.715782,
+    "ast_hash": "e1632990a33732a6dc1d771fbfc5d0e3",
+    "semantic_hash": "e1632990a33732a6dc1d771fbfc5d0e3"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\popover.jsx": {
+    "mtime": 1768821756.6673057,
+    "ast_hash": "b161ae6a65c4b820affc0afdc3ff99a6",
+    "semantic_hash": "b161ae6a65c4b820affc0afdc3ff99a6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\scroll-area.jsx": {
+    "mtime": 1768821756.668059,
+    "ast_hash": "ca3709c6818b35e78aeb9090c942fa40",
+    "semantic_hash": "ca3709c6818b35e78aeb9090c942fa40"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\select.jsx": {
+    "mtime": 1768821756.668059,
+    "ast_hash": "aeacbe81e3e6878ae870dae8e75b3c29",
+    "semantic_hash": "aeacbe81e3e6878ae870dae8e75b3c29"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\separator.jsx": {
+    "mtime": 1768821756.668059,
+    "ast_hash": "e5a43650b8a10a3dfcf24562c900db73",
+    "semantic_hash": "e5a43650b8a10a3dfcf24562c900db73"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\sheet.jsx": {
+    "mtime": 1775379453.4851103,
+    "ast_hash": "3800bb2ead4299f24004cff5df90a77a",
+    "semantic_hash": "3800bb2ead4299f24004cff5df90a77a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\skeleton.jsx": {
+    "mtime": 1768821756.6690917,
+    "ast_hash": "b2a41d48d56083b57d2c208eac4212ce",
+    "semantic_hash": "b2a41d48d56083b57d2c208eac4212ce"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\sonner.jsx": {
+    "mtime": 1768821756.6690917,
+    "ast_hash": "ed5eab6e48d1042b1b0eb1cfdb4660c5",
+    "semantic_hash": "ed5eab6e48d1042b1b0eb1cfdb4660c5"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\switch.jsx": {
+    "mtime": 1768821756.6690917,
+    "ast_hash": "75774954174e60838fadb430a8ccb445",
+    "semantic_hash": "75774954174e60838fadb430a8ccb445"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\table.jsx": {
+    "mtime": 1768821756.6700854,
+    "ast_hash": "cf26793d46e2a9a6bbd94c8c326f98f1",
+    "semantic_hash": "cf26793d46e2a9a6bbd94c8c326f98f1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\tabs.jsx": {
+    "mtime": 1768821756.6700854,
+    "ast_hash": "47339e1dcc29032167d887c5b99c0ac8",
+    "semantic_hash": "47339e1dcc29032167d887c5b99c0ac8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\textarea.jsx": {
+    "mtime": 1768821756.6700854,
+    "ast_hash": "961edea3c1f604bdb02955bac35288a2",
+    "semantic_hash": "961edea3c1f604bdb02955bac35288a2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\components\\ui\\tooltip.jsx": {
+    "mtime": 1768821756.671086,
+    "ast_hash": "3f1dd432f5a95b3714ea0a141f427247",
+    "semantic_hash": "3f1dd432f5a95b3714ea0a141f427247"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\context\\AuthContext.jsx": {
+    "mtime": 1780213344.78951,
+    "ast_hash": "875b5154ed07f38d16de78236822ba8c",
+    "semantic_hash": "875b5154ed07f38d16de78236822ba8c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\context\\HallContext.jsx": {
+    "mtime": 1779615651.5298488,
+    "ast_hash": "d964cb043776639efd3d750eb2a6e711",
+    "semantic_hash": "d964cb043776639efd3d750eb2a6e711"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\context\\ThemeContext.jsx": {
+    "mtime": 1768821756.671086,
+    "ast_hash": "d0bf752c28a7587b0c46b2d9dcdf320a",
+    "semantic_hash": "d0bf752c28a7587b0c46b2d9dcdf320a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\lib\\utils.js": {
+    "mtime": 1768821756.6724014,
+    "ast_hash": "eff53006b93cfdef4aef148f202f1c3c",
+    "semantic_hash": "eff53006b93cfdef4aef148f202f1c3c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\AddMultipleShowsPage.jsx": {
+    "mtime": 1775378860.7970042,
+    "ast_hash": "080d7336c65b96fc55730f3286be7109",
+    "semantic_hash": "080d7336c65b96fc55730f3286be7109"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\AddShowPage.jsx": {
+    "mtime": 1775378741.8469033,
+    "ast_hash": "ed540e65f01c9eaf395f540a4b9bd86a",
+    "semantic_hash": "ed540e65f01c9eaf395f540a4b9bd86a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\AdminsPage.jsx": {
+    "mtime": 1780226786.231559,
+    "ast_hash": "9b5cf7440da422d21559e14fd1d34ebd",
+    "semantic_hash": "9b5cf7440da422d21559e14fd1d34ebd"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\AdsManagement.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "de299c87d0cb9de39941c5b7fbfd0c46",
+    "semantic_hash": "de299c87d0cb9de39941c5b7fbfd0c46"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\BookingDetailPage.jsx": {
+    "mtime": 1775208858.396567,
+    "ast_hash": "c17d7c79a1a8832f6c5696f9d2f3c3ce",
+    "semantic_hash": "c17d7c79a1a8832f6c5696f9d2f3c3ce"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\Bookings.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "083cd2cf0825ca39cc1b96236f300381",
+    "semantic_hash": "083cd2cf0825ca39cc1b96236f300381"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\CinemaScreens.jsx": {
+    "mtime": 1773323550.4587276,
+    "ast_hash": "25aefce306f300a98609482116609737",
+    "semantic_hash": "25aefce306f300a98609482116609737"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\EditMovieDialog.jsx": {
+    "mtime": 1768821756.6744022,
+    "ast_hash": "c0ff528b077ea6cbf97d59c70b76e992",
+    "semantic_hash": "c0ff528b077ea6cbf97d59c70b76e992"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\EditShowPage.jsx": {
+    "mtime": 1775378741.8469033,
+    "ast_hash": "7c65d0bd222dab9238fa36cb670b79ed",
+    "semantic_hash": "7c65d0bd222dab9238fa36cb670b79ed"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\ForgotPasswordPage.jsx": {
+    "mtime": 1780214359.0987763,
+    "ast_hash": "1b0be0c6dcc8e42705460ba0e510fca1",
+    "semantic_hash": "1b0be0c6dcc8e42705460ba0e510fca1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\HallManagement.jsx": {
+    "mtime": 1779610298.0573337,
+    "ast_hash": "9d36e968b4c3b82020a0bb1e2702a8fd",
+    "semantic_hash": "9d36e968b4c3b82020a0bb1e2702a8fd"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\HomePage.jsx": {
+    "mtime": 1774026445.8067153,
+    "ast_hash": "2d8f25e62e7f4d9aedbe995c87cc4b65",
+    "semantic_hash": "2d8f25e62e7f4d9aedbe995c87cc4b65"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\LoginPage.jsx": {
+    "mtime": 1780225508.130151,
+    "ast_hash": "fe9bb732e13abb1b12d150160cea56b9",
+    "semantic_hash": "fe9bb732e13abb1b12d150160cea56b9"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\MovieForm.jsx": {
+    "mtime": 1775379676.3277168,
+    "ast_hash": "4e0f3dbd290473fb6c94de9d9e72e755",
+    "semantic_hash": "4e0f3dbd290473fb6c94de9d9e72e755"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\MovieManagement.jsx": {
+    "mtime": 1775379676.3277168,
+    "ast_hash": "1af65ccf210887601250ec1f1ab592eb",
+    "semantic_hash": "1af65ccf210887601250ec1f1ab592eb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\MoviePage.jsx": {
+    "mtime": 1774770511.7093923,
+    "ast_hash": "da22e08db7f5081e495d765fd87fd301",
+    "semantic_hash": "da22e08db7f5081e495d765fd87fd301"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\Notifications.jsx": {
+    "mtime": 1768821756.6779153,
+    "ast_hash": "1abb77e26c94d5e9dcd75b2083bfa2a6",
+    "semantic_hash": "1abb77e26c94d5e9dcd75b2083bfa2a6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\OfferFormPage.jsx": {
+    "mtime": 1775380570.5282264,
+    "ast_hash": "6071da8923bcf8743ae5e698614cc147",
+    "semantic_hash": "6071da8923bcf8743ae5e698614cc147"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\OffersManagement.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "6ddac0ed9eec9ba4c69d0e42b69cc457",
+    "semantic_hash": "6ddac0ed9eec9ba4c69d0e42b69cc457"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\OnboardingPage.jsx": {
+    "mtime": 1780233637.0475917,
+    "ast_hash": "bfb3696af85f899c26c62c825b2fffad",
+    "semantic_hash": "bfb3696af85f899c26c62c825b2fffad"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\PaymentOrders.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "e85cc3412e70ea06ba79062de7f54e99",
+    "semantic_hash": "e85cc3412e70ea06ba79062de7f54e99"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\ProfilePage.jsx": {
+    "mtime": 1780214691.0876663,
+    "ast_hash": "be3115de14a21815f9180d932d2496c8",
+    "semantic_hash": "be3115de14a21815f9180d932d2496c8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\RefundsPage.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "a0c7c8102ccced443f96ac60a876b2f1",
+    "semantic_hash": "a0c7c8102ccced443f96ac60a876b2f1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\RegisterPage.jsx": {
+    "mtime": 1780233637.0475917,
+    "ast_hash": "ce24b7d6aa2ee1aedd068a90124d6895",
+    "semantic_hash": "ce24b7d6aa2ee1aedd068a90124d6895"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\ResetPasswordPage.jsx": {
+    "mtime": 1780214363.130414,
+    "ast_hash": "f018ef66a958bdb50f135c6d664db89c",
+    "semantic_hash": "f018ef66a958bdb50f135c6d664db89c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\ScreenDesignerPage.jsx": {
+    "mtime": 1774451957.1520257,
+    "ast_hash": "76f23945db29c96d4d129dccd809df25",
+    "semantic_hash": "76f23945db29c96d4d129dccd809df25"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\SettingsPage.jsx": {
+    "mtime": 1774765807.575799,
+    "ast_hash": "07d9f104d23e7919065c44418dde351d",
+    "semantic_hash": "07d9f104d23e7919065c44418dde351d"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\ShowPage.jsx": {
+    "mtime": 1775376792.455167,
+    "ast_hash": "c3d6b4adb9f40f5ae29420864b55f846",
+    "semantic_hash": "c3d6b4adb9f40f5ae29420864b55f846"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\ShowsManagement.jsx": {
+    "mtime": 1775202305.4394388,
+    "ast_hash": "bb6f80a6e24e6052a6aff80ead0cd479",
+    "semantic_hash": "bb6f80a6e24e6052a6aff80ead0cd479"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\UnAuthorizedPage.jsx": {
+    "mtime": 1768821756.680194,
+    "ast_hash": "11b340d728c48de5a4bf58190010c387",
+    "semantic_hash": "11b340d728c48de5a4bf58190010c387"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\UsersPage.jsx": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "316e7e96be38328a337ddf463a9bcf5f",
+    "semantic_hash": "316e7e96be38328a337ddf463a9bcf5f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\VerifyEmailPage.jsx": {
+    "mtime": 1780221445.191517,
+    "ast_hash": "76d8f852ecc6b46d1327d3a2e06af008",
+    "semantic_hash": "76d8f852ecc6b46d1327d3a2e06af008"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\pages\\VerifyTicket.jsx": {
+    "mtime": 1775206094.9139154,
+    "ast_hash": "a3bd72a4e0e8ca7278f2d39f94a952da",
+    "semantic_hash": "a3bd72a4e0e8ca7278f2d39f94a952da"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\routes\\AdminProtectedRoutes.jsx": {
+    "mtime": 1768821756.680194,
+    "ast_hash": "fad6a8c4700edfb01b22b083c0f931f2",
+    "semantic_hash": "fad6a8c4700edfb01b22b083c0f931f2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\routes\\HallGuard.jsx": {
+    "mtime": 1779616871.4121416,
+    "ast_hash": "d9817af6a47732fae64709613ce04eec",
+    "semantic_hash": "d9817af6a47732fae64709613ce04eec"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\routes\\ProtectedRoutes.jsx": {
+    "mtime": 1780213754.3266194,
+    "ast_hash": "ade7e4f8486dd65f975307af76721047",
+    "semantic_hash": "ade7e4f8486dd65f975307af76721047"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\routes\\routesConfig.jsx": {
+    "mtime": 1768821756.6812005,
+    "ast_hash": "3244f3129838e8afe364c13927b1a12b",
+    "semantic_hash": "3244f3129838e8afe364c13927b1a12b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\services\\api.js": {
+    "mtime": 1780226400.504405,
+    "ast_hash": "f8407db62b8445c1d9adcc8580105c3b",
+    "semantic_hash": "f8407db62b8445c1d9adcc8580105c3b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\services\\cloudinary.js": {
+    "mtime": 1768821756.6822002,
+    "ast_hash": "d92ec65f28283e11ce320cd1e592888f",
+    "semantic_hash": "d92ec65f28283e11ce320cd1e592888f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\utils\\exportUtils.js": {
+    "mtime": 1776590984.0928743,
+    "ast_hash": "05ad47dbab66e400c1848d3c3199e38c",
+    "semantic_hash": "05ad47dbab66e400c1848d3c3199e38c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\utils\\passwordPolicy.js": {
+    "mtime": 1780213360.2779136,
+    "ast_hash": "f81451ea51b8b915515a4f9250a54e50",
+    "semantic_hash": "f81451ea51b8b915515a4f9250a54e50"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\utils\\utils.js": {
+    "mtime": 1768821756.6822002,
+    "ast_hash": "37239a2f230aca47fd81c4b23f91cf0e",
+    "semantic_hash": "37239a2f230aca47fd81c4b23f91cf0e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\db.js": {
+    "mtime": 1776152648.2112203,
+    "ast_hash": "7f25f3cc8bc11744c4e9a6a6fb239190",
+    "semantic_hash": "7f25f3cc8bc11744c4e9a6a6fb239190"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\instrument.js": {
+    "mtime": 1775399082.8823652,
+    "ast_hash": "dd9ef589f97f1244fdb311c4098418c2",
+    "semantic_hash": "dd9ef589f97f1244fdb311c4098418c2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrate-logger.mjs": {
+    "mtime": 1775405099.333685,
+    "ast_hash": "9094e95e8858cb700850ebcd116f3a74",
+    "semantic_hash": "9094e95e8858cb700850ebcd116f3a74"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_ads.sql": {
+    "mtime": 1773499098.268481,
+    "ast_hash": "e696209f3b12e46b6ee468e187e61993",
+    "semantic_hash": "e696209f3b12e46b6ee468e187e61993"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_customer_auth_security.sql": {
+    "mtime": 1780230782.6093445,
+    "ast_hash": "e302790a737ece16be576154c6c3b28c",
+    "semantic_hash": "e302790a737ece16be576154c6c3b28c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_fee_columns.sql": {
+    "mtime": 1774020295.0686889,
+    "ast_hash": "8df8cc440b399b52aaa1a640fb6f8804",
+    "semantic_hash": "8df8cc440b399b52aaa1a640fb6f8804"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_idempotency.sql": {
+    "mtime": 1778309338.7013028,
+    "ast_hash": "c6f1798fc94368843976a0dfb0a10954",
+    "semantic_hash": "c6f1798fc94368843976a0dfb0a10954"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_payment_orders.sql": {
+    "mtime": 1769698791.9285738,
+    "ast_hash": "b8836170b166c60c2940091a78cfe38f",
+    "semantic_hash": "b8836170b166c60c2940091a78cfe38f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_payment_tables.sql": {
+    "mtime": 1769700891.0619137,
+    "ast_hash": "87a2375e2e3ad4142adb79b991afc488",
+    "semantic_hash": "87a2375e2e3ad4142adb79b991afc488"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migration_settings.sql": {
+    "mtime": 1773674618.809064,
+    "ast_hash": "1415cc50ebad5bc9a7d6b0fe07fc3e3d",
+    "semantic_hash": "1415cc50ebad5bc9a7d6b0fe07fc3e3d"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\nodemon.json": {
+    "mtime": 1775401988.510916,
+    "ast_hash": "a54c4e93ca1646e8f2f0c47baa35e172",
+    "semantic_hash": "a54c4e93ca1646e8f2f0c47baa35e172"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\package.json": {
+    "mtime": 1780214782.2756972,
+    "ast_hash": "098e57ee5f58a9a7a10d76ac4f225882",
+    "semantic_hash": "098e57ee5f58a9a7a10d76ac4f225882"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\psql.sql": {
+    "mtime": 1774275698.293091,
+    "ast_hash": "97bb5aa15e192560bad95ef24876ba3c",
+    "semantic_hash": "97bb5aa15e192560bad95ef24876ba3c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\scratch_check_schema.js": {
+    "mtime": 1778310742.7555802,
+    "ast_hash": "953a76b3ec6ed078488390a8081b6e7e",
+    "semantic_hash": "953a76b3ec6ed078488390a8081b6e7e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\server.js": {
+    "mtime": 1780217263.9886978,
+    "ast_hash": "d92716ced88948b4e3d8c3ae0fc35b76",
+    "semantic_hash": "d92716ced88948b4e3d8c3ae0fc35b76"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\vercel.json": {
+    "mtime": 1775402358.3747573,
+    "ast_hash": "26697b78a264c11478e2a51d7e31de7f",
+    "semantic_hash": "26697b78a264c11478e2a51d7e31de7f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\ads.Controller.js": {
+    "mtime": 1775405099.333685,
+    "ast_hash": "6db5abb04996e34555b68e328dbe2969",
+    "semantic_hash": "6db5abb04996e34555b68e328dbe2969"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\auth.Controller.js": {
+    "mtime": 1780226412.8211362,
+    "ast_hash": "4e4644eef248355866df6ba4c75e1480",
+    "semantic_hash": "4e4644eef248355866df6ba4c75e1480"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\booking.Controller.js": {
+    "mtime": 1779607869.9092445,
+    "ast_hash": "5a0be57dd0e52d69ef572aa666121299",
+    "semantic_hash": "5a0be57dd0e52d69ef572aa666121299"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\customerAuth.Controller.js": {
+    "mtime": 1780230495.0936081,
+    "ast_hash": "c37a97d760b730a0377efc1cd2b12d3b",
+    "semantic_hash": "c37a97d760b730a0377efc1cd2b12d3b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\customers.Controller.js": {
+    "mtime": 1775405071.360251,
+    "ast_hash": "528d1cea1fc6ae46317416d12d46b57a",
+    "semantic_hash": "528d1cea1fc6ae46317416d12d46b57a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\dashboard.Controller.js": {
+    "mtime": 1779607869.900782,
+    "ast_hash": "38b57e20781dc56cbbe6c33a20590678",
+    "semantic_hash": "38b57e20781dc56cbbe6c33a20590678"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\halls.Controller.js": {
+    "mtime": 1779607427.7918625,
+    "ast_hash": "89dff4a0051b5edfb58d3798dda4eddf",
+    "semantic_hash": "89dff4a0051b5edfb58d3798dda4eddf"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\movies.Controller.js": {
+    "mtime": 1775404949.9125912,
+    "ast_hash": "b43bf1c5c7f5837ea594bdb2baa60c83",
+    "semantic_hash": "b43bf1c5c7f5837ea594bdb2baa60c83"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\offers.Controller.js": {
+    "mtime": 1775405050.1874778,
+    "ast_hash": "80d5fb2da7246fa00edbffbe47e644c8",
+    "semantic_hash": "80d5fb2da7246fa00edbffbe47e644c8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\otp.Controller.js": {
+    "mtime": 1780230137.1349313,
+    "ast_hash": "4423c46a583f089cbdf83c348f3893a8",
+    "semantic_hash": "4423c46a583f089cbdf83c348f3893a8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\payment.Controller.js": {
+    "mtime": 1779607869.903805,
+    "ast_hash": "93e2155c036d74fd67cde1c1a99fff35",
+    "semantic_hash": "93e2155c036d74fd67cde1c1a99fff35"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\refund.Controller.js": {
+    "mtime": 1779607869.9358,
+    "ast_hash": "dd5d3ced42bbb20a7f83aa44a8f44c91",
+    "semantic_hash": "dd5d3ced42bbb20a7f83aa44a8f44c91"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\screens.Controller.js": {
+    "mtime": 1779607830.0725753,
+    "ast_hash": "07cebe7ce8fad11911a12cdbf0dbfe27",
+    "semantic_hash": "07cebe7ce8fad11911a12cdbf0dbfe27"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\settings.Controller.js": {
+    "mtime": 1775405061.8146844,
+    "ast_hash": "67c284a8d959493151eb4444d4a49a0a",
+    "semantic_hash": "67c284a8d959493151eb4444d4a49a0a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\shows.Controller.js": {
+    "mtime": 1779607855.4621742,
+    "ast_hash": "b9689a80867c562244a0c77d00a47c6c",
+    "semantic_hash": "b9689a80867c562244a0c77d00a47c6c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\tmdb.Controller.js": {
+    "mtime": 1775405087.9744735,
+    "ast_hash": "d8af26e7696a8dfe3e7c08427a12ec08",
+    "semantic_hash": "d8af26e7696a8dfe3e7c08427a12ec08"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\controllers\\userMovies.Controller.js": {
+    "mtime": 1776582459.6155505,
+    "ast_hash": "de38d6072fe402d3036f425e5fa428bb",
+    "semantic_hash": "de38d6072fe402d3036f425e5fa428bb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\mail\\emails.js": {
+    "mtime": 1780229969.7250862,
+    "ast_hash": "07b08e43f9532893c63f9eb00833d92c",
+    "semantic_hash": "07b08e43f9532893c63f9eb00833d92c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\mail\\emailTemplate.js": {
+    "mtime": 1780229939.0399506,
+    "ast_hash": "417b0b792b10c99b23868221a1f79cf8",
+    "semantic_hash": "417b0b792b10c99b23868221a1f79cf8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\mail\\mail.config.js": {
+    "mtime": 1768822093.8227544,
+    "ast_hash": "5f7cb556c1c0e65da449327f49cb0c11",
+    "semantic_hash": "5f7cb556c1c0e65da449327f49cb0c11"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\middleware\\verifyCinemaAdmin.js": {
+    "mtime": 1780230059.9789946,
+    "ast_hash": "ed801c6cd5f5900364210a7d74ac7a68",
+    "semantic_hash": "ed801c6cd5f5900364210a7d74ac7a68"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_add_tmdb_id.sql": {
+    "mtime": 1774454424.6097817,
+    "ast_hash": "ff8264c52750c123305c18ba954556ed",
+    "semantic_hash": "ff8264c52750c123305c18ba954556ed"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_auth_security.sql": {
+    "mtime": 1780219565.166058,
+    "ast_hash": "abcbec2178cbc8a495846a1ff9cf46a1",
+    "semantic_hash": "abcbec2178cbc8a495846a1ff9cf46a1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_fix_overlap_trigger.sql": {
+    "mtime": 1774275710.5028741,
+    "ast_hash": "69a401e1828023be9ea3e46cefb466f2",
+    "semantic_hash": "69a401e1828023be9ea3e46cefb466f2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_movie_extra_fields.sql": {
+    "mtime": 1774458492.183125,
+    "ast_hash": "e4fe871444fc28c3c60e3cf52ed74b7a",
+    "semantic_hash": "e4fe871444fc28c3c60e3cf52ed74b7a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_multi_hall.sql": {
+    "mtime": 1779606980.2925355,
+    "ast_hash": "24fbc732f28ae75001ade08eb3eedf6e",
+    "semantic_hash": "24fbc732f28ae75001ade08eb3eedf6e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_offers.sql": {
+    "mtime": 1773759912.0834835,
+    "ast_hash": "b22b90252b9be587d492ec6e03480a7b",
+    "semantic_hash": "b22b90252b9be587d492ec6e03480a7b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_refunds.sql": {
+    "mtime": 1775202158.2549148,
+    "ast_hash": "b1188727532df98003dddd486518f1ff",
+    "semantic_hash": "b1188727532df98003dddd486518f1ff"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_show_status_lifecycle.sql": {
+    "mtime": 1774762525.5788264,
+    "ast_hash": "abd85feac2d6e40ebaa118945a9f34a8",
+    "semantic_hash": "abd85feac2d6e40ebaa118945a9f34a8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\ads.routes.js": {
+    "mtime": 1773499143.107955,
+    "ast_hash": "f75ba79968f0e7aa4fba062ce0593134",
+    "semantic_hash": "f75ba79968f0e7aa4fba062ce0593134"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\auth.routes.js": {
+    "mtime": 1780226400.5773106,
+    "ast_hash": "70589c03264d07e4e14286dfff3760ff",
+    "semantic_hash": "70589c03264d07e4e14286dfff3760ff"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\booking.routes.js": {
+    "mtime": 1779607895.8940008,
+    "ast_hash": "74f9d03d6df794b51a35eeb32b86d169",
+    "semantic_hash": "74f9d03d6df794b51a35eeb32b86d169"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\customerAuth.routes.js": {
+    "mtime": 1780230187.4291658,
+    "ast_hash": "0edf1339dc5f1601240292fc18833067",
+    "semantic_hash": "0edf1339dc5f1601240292fc18833067"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\customers.routes.js": {
+    "mtime": 1774022775.3031223,
+    "ast_hash": "df0f80694ca719cc2638cbdf15fce005",
+    "semantic_hash": "df0f80694ca719cc2638cbdf15fce005"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\dashboard.routes.js": {
+    "mtime": 1779607895.8633564,
+    "ast_hash": "ac7a63a057c1a77b522db5c9d42555c1",
+    "semantic_hash": "ac7a63a057c1a77b522db5c9d42555c1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\halls.routes.js": {
+    "mtime": 1779607433.182394,
+    "ast_hash": "adb76f6561adc8e0d28963396544febb",
+    "semantic_hash": "adb76f6561adc8e0d28963396544febb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\movies.routes.js": {
+    "mtime": 1774454556.3050387,
+    "ast_hash": "44072d3d031bdeea955b1a695e5cc8eb",
+    "semantic_hash": "44072d3d031bdeea955b1a695e5cc8eb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\offers.routes.js": {
+    "mtime": 1773764908.68082,
+    "ast_hash": "f799bcc1b35e74e9ac63940f1646e212",
+    "semantic_hash": "f799bcc1b35e74e9ac63940f1646e212"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\otp.routes.js": {
+    "mtime": 1768822093.8227544,
+    "ast_hash": "5f37444d790d722c686a21d58b54c08b",
+    "semantic_hash": "5f37444d790d722c686a21d58b54c08b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\payment.routes.js": {
+    "mtime": 1779607895.900845,
+    "ast_hash": "c9e8b2183a625e41014464d041b945c1",
+    "semantic_hash": "c9e8b2183a625e41014464d041b945c1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\refund.routes.js": {
+    "mtime": 1779607895.8742404,
+    "ast_hash": "aa65828fd6c698c5d646c9c7d68b20cc",
+    "semantic_hash": "aa65828fd6c698c5d646c9c7d68b20cc"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\screens.routes.js": {
+    "mtime": 1779607895.8940008,
+    "ast_hash": "314ea46f6520211f8d6a701f32500400",
+    "semantic_hash": "314ea46f6520211f8d6a701f32500400"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\settings.routes.js": {
+    "mtime": 1773674659.20319,
+    "ast_hash": "56f7149441e52ac599b134fe7dc19ff8",
+    "semantic_hash": "56f7149441e52ac599b134fe7dc19ff8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\shows.routes.js": {
+    "mtime": 1779607895.8940008,
+    "ast_hash": "b5a97b39ba0d3c771060b885cd033b67",
+    "semantic_hash": "b5a97b39ba0d3c771060b885cd033b67"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\tmdb.routes.js": {
+    "mtime": 1779618079.3085744,
+    "ast_hash": "6bd901ba4dfaf202311a44a16bf69a38",
+    "semantic_hash": "6bd901ba4dfaf202311a44a16bf69a38"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\routes\\userMovies.routes.js": {
+    "mtime": 1772953267.5907342,
+    "ast_hash": "24217b95e8503f719e89cd23bab9a23a",
+    "semantic_hash": "24217b95e8503f719e89cd23bab9a23a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\utils\\generateTokenAndSetCookie.js": {
+    "mtime": 1780230040.3032415,
+    "ast_hash": "9222610720f2e9b1ed5f0dcbacfc8911",
+    "semantic_hash": "9222610720f2e9b1ed5f0dcbacfc8911"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\utils\\generateVerificationToken.js": {
+    "mtime": 1780212916.9625626,
+    "ast_hash": "fb0a08b75f4d540c5266a6012d8d2de5",
+    "semantic_hash": "fb0a08b75f4d540c5266a6012d8d2de5"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\utils\\hashToken.js": {
+    "mtime": 1780212881.6627572,
+    "ast_hash": "62ab242e037be48efaea5e1478f39030",
+    "semantic_hash": "62ab242e037be48efaea5e1478f39030"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\utils\\logger.js": {
+    "mtime": 1775399229.181751,
+    "ast_hash": "be9f24d1a6f9c5b202424d100f937646",
+    "semantic_hash": "be9f24d1a6f9c5b202424d100f937646"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\utils\\passwordPolicy.js": {
+    "mtime": 1780231129.7524686,
+    "ast_hash": "a1cfeab48a2adbdf3fa0ccd0c7d37337",
+    "semantic_hash": "a1cfeab48a2adbdf3fa0ccd0c7d37337"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\components.json": {
+    "mtime": 1768821788.190745,
+    "ast_hash": "c5c97a0eb62a4a85d4836c1cfe83c3d7",
+    "semantic_hash": "c5c97a0eb62a4a85d4836c1cfe83c3d7"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\eslint.config.js": {
+    "mtime": 1768821788.190745,
+    "ast_hash": "bcb22cc5b9b86c67f53ad73b1855f082",
+    "semantic_hash": "bcb22cc5b9b86c67f53ad73b1855f082"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\jsconfig.app.json": {
+    "mtime": 1768821788.1927524,
+    "ast_hash": "832176d42374c2ef9e1568621685f703",
+    "semantic_hash": "832176d42374c2ef9e1568621685f703"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\jsconfig.json": {
+    "mtime": 1768821788.1927524,
+    "ast_hash": "fdb3eb9b072e7e9eadc2229c793fe180",
+    "semantic_hash": "fdb3eb9b072e7e9eadc2229c793fe180"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\package.json": {
+    "mtime": 1773762368.2221296,
+    "ast_hash": "f7556612640d15ec7665bc36f75a279e",
+    "semantic_hash": "f7556612640d15ec7665bc36f75a279e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\tailwind.config.js": {
+    "mtime": 1768821788.2214546,
+    "ast_hash": "382a5c7b497b269c18bc0531f630f8f0",
+    "semantic_hash": "382a5c7b497b269c18bc0531f630f8f0"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\vercel.json": {
+    "mtime": 1768821788.2214546,
+    "ast_hash": "f5d9db6e586128b194af921b942b7a2e",
+    "semantic_hash": "f5d9db6e586128b194af921b942b7a2e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\vite.config.js": {
+    "mtime": 1780217338.333979,
+    "ast_hash": "122d8a3fbcfdd83e14d66cc6af955038",
+    "semantic_hash": "122d8a3fbcfdd83e14d66cc6af955038"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\App.jsx": {
+    "mtime": 1780230427.3291714,
+    "ast_hash": "2622d104603f76884c86b657ae5b5d97",
+    "semantic_hash": "2622d104603f76884c86b657ae5b5d97"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\main.jsx": {
+    "mtime": 1768821788.2160146,
+    "ast_hash": "271d44ee37eac30af421ba8ae91c7604",
+    "semantic_hash": "271d44ee37eac30af421ba8ae91c7604"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\AdBanner.jsx": {
+    "mtime": 1773676740.8660321,
+    "ast_hash": "67a02b1c3942586cc4046216f1fffd32",
+    "semantic_hash": "67a02b1c3942586cc4046216f1fffd32"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\CinemaLayout.jsx": {
+    "mtime": 1773765522.5998604,
+    "ast_hash": "70ed64ef96b1c8834c0855693b55044c",
+    "semantic_hash": "70ed64ef96b1c8834c0855693b55044c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\LocationModal.jsx": {
+    "mtime": 1772612567.7218912,
+    "ast_hash": "8b4c07dafe04b8f0f4c161c108b22364",
+    "semantic_hash": "8b4c07dafe04b8f0f4c161c108b22364"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\LoginModal.jsx": {
+    "mtime": 1780230576.5857103,
+    "ast_hash": "642ecfe6a8314f7f2cd047ab803b24bb",
+    "semantic_hash": "642ecfe6a8314f7f2cd047ab803b24bb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\MoviesList.jsx": {
+    "mtime": 1774796245.807623,
+    "ast_hash": "51e9791afebb3e5c666511e8099756b2",
+    "semantic_hash": "51e9791afebb3e5c666511e8099756b2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\SearchMovies.jsx": {
+    "mtime": 1774028077.154116,
+    "ast_hash": "b40f48b1608eb917b4f9a522b2c8a13d",
+    "semantic_hash": "b40f48b1608eb917b4f9a522b2c8a13d"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\TopBar.jsx": {
+    "mtime": 1774028234.465217,
+    "ast_hash": "b81ed7520722041e09eabe77172041ef",
+    "semantic_hash": "b81ed7520722041e09eabe77172041ef"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\TopNavbar.jsx": {
+    "mtime": 1773676369.3584366,
+    "ast_hash": "0a000692779c4388c0bdcaeaec90c7e0",
+    "semantic_hash": "0a000692779c4388c0bdcaeaec90c7e0"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\accordion.jsx": {
+    "mtime": 1768821788.2032793,
+    "ast_hash": "3eb8b94b8a17a57a4e2e16de20df5b14",
+    "semantic_hash": "3eb8b94b8a17a57a4e2e16de20df5b14"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\alert-dialog.jsx": {
+    "mtime": 1768821788.2032793,
+    "ast_hash": "6d13b84fe5332abb70fa9189b11d1550",
+    "semantic_hash": "6d13b84fe5332abb70fa9189b11d1550"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\alert.jsx": {
+    "mtime": 1768821788.2032793,
+    "ast_hash": "863b00bb10c66952016382d2e1e53eb6",
+    "semantic_hash": "863b00bb10c66952016382d2e1e53eb6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\avatar.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "3c60e862f921b6a3d96508258e65074c",
+    "semantic_hash": "3c60e862f921b6a3d96508258e65074c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\badge.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "fef495b6ca7bcdfef64c1212aac8d426",
+    "semantic_hash": "fef495b6ca7bcdfef64c1212aac8d426"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\breadcrumb.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "61778fa8b118f4906b66bde6691481c5",
+    "semantic_hash": "61778fa8b118f4906b66bde6691481c5"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\button.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "02d52140b5ddace5025a7f3a0900b4ce",
+    "semantic_hash": "02d52140b5ddace5025a7f3a0900b4ce"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\calendar.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "07fbe00db94fcf35b480d79a37c4fb38",
+    "semantic_hash": "07fbe00db94fcf35b480d79a37c4fb38"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\card.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "82d5a837644d75e48d48680c620da53f",
+    "semantic_hash": "82d5a837644d75e48d48680c620da53f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\carousel.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "43690c0577e7cb769dc56cb81b5b7829",
+    "semantic_hash": "43690c0577e7cb769dc56cb81b5b7829"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\checkbox.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "04ab3b6a5f3b55bc03b222e6b113d90f",
+    "semantic_hash": "04ab3b6a5f3b55bc03b222e6b113d90f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\command.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "e11569d615efad131254da7de1f89617",
+    "semantic_hash": "e11569d615efad131254da7de1f89617"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\dialog.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "ee2eb198b7a7a6b97637e628209d69fc",
+    "semantic_hash": "ee2eb198b7a7a6b97637e628209d69fc"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\drawer.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "cc60cbf8cfef2396e47c96c3a595372a",
+    "semantic_hash": "cc60cbf8cfef2396e47c96c3a595372a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\dropdown-menu.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "88155f1c978e8c92885441ca69c02dee",
+    "semantic_hash": "88155f1c978e8c92885441ca69c02dee"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\form.jsx": {
+    "mtime": 1768821788.2052875,
+    "ast_hash": "6d7ec1edba7eaab42df25c56713a9283",
+    "semantic_hash": "6d7ec1edba7eaab42df25c56713a9283"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\hover-card.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "7f4cd16b5d2dc0eb1399caccea663251",
+    "semantic_hash": "7f4cd16b5d2dc0eb1399caccea663251"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\input-otp.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "07b41cbd7868e019c0dcb543c33e1387",
+    "semantic_hash": "07b41cbd7868e019c0dcb543c33e1387"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\input.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "f53f3df45123ad874106d1b735a60a56",
+    "semantic_hash": "f53f3df45123ad874106d1b735a60a56"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\label.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "869ec5e1888c40fc20151f3d600389bf",
+    "semantic_hash": "869ec5e1888c40fc20151f3d600389bf"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\popover.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "b161ae6a65c4b820affc0afdc3ff99a6",
+    "semantic_hash": "b161ae6a65c4b820affc0afdc3ff99a6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\scroll-area.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "ca3709c6818b35e78aeb9090c942fa40",
+    "semantic_hash": "ca3709c6818b35e78aeb9090c942fa40"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\select.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "aeacbe81e3e6878ae870dae8e75b3c29",
+    "semantic_hash": "aeacbe81e3e6878ae870dae8e75b3c29"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\separator.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "e5a43650b8a10a3dfcf24562c900db73",
+    "semantic_hash": "e5a43650b8a10a3dfcf24562c900db73"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\sheet.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "617a87c002b284cbbb96388db94ee901",
+    "semantic_hash": "617a87c002b284cbbb96388db94ee901"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\skeleton.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "b2a41d48d56083b57d2c208eac4212ce",
+    "semantic_hash": "b2a41d48d56083b57d2c208eac4212ce"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\sonner.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "ed5eab6e48d1042b1b0eb1cfdb4660c5",
+    "semantic_hash": "ed5eab6e48d1042b1b0eb1cfdb4660c5"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\switch.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "75774954174e60838fadb430a8ccb445",
+    "semantic_hash": "75774954174e60838fadb430a8ccb445"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\table.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "cf26793d46e2a9a6bbd94c8c326f98f1",
+    "semantic_hash": "cf26793d46e2a9a6bbd94c8c326f98f1"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\tabs.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "47339e1dcc29032167d887c5b99c0ac8",
+    "semantic_hash": "47339e1dcc29032167d887c5b99c0ac8"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\ui\\tooltip.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "3f1dd432f5a95b3714ea0a141f427247",
+    "semantic_hash": "3f1dd432f5a95b3714ea0a141f427247"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\context\\CustomerAuthContext.jsx": {
+    "mtime": 1780230196.298177,
+    "ast_hash": "4e3ebea0f3c5963eb9d66cd9c1c91e68",
+    "semantic_hash": "4e3ebea0f3c5963eb9d66cd9c1c91e68"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\context\\ThemeContext.jsx": {
+    "mtime": 1768821788.210321,
+    "ast_hash": "d0bf752c28a7587b0c46b2d9dcdf320a",
+    "semantic_hash": "d0bf752c28a7587b0c46b2d9dcdf320a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\hooks\\useRazorpayPayment.js": {
+    "mtime": 1778309419.9421277,
+    "ast_hash": "d4fe1f0823b70081fdc887edbe44b5b9",
+    "semantic_hash": "d4fe1f0823b70081fdc887edbe44b5b9"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\lib\\utils.js": {
+    "mtime": 1768821788.2160146,
+    "ast_hash": "eff53006b93cfdef4aef148f202f1c3c",
+    "semantic_hash": "eff53006b93cfdef4aef148f202f1c3c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\BookingDetailPage.jsx": {
+    "mtime": 1776583128.5654233,
+    "ast_hash": "8dbcf07f64419126910304a1c3f61d59",
+    "semantic_hash": "8dbcf07f64419126910304a1c3f61d59"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\BookingFailurePage.jsx": {
+    "mtime": 1773757125.3062472,
+    "ast_hash": "6885fe7fd750a50e233fd15f03d3778b",
+    "semantic_hash": "6885fe7fd750a50e233fd15f03d3778b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\Bookings.jsx": {
+    "mtime": 1776583119.3055303,
+    "ast_hash": "9ee51825e7a54b07e96a99d4e3f59ec2",
+    "semantic_hash": "9ee51825e7a54b07e96a99d4e3f59ec2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\BookingSuccessPage.jsx": {
+    "mtime": 1772965225.1252086,
+    "ast_hash": "9fcf64ee8010a13896d52b6e493a8614",
+    "semantic_hash": "9fcf64ee8010a13896d52b6e493a8614"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\ForgotPasswordPage.jsx": {
+    "mtime": 1780230331.0231626,
+    "ast_hash": "5d7bdb3b9f2df904bf386b2a33de9bb2",
+    "semantic_hash": "5d7bdb3b9f2df904bf386b2a33de9bb2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\HallManagement.jsx": {
+    "mtime": 1768821788.2160146,
+    "ast_hash": "912e7f78f63be9519ae739d67e5cfa61",
+    "semantic_hash": "912e7f78f63be9519ae739d67e5cfa61"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\HomePage.jsx": {
+    "mtime": 1768821788.2160146,
+    "ast_hash": "dca37852f5509633732853f5cfcb2c4f",
+    "semantic_hash": "dca37852f5509633732853f5cfcb2c4f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\MovieDetailsPage.jsx": {
+    "mtime": 1774771793.8776193,
+    "ast_hash": "9d2d41bae7dcd549dfd83bdb9b3f731d",
+    "semantic_hash": "9d2d41bae7dcd549dfd83bdb9b3f731d"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\MovieInfoPage.jsx": {
+    "mtime": 1774794996.6519408,
+    "ast_hash": "14cce6cd5992b46a678a16d6ff14567e",
+    "semantic_hash": "14cce6cd5992b46a678a16d6ff14567e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\MoviesPage.jsx": {
+    "mtime": 1773676710.6413414,
+    "ast_hash": "35fb34775dfad8ec257ff353c6210c74",
+    "semantic_hash": "35fb34775dfad8ec257ff353c6210c74"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\Notifications.jsx": {
+    "mtime": 1768821788.2160146,
+    "ast_hash": "1abb77e26c94d5e9dcd75b2083bfa2a6",
+    "semantic_hash": "1abb77e26c94d5e9dcd75b2083bfa2a6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\OffersPage.jsx": {
+    "mtime": 1774017268.1496758,
+    "ast_hash": "b15eaf012df12f1a3aeedb7dc1df29b2",
+    "semantic_hash": "b15eaf012df12f1a3aeedb7dc1df29b2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\OrderSummaryPage.jsx": {
+    "mtime": 1773766051.383315,
+    "ast_hash": "e7761063c54256e54e72725831d75f53",
+    "semantic_hash": "e7761063c54256e54e72725831d75f53"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\ProfilePage.jsx": {
+    "mtime": 1780230411.2181778,
+    "ast_hash": "2a37bde4354d3b78ec64664c7a7d25b0",
+    "semantic_hash": "2a37bde4354d3b78ec64664c7a7d25b0"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\SeatSelectionPage.jsx": {
+    "mtime": 1774794647.751158,
+    "ast_hash": "b7098bb9553401a1b5651e5e4d394f59",
+    "semantic_hash": "b7098bb9553401a1b5651e5e4d394f59"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\SettingsPage.jsx": {
+    "mtime": 1768821788.2194476,
+    "ast_hash": "0f482b71cd1684f7c87175a777aeadf2",
+    "semantic_hash": "0f482b71cd1684f7c87175a777aeadf2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\ShowsManagement.jsx": {
+    "mtime": 1768821788.2194476,
+    "ast_hash": "81d5e45908c82ac814c3079a65aeb710",
+    "semantic_hash": "81d5e45908c82ac814c3079a65aeb710"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\TheatresPage.jsx": {
+    "mtime": 1776582710.354867,
+    "ast_hash": "1e78b9a127068e7c9327cabdb7525dfb",
+    "semantic_hash": "1e78b9a127068e7c9327cabdb7525dfb"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\UsersPage.jsx": {
+    "mtime": 1768821788.2194476,
+    "ast_hash": "9de712cf92f6729022dcf552a8e71e24",
+    "semantic_hash": "9de712cf92f6729022dcf552a8e71e24"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\routes\\ProtectedRoutes.jsx": {
+    "mtime": 1772949108.3005545,
+    "ast_hash": "d2d8893e2337335a5b3cad9d06656619",
+    "semantic_hash": "d2d8893e2337335a5b3cad9d06656619"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\routes\\routesConfig.jsx": {
+    "mtime": 1768821788.2194476,
+    "ast_hash": "3244f3129838e8afe364c13927b1a12b",
+    "semantic_hash": "3244f3129838e8afe364c13927b1a12b"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\services\\api.js": {
+    "mtime": 1780230197.2657824,
+    "ast_hash": "d025182ed826188008eb525549da6288",
+    "semantic_hash": "d025182ed826188008eb525549da6288"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\utils\\passwordPolicy.js": {
+    "mtime": 1780230173.8271606,
+    "ast_hash": "f13c1e1658030d2cbeadb1e245127645",
+    "semantic_hash": "f13c1e1658030d2cbeadb1e245127645"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\db_setup.sql": {
+    "mtime": 1780232592.09404,
+    "ast_hash": "829076dfc433900dfd44a99286098022",
+    "semantic_hash": "829076dfc433900dfd44a99286098022"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\.agents\\rules\\graphify.md": {
+    "mtime": 1780233845.4191194,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": "a0e4d192b9e2e17256124dbfc8e24e6a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\.agents\\workflows\\graphify.md": {
+    "mtime": 1780233845.4191194,
+    "ast_hash": "637776aa6f7496d069afe7520c845c8a",
+    "semantic_hash": "637776aa6f7496d069afe7520c845c8a"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\index.html": {
+    "mtime": 1774025597.8036852,
+    "ast_hash": "1cdc78ab85d8cfc53f796f6d17e68a07",
+    "semantic_hash": "1cdc78ab85d8cfc53f796f6d17e68a07"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\README.md": {
+    "mtime": 1779618643.3190215,
+    "ast_hash": "2ddad854537e7c7817d69f96bc9204e2",
+    "semantic_hash": "2ddad854537e7c7817d69f96bc9204e2"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\README.md": {
+    "mtime": 1779618633.3174863,
+    "ast_hash": "9fe03f8a5600b3e7545713c8591e8b0e",
+    "semantic_hash": "9fe03f8a5600b3e7545713c8591e8b0e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\index.html": {
+    "mtime": 1774025588.1046567,
+    "ast_hash": "7037fc9d1488fe136356f202183fca3c",
+    "semantic_hash": "7037fc9d1488fe136356f202183fca3c"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\README.md": {
+    "mtime": 1779618874.1186893,
+    "ast_hash": "c6d62eb4b41edbcaeff4835852d8bdf4",
+    "semantic_hash": "c6d62eb4b41edbcaeff4835852d8bdf4"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\admin.md": {
+    "mtime": 1780234281.1772792,
+    "ast_hash": "bfe43b5089f22c478c60a6d21d5f9658",
+    "semantic_hash": "bfe43b5089f22c478c60a6d21d5f9658"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\backend.md": {
+    "mtime": 1780234450.2265735,
+    "ast_hash": "bbf6e57ff8553bb5ee8204d8065f806f",
+    "semantic_hash": "bbf6e57ff8553bb5ee8204d8065f806f"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\index.md": {
+    "mtime": 1780234226.9975288,
+    "ast_hash": "a106053d1fbff230c30c8163ace00125",
+    "semantic_hash": "a106053d1fbff230c30c8163ace00125"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\payment and booking implementation.md": {
+    "mtime": 1778311489.453245,
+    "ast_hash": "aac3d9c6ea64deeb50b17e206f024b74",
+    "semantic_hash": "aac3d9c6ea64deeb50b17e206f024b74"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\README.md": {
+    "mtime": 1779618337.673029,
+    "ast_hash": "cf2f1eb8db5547d021d0f681e406fe9e",
+    "semantic_hash": "cf2f1eb8db5547d021d0f681e406fe9e"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\users.md": {
+    "mtime": 1780232196.5843048,
+    "ast_hash": "5cf17935e2d84f85fe6aae734a5b3bd6",
+    "semantic_hash": "5cf17935e2d84f85fe6aae734a5b3bd6"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\public\\cinemax_logo.png": {
+    "mtime": 1774025507.4223979,
+    "ast_hash": "46343b6dac59e1e2abed50504f469e87",
+    "semantic_hash": "46343b6dac59e1e2abed50504f469e87"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\public\\vite.svg": {
+    "mtime": 1768821756.657152,
+    "ast_hash": "8e3a10e157f75ada21ab742c022d5430",
+    "semantic_hash": "8e3a10e157f75ada21ab742c022d5430"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\src\\assets\\react.svg": {
+    "mtime": 1768821756.658144,
+    "ast_hash": "f0402b67b6ce880f65666bb49e841696",
+    "semantic_hash": "f0402b67b6ce880f65666bb49e841696"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\public\\cinemax_logo.png": {
+    "mtime": 1774025507.4223979,
+    "ast_hash": "46343b6dac59e1e2abed50504f469e87",
+    "semantic_hash": "46343b6dac59e1e2abed50504f469e87"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\public\\vite.svg": {
+    "mtime": 1768821788.1969354,
+    "ast_hash": "8e3a10e157f75ada21ab742c022d5430",
+    "semantic_hash": "8e3a10e157f75ada21ab742c022d5430"
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\assets\\react.svg": {
+    "mtime": 1768821788.200164,
+    "ast_hash": "f0402b67b6ce880f65666bb49e841696",
+    "semantic_hash": "f0402b67b6ce880f65666bb49e841696"
+  }
+}
