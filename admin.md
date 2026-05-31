@@ -228,7 +228,27 @@ Reads `?token=` from URL. Shows a live password policy checklist. Submit disable
 
 ---
 
-### Onboarding Flow & Multi-Hall Support
+### RegisterPage
+
+**Route**: `/register`
+**Component**: `RegisterPage.jsx`
+**Access**: Public
+
+Collects Full Name, Phone, Email, and Password. Password is validated against the full policy (8+ chars, uppercase, lowercase, digit, special character) with a live checklist. On success, redirects to `/verify-email?email=<encoded-email>` — NOT to `/login` directly.
+
+**UI Design** (May 2026 redesign):
+- Fixed decorative background (dot grid + radial blobs) with `-z-10` so page content can scroll freely
+- Glass-style card with `backdrop-blur-xl`, a 3px gradient accent bar at the top, and a deep drop shadow
+- Logo icon has a `shadow-[0_0_24px...]` glow effect
+- Labels use `text-xs font-semibold uppercase tracking-wider` styling
+- Password policy checklist renders inside a styled container box with emerald `CheckCircle` icons
+- Primary button has a colour glow shadow that deepens on hover
+- Terms & Privacy displayed in a horizontal divider layout
+- **Scrolling**: outer `h-full overflow-y-auto` → inner `min-h-full flex items-center justify-center` prevents content being clipped by the global `overflow: hidden` on `body`
+
+---
+
+### VerifyEmailPage
 
 To support admins managing multiple cinema halls, the system divides the admin's workspace by the selected active hall.
 
@@ -238,6 +258,16 @@ To support admins managing multiple cinema halls, the system divides the admin's
   - **Step 1 — Hall Details**: Hall Name, Full Address, State, and District (populated via `country-state-city`).
   - **Step 2 — Location Pinning**: Leaflet map for coordinate selection. Includes search functionality via Nominatim geocoding. Pin is draggable, and coordinates are saved automatically.
 - Upon completion, calls `POST /api/halls` to save the hall, refetches the user's halls list, sets the newly created hall as active, and redirects to the home dashboard.
+
+**UI Design** (May 2026 redesign):
+- Same fixed-background + two-layer scrolling pattern as `RegisterPage` — body `overflow: hidden` no longer clips the page
+- Glass card with a 3px gradient accent bar at the top, `backdrop-blur-xl`, and deep drop shadow
+- Step indicator circles are `w-9 h-9`; active step has a glow ring; completed steps show `CheckCircle2`
+- Step connector line animates left-to-right on step completion via CSS transition on width
+- Section headers use a small icon box (`w-7 h-7 rounded-lg bg-primary/15`) rather than a bare icon
+- "Optional" label on Step 2 is a styled pill badge
+- Coordinates badge has a subtle `shadow-[0_0_16px_rgba(var(--primary-rgb),0.1)]` glow
+- **Sign Out button**: `fixed top-4 left-4 z-50` — always pinned to the viewport top-left, independent of scroll position
 
 #### 2. Hall Guard (`HallGuard.jsx`)
 - Gated routes are checked against the global `halls` context.

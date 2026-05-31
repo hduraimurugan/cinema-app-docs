@@ -477,6 +477,7 @@ sequenceDiagram
 | POST   | `/change-password`     | Access Token  | Change password while logged in (revokes other sessions)  |
 | GET    | `/security`            | Access Token  | Get security info: sessions, logs, lockout, verified status |
 | GET    | `/admins`              | SuperAdmin    | List all cinema hall admins with hall info                |
+| GET    | `/admins/:id/logs`     | SuperAdmin    | Get security audit logs for a specific admin              |
 
 #### POST `/api/auth/register`
 
@@ -2116,6 +2117,41 @@ Returns a paginated list of all registered cinema hall admins (excludes SuperAdm
 ```
 
 `hall_id` / `hall_name` / `location` will be `null` if the admin has not yet created a cinema hall.
+
+---
+
+#### GET `/api/auth/admins/:id/logs` *(SuperAdmin)*
+
+Returns the `admin_security_logs` entries for a specific admin, ordered by `created_at DESC`.
+
+**Path Parameter:** `:id` — the admin's UUID
+
+**Response (200):**
+
+```json
+{
+  "logs": [
+    {
+      "id": "uuid",
+      "action": "LOGIN_SUCCESS",
+      "ip_address": "103.27.12.45",
+      "user_agent": "Mozilla/5.0 ...",
+      "metadata": {},
+      "created_at": "2026-05-31T10:00:00Z"
+    },
+    {
+      "id": "uuid",
+      "action": "LOGIN_FAILED",
+      "ip_address": "103.27.12.45",
+      "user_agent": "Mozilla/5.0 ...",
+      "metadata": { "reason": "invalid_password" },
+      "created_at": "2026-05-31T09:58:00Z"
+    }
+  ]
+}
+```
+
+**Possible `action` values:** `LOGIN_SUCCESS`, `LOGIN_FAILED`, `LOGOUT`, `LOGOUT_ALL`, `EMAIL_VERIFIED`, `PASSWORD_RESET`, `PASSWORD_CHANGED`, `ACCOUNT_LOCKED`
 
 ---
 
