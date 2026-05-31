@@ -35,6 +35,7 @@ graph TD
     C --> G2[/booking/failure - BookingFailurePage]
     C --> H[/theatres - TheatresPage]
     C --> H2[/offers - OffersPage]
+    C --> H3[/forgot-password - ForgotPasswordPage]
 
     P --> I[/bookings - Bookings]
     P --> I2[/bookings/:id - BookingDetailPage]
@@ -84,20 +85,59 @@ sequenceDiagram
     participant AuthContext
 
     User->>LoginModal: Click "Sign Up"
-    LoginModal->>User: Show signup form
+    LoginModal->>User: Show signup form (with live password policy checklist)
 
     User->>LoginModal: Enter details
     LoginModal->>API: POST /api/customer/signup
     API-->>LoginModal: Customer created (unverified)
 
-    LoginModal->>API: POST /api/otp/send
-    API->>Email: Send OTP
+    LoginModal->>API: POST /api/otp/send {type: signup}
+    API->>Email: Send OTP (cinema-branded email)
     Email-->>User: Receive OTP
     API-->>LoginModal: OTP sent
 
     User->>LoginModal: Enter OTP
-    LoginModal->>API: POST /api/otp/verify
+    LoginModal->>API: POST /api/otp/verify {type: signup}
     API-->>LoginModal: OTP verified
+    LoginModal->>User: Show success
+
+    User->>LoginModal: Click "Login"
+    User->>LoginModal: Enter credentials
+    LoginModal->>API: POST /api/customer/login
+    alt Success
+        API-->>LoginModal: {customer, tokens}
+        LoginModal->>AuthContext: setCustomer(customer)
+        AuthContext-->>User: Logged in
+    else Account Locked
+        API-->>LoginModal: 423 {code: ACCOUNT_LOCKED, lockedUntil}
+        LoginModal->>User: Show lock banner + unlock time + reset link
+    else Wrong password (near threshold)
+        API-->>LoginModal: 400 {error, hint: "N attempts remaining"}
+        LoginModal->>User: Show amber hint message
+    end
+```
+
+### Forgot Password Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant ForgotPasswordPage
+    participant API
+    participant Email
+
+    User->>ForgotPasswordPage: Navigate to /forgot-password
+    User->>ForgotPasswordPage: Enter email → click Send OTP
+    ForgotPasswordPage->>API: POST /api/customer/forgot-password
+    API->>Email: Send OTP (type=password_reset)
+    API-->>ForgotPasswordPage: Generic success message
+    ForgotPasswordPage->>User: Step 2 — OTP + new password form
+
+    User->>ForgotPasswordPage: Enter OTP + new password (with policy checklist)
+    ForgotPasswordPage->>API: POST /api/customer/reset-password
+    API-->>ForgotPasswordPage: 200 OK
+    ForgotPasswordPage->>User: Step 3 — Success screen + Sign In button
+```
     LoginModal->>User: Show success
 
     User->>LoginModal: Click "Login"
@@ -113,11 +153,12 @@ sequenceDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> SignupForm
-    SignupForm --> OTPSent: Submit Details
+    SignupForm --> OTPSent: Submit Details (password policy met)
     OTPSent --> OTPVerification: OTP Received
     OTPVerification --> Verified: Correct OTP
-    OTPVerification --> OTPSent: Resend OTP
-    OTPVerification --> SignupForm: Wrong OTP (retry)
+    OTPVerification --> OTPSent: Resend OTP (60s cooldown)
+    OTPVerification --> Locked: 5 wrong attempts
+    Locked --> [*]: Request new OTP
     Verified --> LoginForm
     LoginForm --> Authenticated
     Authenticated --> [*]
@@ -147,11 +188,14 @@ stateDiagram-v2
 
 **Key Functions:**
 
-- `login(email, password)` - Authenticate customer
-- `logout()` - Clear session
-- `updateProfile(data)` - Update customer details
-- `checkAuth()` - Verify token on mount
-- `refreshToken()` - Auto-refresh access token
+- `login(email, password)` — Authenticate; returns `{ success, customer }` or `{ success: false, message, details }` (details contains `code` for ACCOUNT_LOCKED)
+- `logout()` — Clear session + revoke DB session
+- `signup(data)` — Register new customer
+- `update(data)` — Update profile (name, phone, location)
+- `changePassword(currentPassword, newPassword)` — Change password (authenticated); revokes other sessions
+- `fetchLocationDetails()` — Detect location via browser geolocation
+- `setLocationManually(city, state)` — Set location from LocationModal
+- `updateProfileWithLocation()` — Sync location to backend profile
 
 ---
 
@@ -292,6 +336,8 @@ stateDiagram-v2
     Signup --> OTPVerification: After Signup
     OTPVerification --> Login: After Verification
     Login --> [*]: Successful Login
+    Login --> ForgotPassword: "Forgot password?" link
+    ForgotPassword --> [*]
 ```
 
 #### Login Form
@@ -299,13 +345,13 @@ stateDiagram-v2
 **Fields:**
 
 - Email (required)
-- Password (required)
+- Password (required, with show/hide toggle)
 
-**Actions:**
+**Security Features:**
 
-- Submit login
-- Switch to signup
-- Forgot password (if implemented)
+- **Account lockout banner**: If `code === 'ACCOUNT_LOCKED'` in the response, shows a `ShieldAlert` red banner with the unlock time (formatted via `lockedUntil`)
+- **Attempt hint**: If the server returns a `hint` field (e.g. `"2 attempts remaining before 15-min lockout"`), shows an amber info banner below the password field
+- **Forgot password link**: Navigates to `/forgot-password` and closes the modal
 
 #### Signup Form
 
@@ -322,12 +368,17 @@ stateDiagram-v2
 }
 ```
 
-**Validation:**
+**Password Policy Checklist:**
 
-- All fields required except phone
-- Email format validation
-- Password strength check
-- District and state for location-based features
+A live `PasswordPolicyChecklist` component renders below the password field showing 5 real-time checks (green check / amber pending):
+
+1. At least 8 characters
+2. One uppercase letter
+3. One lowercase letter
+4. One digit
+5. One special character (`!@#$%^&*` etc.)
+
+The signup submit button is disabled until all 5 checks pass.
 
 #### OTP Verification
 
@@ -339,20 +390,22 @@ sequenceDiagram
     participant Timer
 
     User->>Modal: Complete signup
-    Modal->>API: POST /api/otp/send
+    Modal->>API: POST /api/otp/send {type: signup}
     API-->>Modal: OTP sent
     Modal->>Timer: Start 60s countdown
 
-    User->>Modal: Enter OTP
-    Modal->>API: POST /api/otp/verify
+    User->>Modal: Enter 6-digit OTP
+    Modal->>API: POST /api/otp/verify {type: signup}
     API-->>Modal: Verification result
 
     alt OTP Valid
         Modal->>User: Show success
         Modal->>Modal: Switch to login
-    else OTP Invalid
+    else OTP Invalid (< 5 attempts)
         Modal->>User: Show error
-        User->>Modal: Retry or resend
+        User->>Modal: Retry
+    else 5 attempts exceeded
+        Modal->>User: Show "Too many attempts, request a new OTP"
     end
 
     Timer-->>Modal: Countdown complete
@@ -361,11 +414,50 @@ sequenceDiagram
 
 **OTP Features:**
 
-- 6-digit OTP input
+- 6-digit OTP input (shadcn `InputOTP`)
 - 60-second resend timer
-- Auto-focus on input
-- Error handling for invalid OTP
-- Success notification
+- Max 5 wrong attempts before invalidation
+- OTP hashed with SHA-256 server-side (never stored plain)
+- Rate-limited: max 3 sends per 10 minutes per email/type pair
+
+---
+
+### 2a. Forgot Password Page
+
+**Route**: `/forgot-password`
+**Component**: `ForgotPasswordPage.jsx`
+**Auth required**: No (public route)
+
+3-step OTP-based password reset flow:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Step1_Email
+    Step1_Email --> Step2_ResetForm: OTP Sent
+    Step2_ResetForm --> Step2_ResetForm: Resend OTP (60s cooldown)
+    Step2_ResetForm --> Step3_Success: Password Reset
+    Step2_ResetForm --> Step2_ResetForm: OTP Expired — request new
+    Step3_Success --> [*]: Navigate to /movies (openLogin state)
+```
+
+**Step 1 — Email:**
+- Enter email address
+- Calls `POST /api/customer/forgot-password`
+- Always advances to Step 2 (generic response — no enumeration)
+
+**Step 2 — OTP + New Password:**
+- `InputOTP` 6-digit component
+- New password field with live `PasswordPolicyChecklist`
+- Confirm password field
+- 60-second resend timer; "Resend OTP" enabled when timer expires
+- Submit calls `POST /api/customer/reset-password`
+- Error codes handled:
+  - `OTP_EXPIRED` → shows "OTP expired, request a new one" + re-enables resend
+  - `OTP_ATTEMPTS_EXCEEDED` → shows "Too many failed attempts" + re-enables resend
+
+**Step 3 — Success:**
+- `CheckCircle2` icon + success message
+- "Sign In" button navigates to `/movies` with `state: { openLogin: true }` (auto-opens LoginModal)
 
 ---
 
@@ -945,13 +1037,25 @@ Shown when Razorpay payment fails or the user dismisses the Razorpay modal. Rece
 
 **Route**: `/profile`
 **Component**: `ProfilePage.jsx`
+**Auth required**: Yes (protected route)
 
-Customer profile management:
+Two-section layout:
 
-- View profile details
-- Edit information
-- Update location
-- Change password
+**Profile Info Section:**
+- Displays customer name, email (read-only), phone
+- Location (district, state) shown as read-only badges
+
+**Change Password Section:**
+- Current password field (with show/hide toggle)
+- New password field + live `PasswordPolicyChecklist`
+- Confirm new password field (with show/hide toggle)
+- Submit disabled until:
+  - All 5 policy checks pass
+  - New password matches confirm
+  - Current password is not empty
+- Calls `changePassword(currentPassword, newPassword)` from `CustomerAuthContext`
+- On success shows a `CheckCircle2` success state with "Password Changed" message
+- Password policy same as signup: 8+ chars, uppercase, lowercase, digit, special char
 
 #### SettingsPage
 
@@ -981,7 +1085,7 @@ graph LR
     A --> F2[adsAPI]
     A --> G2[settingsAPI]
 
-    B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp]
+    B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp, forgotPassword, resetPassword, changePassword]
     C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes, getTheatresWithShows]
     D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings, getBookingById]
     E --> I[createOrder, verifyPayment]

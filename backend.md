@@ -35,6 +35,7 @@ erDiagram
     customers ||--o{ bookings : "makes"
     customers ||--o{ payment_orders : "creates"
     customers ||--o{ otp_verifications : "verifies"
+    customers ||--o{ customer_sessions : "has sessions"
     customers ||--o{ ad_clicks : "clicks"
     ads ||--o{ ad_clicks : "receives"
     offers ||--o{ offer_redemptions : "redeemed via"
@@ -246,8 +247,23 @@ erDiagram
         text district
         text state
         boolean is_verified
+        int failed_login_attempts
+        timestamptz account_locked_until
+        timestamptz last_login_at
+        timestamptz password_changed_at
         timestamptz created_at
         timestamptz updated_at
+    }
+
+    customer_sessions {
+        uuid id PK
+        uuid customer_id FK
+        text refresh_token_hash UK
+        text ip_address
+        text user_agent
+        boolean is_revoked
+        timestamptz last_used_at
+        timestamptz created_at
     }
 
     payment_orders {
@@ -270,9 +286,11 @@ erDiagram
 
     otp_verifications {
         uuid id PK
-        text email FK "UK — required for ON CONFLICT upsert"
-        text otp
+        text email FK
+        text type "signup | password_reset"
+        text otp "SHA-256 hashed"
         boolean is_verified
+        int otp_attempts
         timestamptz created_at
         timestamptz expires_at
     }
@@ -388,10 +406,29 @@ sequenceDiagram
     API-->>Client: 200 OK
 
     Client->>API: POST /api/customer/login
-    API->>DB: Validate credentials + check is_verified
+    API->>DB: Validate credentials + check lockout + is_verified
     DB-->>API: Customer data
+    API->>DB: INSERT customer_sessions (hashed refresh token)
     API->>Client: Set cusAccessToken + cusRefreshToken
     API-->>Client: 200 OK + customer data
+
+    note over API,DB: Failed login increments failed_login_attempts
+    note over API,DB: 5 fails=15min lock, 10=60min, 15=24h; lockout email sent
+
+    Client->>API: POST /api/customer/forgot-password
+    API->>DB: Generate + hash OTP (type=password_reset)
+    API->>Email: Send OTP email
+    API-->>Client: Generic response (no enumeration)
+
+    Client->>API: POST /api/customer/reset-password
+    API->>DB: Verify hashed OTP + update password
+    API->>DB: Revoke ALL customer_sessions
+    API-->>Client: 200 OK
+
+    Client->>API: POST /api/customer/change-password (+ cusAccessToken)
+    API->>DB: Verify current password + update
+    API->>DB: Revoke OTHER customer_sessions (keep current)
+    API-->>Client: 200 OK
 ```
 
 ### Token Strategy
@@ -401,7 +438,7 @@ sequenceDiagram
 | Admin Access     | `accessToken`     | 1 day   | API authentication                   |
 | Admin Refresh    | `refreshToken`    | 30 days | Token renewal (hash stored in DB)    |
 | Customer Access  | `cusAccessToken`  | 1 day   | API authentication                   |
-| Customer Refresh | `cusRefreshToken` | 7 days  | Token renewal                        |
+| Customer Refresh | `cusRefreshToken` | 30 days | Token renewal (hash stored in DB)    |
 
 **Security Features:**
 
@@ -409,13 +446,14 @@ sequenceDiagram
 - SameSite policy (production: `None`, dev: `Lax`)
 - Secure flag in production
 - Bcrypt password hashing (12 rounds)
-- Refresh tokens stored as **SHA-256 hashes** in `admin_sessions` — raw token never persisted
-- Server-side session revocation — refresh token checked against `admin_sessions.is_revoked` on every use
-- **Brute-force lockout**: 5 attempts → 15 min, 10 → 60 min, 15 → 24 hrs
-- **Email verification** required before first login
-- **Password policy**: min 8 chars, uppercase, lowercase, digit, special character
+- Refresh tokens stored as **SHA-256 hashes** in `admin_sessions` / `customer_sessions` — raw token never persisted
+- Server-side session revocation — refresh token checked against DB `is_revoked` on every use (both admin and customer)
+- **Brute-force lockout** (admin + customer): 5 attempts → 15 min, 10 → 60 min, 15 → 24 hrs; lockout notification email sent
+- **Email verification** required before first login (admin: token link; customer: OTP)
+- **Password policy** (admin + customer): min 8 chars, uppercase, lowercase, digit, special character; enforced on signup, reset, and change
 - Reset/change password revokes all other sessions
 - Full security audit log in `admin_security_logs`
+- **Customer OTP security**: SHA-256 hashed before storage; max 5 wrong-guess attempts; max 3 sends per 10 minutes per flow type (rate limited)
 
 ---
 
@@ -751,14 +789,17 @@ Deletes a specific cinema hall. The admin must own the hall. This action cascade
 
 ### Customer Authentication (`/api/customer`)
 
-| Method | Endpoint   | Auth           | Description                                |
-| ------ | ---------- | -------------- | ------------------------------------------ |
-| POST   | `/signup`  | None           | Register customer                          |
-| POST   | `/login`   | None           | Login customer (requires OTP verification) |
-| POST   | `/logout`  | None           | Clear auth cookies                         |
-| GET    | `/me`      | Customer Token | Get logged-in customer info                |
-| PUT    | `/update`  | Customer Token | Update customer profile                    |
-| POST   | `/refresh` | Refresh Token  | Refresh access token                       |
+| Method | Endpoint            | Auth           | Description                                                      |
+| ------ | ------------------- | -------------- | ---------------------------------------------------------------- |
+| POST   | `/signup`           | None           | Register customer (enforces password policy, bcrypt cost 12)     |
+| POST   | `/login`            | None           | Login (lockout enforced; hint for remaining attempts)            |
+| POST   | `/logout`           | None           | Clear auth cookies + revoke session in DB                        |
+| GET    | `/me`               | Customer Token | Get logged-in customer info                                      |
+| PUT    | `/update`           | Customer Token | Update customer profile (name, phone, location)                  |
+| POST   | `/refresh`          | Refresh Token  | Refresh access token (revocation-checked against customer_sessions) |
+| POST   | `/forgot-password`  | None           | Send password-reset OTP (generic response, no enumeration)       |
+| POST   | `/reset-password`   | None           | Verify OTP + set new password (revokes ALL sessions)             |
+| POST   | `/change-password`  | Customer Token | Change password while logged in (revokes other sessions)         |
 
 #### POST `/api/customer/signup`
 
@@ -793,41 +834,82 @@ Deletes a specific cinema hall. The admin must own the hall. This action cascade
 }
 ```
 
+#### POST `/api/customer/login`
+
+Returns `423` with `code: 'ACCOUNT_LOCKED'` and `lockedUntil` timestamp when account is locked. Before reaching a lock threshold, returns a `hint` field (e.g. `"2 attempts remaining before account is locked"`).
+
+**Request Body:** `{ "email": "jane@example.com", "password": "MyPass@1" }`
+
+#### POST `/api/customer/forgot-password`
+
+Looks up the customer by email. If found, sends a `password_reset` type OTP via email. Always returns the same generic message regardless of whether the email exists (prevents enumeration).
+
+**Request Body:** `{ "email": "jane@example.com" }`
+
+**Response (200):** `{ "message": "If an account with that email exists, a password reset OTP has been sent." }`
+
+#### POST `/api/customer/reset-password`
+
+Verifies the OTP (type `password_reset`), enforces password policy, checks same-password, updates password, revokes ALL customer sessions, sends password-changed email.
+
+**Request Body:** `{ "email": "jane@example.com", "otp": "482019", "newPassword": "NewPass@1" }`
+
+**Error codes:** `OTP_EXPIRED` (400), `OTP_ATTEMPTS_EXCEEDED` (400)
+
+**Response (200):** `{ "message": "Password reset successfully. Please sign in with your new password." }`
+
+#### POST `/api/customer/change-password`
+
+Verifies current password, enforces policy on new password, prevents reuse, updates password, revokes all *other* sessions (current session stays active), sends password-changed email.
+
+**Request Body:** `{ "currentPassword": "OldPass@1", "newPassword": "NewPass@2" }`
+
+**Response (200):** `{ "message": "Password changed successfully. Other devices have been signed out." }`
+
 ---
 
 ### OTP Verification (`/api/otp`)
 
-| Method | Endpoint  | Auth | Description                           |
-| ------ | --------- | ---- | ------------------------------------- |
-| POST   | `/send`   | None | Send OTP to email                     |
+| Method | Endpoint  | Auth | Description                                                     |
+| ------ | --------- | ---- | --------------------------------------------------------------- |
+| POST   | `/send`   | None | Send OTP (type: signup \| password_reset); rate-limited 3/10min |
+| POST   | `/verify` | None | Verify OTP; max 5 wrong attempts before invalidation            |
 | POST   | `/verify` | None | Verify OTP and mark customer verified |
 
 #### POST `/api/otp/send`
 
-**Request Body:**
-
-```json
-{
-  "email": "jane@example.com"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "message": "OTP sent to email"
-}
-```
-
-#### POST `/api/otp/verify`
+Generates a random 6-digit OTP, hashes it with SHA-256, and stores the hash. Sends the plain OTP to the customer via a cinema-branded email. Rate-limited to **3 sends per 10 minutes** per `(email, type)` pair.
 
 **Request Body:**
 
 ```json
 {
   "email": "jane@example.com",
-  "otp": "123456"
+  "type": "signup"
+}
+```
+
+`type` is `"signup"` (default) or `"password_reset"`.
+
+**Response (200):**
+
+```json
+{
+  "message": "OTP sent successfully"
+}
+```
+
+#### POST `/api/otp/verify`
+
+Hashes the submitted OTP and compares against the stored hash. Increments `otp_attempts` on mismatch; invalidates after **5 wrong attempts**. For `signup` type, marks `customers.is_verified = true`.
+
+**Request Body:**
+
+```json
+{
+  "email": "jane@example.com",
+  "otp": "482019",
+  "type": "signup"
 }
 ```
 
@@ -835,11 +917,8 @@ Deletes a specific cinema hall. The admin must own the hall. This action cascade
 
 ```json
 {
-  "message": "OTP verified successfully",
-  "customer": {
-    "id": "uuid",
-    "email": "jane@example.com",
-    "is_verified": true
+  "message": "OTP verified successfully. Account activated!"
+}
   }
 }
 ```

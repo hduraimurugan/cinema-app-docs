@@ -60,16 +60,20 @@ ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS description TEXT;
 ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS is_active   BOOLEAN NOT NULL DEFAULT TRUE;
 
 CREATE TABLE IF NOT EXISTS customers (
-  id          UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
-  email       TEXT    UNIQUE NOT NULL,
-  password    TEXT    NOT NULL,
-  name        TEXT    NOT NULL,
-  phone       TEXT,
-  is_verified BOOLEAN NOT NULL DEFAULT FALSE,
-  district    TEXT    NOT NULL DEFAULT '',
-  state       TEXT    NOT NULL DEFAULT '',
-  created_at  TIMESTAMPTZ DEFAULT now(),
-  updated_at  TIMESTAMPTZ DEFAULT now()
+  id                      UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
+  email                   TEXT    UNIQUE NOT NULL,
+  password                TEXT    NOT NULL,
+  name                    TEXT    NOT NULL,
+  phone                   TEXT,
+  is_verified             BOOLEAN NOT NULL DEFAULT FALSE,
+  district                TEXT    NOT NULL DEFAULT '',
+  state                   TEXT    NOT NULL DEFAULT '',
+  failed_login_attempts   INT     NOT NULL DEFAULT 0,
+  account_locked_until    TIMESTAMPTZ,
+  last_login_at           TIMESTAMPTZ,
+  password_changed_at     TIMESTAMPTZ,
+  created_at              TIMESTAMPTZ DEFAULT now(),
+  updated_at              TIMESTAMPTZ DEFAULT now()
 );
 
 -- Auto-update customers.updated_at
@@ -87,15 +91,32 @@ CREATE TRIGGER update_customers_updated_at
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TABLE IF NOT EXISTS otp_verifications (
-  id          UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
-  email       TEXT    NOT NULL UNIQUE,                           -- UNIQUE required for ON CONFLICT upsert
-  otp         TEXT    NOT NULL,
-  is_verified BOOLEAN NOT NULL DEFAULT FALSE,
-  created_at  TIMESTAMPTZ DEFAULT now(),
-  expires_at  TIMESTAMPTZ NOT NULL,
+  id           UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
+  email        TEXT    NOT NULL,
+  type         TEXT    NOT NULL DEFAULT 'signup',  -- 'signup' | 'password_reset'
+  otp          TEXT    NOT NULL,                   -- SHA-256 hashed
+  otp_attempts INT     NOT NULL DEFAULT 0,
+  is_verified  BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at   TIMESTAMPTZ DEFAULT now(),
+  expires_at   TIMESTAMPTZ NOT NULL,
   CONSTRAINT fk_customer_email FOREIGN KEY (email)
-    REFERENCES customers(email) ON DELETE CASCADE
+    REFERENCES customers(email) ON DELETE CASCADE,
+  CONSTRAINT otp_verifications_email_type_key UNIQUE (email, type)
 );
+
+CREATE TABLE IF NOT EXISTS customer_sessions (
+  id                  UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
+  customer_id         UUID    NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  refresh_token_hash  TEXT    NOT NULL UNIQUE,
+  ip_address          TEXT,
+  user_agent          TEXT,
+  is_revoked          BOOLEAN NOT NULL DEFAULT FALSE,
+  last_used_at        TIMESTAMPTZ DEFAULT now(),
+  created_at          TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_customer_sessions_customer_id ON customer_sessions(customer_id);
+CREATE INDEX IF NOT EXISTS idx_customer_sessions_token_hash  ON customer_sessions(refresh_token_hash);
 
 
 -- ---------------------------------------------------------------------------
