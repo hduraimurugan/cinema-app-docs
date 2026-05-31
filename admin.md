@@ -248,7 +248,7 @@ Collects Full Name, Phone, Email, and Password. Password is validated against th
 
 ---
 
-### VerifyEmailPage
+### Multi-Hall Support & Onboarding Flow
 
 To support admins managing multiple cinema halls, the system divides the admin's workspace by the selected active hall.
 

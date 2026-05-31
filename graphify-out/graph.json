@@ -108,7 +108,7 @@
       "source_file": "cinema-hall-admin/components.json",
       "source_location": "L13",
       "id": "cinema_hall_admin_components_aliases",
-      "community": 14,
+      "community": 19,
       "norm_label": "aliases"
     },
     {
@@ -135,7 +135,7 @@
       "source_file": "cinema-hall-admin/components.json",
       "source_location": "L16",
       "id": "cinema_hall_admin_components_aliases_ui",
-      "community": 14,
+      "community": 19,
       "norm_label": "ui"
     },
     {
@@ -144,7 +144,7 @@
       "source_file": "cinema-hall-admin/components.json",
       "source_location": "L17",
       "id": "cinema_hall_admin_components_aliases_lib",
-      "community": 14,
+      "community": 19,
       "norm_label": "lib"
     },
     {
@@ -153,7 +153,7 @@
       "source_file": "cinema-hall-admin/components.json",
       "source_location": "L18",
       "id": "cinema_hall_admin_components_aliases_hooks",
-      "community": 10,
+      "community": 19,
       "norm_label": "hooks"
     },
     {
@@ -612,7 +612,7 @@
       "source_file": "cinema-hall-admin/package.json",
       "source_location": "L38",
       "id": "cinema_hall_admin_package_dependencies_dayjs",
-      "community": 10,
+      "community": 4,
       "norm_label": "dayjs"
     },
     {
@@ -666,7 +666,7 @@
       "source_file": "cinema-hall-admin/package.json",
       "source_location": "L44",
       "id": "cinema_hall_admin_package_dependencies_qrcode_react",
-      "community": 7,
+      "community": 3,
       "norm_label": "qrcode.react"
     },
     {
@@ -729,7 +729,7 @@
       "source_file": "cinema-hall-admin/package.json",
       "source_location": "L51",
       "id": "cinema_hall_admin_package_dependencies_react_lazy_load_image_component",
-      "community": 7,
+      "community": 3,
       "norm_label": "react-lazy-load-image-component"
     },
     {
@@ -756,7 +756,7 @@
       "source_file": "cinema-hall-admin/package.json",
       "source_location": "L54",
       "id": "cinema_hall_admin_package_dependencies_recharts",
-      "community": 14,
+      "community": 3,
       "norm_label": "recharts"
     },
     {
@@ -945,7 +945,7 @@
       "source_file": "cinema-hall-admin/vercel.json",
       "source_location": "L1",
       "id": "cinema_hall_admin_vercel_json",
-      "community": 125,
+      "community": 143,
       "norm_label": "vercel.json"
     },
     {
@@ -954,7 +954,7 @@
       "source_file": "cinema-hall-admin/vercel.json",
       "source_location": "L1",
       "id": "cinema_hall_admin_vercel_routes",
-      "community": 10,
+      "community": 143,
       "norm_label": "routes"
     },
     {
@@ -981,7 +981,7 @@
       "source_file": "cinema-hall-admin/src/App.jsx",
       "source_location": "L41",
       "id": "cinema_hall_admin_src_app_jsx_src_app_app",
-      "community": 0,
+      "community": 94,
       "norm_label": "app()"
     },
     {
@@ -990,7 +990,7 @@
       "source_file": "cinema-hall-admin/src/main.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_main_jsx",
-      "community": 0,
+      "community": 150,
       "norm_label": "main.jsx"
     },
     {
@@ -1098,7 +1098,7 @@
       "source_file": "cinema-hall-admin/src/components/HallSwitcher.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_components_hallswitcher_jsx",
-      "community": 72,
+      "community": 94,
       "norm_label": "hallswitcher.jsx"
     },
     {
@@ -1107,7 +1107,7 @@
       "source_file": "cinema-hall-admin/src/components/HallSwitcher.jsx",
       "source_location": "L15",
       "id": "components_hallswitcher_hallswitcher",
-      "community": 72,
+      "community": 94,
       "norm_label": "hallswitcher()"
     },
     {
@@ -1116,7 +1116,7 @@
       "source_file": "cinema-hall-admin/src/components/Loader.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_components_loader_jsx",
-      "community": 90,
+      "community": 0,
       "norm_label": "loader.jsx"
     },
     {
@@ -1125,7 +1125,7 @@
       "source_file": "cinema-hall-admin/src/components/Loader.jsx",
       "source_location": "L7",
       "id": "components_loader_loader",
-      "community": 90,
+      "community": 0,
       "norm_label": "loader()"
     },
     {
@@ -2943,7 +2943,7 @@
       "source_file": "cinema-hall-admin/src/context/AuthContext.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_context_authcontext_jsx",
-      "community": 0,
+      "community": 150,
       "norm_label": "authcontext.jsx"
     },
     {
@@ -2952,7 +2952,7 @@
       "source_file": "cinema-hall-admin/src/context/AuthContext.jsx",
       "source_location": "L4",
       "id": "context_authcontext_authcontext",
-      "community": 7,
+      "community": 14,
       "norm_label": "authcontext"
     },
     {
@@ -2961,7 +2961,7 @@
       "source_file": "cinema-hall-admin/src/context/AuthContext.jsx",
       "source_location": "L6",
       "id": "context_authcontext_authprovider",
-      "community": 0,
+      "community": 150,
       "norm_label": "authprovider()"
     },
     {
@@ -2979,7 +2979,7 @@
       "source_file": "cinema-hall-admin/src/context/HallContext.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_context_hallcontext_jsx",
-      "community": 94,
+      "community": 150,
       "norm_label": "hallcontext.jsx"
     },
     {
@@ -2988,7 +2988,7 @@
       "source_file": "cinema-hall-admin/src/context/HallContext.jsx",
       "source_location": "L5",
       "id": "context_hallcontext_hallcontext",
-      "community": 94,
+      "community": 14,
       "norm_label": "hallcontext"
     },
     {
@@ -2997,7 +2997,7 @@
       "source_file": "cinema-hall-admin/src/context/HallContext.jsx",
       "source_location": "L9",
       "id": "context_hallcontext_hallprovider",
-      "community": 0,
+      "community": 150,
       "norm_label": "hallprovider()"
     },
     {
@@ -3006,7 +3006,7 @@
       "source_file": "cinema-hall-admin/src/context/HallContext.jsx",
       "source_location": "L97",
       "id": "context_hallcontext_usehall",
-      "community": 72,
+      "community": 94,
       "norm_label": "usehall()"
     },
     {
@@ -3069,7 +3069,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_addmultipleshowspage_jsx",
-      "community": 154,
+      "community": 90,
       "norm_label": "addmultipleshowspage.jsx"
     },
     {
@@ -3078,7 +3078,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx",
       "source_location": "L22",
       "id": "pages_addmultipleshowspage_time_presets",
-      "community": 154,
+      "community": 90,
       "norm_label": "time_presets"
     },
     {
@@ -3087,7 +3087,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx",
       "source_location": "L30",
       "id": "pages_addmultipleshowspage_addmultipleshowspage",
-      "community": 154,
+      "community": 90,
       "norm_label": "addmultipleshowspage()"
     },
     {
@@ -3096,7 +3096,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddShowPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_addshowpage_jsx",
-      "community": 10,
+      "community": 8,
       "norm_label": "addshowpage.jsx"
     },
     {
@@ -3105,7 +3105,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddShowPage.jsx",
       "source_location": "L22",
       "id": "pages_addshowpage_addshowpage",
-      "community": 10,
+      "community": 8,
       "norm_label": "addshowpage()"
     },
     {
@@ -3465,7 +3465,7 @@
       "source_file": "cinema-hall-admin/src/pages/EditShowPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_editshowpage_jsx",
-      "community": 10,
+      "community": 8,
       "norm_label": "editshowpage.jsx"
     },
     {
@@ -3474,7 +3474,7 @@
       "source_file": "cinema-hall-admin/src/pages/EditShowPage.jsx",
       "source_location": "L23",
       "id": "pages_editshowpage_editshowpage",
-      "community": 10,
+      "community": 8,
       "norm_label": "editshowpage()"
     },
     {
@@ -3690,7 +3690,7 @@
       "source_file": "cinema-hall-admin/src/pages/MovieForm.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_movieform_jsx",
-      "community": 8,
+      "community": 2,
       "norm_label": "movieform.jsx"
     },
     {
@@ -4059,7 +4059,7 @@
       "source_file": "cinema-hall-admin/src/pages/ProfilePage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_profilepage_jsx",
-      "community": 0,
+      "community": 94,
       "norm_label": "profilepage.jsx"
     },
     {
@@ -4068,7 +4068,7 @@
       "source_file": "cinema-hall-admin/src/pages/ProfilePage.jsx",
       "source_location": "L15",
       "id": "cinema_hall_admin_src_pages_profilepage_jsx_pages_profilepage_profilepage",
-      "community": 0,
+      "community": 94,
       "norm_label": "profilepage()"
     },
     {
@@ -4077,7 +4077,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_refundspage_jsx",
-      "community": 58,
+      "community": 8,
       "norm_label": "refundspage.jsx"
     },
     {
@@ -4086,7 +4086,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L18",
       "id": "pages_refundspage_refundstatusconfig",
-      "community": 58,
+      "community": 8,
       "norm_label": "refundstatusconfig"
     },
     {
@@ -4095,7 +4095,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L36",
       "id": "pages_refundspage_getinitials",
-      "community": 58,
+      "community": 8,
       "norm_label": "getinitials()"
     },
     {
@@ -4104,7 +4104,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L40",
       "id": "pages_refundspage_avatarcolors",
-      "community": 58,
+      "community": 8,
       "norm_label": "avatarcolors"
     },
     {
@@ -4113,7 +4113,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L45",
       "id": "pages_refundspage_avatarcolor",
-      "community": 58,
+      "community": 8,
       "norm_label": "avatarcolor()"
     },
     {
@@ -4122,7 +4122,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L50",
       "id": "pages_refundspage_fmt",
-      "community": 58,
+      "community": 8,
       "norm_label": "fmt()"
     },
     {
@@ -4131,7 +4131,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L54",
       "id": "pages_refundspage_refundspage",
-      "community": 58,
+      "community": 8,
       "norm_label": "refundspage()"
     },
     {
@@ -4140,7 +4140,7 @@
       "source_file": "cinema-hall-admin/src/pages/RegisterPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_registerpage_jsx",
-      "community": 0,
+      "community": 90,
       "norm_label": "registerpage.jsx"
     },
     {
@@ -4149,7 +4149,7 @@
       "source_file": "cinema-hall-admin/src/pages/RegisterPage.jsx",
       "source_location": "L12",
       "id": "pages_registerpage_registerpage",
-      "community": 0,
+      "community": 90,
       "norm_label": "registerpage()"
     },
     {
@@ -4230,7 +4230,7 @@
       "source_file": "cinema-hall-admin/src/pages/SettingsPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_settingspage_jsx",
-      "community": 7,
+      "community": 0,
       "norm_label": "settingspage.jsx"
     },
     {
@@ -4284,7 +4284,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_showsmanagement_jsx",
-      "community": 18,
+      "community": 58,
       "norm_label": "showsmanagement.jsx"
     },
     {
@@ -4293,7 +4293,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L31",
       "id": "pages_showsmanagement_formattime",
-      "community": 18,
+      "community": 58,
       "norm_label": "formattime()"
     },
     {
@@ -4302,7 +4302,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L39",
       "id": "pages_showsmanagement_formatduration",
-      "community": 18,
+      "community": 58,
       "norm_label": "formatduration()"
     },
     {
@@ -4311,7 +4311,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L45",
       "id": "pages_showsmanagement_status_config",
-      "community": 18,
+      "community": 58,
       "norm_label": "status_config"
     },
     {
@@ -4320,7 +4320,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L53",
       "id": "pages_showsmanagement_show_border_color",
-      "community": 18,
+      "community": 58,
       "norm_label": "show_border_color"
     },
     {
@@ -4329,7 +4329,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L61",
       "id": "pages_showsmanagement_formatdateparts",
-      "community": 18,
+      "community": 58,
       "norm_label": "formatdateparts()"
     },
     {
@@ -4338,7 +4338,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L67",
       "id": "pages_showsmanagement_getnextdates",
-      "community": 18,
+      "community": 58,
       "norm_label": "getnextdates()"
     },
     {
@@ -4347,7 +4347,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L79",
       "id": "cinema_hall_admin_src_pages_showsmanagement_jsx_pages_showsmanagement_showsmanagement",
-      "community": 18,
+      "community": 58,
       "norm_label": "showsmanagement()"
     },
     {
@@ -4491,7 +4491,7 @@
       "source_file": "cinema-hall-admin/src/routes/AdminProtectedRoutes.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_routes_adminprotectedroutes_jsx",
-      "community": 90,
+      "community": 0,
       "norm_label": "adminprotectedroutes.jsx"
     },
     {
@@ -4500,7 +4500,7 @@
       "source_file": "cinema-hall-admin/src/routes/AdminProtectedRoutes.jsx",
       "source_location": "L5",
       "id": "routes_adminprotectedroutes_adminprotectedroute",
-      "community": 90,
+      "community": 0,
       "norm_label": "adminprotectedroute()"
     },
     {
@@ -4509,7 +4509,7 @@
       "source_file": "cinema-hall-admin/src/routes/HallGuard.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_routes_hallguard_jsx",
-      "community": 72,
+      "community": 90,
       "norm_label": "hallguard.jsx"
     },
     {
@@ -4518,7 +4518,7 @@
       "source_file": "cinema-hall-admin/src/routes/HallGuard.jsx",
       "source_location": "L5",
       "id": "routes_hallguard_exempt_paths",
-      "community": 72,
+      "community": 90,
       "norm_label": "exempt_paths"
     },
     {
@@ -4527,7 +4527,7 @@
       "source_file": "cinema-hall-admin/src/routes/HallGuard.jsx",
       "source_location": "L13",
       "id": "routes_hallguard_hallguard",
-      "community": 72,
+      "community": 90,
       "norm_label": "hallguard()"
     },
     {
@@ -4536,7 +4536,7 @@
       "source_file": "cinema-hall-admin/src/routes/ProtectedRoutes.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_routes_protectedroutes_jsx",
-      "community": 90,
+      "community": 0,
       "norm_label": "protectedroutes.jsx"
     },
     {
@@ -4608,7 +4608,7 @@
       "source_file": "cinema-hall-admin/src/services/api.js",
       "source_location": "L380",
       "id": "cinema_hall_admin_src_services_api_js_services_api_bookingapi",
-      "community": 10,
+      "community": 8,
       "norm_label": "bookingapi"
     },
     {
@@ -4680,7 +4680,7 @@
       "source_file": "cinema-hall-admin/src/services/api.js",
       "source_location": "L837",
       "id": "cinema_hall_admin_src_services_api_js_services_api_paymentapi",
-      "community": 10,
+      "community": 8,
       "norm_label": "paymentapi"
     },
     {
@@ -4815,7 +4815,7 @@
       "source_file": "cinema-hall-admin/src/utils/utils.js",
       "source_location": "L1",
       "id": "utils_utils_genres",
-      "community": 8,
+      "community": 2,
       "norm_label": "genres"
     },
     {
@@ -4824,7 +4824,7 @@
       "source_file": "cinema-hall-admin/src/utils/utils.js",
       "source_location": "L2",
       "id": "utils_utils_languages",
-      "community": 8,
+      "community": 2,
       "norm_label": "languages"
     },
     {
@@ -4887,7 +4887,7 @@
       "source_file": "cinema-hall-api/migrate-logger.mjs",
       "source_location": "L1",
       "id": "cinema_hall_api_migrate_logger_mjs",
-      "community": 125,
+      "community": 166,
       "norm_label": "migrate-logger.mjs"
     },
     {
@@ -4896,7 +4896,7 @@
       "source_file": "cinema-hall-api/migrate-logger.mjs",
       "source_location": "L9",
       "id": "cinema_hall_api_migrate_logger_dirname",
-      "community": 125,
+      "community": 166,
       "norm_label": "__dirname"
     },
     {
@@ -4905,7 +4905,7 @@
       "source_file": "cinema-hall-api/migrate-logger.mjs",
       "source_location": "L12",
       "id": "cinema_hall_api_migrate_logger_migrations",
-      "community": 125,
+      "community": 166,
       "norm_label": "migrations"
     },
     {
@@ -5004,7 +5004,7 @@
       "source_file": "cinema-hall-api/package.json",
       "source_location": "L6",
       "id": "cinema_hall_api_package_scripts",
-      "community": 135,
+      "community": 143,
       "norm_label": "scripts"
     },
     {
@@ -5013,7 +5013,7 @@
       "source_file": "cinema-hall-api/package.json",
       "source_location": "L7",
       "id": "cinema_hall_api_package_scripts_dev",
-      "community": 135,
+      "community": 143,
       "norm_label": "dev"
     },
     {
@@ -5022,7 +5022,7 @@
       "source_file": "cinema-hall-api/package.json",
       "source_location": "L8",
       "id": "cinema_hall_api_package_scripts_start",
-      "community": 10,
+      "community": 143,
       "norm_label": "start"
     },
     {
@@ -5121,7 +5121,7 @@
       "source_file": "cinema-hall-api/package.json",
       "source_location": "L20",
       "id": "cinema_hall_api_package_dependencies_dayjs",
-      "community": 10,
+      "community": 12,
       "norm_label": "dayjs"
     },
     {
@@ -5139,7 +5139,7 @@
       "source_file": "cinema-hall-api/package.json",
       "source_location": "L22",
       "id": "cinema_hall_api_package_dependencies_express",
-      "community": 10,
+      "community": 143,
       "norm_label": "express"
     },
     {
@@ -5283,7 +5283,7 @@
       "source_file": "cinema-hall-api/vercel.json",
       "source_location": "L3",
       "id": "cinema_hall_api_vercel_builds",
-      "community": 7,
+      "community": 4,
       "norm_label": "builds"
     },
     {
@@ -6705,7 +6705,7 @@
       "source_file": "cinema-hall-api/middleware/verifyCinemaAdmin.js",
       "source_location": "L27",
       "id": "middleware_verifycinemaadmin_verifycinemaadminrefreshtoken",
-      "community": 6,
+      "community": 1,
       "norm_label": "verifycinemaadminrefreshtoken()"
     },
     {
@@ -7299,7 +7299,7 @@
       "source_file": "cinema-hall-users/components.json",
       "source_location": "L13",
       "id": "cinema_hall_users_components_aliases",
-      "community": 14,
+      "community": 20,
       "norm_label": "aliases"
     },
     {
@@ -7326,7 +7326,7 @@
       "source_file": "cinema-hall-users/components.json",
       "source_location": "L16",
       "id": "cinema_hall_users_components_aliases_ui",
-      "community": 14,
+      "community": 20,
       "norm_label": "ui"
     },
     {
@@ -7335,7 +7335,7 @@
       "source_file": "cinema-hall-users/components.json",
       "source_location": "L17",
       "id": "cinema_hall_users_components_aliases_lib",
-      "community": 14,
+      "community": 20,
       "norm_label": "lib"
     },
     {
@@ -7344,7 +7344,7 @@
       "source_file": "cinema-hall-users/components.json",
       "source_location": "L18",
       "id": "cinema_hall_users_components_aliases_hooks",
-      "community": 10,
+      "community": 20,
       "norm_label": "hooks"
     },
     {
@@ -7803,7 +7803,7 @@
       "source_file": "cinema-hall-users/package.json",
       "source_location": "L38",
       "id": "cinema_hall_users_package_dependencies_dayjs",
-      "community": 10,
+      "community": 4,
       "norm_label": "dayjs"
     },
     {
@@ -7830,7 +7830,7 @@
       "source_file": "cinema-hall-users/package.json",
       "source_location": "L41",
       "id": "cinema_hall_users_package_dependencies_html_to_image",
-      "community": 7,
+      "community": 5,
       "norm_label": "html-to-image"
     },
     {
@@ -7866,7 +7866,7 @@
       "source_file": "cinema-hall-users/package.json",
       "source_location": "L45",
       "id": "cinema_hall_users_package_dependencies_qrcode_react",
-      "community": 7,
+      "community": 5,
       "norm_label": "qrcode.react"
     },
     {
@@ -7920,7 +7920,7 @@
       "source_file": "cinema-hall-users/package.json",
       "source_location": "L51",
       "id": "cinema_hall_users_package_dependencies_react_lazy_load_image_component",
-      "community": 7,
+      "community": 5,
       "norm_label": "react-lazy-load-image-component"
     },
     {
@@ -8109,7 +8109,7 @@
       "source_file": "cinema-hall-users/vercel.json",
       "source_location": "L1",
       "id": "cinema_hall_users_vercel_json",
-      "community": 125,
+      "community": 143,
       "norm_label": "vercel.json"
     },
     {
@@ -8118,7 +8118,7 @@
       "source_file": "cinema-hall-users/vercel.json",
       "source_location": "L1",
       "id": "cinema_hall_users_vercel_routes",
-      "community": 10,
+      "community": 143,
       "norm_label": "routes"
     },
     {
@@ -8136,7 +8136,7 @@
       "source_file": "cinema-hall-users/src/App.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_app_jsx",
-      "community": 18,
+      "community": 7,
       "norm_label": "app.jsx"
     },
     {
@@ -8145,7 +8145,7 @@
       "source_file": "cinema-hall-users/src/App.jsx",
       "source_location": "L22",
       "id": "cinema_hall_users_src_app_jsx_src_app_app",
-      "community": 18,
+      "community": 7,
       "norm_label": "app()"
     },
     {
@@ -8154,7 +8154,7 @@
       "source_file": "cinema-hall-users/src/main.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_main_jsx",
-      "community": 14,
+      "community": 154,
       "norm_label": "main.jsx"
     },
     {
@@ -10116,7 +10116,7 @@
       "source_file": "cinema-hall-users/src/context/CustomerAuthContext.jsx",
       "source_location": "L5",
       "id": "context_customerauthcontext_customerauthcontext",
-      "community": 18,
+      "community": 7,
       "norm_label": "customerauthcontext"
     },
     {
@@ -10125,7 +10125,7 @@
       "source_file": "cinema-hall-users/src/context/CustomerAuthContext.jsx",
       "source_location": "L7",
       "id": "context_customerauthcontext_customerauthprovider",
-      "community": 14,
+      "community": 154,
       "norm_label": "customerauthprovider()"
     },
     {
@@ -10143,7 +10143,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_context_themecontext_jsx",
-      "community": 18,
+      "community": 154,
       "norm_label": "themecontext.jsx"
     },
     {
@@ -10152,7 +10152,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L3",
       "id": "cinema_hall_users_src_context_themecontext_jsx_context_themecontext_themecontext",
-      "community": 18,
+      "community": 154,
       "norm_label": "themecontext"
     },
     {
@@ -10161,7 +10161,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L5",
       "id": "cinema_hall_users_src_context_themecontext_jsx_context_themecontext_themeprovider",
-      "community": 18,
+      "community": 154,
       "norm_label": "themeprovider()"
     },
     {
@@ -10170,7 +10170,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L28",
       "id": "cinema_hall_users_src_context_themecontext_jsx_context_themecontext_usetheme",
-      "community": 18,
+      "community": 154,
       "norm_label": "usetheme()"
     },
     {
@@ -10179,7 +10179,7 @@
       "source_file": "cinema-hall-users/src/hooks/useRazorpayPayment.js",
       "source_location": "L1",
       "id": "cinema_hall_users_src_hooks_userazorpaypayment_js",
-      "community": 18,
+      "community": 59,
       "norm_label": "userazorpaypayment.js"
     },
     {
@@ -10188,7 +10188,7 @@
       "source_file": "cinema-hall-users/src/hooks/useRazorpayPayment.js",
       "source_location": "L19",
       "id": "hooks_userazorpaypayment_userazorpaypayment",
-      "community": 18,
+      "community": 59,
       "norm_label": "userazorpaypayment()"
     },
     {
@@ -10305,7 +10305,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_bookings_jsx",
-      "community": 59,
+      "community": 7,
       "norm_label": "bookings.jsx"
     },
     {
@@ -10314,7 +10314,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L8",
       "id": "pages_bookings_statuscolors",
-      "community": 59,
+      "community": 7,
       "norm_label": "statuscolors"
     },
     {
@@ -10323,7 +10323,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L14",
       "id": "pages_bookings_refundbadgeconfig",
-      "community": 59,
+      "community": 7,
       "norm_label": "refundbadgeconfig"
     },
     {
@@ -10332,7 +10332,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L29",
       "id": "pages_bookings_bookingcard",
-      "community": 59,
+      "community": 7,
       "norm_label": "bookingcard()"
     },
     {
@@ -10341,7 +10341,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L159",
       "id": "pages_bookings_emptystate",
-      "community": 59,
+      "community": 7,
       "norm_label": "emptystate()"
     },
     {
@@ -10350,7 +10350,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L166",
       "id": "pages_bookings_skeletoncard",
-      "community": 59,
+      "community": 7,
       "norm_label": "skeletoncard()"
     },
     {
@@ -10359,7 +10359,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L181",
       "id": "cinema_hall_users_src_pages_bookings_jsx_pages_bookings_bookings",
-      "community": 59,
+      "community": 7,
       "norm_label": "bookings()"
     },
     {
@@ -10386,7 +10386,7 @@
       "source_file": "cinema-hall-users/src/pages/ForgotPasswordPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_forgotpasswordpage_jsx",
-      "community": 18,
+      "community": 161,
       "norm_label": "forgotpasswordpage.jsx"
     },
     {
@@ -10395,7 +10395,7 @@
       "source_file": "cinema-hall-users/src/pages/ForgotPasswordPage.jsx",
       "source_location": "L22",
       "id": "pages_forgotpasswordpage_passwordpolicychecklist",
-      "community": 18,
+      "community": 161,
       "norm_label": "passwordpolicychecklist()"
     },
     {
@@ -10404,7 +10404,7 @@
       "source_file": "cinema-hall-users/src/pages/ForgotPasswordPage.jsx",
       "source_location": "L43",
       "id": "cinema_hall_users_src_pages_forgotpasswordpage_jsx_pages_forgotpasswordpage_forgotpasswordpage",
-      "community": 18,
+      "community": 161,
       "norm_label": "forgotpasswordpage()"
     },
     {
@@ -10413,7 +10413,7 @@
       "source_file": "cinema-hall-users/src/pages/HallManagement.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_hallmanagement_jsx",
-      "community": 10,
+      "community": 7,
       "norm_label": "hallmanagement.jsx"
     },
     {
@@ -10422,7 +10422,7 @@
       "source_file": "cinema-hall-users/src/pages/HallManagement.jsx",
       "source_location": "L6",
       "id": "pages_hallmanagement_hallmanagement",
-      "community": 10,
+      "community": 7,
       "norm_label": "hallmanagement()"
     },
     {
@@ -10431,7 +10431,7 @@
       "source_file": "cinema-hall-users/src/pages/HomePage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_homepage_jsx",
-      "community": 166,
+      "community": 7,
       "norm_label": "homepage.jsx"
     },
     {
@@ -10440,7 +10440,7 @@
       "source_file": "cinema-hall-users/src/pages/HomePage.jsx",
       "source_location": "L3",
       "id": "cinema_hall_users_src_pages_homepage_jsx_pages_homepage_homepage",
-      "community": 166,
+      "community": 7,
       "norm_label": "homepage()"
     },
     {
@@ -10458,7 +10458,7 @@
       "source_file": "cinema-hall-users/src/pages/MovieDetailsPage.jsx",
       "source_location": "L8",
       "id": "pages_moviedetailspage_moviedetailspage",
-      "community": 18,
+      "community": 58,
       "norm_label": "moviedetailspage()"
     },
     {
@@ -10476,7 +10476,7 @@
       "source_file": "cinema-hall-users/src/pages/MovieInfoPage.jsx",
       "source_location": "L5",
       "id": "pages_movieinfopage_getyoutubeembedurl",
-      "community": 7,
+      "community": 2,
       "norm_label": "getyoutubeembedurl()"
     },
     {
@@ -10485,7 +10485,7 @@
       "source_file": "cinema-hall-users/src/pages/MovieInfoPage.jsx",
       "source_location": "L18",
       "id": "pages_movieinfopage_movieinfopage",
-      "community": 7,
+      "community": 2,
       "norm_label": "movieinfopage()"
     },
     {
@@ -10548,7 +10548,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_ordersummarypage_jsx",
-      "community": 18,
+      "community": 59,
       "norm_label": "ordersummarypage.jsx"
     },
     {
@@ -10557,7 +10557,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L15",
       "id": "pages_ordersummarypage_paymentpill",
-      "community": 18,
+      "community": 59,
       "norm_label": "paymentpill()"
     },
     {
@@ -10566,7 +10566,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L23",
       "id": "pages_ordersummarypage_pricerow",
-      "community": 18,
+      "community": 59,
       "norm_label": "pricerow()"
     },
     {
@@ -10575,7 +10575,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L35",
       "id": "pages_ordersummarypage_discountlabel",
-      "community": 18,
+      "community": 59,
       "norm_label": "discountlabel()"
     },
     {
@@ -10584,7 +10584,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L42",
       "id": "pages_ordersummarypage_fmtexpiry",
-      "community": 18,
+      "community": 59,
       "norm_label": "fmtexpiry()"
     },
     {
@@ -10593,7 +10593,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L46",
       "id": "pages_ordersummarypage_offercard",
-      "community": 18,
+      "community": 59,
       "norm_label": "offercard()"
     },
     {
@@ -10602,7 +10602,7 @@
       "source_file": "cinema-hall-users/src/pages/OrderSummaryPage.jsx",
       "source_location": "L132",
       "id": "pages_ordersummarypage_ordersummarypage",
-      "community": 18,
+      "community": 59,
       "norm_label": "ordersummarypage()"
     },
     {
@@ -10674,7 +10674,7 @@
       "source_file": "cinema-hall-users/src/pages/ShowsManagement.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_showsmanagement_jsx",
-      "community": 10,
+      "community": 14,
       "norm_label": "showsmanagement.jsx"
     },
     {
@@ -10683,7 +10683,7 @@
       "source_file": "cinema-hall-users/src/pages/ShowsManagement.jsx",
       "source_location": "L3",
       "id": "cinema_hall_users_src_pages_showsmanagement_jsx_pages_showsmanagement_showsmanagement",
-      "community": 10,
+      "community": 14,
       "norm_label": "showsmanagement()"
     },
     {
@@ -10701,7 +10701,7 @@
       "source_file": "cinema-hall-users/src/pages/TheatresPage.jsx",
       "source_location": "L8",
       "id": "pages_theatrespage_theatrespage",
-      "community": 18,
+      "community": 58,
       "norm_label": "theatrespage()"
     },
     {
@@ -10710,7 +10710,7 @@
       "source_file": "cinema-hall-users/src/pages/UsersPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_userspage_jsx",
-      "community": 10,
+      "community": 8,
       "norm_label": "userspage.jsx"
     },
     {
@@ -10719,7 +10719,7 @@
       "source_file": "cinema-hall-users/src/pages/UsersPage.jsx",
       "source_location": "L3",
       "id": "cinema_hall_users_src_pages_userspage_jsx_pages_userspage_userspage",
-      "community": 10,
+      "community": 8,
       "norm_label": "userspage()"
     },
     {
@@ -10773,7 +10773,7 @@
       "source_file": "cinema-hall-users/src/services/api.js",
       "source_location": "L163",
       "id": "services_api_customermoviesapi",
-      "community": 7,
+      "community": 18,
       "norm_label": "customermoviesapi"
     },
     {
@@ -10782,7 +10782,7 @@
       "source_file": "cinema-hall-users/src/services/api.js",
       "source_location": "L281",
       "id": "cinema_hall_users_src_services_api_js_services_api_bookingapi",
-      "community": 10,
+      "community": 7,
       "norm_label": "bookingapi"
     },
     {
@@ -10800,7 +10800,7 @@
       "source_file": "cinema-hall-users/src/services/api.js",
       "source_location": "L353",
       "id": "cinema_hall_users_src_services_api_js_services_api_paymentapi",
-      "community": 10,
+      "community": 7,
       "norm_label": "paymentapi"
     },
     {
@@ -10836,7 +10836,7 @@
       "source_file": "cinema-hall-users/src/utils/passwordPolicy.js",
       "source_location": "L1",
       "id": "cinema_hall_users_src_utils_passwordpolicy_js",
-      "community": 18,
+      "community": 161,
       "norm_label": "passwordpolicy.js"
     },
     {
@@ -10845,7 +10845,7 @@
       "source_file": "cinema-hall-users/src/utils/passwordPolicy.js",
       "source_location": "L4",
       "id": "cinema_hall_users_src_utils_passwordpolicy_js_utils_passwordpolicy_password_policy_checks",
-      "community": 18,
+      "community": 161,
       "norm_label": "password_policy_checks"
     },
     {
@@ -10854,7 +10854,7 @@
       "source_file": "cinema-hall-users/src/utils/passwordPolicy.js",
       "source_location": "L13",
       "id": "cinema_hall_users_src_utils_passwordpolicy_js_utils_passwordpolicy_validatepassword",
-      "community": 18,
+      "community": 161,
       "norm_label": "validatepassword()"
     },
     {
@@ -10998,7 +10998,7 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L1",
       "id": "cinema_hall_api_readme_md",
-      "community": 125,
+      "community": 143,
       "norm_label": "readme.md"
     },
     {
@@ -11344,13 +11344,13 @@
       "norm_label": "registerpage"
     },
     {
-      "label": "VerifyEmailPage",
+      "label": "Multi-Hall Support & Onboarding Flow",
       "file_type": "document",
       "source_file": "docs/admin.md",
       "source_location": "L251",
-      "id": "docs_admin_verifyemailpage_251",
+      "id": "docs_admin_multi_hall_support_onboarding_flow",
       "community": 148,
-      "norm_label": "verifyemailpage"
+      "norm_label": "multi-hall support & onboarding flow"
     },
     {
       "label": "1. Onboarding Page (`/onboarding`)",
@@ -12690,7 +12690,7 @@
       "source_file": "docs/index.md",
       "source_location": "L1",
       "id": "docs_index_md",
-      "community": 10,
+      "community": 14,
       "norm_label": "index.md"
     },
     {
@@ -12706,7 +12706,7 @@
       "label": "\ud83c\udfd7\ufe0f System Architecture Overview",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L16",
+      "source_location": "L17",
       "id": "docs_index_system_architecture_overview",
       "community": 128,
       "norm_label": "\ud83c\udfd7\ufe0f system architecture overview"
@@ -12715,7 +12715,7 @@
       "label": "1. System Architecture",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L20",
+      "source_location": "L21",
       "id": "docs_index_1_system_architecture",
       "community": 128,
       "norm_label": "1. system architecture"
@@ -12724,7 +12724,7 @@
       "label": "2. Module Dependency Structure",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L77",
+      "source_location": "L78",
       "id": "docs_index_2_module_dependency_structure",
       "community": 128,
       "norm_label": "2. module dependency structure"
@@ -12733,7 +12733,7 @@
       "label": "3. Frontend/Backend Communication Flow",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L92",
+      "source_location": "L93",
       "id": "docs_index_3_frontend_backend_communication_flow",
       "community": 128,
       "norm_label": "3. frontend/backend communication flow"
@@ -12742,7 +12742,7 @@
       "label": "4. Shared Components",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L120",
+      "source_location": "L121",
       "id": "docs_index_4_shared_components",
       "community": 128,
       "norm_label": "4. shared components"
@@ -12751,7 +12751,7 @@
       "label": "5. Authentication Flows",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L134",
+      "source_location": "L135",
       "id": "docs_index_5_authentication_flows",
       "community": 128,
       "norm_label": "5. authentication flows"
@@ -12760,7 +12760,7 @@
       "label": "6. Data Flows",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L156",
+      "source_location": "L157",
       "id": "docs_index_6_data_flows",
       "community": 128,
       "norm_label": "6. data flows"
@@ -12769,7 +12769,7 @@
       "label": "A. Concurrency-Safe Seat Hold and Ticket Booking",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L158",
+      "source_location": "L159",
       "id": "docs_index_a_concurrency_safe_seat_hold_and_ticket_booking",
       "community": 128,
       "norm_label": "a. concurrency-safe seat hold and ticket booking"
@@ -12778,7 +12778,7 @@
       "label": "B. Show Cancellation and Refund Flow",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L193",
+      "source_location": "L194",
       "id": "docs_index_b_show_cancellation_and_refund_flow",
       "community": 128,
       "norm_label": "b. show cancellation and refund flow"
@@ -12787,7 +12787,7 @@
       "label": "Key API Endpoints Quick Reference",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L202",
+      "source_location": "L203",
       "id": "docs_index_key_api_endpoints_quick_reference",
       "community": 128,
       "norm_label": "key api endpoints quick reference"
@@ -12796,7 +12796,7 @@
       "label": "Booking Flow Summary",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L279",
+      "source_location": "L280",
       "id": "docs_index_booking_flow_summary",
       "community": 128,
       "norm_label": "booking flow summary"
@@ -12805,7 +12805,7 @@
       "label": "Critical Files",
       "file_type": "document",
       "source_file": "docs/index.md",
-      "source_location": "L298",
+      "source_location": "L299",
       "id": "docs_index_critical_files",
       "community": 128,
       "norm_label": "critical files"
@@ -12816,7 +12816,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1",
       "id": "docs_payment_and_booking_implementation_md",
-      "community": 10,
+      "community": 143,
       "norm_label": "payment and booking implementation.md"
     },
     {
@@ -12870,7 +12870,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L54",
       "id": "docs_payment_and_booking_implementation_1_database_schema_changes",
-      "community": 161,
+      "community": 132,
       "norm_label": "1. database schema changes"
     },
     {
@@ -12879,7 +12879,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L56",
       "id": "docs_payment_and_booking_implementation_modify_psql_sql_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_psql_sql",
-      "community": 161,
+      "community": 132,
       "norm_label": "[modify] [psql.sql](file:///d:/users/duraimurugan%20h/git%20cloned/my%20projects/cinema-hall/cinema-hall-api/psql.sql)"
     },
     {
@@ -12888,7 +12888,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L104",
       "id": "docs_payment_and_booking_implementation_migration_sql_for_existing_data",
-      "community": 161,
+      "community": 132,
       "norm_label": "migration sql (for existing data)"
     },
     {
@@ -13531,10 +13531,19 @@
       "norm_label": "4. [user application documentation](./users.md)"
     },
     {
-      "label": "\ud83c\udfa8 Visual Diagrams",
+      "label": "5. [Graphify Knowledge Graph](./graphify-out/)",
       "file_type": "document",
       "source_file": "docs/README.md",
       "source_location": "L82",
+      "id": "docs_readme_5_graphify_knowledge_graph_graphify_out",
+      "community": 45,
+      "norm_label": "5. [graphify knowledge graph](./graphify-out/)"
+    },
+    {
+      "label": "\ud83c\udfa8 Visual Diagrams",
+      "file_type": "document",
+      "source_file": "docs/README.md",
+      "source_location": "L98",
       "id": "docs_readme_visual_diagrams",
       "community": 45,
       "norm_label": "\ud83c\udfa8 visual diagrams"
@@ -13543,7 +13552,7 @@
       "label": "Viewing Diagrams",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L92",
+      "source_location": "L108",
       "id": "docs_readme_viewing_diagrams",
       "community": 45,
       "norm_label": "viewing diagrams"
@@ -13552,7 +13561,7 @@
       "label": "\ud83d\ude80 Quick Start Guide",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L110",
+      "source_location": "L126",
       "id": "docs_readme_quick_start_guide",
       "community": 45,
       "norm_label": "\ud83d\ude80 quick start guide"
@@ -13561,7 +13570,7 @@
       "label": "For New Developers",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L112",
+      "source_location": "L128",
       "id": "docs_readme_for_new_developers",
       "community": 45,
       "norm_label": "for new developers"
@@ -13570,7 +13579,7 @@
       "label": "For API Integration",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L119",
+      "source_location": "L135",
       "id": "docs_readme_for_api_integration",
       "community": 45,
       "norm_label": "for api integration"
@@ -13579,7 +13588,7 @@
       "label": "For Frontend Development",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L126",
+      "source_location": "L142",
       "id": "docs_readme_for_frontend_development",
       "community": 45,
       "norm_label": "for frontend development"
@@ -13588,7 +13597,7 @@
       "label": "\ud83d\udcca Documentation Stats",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L144",
+      "source_location": "L160",
       "id": "docs_readme_documentation_stats",
       "community": 45,
       "norm_label": "\ud83d\udcca documentation stats"
@@ -13597,7 +13606,7 @@
       "label": "\ud83d\udd0d What's Documented",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L157",
+      "source_location": "L173",
       "id": "docs_readme_what_s_documented",
       "community": 45,
       "norm_label": "\ud83d\udd0d what's documented"
@@ -13606,7 +13615,7 @@
       "label": "Backend Features",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L159",
+      "source_location": "L175",
       "id": "docs_readme_backend_features",
       "community": 45,
       "norm_label": "backend features"
@@ -13615,7 +13624,7 @@
       "label": "Admin Features",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L172",
+      "source_location": "L188",
       "id": "docs_readme_admin_features",
       "community": 45,
       "norm_label": "admin features"
@@ -13624,7 +13633,7 @@
       "label": "User Features",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L185",
+      "source_location": "L201",
       "id": "docs_readme_user_features",
       "community": 45,
       "norm_label": "user features"
@@ -13633,7 +13642,7 @@
       "label": "\ud83d\udcd6 Documentation Structure",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L205",
+      "source_location": "L221",
       "id": "docs_readme_documentation_structure",
       "community": 45,
       "norm_label": "\ud83d\udcd6 documentation structure"
@@ -13642,7 +13651,7 @@
       "label": "\ud83d\udee0\ufe0f Tech Stack",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L219",
+      "source_location": "L235",
       "id": "docs_readme_tech_stack",
       "community": 45,
       "norm_label": "\ud83d\udee0\ufe0f tech stack"
@@ -13651,7 +13660,7 @@
       "label": "Backend",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L221",
+      "source_location": "L237",
       "id": "docs_readme_backend",
       "community": 45,
       "norm_label": "backend"
@@ -13660,7 +13669,7 @@
       "label": "Frontend (Admin & User)",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L230",
+      "source_location": "L246",
       "id": "docs_readme_frontend_admin_user",
       "community": 45,
       "norm_label": "frontend (admin & user)"
@@ -13669,7 +13678,7 @@
       "label": "\ud83d\udcdd How to Use",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L241",
+      "source_location": "L257",
       "id": "docs_readme_how_to_use",
       "community": 45,
       "norm_label": "\ud83d\udcdd how to use"
@@ -13678,7 +13687,7 @@
       "label": "Finding Information",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L243",
+      "source_location": "L259",
       "id": "docs_readme_finding_information",
       "community": 45,
       "norm_label": "finding information"
@@ -13687,7 +13696,7 @@
       "label": "Code Examples",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L255",
+      "source_location": "L271",
       "id": "docs_readme_code_examples",
       "community": 45,
       "norm_label": "code examples"
@@ -13696,7 +13705,7 @@
       "label": "\ud83d\udd04 Keeping Documentation Updated",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L266",
+      "source_location": "L282",
       "id": "docs_readme_keeping_documentation_updated",
       "community": 45,
       "norm_label": "\ud83d\udd04 keeping documentation updated"
@@ -13705,7 +13714,7 @@
       "label": "\ud83e\udd1d Contributing",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L277",
+      "source_location": "L293",
       "id": "docs_readme_contributing",
       "community": 45,
       "norm_label": "\ud83e\udd1d contributing"
@@ -13714,7 +13723,7 @@
       "label": "\ud83d\udcde Questions?",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L288",
+      "source_location": "L304",
       "id": "docs_readme_questions",
       "community": 45,
       "norm_label": "\ud83d\udcde questions?"
@@ -13723,7 +13732,7 @@
       "label": "\ud83d\udcc5 Last Updated",
       "file_type": "document",
       "source_file": "docs/README.md",
-      "source_location": "L299",
+      "source_location": "L315",
       "id": "docs_readme_last_updated",
       "community": 45,
       "norm_label": "\ud83d\udcc5 last updated"
@@ -13844,6 +13853,15 @@
       "id": "docs_users_outputs_to_dist",
       "community": 7,
       "norm_label": "outputs to /dist"
+    },
+    {
+      "label": "VerifyEmailPage",
+      "file_type": "document",
+      "source_file": "docs/admin.md",
+      "source_location": "L251",
+      "community": 148,
+      "norm_label": "verifyemailpage",
+      "id": "docs_admin_verifyemailpage_251"
     },
     {
       "label": "graphify.md",
@@ -36705,9 +36723,9 @@
       "source_file": ".agents/rules/graphify.md",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_rules_graphify_md",
-      "target": "rules_graphify_graphify",
-      "confidence_score": 1.0
+      "target": "rules_graphify_graphify"
     },
     {
       "relation": "contains",
@@ -36715,9 +36733,9 @@
       "source_file": ".agents/workflows/graphify.md",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "agents_workflows_graphify_md",
-      "target": "workflows_graphify_workflow_graphify",
-      "confidence_score": 1.0
+      "target": "workflows_graphify_workflow_graphify"
     },
     {
       "relation": "contains",
@@ -36725,9 +36743,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_md",
-      "target": "cinema_hall_admin_readme_cinema_hall_management_admin_panel",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_cinema_hall_management_admin_panel"
     },
     {
       "relation": "references",
@@ -36745,9 +36763,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_cinema_hall_management_admin_panel",
-      "target": "cinema_hall_admin_readme_admin_documentation",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_admin_documentation"
     },
     {
       "relation": "contains",
@@ -36755,9 +36773,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_cinema_hall_management_admin_panel",
-      "target": "cinema_hall_admin_readme_environment_setup",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_environment_setup"
     },
     {
       "relation": "contains",
@@ -36765,9 +36783,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_cinema_hall_management_admin_panel",
-      "target": "cinema_hall_admin_readme_execution_instructions",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_execution_instructions"
     },
     {
       "relation": "contains",
@@ -36775,9 +36793,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_cinema_hall_management_admin_panel",
-      "target": "cinema_hall_admin_readme_folder_architecture",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_folder_architecture"
     },
     {
       "relation": "contains",
@@ -36785,9 +36803,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_cinema_hall_management_admin_panel",
-      "target": "cinema_hall_admin_readme_key_features_modules",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_key_features_modules"
     },
     {
       "relation": "contains",
@@ -36795,9 +36813,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L87",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_execution_instructions",
-      "target": "cinema_hall_admin_readme_1_install_dependencies",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_1_install_dependencies"
     },
     {
       "relation": "contains",
@@ -36805,9 +36823,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L93",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_execution_instructions",
-      "target": "cinema_hall_admin_readme_2_start_development_server",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_2_start_development_server"
     },
     {
       "relation": "contains",
@@ -36815,9 +36833,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L99",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_execution_instructions",
-      "target": "cinema_hall_admin_readme_3_build_for_production",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_3_build_for_production"
     },
     {
       "relation": "contains",
@@ -36825,9 +36843,9 @@
       "source_file": "cinema-hall-admin/README.md",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_admin_readme_execution_instructions",
-      "target": "cinema_hall_admin_readme_4_preview_production_build_locally",
-      "confidence_score": 1.0
+      "target": "cinema_hall_admin_readme_4_preview_production_build_locally"
     },
     {
       "relation": "contains",
@@ -36835,9 +36853,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_md",
-      "target": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service"
     },
     {
       "relation": "references",
@@ -36855,9 +36873,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L111",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service",
-      "target": "cinema_hall_api_readme_api_documentation",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_api_documentation"
     },
     {
       "relation": "contains",
@@ -36865,9 +36883,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service",
-      "target": "cinema_hall_api_readme_directory_structure",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_directory_structure"
     },
     {
       "relation": "contains",
@@ -36875,9 +36893,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L58",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service",
-      "target": "cinema_hall_api_readme_environment_setup",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_environment_setup"
     },
     {
       "relation": "contains",
@@ -36885,9 +36903,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service",
-      "target": "cinema_hall_api_readme_getting_started",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_getting_started"
     },
     {
       "relation": "contains",
@@ -36895,9 +36913,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_cinema_hall_ticket_booking_system_backend_api_service",
-      "target": "cinema_hall_api_readme_tech_stack_features",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_tech_stack_features"
     },
     {
       "relation": "contains",
@@ -36905,9 +36923,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_getting_started",
-      "target": "cinema_hall_api_readme_1_clone_the_repository",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_1_clone_the_repository"
     },
     {
       "relation": "contains",
@@ -36915,9 +36933,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_getting_started",
-      "target": "cinema_hall_api_readme_2_install_dependencies",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_2_install_dependencies"
     },
     {
       "relation": "contains",
@@ -36925,9 +36943,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L91",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_getting_started",
-      "target": "cinema_hall_api_readme_3_setup_the_database_schema",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_3_setup_the_database_schema"
     },
     {
       "relation": "contains",
@@ -36935,9 +36953,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L96",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_getting_started",
-      "target": "cinema_hall_api_readme_4_running_the_server",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_4_running_the_server"
     },
     {
       "relation": "contains",
@@ -36945,9 +36963,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L98",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_4_running_the_server",
-      "target": "cinema_hall_api_readme_development_mode_with_hot_reloading_via_nodemon",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_development_mode_with_hot_reloading_via_nodemon"
     },
     {
       "relation": "contains",
@@ -36955,9 +36973,9 @@
       "source_file": "cinema-hall-api/README.md",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_api_readme_4_running_the_server",
-      "target": "cinema_hall_api_readme_production_mode_with_sentry_instrumentation_preloaded",
-      "confidence_score": 1.0
+      "target": "cinema_hall_api_readme_production_mode_with_sentry_instrumentation_preloaded"
     },
     {
       "relation": "contains",
@@ -36965,9 +36983,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_md",
-      "target": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app"
     },
     {
       "relation": "references",
@@ -36985,9 +37003,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app",
-      "target": "cinema_hall_users_readme_core_features",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_core_features"
     },
     {
       "relation": "contains",
@@ -36995,9 +37013,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app",
-      "target": "cinema_hall_users_readme_environment_setup",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_environment_setup"
     },
     {
       "relation": "contains",
@@ -37005,9 +37023,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L72",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app",
-      "target": "cinema_hall_users_readme_execution_instructions",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_execution_instructions"
     },
     {
       "relation": "contains",
@@ -37015,9 +37033,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app",
-      "target": "cinema_hall_users_readme_folder_architecture",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_folder_architecture"
     },
     {
       "relation": "contains",
@@ -37025,9 +37043,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L98",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_cinema_hall_ticket_booking_customer_web_app",
-      "target": "cinema_hall_users_readme_user_application_documentation",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_user_application_documentation"
     },
     {
       "relation": "contains",
@@ -37035,9 +37053,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_execution_instructions",
-      "target": "cinema_hall_users_readme_1_install_dependencies_include_peer_dependencies",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_1_install_dependencies_include_peer_dependencies"
     },
     {
       "relation": "contains",
@@ -37045,9 +37063,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_execution_instructions",
-      "target": "cinema_hall_users_readme_2_start_development_server",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_2_start_development_server"
     },
     {
       "relation": "contains",
@@ -37055,9 +37073,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_execution_instructions",
-      "target": "cinema_hall_users_readme_3_build_for_production",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_3_build_for_production"
     },
     {
       "relation": "contains",
@@ -37065,9 +37083,9 @@
       "source_file": "cinema-hall-users/README.md",
       "source_location": "L91",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_readme_execution_instructions",
-      "target": "cinema_hall_users_readme_4_preview_production_build_locally",
-      "confidence_score": 1.0
+      "target": "cinema_hall_users_readme_4_preview_production_build_locally"
     },
     {
       "relation": "contains",
@@ -37075,9 +37093,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_md",
-      "target": "docs_admin_admin_panel_documentation",
-      "confidence_score": 1.0
+      "target": "docs_admin_admin_panel_documentation"
     },
     {
       "relation": "references",
@@ -37105,9 +37123,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1612",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_api_service_layer",
-      "confidence_score": 1.0
+      "target": "docs_admin_api_service_layer"
     },
     {
       "relation": "contains",
@@ -37115,9 +37133,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_application_architecture",
-      "confidence_score": 1.0
+      "target": "docs_admin_application_architecture"
     },
     {
       "relation": "contains",
@@ -37125,9 +37143,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L103",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_authentication_system",
-      "confidence_score": 1.0
+      "target": "docs_admin_authentication_system"
     },
     {
       "relation": "contains",
@@ -37135,9 +37153,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_best_practices_implemented",
-      "confidence_score": 1.0
+      "target": "docs_admin_best_practices_implemented"
     },
     {
       "relation": "contains",
@@ -37145,9 +37163,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2061",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_build_deployment",
-      "confidence_score": 1.0
+      "target": "docs_admin_build_deployment"
     },
     {
       "relation": "contains",
@@ -37155,9 +37173,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2048",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_environment_variables",
-      "confidence_score": 1.0
+      "target": "docs_admin_environment_variables"
     },
     {
       "relation": "contains",
@@ -37165,9 +37183,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L296",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_features_documentation",
-      "confidence_score": 1.0
+      "target": "docs_admin_features_documentation"
     },
     {
       "relation": "contains",
@@ -37175,9 +37193,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2243",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_future_enhancements",
-      "confidence_score": 1.0
+      "target": "docs_admin_future_enhancements"
     },
     {
       "relation": "contains",
@@ -37185,9 +37203,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1873",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_image_upload",
-      "confidence_score": 1.0
+      "target": "docs_admin_image_upload"
     },
     {
       "relation": "contains",
@@ -37195,9 +37213,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_overview",
-      "confidence_score": 1.0
+      "target": "docs_admin_overview"
     },
     {
       "relation": "contains",
@@ -37205,9 +37223,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1926",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_performance_optimizations",
-      "confidence_score": 1.0
+      "target": "docs_admin_performance_optimizations"
     },
     {
       "relation": "contains",
@@ -37215,9 +37233,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2087",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_recently_implemented",
-      "confidence_score": 1.0
+      "target": "docs_admin_recently_implemented"
     },
     {
       "relation": "contains",
@@ -37225,9 +37243,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1830",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_routing_navigation",
-      "confidence_score": 1.0
+      "target": "docs_admin_routing_navigation"
     },
     {
       "relation": "contains",
@@ -37235,9 +37253,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1798",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_state_management",
-      "confidence_score": 1.0
+      "target": "docs_admin_state_management"
     },
     {
       "relation": "contains",
@@ -37245,9 +37263,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1904",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_styling_theming",
-      "confidence_score": 1.0
+      "target": "docs_admin_styling_theming"
     },
     {
       "relation": "contains",
@@ -37255,9 +37273,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1726",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_ui_components",
-      "confidence_score": 1.0
+      "target": "docs_admin_ui_components"
     },
     {
       "relation": "contains",
@@ -37265,9 +37283,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1957",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_admin_panel_documentation",
-      "target": "docs_admin_user_workflows",
-      "confidence_score": 1.0
+      "target": "docs_admin_user_workflows"
     },
     {
       "relation": "contains",
@@ -37275,9 +37293,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L76",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_application_architecture",
-      "target": "docs_admin_component_hierarchy",
-      "confidence_score": 1.0
+      "target": "docs_admin_component_hierarchy"
     },
     {
       "relation": "contains",
@@ -37285,9 +37303,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_application_architecture",
-      "target": "docs_admin_route_structure",
-      "confidence_score": 1.0
+      "target": "docs_admin_route_structure"
     },
     {
       "relation": "contains",
@@ -37295,9 +37313,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L132",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authentication_system",
-      "target": "docs_admin_authcontext_state_management",
-      "confidence_score": 1.0
+      "target": "docs_admin_authcontext_state_management"
     },
     {
       "relation": "contains",
@@ -37305,9 +37323,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authentication_system",
-      "target": "docs_admin_authentication_flow",
-      "confidence_score": 1.0
+      "target": "docs_admin_authentication_flow"
     },
     {
       "relation": "contains",
@@ -37315,59 +37333,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authentication_system",
-      "target": "docs_admin_forgotpasswordpage",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/admin.md",
-      "source_location": "L168",
-      "weight": 1.0,
-      "source": "docs_admin_authentication_system",
-      "target": "docs_admin_protected_routes",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/admin.md",
-      "source_location": "L188",
-      "weight": 1.0,
-      "source": "docs_admin_authentication_system",
-      "target": "docs_admin_registerpage",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/admin.md",
-      "source_location": "L231",
-      "weight": 1.0,
-      "source": "docs_admin_authentication_system",
-      "target": "docs_admin_registerpage_231",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/admin.md",
-      "source_location": "L221",
-      "weight": 1.0,
-      "source": "docs_admin_authentication_system",
-      "target": "docs_admin_resetpasswordpage",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/admin.md",
-      "source_location": "L198",
-      "weight": 1.0,
-      "source": "docs_admin_authentication_system",
-      "target": "docs_admin_verifyemailpage",
-      "confidence_score": 1.0
+      "target": "docs_admin_forgotpasswordpage"
     },
     {
       "relation": "contains",
@@ -37376,8 +37344,68 @@
       "source_location": "L251",
       "weight": 1.0,
       "source": "docs_admin_authentication_system",
-      "target": "docs_admin_verifyemailpage_251",
+      "target": "docs_admin_multi_hall_support_onboarding_flow",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L168",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_authentication_system",
+      "target": "docs_admin_protected_routes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L188",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_authentication_system",
+      "target": "docs_admin_registerpage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L231",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_authentication_system",
+      "target": "docs_admin_registerpage_231"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L221",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_authentication_system",
+      "target": "docs_admin_resetpasswordpage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L198",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_authentication_system",
+      "target": "docs_admin_verifyemailpage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L251",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_authentication_system",
+      "target": "docs_admin_verifyemailpage_251"
     },
     {
       "relation": "contains",
@@ -37385,7 +37413,7 @@
       "source_file": "docs/admin.md",
       "source_location": "L255",
       "weight": 1.0,
-      "source": "docs_admin_verifyemailpage_251",
+      "source": "docs_admin_multi_hall_support_onboarding_flow",
       "target": "docs_admin_1_onboarding_page_onboarding",
       "confidence_score": 1.0
     },
@@ -37395,7 +37423,7 @@
       "source_file": "docs/admin.md",
       "source_location": "L272",
       "weight": 1.0,
-      "source": "docs_admin_verifyemailpage_251",
+      "source": "docs_admin_multi_hall_support_onboarding_flow",
       "target": "docs_admin_2_hall_guard_hallguard_jsx",
       "confidence_score": 1.0
     },
@@ -37405,7 +37433,7 @@
       "source_file": "docs/admin.md",
       "source_location": "L278",
       "weight": 1.0,
-      "source": "docs_admin_verifyemailpage_251",
+      "source": "docs_admin_multi_hall_support_onboarding_flow",
       "target": "docs_admin_3_hall_switcher_hallswitcher_jsx",
       "confidence_score": 1.0
     },
@@ -37415,7 +37443,7 @@
       "source_file": "docs/admin.md",
       "source_location": "L285",
       "weight": 1.0,
-      "source": "docs_admin_verifyemailpage_251",
+      "source": "docs_admin_multi_hall_support_onboarding_flow",
       "target": "docs_admin_4_halls_management_halls",
       "confidence_score": 1.0
     },
@@ -37423,11 +37451,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/admin.md",
+      "source_location": "L255",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_verifyemailpage_251",
+      "target": "docs_admin_1_onboarding_page_onboarding"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L272",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_verifyemailpage_251",
+      "target": "docs_admin_2_hall_guard_hallguard_jsx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L278",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_verifyemailpage_251",
+      "target": "docs_admin_3_hall_switcher_hallswitcher_jsx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
+      "source_location": "L285",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_verifyemailpage_251",
+      "target": "docs_admin_4_halls_management_halls"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/admin.md",
       "source_location": "L298",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_0_dashboard_all_admins",
-      "confidence_score": 1.0
+      "target": "docs_admin_0_dashboard_all_admins"
     },
     {
       "relation": "contains",
@@ -37435,9 +37503,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L339",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_1_offers_management_superadmin_only",
-      "confidence_score": 1.0
+      "target": "docs_admin_1_offers_management_superadmin_only"
     },
     {
       "relation": "contains",
@@ -37445,9 +37513,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L467",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_2_ads_management_superadmin_only",
-      "confidence_score": 1.0
+      "target": "docs_admin_2_ads_management_superadmin_only"
     },
     {
       "relation": "contains",
@@ -37455,9 +37523,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L599",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_2_movie_management",
-      "confidence_score": 1.0
+      "target": "docs_admin_2_movie_management"
     },
     {
       "relation": "contains",
@@ -37465,9 +37533,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L806",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_2_screen_designer",
-      "confidence_score": 1.0
+      "target": "docs_admin_2_screen_designer"
     },
     {
       "relation": "contains",
@@ -37475,9 +37543,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1032",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_3_shows_management",
-      "confidence_score": 1.0
+      "target": "docs_admin_3_shows_management"
     },
     {
       "relation": "contains",
@@ -37485,9 +37553,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1362",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_features_documentation",
-      "target": "docs_admin_4_additional_features",
-      "confidence_score": 1.0
+      "target": "docs_admin_4_additional_features"
     },
     {
       "relation": "contains",
@@ -37495,9 +37563,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L307",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_0_dashboard_all_admins",
-      "target": "docs_admin_kpi_cards",
-      "confidence_score": 1.0
+      "target": "docs_admin_kpi_cards"
     },
     {
       "relation": "contains",
@@ -37505,9 +37573,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L333",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_0_dashboard_all_admins",
-      "target": "docs_admin_recent_bookings",
-      "confidence_score": 1.0
+      "target": "docs_admin_recent_bookings"
     },
     {
       "relation": "contains",
@@ -37515,9 +37583,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L316",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_0_dashboard_all_admins",
-      "target": "docs_admin_revenue_trend_chart",
-      "confidence_score": 1.0
+      "target": "docs_admin_revenue_trend_chart"
     },
     {
       "relation": "contains",
@@ -37525,9 +37593,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L324",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_0_dashboard_all_admins",
-      "target": "docs_admin_today_s_shows",
-      "confidence_score": 1.0
+      "target": "docs_admin_today_s_shows"
     },
     {
       "relation": "contains",
@@ -37535,9 +37603,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L438",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_date_picker_implementation_note",
-      "confidence_score": 1.0
+      "target": "docs_admin_date_picker_implementation_note"
     },
     {
       "relation": "contains",
@@ -37545,9 +37613,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L399",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_export_offers_management",
-      "confidence_score": 1.0
+      "target": "docs_admin_export_offers_management"
     },
     {
       "relation": "contains",
@@ -37555,9 +37623,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L349",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_feature_overview",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview"
     },
     {
       "relation": "contains",
@@ -37565,9 +37633,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L420",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_offer_form_fields",
-      "confidence_score": 1.0
+      "target": "docs_admin_offer_form_fields"
     },
     {
       "relation": "contains",
@@ -37575,9 +37643,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L407",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_offer_form_page_layout_offers_new_offers_id_edit",
-      "confidence_score": 1.0
+      "target": "docs_admin_offer_form_page_layout_offers_new_offers_id_edit"
     },
     {
       "relation": "contains",
@@ -37585,9 +37653,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L461",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_sidebar_navigation",
-      "confidence_score": 1.0
+      "target": "docs_admin_sidebar_navigation"
     },
     {
       "relation": "contains",
@@ -37595,9 +37663,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L382",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_1_offers_management_superadmin_only",
-      "target": "docs_admin_table_columns",
-      "confidence_score": 1.0
+      "target": "docs_admin_table_columns"
     },
     {
       "relation": "contains",
@@ -37605,9 +37673,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L510",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_ad_placements",
-      "confidence_score": 1.0
+      "target": "docs_admin_ad_placements"
     },
     {
       "relation": "contains",
@@ -37615,9 +37683,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L517",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_ads_tab_card_grid",
-      "confidence_score": 1.0
+      "target": "docs_admin_ads_tab_card_grid"
     },
     {
       "relation": "contains",
@@ -37625,9 +37693,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L529",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_analytics_tab_table",
-      "confidence_score": 1.0
+      "target": "docs_admin_analytics_tab_table"
     },
     {
       "relation": "contains",
@@ -37635,9 +37703,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L573",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_click_through_details_modal",
-      "confidence_score": 1.0
+      "target": "docs_admin_click_through_details_modal"
     },
     {
       "relation": "contains",
@@ -37645,9 +37713,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L547",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_create_edit_ad_right_side_sheet",
-      "confidence_score": 1.0
+      "target": "docs_admin_create_edit_ad_right_side_sheet"
     },
     {
       "relation": "contains",
@@ -37655,9 +37723,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L561",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_create_edit_form_fields",
-      "confidence_score": 1.0
+      "target": "docs_admin_create_edit_form_fields"
     },
     {
       "relation": "contains",
@@ -37665,9 +37733,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L586",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_export_ads_management",
-      "confidence_score": 1.0
+      "target": "docs_admin_export_ads_management"
     },
     {
       "relation": "contains",
@@ -37675,9 +37743,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L474",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_feature_overview_474",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_474"
     },
     {
       "relation": "contains",
@@ -37685,9 +37753,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L499",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_tabs",
-      "confidence_score": 1.0
+      "target": "docs_admin_tabs"
     },
     {
       "relation": "contains",
@@ -37695,9 +37763,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L644",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_add_edit_movie_right_side_sheet",
-      "confidence_score": 1.0
+      "target": "docs_admin_add_edit_movie_right_side_sheet"
     },
     {
       "relation": "contains",
@@ -37705,9 +37773,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L688",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_available_genres",
-      "confidence_score": 1.0
+      "target": "docs_admin_available_genres"
     },
     {
       "relation": "contains",
@@ -37715,9 +37783,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L692",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_available_languages",
-      "confidence_score": 1.0
+      "target": "docs_admin_available_languages"
     },
     {
       "relation": "contains",
@@ -37725,9 +37793,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L679",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_cast_management_ui",
-      "confidence_score": 1.0
+      "target": "docs_admin_cast_management_ui"
     },
     {
       "relation": "contains",
@@ -37735,9 +37803,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L605",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_feature_overview_605",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_605"
     },
     {
       "relation": "contains",
@@ -37745,9 +37813,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L785",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_filtering_system",
-      "confidence_score": 1.0
+      "target": "docs_admin_filtering_system"
     },
     {
       "relation": "contains",
@@ -37755,9 +37823,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L634",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_layout_behavior",
-      "confidence_score": 1.0
+      "target": "docs_admin_layout_behavior"
     },
     {
       "relation": "contains",
@@ -37765,9 +37833,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L696",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_movie_card_display",
-      "confidence_score": 1.0
+      "target": "docs_admin_movie_card_display"
     },
     {
       "relation": "contains",
@@ -37775,9 +37843,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L757",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_movie_detail_page",
-      "confidence_score": 1.0
+      "target": "docs_admin_movie_detail_page"
     },
     {
       "relation": "contains",
@@ -37785,9 +37853,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L662",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_movie_form_fields",
-      "confidence_score": 1.0
+      "target": "docs_admin_movie_form_fields"
     },
     {
       "relation": "contains",
@@ -37795,9 +37863,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L710",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_tmdb_integration",
-      "confidence_score": 1.0
+      "target": "docs_admin_tmdb_integration"
     },
     {
       "relation": "contains",
@@ -37805,9 +37873,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L712",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_tmdb_integration",
-      "target": "docs_admin_browse_movies_tab",
-      "confidence_score": 1.0
+      "target": "docs_admin_browse_movies_tab"
     },
     {
       "relation": "contains",
@@ -37815,9 +37883,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L740",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_tmdb_integration",
-      "target": "docs_admin_sync_from_tmdb_edit_mode",
-      "confidence_score": 1.0
+      "target": "docs_admin_sync_from_tmdb_edit_mode"
     },
     {
       "relation": "contains",
@@ -37825,9 +37893,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L885",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_aisle_system",
-      "confidence_score": 1.0
+      "target": "docs_admin_aisle_system"
     },
     {
       "relation": "contains",
@@ -37835,9 +37903,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L816",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_feature_overview_816",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_816"
     },
     {
       "relation": "contains",
@@ -37845,9 +37913,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L944",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_interactive_features",
-      "confidence_score": 1.0
+      "target": "docs_admin_interactive_features"
     },
     {
       "relation": "contains",
@@ -37855,9 +37923,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1003",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_layout_designer_workflow",
-      "confidence_score": 1.0
+      "target": "docs_admin_layout_designer_workflow"
     },
     {
       "relation": "contains",
@@ -37865,9 +37933,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L841",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_navigation_pattern",
-      "confidence_score": 1.0
+      "target": "docs_admin_navigation_pattern"
     },
     {
       "relation": "contains",
@@ -37875,9 +37943,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L899",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_rows_columns_resize_behaviour",
-      "confidence_score": 1.0
+      "target": "docs_admin_rows_columns_resize_behaviour"
     },
     {
       "relation": "contains",
@@ -37885,9 +37953,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L848",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_screen_configuration",
-      "confidence_score": 1.0
+      "target": "docs_admin_screen_configuration"
     },
     {
       "relation": "contains",
@@ -37895,9 +37963,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L869",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_seat_layout_structure",
-      "confidence_score": 1.0
+      "target": "docs_admin_seat_layout_structure"
     },
     {
       "relation": "contains",
@@ -37905,9 +37973,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L916",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_seat_summary",
-      "confidence_score": 1.0
+      "target": "docs_admin_seat_summary"
     },
     {
       "relation": "contains",
@@ -37915,9 +37983,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L905",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_ui_layout",
-      "confidence_score": 1.0
+      "target": "docs_admin_ui_layout"
     },
     {
       "relation": "contains",
@@ -37925,9 +37993,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L937",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_undo_redo",
-      "confidence_score": 1.0
+      "target": "docs_admin_undo_redo"
     },
     {
       "relation": "contains",
@@ -37935,9 +38003,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L927",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_zoom_controls",
-      "confidence_score": 1.0
+      "target": "docs_admin_zoom_controls"
     },
     {
       "relation": "contains",
@@ -37945,9 +38013,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1219",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_add_multiple_shows_page_shows_bulk",
-      "confidence_score": 1.0
+      "target": "docs_admin_add_multiple_shows_page_shows_bulk"
     },
     {
       "relation": "contains",
@@ -37955,9 +38023,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1163",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_add_show_page_shows_new",
-      "confidence_score": 1.0
+      "target": "docs_admin_add_show_page_shows_new"
     },
     {
       "relation": "contains",
@@ -37965,9 +38033,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1159",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_confirm_dialog_alertdialog",
-      "confidence_score": 1.0
+      "target": "docs_admin_confirm_dialog_alertdialog"
     },
     {
       "relation": "contains",
@@ -37975,9 +38043,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1194",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_edit_show_page_shows_id_edit",
-      "confidence_score": 1.0
+      "target": "docs_admin_edit_show_page_shows_id_edit"
     },
     {
       "relation": "contains",
@@ -37985,9 +38053,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1044",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_feature_overview_1044",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_1044"
     },
     {
       "relation": "contains",
@@ -37995,9 +38063,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1349",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_movie_search_component",
-      "confidence_score": 1.0
+      "target": "docs_admin_movie_search_component"
     },
     {
       "relation": "contains",
@@ -38005,9 +38073,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1143",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_multi_select_mode_bulk_actions",
-      "confidence_score": 1.0
+      "target": "docs_admin_multi_select_mode_bulk_actions"
     },
     {
       "relation": "contains",
@@ -38015,9 +38083,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_show_detail_page_show_id",
-      "confidence_score": 1.0
+      "target": "docs_admin_show_detail_page_show_id"
     },
     {
       "relation": "contains",
@@ -38025,9 +38093,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1090",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_ui_layout_shows_list_shows",
-      "confidence_score": 1.0
+      "target": "docs_admin_ui_layout_shows_list_shows"
     },
     {
       "relation": "contains",
@@ -38035,9 +38103,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1395",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_bookingdetailpage",
-      "confidence_score": 1.0
+      "target": "docs_admin_bookingdetailpage"
     },
     {
       "relation": "contains",
@@ -38045,9 +38113,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1369",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_bookings",
-      "confidence_score": 1.0
+      "target": "docs_admin_bookings"
     },
     {
       "relation": "contains",
@@ -38055,9 +38123,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1525",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_customers",
-      "confidence_score": 1.0
+      "target": "docs_admin_customers"
     },
     {
       "relation": "contains",
@@ -38065,9 +38133,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1548",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_hall_admins",
-      "confidence_score": 1.0
+      "target": "docs_admin_hall_admins"
     },
     {
       "relation": "contains",
@@ -38075,9 +38143,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1364",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_homepage",
-      "confidence_score": 1.0
+      "target": "docs_admin_homepage"
     },
     {
       "relation": "contains",
@@ -38085,9 +38153,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1495",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_paymentorders",
-      "confidence_score": 1.0
+      "target": "docs_admin_paymentorders"
     },
     {
       "relation": "contains",
@@ -38095,9 +38163,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1568",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_profilepage",
-      "confidence_score": 1.0
+      "target": "docs_admin_profilepage"
     },
     {
       "relation": "contains",
@@ -38105,9 +38173,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1466",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_refundspage",
-      "confidence_score": 1.0
+      "target": "docs_admin_refundspage"
     },
     {
       "relation": "contains",
@@ -38115,9 +38183,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1589",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_settingspage",
-      "confidence_score": 1.0
+      "target": "docs_admin_settingspage"
     },
     {
       "relation": "contains",
@@ -38125,9 +38193,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1445",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_4_additional_features",
-      "target": "docs_admin_verifyticket",
-      "confidence_score": 1.0
+      "target": "docs_admin_verifyticket"
     },
     {
       "relation": "contains",
@@ -38135,9 +38203,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1698",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_api_service_layer",
-      "target": "docs_admin_api_configuration",
-      "confidence_score": 1.0
+      "target": "docs_admin_api_configuration"
     },
     {
       "relation": "contains",
@@ -38145,9 +38213,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1708",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_api_service_layer",
-      "target": "docs_admin_error_handling",
-      "confidence_score": 1.0
+      "target": "docs_admin_error_handling"
     },
     {
       "relation": "contains",
@@ -38155,9 +38223,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1649",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_api_service_layer",
-      "target": "docs_admin_export_shared_utility",
-      "confidence_score": 1.0
+      "target": "docs_admin_export_shared_utility"
     },
     {
       "relation": "contains",
@@ -38165,9 +38233,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1643",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_api_service_layer",
-      "target": "docs_admin_pagination_shared_component",
-      "confidence_score": 1.0
+      "target": "docs_admin_pagination_shared_component"
     },
     {
       "relation": "contains",
@@ -38175,9 +38243,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1616",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_api_service_layer",
-      "target": "docs_admin_service_modules",
-      "confidence_score": 1.0
+      "target": "docs_admin_service_modules"
     },
     {
       "relation": "contains",
@@ -38185,9 +38253,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1745",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_ui_components",
-      "target": "docs_admin_custom_components",
-      "confidence_score": 1.0
+      "target": "docs_admin_custom_components"
     },
     {
       "relation": "contains",
@@ -38195,9 +38263,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1728",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_ui_components",
-      "target": "docs_admin_shadcn_ui_components_used",
-      "confidence_score": 1.0
+      "target": "docs_admin_shadcn_ui_components_used"
     },
     {
       "relation": "contains",
@@ -38205,9 +38273,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1800",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_state_management",
-      "target": "docs_admin_context_providers",
-      "confidence_score": 1.0
+      "target": "docs_admin_context_providers"
     },
     {
       "relation": "contains",
@@ -38215,9 +38283,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1845",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_routing_navigation",
-      "target": "docs_admin_navigation_structure",
-      "confidence_score": 1.0
+      "target": "docs_admin_navigation_structure"
     },
     {
       "relation": "contains",
@@ -38225,9 +38293,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1832",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_routing_navigation",
-      "target": "docs_admin_route_protection",
-      "confidence_score": 1.0
+      "target": "docs_admin_route_protection"
     },
     {
       "relation": "contains",
@@ -38235,9 +38303,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1875",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_image_upload",
-      "target": "docs_admin_cloudinary_integration",
-      "confidence_score": 1.0
+      "target": "docs_admin_cloudinary_integration"
     },
     {
       "relation": "contains",
@@ -38245,9 +38313,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1916",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_styling_theming",
-      "target": "docs_admin_dark_mode_support",
-      "confidence_score": 1.0
+      "target": "docs_admin_dark_mode_support"
     },
     {
       "relation": "contains",
@@ -38255,9 +38323,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1906",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_styling_theming",
-      "target": "docs_admin_tailwind_configuration",
-      "confidence_score": 1.0
+      "target": "docs_admin_tailwind_configuration"
     },
     {
       "relation": "contains",
@@ -38265,9 +38333,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1941",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_performance_optimizations",
-      "target": "docs_admin_debouncing",
-      "confidence_score": 1.0
+      "target": "docs_admin_debouncing"
     },
     {
       "relation": "contains",
@@ -38275,9 +38343,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1928",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_performance_optimizations",
-      "target": "docs_admin_lazy_loading",
-      "confidence_score": 1.0
+      "target": "docs_admin_lazy_loading"
     },
     {
       "relation": "contains",
@@ -38285,9 +38353,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1985",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_user_workflows",
-      "target": "docs_admin_add_multiple_shows_workflow",
-      "confidence_score": 1.0
+      "target": "docs_admin_add_multiple_shows_workflow"
     },
     {
       "relation": "contains",
@@ -38295,9 +38363,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1959",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_user_workflows",
-      "target": "docs_admin_complete_show_creation_workflow",
-      "confidence_score": 1.0
+      "target": "docs_admin_complete_show_creation_workflow"
     },
     {
       "relation": "contains",
@@ -38305,9 +38373,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2010",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_user_workflows",
-      "target": "docs_admin_screen_designer_workflow",
-      "confidence_score": 1.0
+      "target": "docs_admin_screen_designer_workflow"
     },
     {
       "relation": "contains",
@@ -38315,9 +38383,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2077",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_build_deployment",
-      "target": "docs_admin_deployment",
-      "confidence_score": 1.0
+      "target": "docs_admin_deployment"
     },
     {
       "relation": "contains",
@@ -38325,9 +38393,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2063",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_build_deployment",
-      "target": "docs_admin_development",
-      "confidence_score": 1.0
+      "target": "docs_admin_development"
     },
     {
       "relation": "contains",
@@ -38335,9 +38403,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L2070",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_build_deployment",
-      "target": "docs_admin_production_build",
-      "confidence_score": 1.0
+      "target": "docs_admin_production_build"
     },
     {
       "relation": "contains",
@@ -38345,9 +38413,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2460",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_1_generate_bcrypt_hash",
-      "confidence_score": 1.0
+      "target": "docs_backend_1_generate_bcrypt_hash"
     },
     {
       "relation": "contains",
@@ -38355,9 +38423,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2463",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_2_insert_in_pgadmin_psql",
-      "confidence_score": 1.0
+      "target": "docs_backend_2_insert_in_pgadmin_psql"
     },
     {
       "relation": "contains",
@@ -38365,9 +38433,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_backend_api_documentation",
-      "confidence_score": 1.0
+      "target": "docs_backend_backend_api_documentation"
     },
     {
       "relation": "contains",
@@ -38375,9 +38443,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2325",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_database",
-      "confidence_score": 1.0
+      "target": "docs_backend_database"
     },
     {
       "relation": "contains",
@@ -38385,9 +38453,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2335",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_email_for_otp",
-      "confidence_score": 1.0
+      "target": "docs_backend_email_for_otp"
     },
     {
       "relation": "contains",
@@ -38395,9 +38463,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2328",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_jwt",
-      "confidence_score": 1.0
+      "target": "docs_backend_jwt"
     },
     {
       "relation": "contains",
@@ -38405,9 +38473,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2443",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_or_paste_into_pgadmin_query_tool_neon_sql_editor",
-      "confidence_score": 1.0
+      "target": "docs_backend_or_paste_into_pgadmin_query_tool_neon_sql_editor"
     },
     {
       "relation": "contains",
@@ -38415,9 +38483,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2346",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_razorpay",
-      "confidence_score": 1.0
+      "target": "docs_backend_razorpay"
     },
     {
       "relation": "contains",
@@ -38425,9 +38493,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2998",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_razorpay_test_mode_keys_get_from_https_dashboard_razorpay_com_app_keys",
-      "confidence_score": 1.0
+      "target": "docs_backend_razorpay_test_mode_keys_get_from_https_dashboard_razorpay_com_app_keys"
     },
     {
       "relation": "contains",
@@ -38435,9 +38503,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2340",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_sentry_optional_falls_back_to_hardcoded_dsn_in_instrument_js_if_not_set",
-      "confidence_score": 1.0
+      "target": "docs_backend_sentry_optional_falls_back_to_hardcoded_dsn_in_instrument_js_if_not_set"
     },
     {
       "relation": "contains",
@@ -38445,9 +38513,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2331",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_server",
-      "confidence_score": 1.0
+      "target": "docs_backend_server"
     },
     {
       "relation": "contains",
@@ -38455,9 +38523,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2351",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_tmdb",
-      "confidence_score": 1.0
+      "target": "docs_backend_tmdb"
     },
     {
       "relation": "contains",
@@ -38465,9 +38533,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2343",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_vercel_cron_protection",
-      "confidence_score": 1.0
+      "target": "docs_backend_vercel_cron_protection"
     },
     {
       "relation": "contains",
@@ -38475,9 +38543,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L2440",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_md",
-      "target": "docs_backend_via_psql",
-      "confidence_score": 1.0
+      "target": "docs_backend_via_psql"
     },
     {
       "relation": "references",
@@ -38505,9 +38573,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L460",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_backend_api_documentation",
-      "target": "docs_backend_api_endpoints",
-      "confidence_score": 1.0
+      "target": "docs_backend_api_endpoints"
     },
     {
       "relation": "contains",
@@ -38515,9 +38583,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L340",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_backend_api_documentation",
-      "target": "docs_backend_authentication_system",
-      "confidence_score": 1.0
+      "target": "docs_backend_authentication_system"
     },
     {
       "relation": "contains",
@@ -38525,9 +38593,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_backend_api_documentation",
-      "target": "docs_backend_database_schema",
-      "confidence_score": 1.0
+      "target": "docs_backend_database_schema"
     },
     {
       "relation": "contains",
@@ -38535,9 +38603,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_backend_api_documentation",
-      "target": "docs_backend_overview",
-      "confidence_score": 1.0
+      "target": "docs_backend_overview"
     },
     {
       "relation": "contains",
@@ -38545,9 +38613,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_database_schema",
-      "target": "docs_backend_entity_relationship_diagram",
-      "confidence_score": 1.0
+      "target": "docs_backend_entity_relationship_diagram"
     },
     {
       "relation": "contains",
@@ -38555,9 +38623,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L319",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_database_schema",
-      "target": "docs_backend_key_database_features",
-      "confidence_score": 1.0
+      "target": "docs_backend_key_database_features"
     },
     {
       "relation": "contains",
@@ -38565,9 +38633,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L321",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_key_database_features",
-      "target": "docs_backend_constraints",
-      "confidence_score": 1.0
+      "target": "docs_backend_constraints"
     },
     {
       "relation": "contains",
@@ -38575,9 +38643,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L332",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_key_database_features",
-      "target": "docs_backend_data_types",
-      "confidence_score": 1.0
+      "target": "docs_backend_data_types"
     },
     {
       "relation": "contains",
@@ -38585,9 +38653,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L327",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_key_database_features",
-      "target": "docs_backend_triggers",
-      "confidence_score": 1.0
+      "target": "docs_backend_triggers"
     },
     {
       "relation": "contains",
@@ -38595,9 +38663,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L342",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_authentication_system",
-      "target": "docs_backend_admin_authentication_flow",
-      "confidence_score": 1.0
+      "target": "docs_backend_admin_authentication_flow"
     },
     {
       "relation": "contains",
@@ -38605,9 +38673,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L383",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_authentication_system",
-      "target": "docs_backend_customer_authentication_flow",
-      "confidence_score": 1.0
+      "target": "docs_backend_customer_authentication_flow"
     },
     {
       "relation": "contains",
@@ -38615,9 +38683,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L434",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_authentication_system",
-      "target": "docs_backend_token_strategy",
-      "confidence_score": 1.0
+      "target": "docs_backend_token_strategy"
     },
     {
       "relation": "contains",
@@ -38625,9 +38693,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L462",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_api_endpoints",
-      "target": "docs_backend_admin_authentication_api_auth",
-      "confidence_score": 1.0
+      "target": "docs_backend_admin_authentication_api_auth"
     },
     {
       "relation": "contains",
@@ -38635,9 +38703,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L560",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_get_api_auth_security",
-      "confidence_score": 1.0
+      "target": "docs_backend_get_api_auth_security"
     },
     {
       "relation": "contains",
@@ -38645,9 +38713,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L512",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_get_api_auth_verify_email_token_token",
-      "confidence_score": 1.0
+      "target": "docs_backend_get_api_auth_verify_email_token_token"
     },
     {
       "relation": "contains",
@@ -38655,9 +38723,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L583",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_patch_api_auth_hall",
-      "confidence_score": 1.0
+      "target": "docs_backend_patch_api_auth_hall"
     },
     {
       "relation": "contains",
@@ -38665,9 +38733,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L546",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_change_password",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_change_password"
     },
     {
       "relation": "contains",
@@ -38675,9 +38743,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L528",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_forgot_password",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_forgot_password"
     },
     {
       "relation": "contains",
@@ -38685,9 +38753,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L618",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_login",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_login"
     },
     {
       "relation": "contains",
@@ -38695,9 +38763,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L554",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_logout_all",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_logout_all"
     },
     {
       "relation": "contains",
@@ -38705,9 +38773,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L482",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_register",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_register"
     },
     {
       "relation": "contains",
@@ -38715,9 +38783,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_resend_verification",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_resend_verification"
     },
     {
       "relation": "contains",
@@ -38725,9 +38793,9 @@
       "source_file": "docs/backend.md",
       "source_location": "L536",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_backend_admin_authentication_api_auth",
-      "target": "docs_backend_post_api_auth_reset_password",
-      "confidence_score": 1.0
+      "target": "docs_backend_post_api_auth_reset_password"
     },
     {
       "relation": "contains",
@@ -38735,9 +38803,9 @@
       "source_file": "docs/index.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_md",
-      "target": "docs_index_documentation_index",
-      "confidence_score": 1.0
+      "target": "docs_index_documentation_index"
     },
     {
       "relation": "references",
@@ -38765,9 +38833,9 @@
       "source_file": "docs/index.md",
       "source_location": "L279",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_documentation_index",
-      "target": "docs_index_booking_flow_summary",
-      "confidence_score": 1.0
+      "target": "docs_index_booking_flow_summary"
     },
     {
       "relation": "contains",
@@ -38775,9 +38843,9 @@
       "source_file": "docs/index.md",
       "source_location": "L298",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_documentation_index",
-      "target": "docs_index_critical_files",
-      "confidence_score": 1.0
+      "target": "docs_index_critical_files"
     },
     {
       "relation": "contains",
@@ -38785,9 +38853,9 @@
       "source_file": "docs/index.md",
       "source_location": "L202",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_documentation_index",
-      "target": "docs_index_key_api_endpoints_quick_reference",
-      "confidence_score": 1.0
+      "target": "docs_index_key_api_endpoints_quick_reference"
     },
     {
       "relation": "contains",
@@ -38795,9 +38863,9 @@
       "source_file": "docs/index.md",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_documentation_index",
-      "target": "docs_index_system_architecture_overview",
-      "confidence_score": 1.0
+      "target": "docs_index_system_architecture_overview"
     },
     {
       "relation": "contains",
@@ -38805,9 +38873,9 @@
       "source_file": "docs/index.md",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_system_architecture_overview",
-      "target": "docs_index_1_system_architecture",
-      "confidence_score": 1.0
+      "target": "docs_index_1_system_architecture"
     },
     {
       "relation": "contains",
@@ -38815,9 +38883,9 @@
       "source_file": "docs/index.md",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_system_architecture_overview",
-      "target": "docs_index_2_module_dependency_structure",
-      "confidence_score": 1.0
+      "target": "docs_index_2_module_dependency_structure"
     },
     {
       "relation": "contains",
@@ -38825,9 +38893,9 @@
       "source_file": "docs/index.md",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_system_architecture_overview",
-      "target": "docs_index_3_frontend_backend_communication_flow",
-      "confidence_score": 1.0
+      "target": "docs_index_3_frontend_backend_communication_flow"
     },
     {
       "relation": "contains",
@@ -38835,9 +38903,9 @@
       "source_file": "docs/index.md",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_system_architecture_overview",
-      "target": "docs_index_4_shared_components",
-      "confidence_score": 1.0
+      "target": "docs_index_4_shared_components"
     },
     {
       "relation": "contains",
@@ -38845,9 +38913,9 @@
       "source_file": "docs/index.md",
       "source_location": "L134",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_system_architecture_overview",
-      "target": "docs_index_5_authentication_flows",
-      "confidence_score": 1.0
+      "target": "docs_index_5_authentication_flows"
     },
     {
       "relation": "contains",
@@ -38855,9 +38923,9 @@
       "source_file": "docs/index.md",
       "source_location": "L156",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_system_architecture_overview",
-      "target": "docs_index_6_data_flows",
-      "confidence_score": 1.0
+      "target": "docs_index_6_data_flows"
     },
     {
       "relation": "contains",
@@ -38865,9 +38933,9 @@
       "source_file": "docs/index.md",
       "source_location": "L158",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_6_data_flows",
-      "target": "docs_index_a_concurrency_safe_seat_hold_and_ticket_booking",
-      "confidence_score": 1.0
+      "target": "docs_index_a_concurrency_safe_seat_hold_and_ticket_booking"
     },
     {
       "relation": "contains",
@@ -38875,9 +38943,9 @@
       "source_file": "docs/index.md",
       "source_location": "L193",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_index_6_data_flows",
-      "target": "docs_index_b_show_cancellation_and_refund_flow",
-      "confidence_score": 1.0
+      "target": "docs_index_b_show_cancellation_and_refund_flow"
     },
     {
       "relation": "contains",
@@ -38885,9 +38953,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_md",
-      "target": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan"
     },
     {
       "relation": "contains",
@@ -38895,9 +38963,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1368",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_md",
-      "target": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough"
     },
     {
       "relation": "contains",
@@ -38905,9 +38973,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1303",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_booking_success_page",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_booking_success_page"
     },
     {
       "relation": "contains",
@@ -38915,9 +38983,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_complete_payment_flow",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_complete_payment_flow"
     },
     {
       "relation": "contains",
@@ -38925,9 +38993,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L550",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_concurrency_handling",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_concurrency_handling"
     },
     {
       "relation": "contains",
@@ -38935,9 +39003,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_core_principle",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_core_principle"
     },
     {
       "relation": "contains",
@@ -38945,9 +39013,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L617",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_implementation_order",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_implementation_order"
     },
     {
       "relation": "contains",
@@ -38955,9 +39023,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_problem_statement",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_problem_statement"
     },
     {
       "relation": "contains",
@@ -38965,9 +39033,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L52",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_proposed_changes",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_proposed_changes"
     },
     {
       "relation": "contains",
@@ -38975,9 +39043,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L634",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode"
     },
     {
       "relation": "contains",
@@ -38985,9 +39053,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1357",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_security_checklist",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_security_checklist"
     },
     {
       "relation": "contains",
@@ -38995,9 +39063,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_solution_architecture",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_solution_architecture"
     },
     {
       "relation": "contains",
@@ -39005,9 +39073,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1269",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_test_cards_razorpay_test_mode",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_test_cards_razorpay_test_mode"
     },
     {
       "relation": "contains",
@@ -39015,9 +39083,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1288",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_updated_implementation_order",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_updated_implementation_order"
     },
     {
       "relation": "contains",
@@ -39025,9 +39093,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L523",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_user_flow_diagram",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_user_flow_diagram"
     },
     {
       "relation": "contains",
@@ -39035,9 +39103,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L590",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_verification_plan",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_verification_plan"
     },
     {
       "relation": "contains",
@@ -39045,9 +39113,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1246",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_webhook_configuration",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_webhook_configuration"
     },
     {
       "relation": "contains",
@@ -39055,9 +39123,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L578",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_concurrency_safe_seat_booking_implementation_plan",
-      "target": "docs_payment_and_booking_implementation_why_this_works",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_why_this_works"
     },
     {
       "relation": "contains",
@@ -39065,9 +39133,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_proposed_changes",
-      "target": "docs_payment_and_booking_implementation_1_database_schema_changes",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_1_database_schema_changes"
     },
     {
       "relation": "contains",
@@ -39075,9 +39143,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L133",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_proposed_changes",
-      "target": "docs_payment_and_booking_implementation_2_backend_new_booking_controller",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_2_backend_new_booking_controller"
     },
     {
       "relation": "contains",
@@ -39085,9 +39153,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L406",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_proposed_changes",
-      "target": "docs_payment_and_booking_implementation_3_backend_booking_routes",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_3_backend_booking_routes"
     },
     {
       "relation": "contains",
@@ -39095,9 +39163,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L433",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_proposed_changes",
-      "target": "docs_payment_and_booking_implementation_4_backend_register_routes",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_4_backend_register_routes"
     },
     {
       "relation": "contains",
@@ -39105,9 +39173,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L448",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_proposed_changes",
-      "target": "docs_payment_and_booking_implementation_5_backend_background_cleanup_job",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_5_backend_background_cleanup_job"
     },
     {
       "relation": "contains",
@@ -39115,9 +39183,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L465",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_proposed_changes",
-      "target": "docs_payment_and_booking_implementation_6_frontend_api_service",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_6_frontend_api_service"
     },
     {
       "relation": "contains",
@@ -39125,9 +39193,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_1_database_schema_changes",
-      "target": "docs_payment_and_booking_implementation_migration_sql_for_existing_data",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_migration_sql_for_existing_data"
     },
     {
       "relation": "contains",
@@ -39135,9 +39203,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_1_database_schema_changes",
-      "target": "docs_payment_and_booking_implementation_modify_psql_sql_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_psql_sql",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_psql_sql_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_psql_sql"
     },
     {
       "relation": "contains",
@@ -39145,9 +39213,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L135",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_2_backend_new_booking_controller",
-      "target": "docs_payment_and_booking_implementation_new_booking_controller_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_controllers_booking_controller_js",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_new_booking_controller_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_controllers_booking_controller_js"
     },
     {
       "relation": "contains",
@@ -39155,9 +39223,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L408",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_3_backend_booking_routes",
-      "target": "docs_payment_and_booking_implementation_new_booking_routes_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_routes_booking_routes_js",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_new_booking_routes_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_routes_booking_routes_js"
     },
     {
       "relation": "contains",
@@ -39165,9 +39233,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L435",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_4_backend_register_routes",
-      "target": "docs_payment_and_booking_implementation_modify_server_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_server_js",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_server_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_server_js"
     },
     {
       "relation": "contains",
@@ -39175,9 +39243,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L450",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_5_backend_background_cleanup_job",
-      "target": "docs_payment_and_booking_implementation_modify_server_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_server_js_450",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_server_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_server_js_450"
     },
     {
       "relation": "contains",
@@ -39185,9 +39253,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L467",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_6_frontend_api_service",
-      "target": "docs_payment_and_booking_implementation_modify_api_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_users_src_services_api_js",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_api_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_users_src_services_api_js"
     },
     {
       "relation": "contains",
@@ -39195,9 +39263,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L592",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_verification_plan",
-      "target": "docs_payment_and_booking_implementation_automated_testing",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_automated_testing"
     },
     {
       "relation": "contains",
@@ -39205,9 +39273,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L607",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_verification_plan",
-      "target": "docs_payment_and_booking_implementation_manual_verification",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_manual_verification"
     },
     {
       "relation": "contains",
@@ -39215,9 +39283,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1087",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_10_backend_register_payment_routes",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_10_backend_register_payment_routes"
     },
     {
       "relation": "contains",
@@ -39225,9 +39293,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1103",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_11_frontend_razorpay_checkout_integration",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_11_frontend_razorpay_checkout_integration"
     },
     {
       "relation": "contains",
@@ -39235,9 +39303,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1137",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_12_frontend_payment_component",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_12_frontend_payment_component"
     },
     {
       "relation": "contains",
@@ -39245,9 +39313,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1200",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_13_frontend_add_razorpay_script",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_13_frontend_add_razorpay_script"
     },
     {
       "relation": "contains",
@@ -39255,9 +39323,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L687",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_7_backend_payment_controller",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_7_backend_payment_controller"
     },
     {
       "relation": "contains",
@@ -39265,9 +39333,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1026",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_8_database_payment_orders_table",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_8_database_payment_orders_table"
     },
     {
       "relation": "contains",
@@ -39275,9 +39343,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1055",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_9_backend_payment_routes",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_9_backend_payment_routes"
     },
     {
       "relation": "contains",
@@ -39285,9 +39353,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L673",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_environment_variables",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_environment_variables"
     },
     {
       "relation": "contains",
@@ -39295,9 +39363,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L636",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_razorpay_payment_integration_test_mode",
-      "target": "docs_payment_and_booking_implementation_overview",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_overview"
     },
     {
       "relation": "contains",
@@ -39305,9 +39373,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L689",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_7_backend_payment_controller",
-      "target": "docs_payment_and_booking_implementation_new_payment_controller_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_controllers_payment_controller_js",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_new_payment_controller_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_controllers_payment_controller_js"
     },
     {
       "relation": "contains",
@@ -39315,9 +39383,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1028",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_8_database_payment_orders_table",
-      "target": "docs_payment_and_booking_implementation_new_migration_sql",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_new_migration_sql"
     },
     {
       "relation": "contains",
@@ -39325,9 +39393,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1057",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_9_backend_payment_routes",
-      "target": "docs_payment_and_booking_implementation_new_payment_routes_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_routes_payment_routes_js",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_new_payment_routes_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_routes_payment_routes_js"
     },
     {
       "relation": "contains",
@@ -39335,9 +39403,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1089",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_10_backend_register_payment_routes",
-      "target": "docs_payment_and_booking_implementation_modify_server_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_server_js_1089",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_server_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_server_js_1089"
     },
     {
       "relation": "contains",
@@ -39345,9 +39413,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_11_frontend_razorpay_checkout_integration",
-      "target": "docs_payment_and_booking_implementation_modify_api_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_users_src_services_api_js_1105",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_api_js_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_users_src_services_api_js_1105"
     },
     {
       "relation": "contains",
@@ -39355,9 +39423,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1139",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_12_frontend_payment_component",
-      "target": "docs_payment_and_booking_implementation_new_payment_hook_usage",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_new_payment_hook_usage"
     },
     {
       "relation": "contains",
@@ -39365,9 +39433,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1202",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_13_frontend_add_razorpay_script",
-      "target": "docs_payment_and_booking_implementation_modify_index_html",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_modify_index_html"
     },
     {
       "relation": "contains",
@@ -39375,9 +39443,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1248",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_webhook_configuration",
-      "target": "docs_payment_and_booking_implementation_razorpay_dashboard_setup",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_razorpay_dashboard_setup"
     },
     {
       "relation": "contains",
@@ -39385,9 +39453,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1258",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_webhook_configuration",
-      "target": "docs_payment_and_booking_implementation_testing_webhooks_locally",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_testing_webhooks_locally"
     },
     {
       "relation": "contains",
@@ -39395,9 +39463,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1329",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_booking_success_page",
-      "target": "docs_payment_and_booking_implementation_data_displayed",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_data_displayed"
     },
     {
       "relation": "contains",
@@ -39405,9 +39473,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1339",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_booking_success_page",
-      "target": "docs_payment_and_booking_implementation_download_ticket",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_download_ticket"
     },
     {
       "relation": "contains",
@@ -39415,9 +39483,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1307",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_booking_success_page",
-      "target": "docs_payment_and_booking_implementation_flow",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_flow"
     },
     {
       "relation": "contains",
@@ -39425,9 +39493,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1343",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_booking_success_page",
-      "target": "docs_payment_and_booking_implementation_seat_label_derivation",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_seat_label_derivation"
     },
     {
       "relation": "contains",
@@ -39435,9 +39503,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1322",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_booking_success_page",
-      "target": "docs_payment_and_booking_implementation_why_query_param_instead_of_location_state",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_why_query_param_instead_of_location_state"
     },
     {
       "relation": "contains",
@@ -39445,9 +39513,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1376",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_1_migration_idempotency_sql_new",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_1_migration_idempotency_sql_new"
     },
     {
       "relation": "contains",
@@ -39455,9 +39523,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1399",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified"
     },
     {
       "relation": "contains",
@@ -39465,9 +39533,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1492",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_3_routes_payment_routes_js_modified",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_3_routes_payment_routes_js_modified"
     },
     {
       "relation": "contains",
@@ -39475,9 +39543,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1508",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_4_server_js_modified",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_4_server_js_modified"
     },
     {
       "relation": "contains",
@@ -39485,9 +39553,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1521",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_5_hooks_userazorpaypayment_js_modified",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_5_hooks_userazorpaypayment_js_modified"
     },
     {
       "relation": "contains",
@@ -39495,9 +39563,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1542",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_how_to_deploy",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_how_to_deploy"
     },
     {
       "relation": "contains",
@@ -39505,9 +39573,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1569",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_threat_model_before_vs_after",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_threat_model_before_vs_after"
     },
     {
       "relation": "contains",
@@ -39515,9 +39583,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1370",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_idempotency_duplicate_booking_prevention_walkthrough",
-      "target": "docs_payment_and_booking_implementation_what_was_changed",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_what_was_changed"
     },
     {
       "relation": "contains",
@@ -39525,9 +39593,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1401",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified",
-      "target": "docs_payment_and_booking_implementation_fix_1_createorder_dedup_active_orders",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_fix_1_createorder_dedup_active_orders"
     },
     {
       "relation": "contains",
@@ -39535,9 +39603,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1428",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified",
-      "target": "docs_payment_and_booking_implementation_fix_2_verifypayment_idempotency_guard",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_fix_2_verifypayment_idempotency_guard"
     },
     {
       "relation": "contains",
@@ -39545,9 +39613,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1456",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified",
-      "target": "docs_payment_and_booking_implementation_fix_3_handlewebhook_event_deduplication_table",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_fix_3_handlewebhook_event_deduplication_table"
     },
     {
       "relation": "contains",
@@ -39555,9 +39623,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1478",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified",
-      "target": "docs_payment_and_booking_implementation_fix_4_handlepaymentcaptured_select_for_update_to_serialize_concurrent_deliveries",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_fix_4_handlepaymentcaptured_select_for_update_to_serialize_concurrent_deliveries"
     },
     {
       "relation": "contains",
@@ -39565,9 +39633,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1484",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_2_controllers_payment_controller_js_modified",
-      "target": "docs_payment_and_booking_implementation_fix_5_handlepaymentfailed_atomic_seat_release",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_fix_5_handlepaymentfailed_atomic_seat_release"
     },
     {
       "relation": "contains",
@@ -39575,9 +39643,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1544",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_how_to_deploy",
-      "target": "docs_payment_and_booking_implementation_step_1_run_the_migration",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_step_1_run_the_migration"
     },
     {
       "relation": "contains",
@@ -39585,9 +39653,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1548",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_how_to_deploy",
-      "target": "docs_payment_and_booking_implementation_step_2_restart_the_api",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_step_2_restart_the_api"
     },
     {
       "relation": "contains",
@@ -39595,9 +39663,9 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1552",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_payment_and_booking_implementation_how_to_deploy",
-      "target": "docs_payment_and_booking_implementation_step_3_verify",
-      "confidence_score": 1.0
+      "target": "docs_payment_and_booking_implementation_step_3_verify"
     },
     {
       "relation": "contains",
@@ -39605,9 +39673,9 @@
       "source_file": "docs/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_md",
-      "target": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "confidence_score": 1.0
+      "target": "docs_readme_cinema_hall_ticket_booking_app_documentation"
     },
     {
       "relation": "references",
@@ -39625,9 +39693,9 @@
       "source_file": "docs/README.md",
       "source_location": "L277",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_contributing",
-      "confidence_score": 1.0
+      "target": "docs_readme_contributing"
     },
     {
       "relation": "contains",
@@ -39635,9 +39703,9 @@
       "source_file": "docs/README.md",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_documentation_files",
-      "confidence_score": 1.0
+      "target": "docs_readme_documentation_files"
     },
     {
       "relation": "contains",
@@ -39645,9 +39713,9 @@
       "source_file": "docs/README.md",
       "source_location": "L144",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_documentation_stats",
-      "confidence_score": 1.0
+      "target": "docs_readme_documentation_stats"
     },
     {
       "relation": "contains",
@@ -39655,9 +39723,9 @@
       "source_file": "docs/README.md",
       "source_location": "L205",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_documentation_structure",
-      "confidence_score": 1.0
+      "target": "docs_readme_documentation_structure"
     },
     {
       "relation": "contains",
@@ -39665,9 +39733,9 @@
       "source_file": "docs/README.md",
       "source_location": "L241",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_how_to_use",
-      "confidence_score": 1.0
+      "target": "docs_readme_how_to_use"
     },
     {
       "relation": "contains",
@@ -39675,9 +39743,9 @@
       "source_file": "docs/README.md",
       "source_location": "L266",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_keeping_documentation_updated",
-      "confidence_score": 1.0
+      "target": "docs_readme_keeping_documentation_updated"
     },
     {
       "relation": "contains",
@@ -39685,9 +39753,9 @@
       "source_file": "docs/README.md",
       "source_location": "L299",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_last_updated",
-      "confidence_score": 1.0
+      "target": "docs_readme_last_updated"
     },
     {
       "relation": "contains",
@@ -39695,9 +39763,9 @@
       "source_file": "docs/README.md",
       "source_location": "L288",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_questions",
-      "confidence_score": 1.0
+      "target": "docs_readme_questions"
     },
     {
       "relation": "contains",
@@ -39705,9 +39773,9 @@
       "source_file": "docs/README.md",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_quick_start_guide",
-      "confidence_score": 1.0
+      "target": "docs_readme_quick_start_guide"
     },
     {
       "relation": "contains",
@@ -39715,9 +39783,9 @@
       "source_file": "docs/README.md",
       "source_location": "L219",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_tech_stack",
-      "confidence_score": 1.0
+      "target": "docs_readme_tech_stack"
     },
     {
       "relation": "contains",
@@ -39725,9 +39793,9 @@
       "source_file": "docs/README.md",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_visual_diagrams",
-      "confidence_score": 1.0
+      "target": "docs_readme_visual_diagrams"
     },
     {
       "relation": "contains",
@@ -39735,9 +39803,9 @@
       "source_file": "docs/README.md",
       "source_location": "L157",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_cinema_hall_ticket_booking_app_documentation",
-      "target": "docs_readme_what_s_documented",
-      "confidence_score": 1.0
+      "target": "docs_readme_what_s_documented"
     },
     {
       "relation": "contains",
@@ -39745,9 +39813,9 @@
       "source_file": "docs/README.md",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_documentation_files",
-      "target": "docs_readme_1_backend_api_documentation_backend_md",
-      "confidence_score": 1.0
+      "target": "docs_readme_1_backend_api_documentation_backend_md"
     },
     {
       "relation": "contains",
@@ -39755,9 +39823,9 @@
       "source_file": "docs/README.md",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_documentation_files",
-      "target": "docs_readme_2_admin_panel_documentation_admin_md",
-      "confidence_score": 1.0
+      "target": "docs_readme_2_admin_panel_documentation_admin_md"
     },
     {
       "relation": "contains",
@@ -39765,9 +39833,9 @@
       "source_file": "docs/README.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_documentation_files",
-      "target": "docs_readme_3_database_setup_script_db_setup_sql",
-      "confidence_score": 1.0
+      "target": "docs_readme_3_database_setup_script_db_setup_sql"
     },
     {
       "relation": "contains",
@@ -39775,8 +39843,18 @@
       "source_file": "docs/README.md",
       "source_location": "L64",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_documentation_files",
-      "target": "docs_readme_4_user_application_documentation_users_md",
+      "target": "docs_readme_4_user_application_documentation_users_md"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/README.md",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "docs_readme_documentation_files",
+      "target": "docs_readme_5_graphify_knowledge_graph_graphify_out",
       "confidence_score": 1.0
     },
     {
@@ -39785,9 +39863,9 @@
       "source_file": "docs/README.md",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_visual_diagrams",
-      "target": "docs_readme_viewing_diagrams",
-      "confidence_score": 1.0
+      "target": "docs_readme_viewing_diagrams"
     },
     {
       "relation": "contains",
@@ -39795,9 +39873,9 @@
       "source_file": "docs/README.md",
       "source_location": "L119",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_quick_start_guide",
-      "target": "docs_readme_for_api_integration",
-      "confidence_score": 1.0
+      "target": "docs_readme_for_api_integration"
     },
     {
       "relation": "contains",
@@ -39805,9 +39883,9 @@
       "source_file": "docs/README.md",
       "source_location": "L126",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_quick_start_guide",
-      "target": "docs_readme_for_frontend_development",
-      "confidence_score": 1.0
+      "target": "docs_readme_for_frontend_development"
     },
     {
       "relation": "contains",
@@ -39815,9 +39893,9 @@
       "source_file": "docs/README.md",
       "source_location": "L112",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_quick_start_guide",
-      "target": "docs_readme_for_new_developers",
-      "confidence_score": 1.0
+      "target": "docs_readme_for_new_developers"
     },
     {
       "relation": "contains",
@@ -39825,9 +39903,9 @@
       "source_file": "docs/README.md",
       "source_location": "L172",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_what_s_documented",
-      "target": "docs_readme_admin_features",
-      "confidence_score": 1.0
+      "target": "docs_readme_admin_features"
     },
     {
       "relation": "contains",
@@ -39835,9 +39913,9 @@
       "source_file": "docs/README.md",
       "source_location": "L159",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_what_s_documented",
-      "target": "docs_readme_backend_features",
-      "confidence_score": 1.0
+      "target": "docs_readme_backend_features"
     },
     {
       "relation": "contains",
@@ -39845,9 +39923,9 @@
       "source_file": "docs/README.md",
       "source_location": "L185",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_what_s_documented",
-      "target": "docs_readme_user_features",
-      "confidence_score": 1.0
+      "target": "docs_readme_user_features"
     },
     {
       "relation": "contains",
@@ -39855,9 +39933,9 @@
       "source_file": "docs/README.md",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_tech_stack",
-      "target": "docs_readme_backend",
-      "confidence_score": 1.0
+      "target": "docs_readme_backend"
     },
     {
       "relation": "contains",
@@ -39865,9 +39943,9 @@
       "source_file": "docs/README.md",
       "source_location": "L230",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_tech_stack",
-      "target": "docs_readme_frontend_admin_user",
-      "confidence_score": 1.0
+      "target": "docs_readme_frontend_admin_user"
     },
     {
       "relation": "contains",
@@ -39875,9 +39953,9 @@
       "source_file": "docs/README.md",
       "source_location": "L255",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_how_to_use",
-      "target": "docs_readme_code_examples",
-      "confidence_score": 1.0
+      "target": "docs_readme_code_examples"
     },
     {
       "relation": "contains",
@@ -39885,9 +39963,9 @@
       "source_file": "docs/README.md",
       "source_location": "L243",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_readme_how_to_use",
-      "target": "docs_readme_finding_information",
-      "confidence_score": 1.0
+      "target": "docs_readme_finding_information"
     },
     {
       "relation": "contains",
@@ -39895,9 +39973,9 @@
       "source_file": "docs/users.md",
       "source_location": "L1627",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_md",
-      "target": "docs_users_api_configuration",
-      "confidence_score": 1.0
+      "target": "docs_users_api_configuration"
     },
     {
       "relation": "contains",
@@ -39905,9 +39983,9 @@
       "source_file": "docs/users.md",
       "source_location": "L1630",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_md",
-      "target": "docs_users_feature_flags_if_any",
-      "confidence_score": 1.0
+      "target": "docs_users_feature_flags_if_any"
     },
     {
       "relation": "contains",
@@ -39915,9 +39993,9 @@
       "source_file": "docs/users.md",
       "source_location": "L1649",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_md",
-      "target": "docs_users_outputs_to_dist",
-      "confidence_score": 1.0
+      "target": "docs_users_outputs_to_dist"
     },
     {
       "relation": "contains",
@@ -39925,9 +40003,9 @@
       "source_file": "docs/users.md",
       "source_location": "L1642",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_md",
-      "target": "docs_users_runs_on_http_localhost_5174",
-      "confidence_score": 1.0
+      "target": "docs_users_runs_on_http_localhost_5174"
     },
     {
       "relation": "contains",
@@ -39935,9 +40013,9 @@
       "source_file": "docs/users.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_md",
-      "target": "docs_users_user_application_documentation",
-      "confidence_score": 1.0
+      "target": "docs_users_user_application_documentation"
     },
     {
       "relation": "contains",
@@ -39945,9 +40023,9 @@
       "source_file": "docs/users.md",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_user_application_documentation",
-      "target": "docs_users_application_architecture",
-      "confidence_score": 1.0
+      "target": "docs_users_application_architecture"
     },
     {
       "relation": "contains",
@@ -39955,9 +40033,9 @@
       "source_file": "docs/users.md",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_user_application_documentation",
-      "target": "docs_users_authentication_system",
-      "confidence_score": 1.0
+      "target": "docs_users_authentication_system"
     },
     {
       "relation": "contains",
@@ -39965,9 +40043,9 @@
       "source_file": "docs/users.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_user_application_documentation",
-      "target": "docs_users_overview",
-      "confidence_score": 1.0
+      "target": "docs_users_overview"
     },
     {
       "relation": "contains",
@@ -39975,9 +40053,9 @@
       "source_file": "docs/users.md",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_application_architecture",
-      "target": "docs_users_component_hierarchy",
-      "confidence_score": 1.0
+      "target": "docs_users_component_hierarchy"
     },
     {
       "relation": "contains",
@@ -39985,9 +40063,9 @@
       "source_file": "docs/users.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_application_architecture",
-      "target": "docs_users_route_structure",
-      "confidence_score": 1.0
+      "target": "docs_users_route_structure"
     },
     {
       "relation": "contains",
@@ -39995,9 +40073,9 @@
       "source_file": "docs/users.md",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_authentication_system",
-      "target": "docs_users_customer_authentication_flow",
-      "confidence_score": 1.0
+      "target": "docs_users_customer_authentication_flow"
     },
     {
       "relation": "contains",
@@ -40005,9 +40083,9 @@
       "source_file": "docs/users.md",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_authentication_system",
-      "target": "docs_users_forgot_password_flow",
-      "confidence_score": 1.0
+      "target": "docs_users_forgot_password_flow"
     },
     {
       "relation": "references",

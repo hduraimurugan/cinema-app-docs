@@ -79,6 +79,22 @@ This folder contains complete documentation for all components of the applicatio
 
 ---
 
+### 5. [Graphify Knowledge Graph](./graphify-out/)
+
+**What's inside:**
+
+- Interactive codebase/architecture graph ([graph.html](./graphify-out/graph.html))
+- Codebase audit report and metrics ([GRAPH_REPORT.md](./graphify-out/GRAPH_REPORT.md))
+- Serialized graph model JSON ([graph.json](./graphify-out/graph.json))
+
+**Start here if you're:**
+
+- Onboarding to the codebase and need a high-level view of module boundaries
+- Tracing dependencies or finding connection paths between symbols
+- Looking for suggested questions and Surprising Connections across subsystems
+
+---
+
 ## 🎨 Visual Diagrams
 
 All documentation includes **34 Mermaid diagrams** for visual representation:
