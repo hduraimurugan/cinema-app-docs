@@ -1,302 +1,502 @@
-# Graph Report - .  (2026-05-31)
+# Graph Report - cinema-hall  (2026-05-31)
 
 ## Corpus Check
-- 259 files · ~186,316 words
+- 251 files · ~188,137 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1225 nodes · 2220 edges · 125 communities (112 shown, 13 thin omitted)
-- Extraction: 75% EXTRACTED · 25% INFERRED · 0% AMBIGUOUS · INFERRED: 566 edges (avg confidence: 0.85)
+- 1548 nodes · 2541 edges · 167 communities (154 shown, 13 thin omitted)
+- Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 566 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_Admin Authentication & Security|Admin Authentication & Security]]
-- [[_COMMUNITY_Customer Authentication & OTP|Customer Authentication & OTP]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
-- [[_COMMUNITY_Admin Frontend Dependencies|Admin Frontend Dependencies]]
-- [[_COMMUNITY_Admin Frontend Dependencies|Admin Frontend Dependencies]]
-- [[_COMMUNITY_User Frontend Dependencies|User Frontend Dependencies]]
-- [[_COMMUNITY_Booking & Payment APIs|Booking & Payment APIs]]
-- [[_COMMUNITY_Admin Frontend Dependencies|Admin Frontend Dependencies]]
-- [[_COMMUNITY_Customer Authentication & OTP|Customer Authentication & OTP]]
-- [[_COMMUNITY_Booking & Payment APIs|Booking & Payment APIs]]
-- [[_COMMUNITY_Admin Frontend Dependencies|Admin Frontend Dependencies]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Package Dependencies|Package Dependencies]]
-- [[_COMMUNITY_Booking & Payment APIs|Booking & Payment APIs]]
-- [[_COMMUNITY_Admin Frontend Dependencies|Admin Frontend Dependencies]]
-- [[_COMMUNITY_Booking & Payment APIs|Booking & Payment APIs]]
-- [[_COMMUNITY_Customer Authentication & OTP|Customer Authentication & OTP]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Tailwind Module|Tailwind Module]]
-- [[_COMMUNITY_Package Module|Package Module]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Admin UI Components|Admin UI Components]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_User UI Components|User UI Components]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_Screen Designer & Seat Layout|Screen Designer & Seat Layout]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_Package Module|Package Module]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_User UI Components|User UI Components]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_Application Routing & Security Guards|Application Routing & Security Guards]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_Booking & Payment Views|Booking & Payment Views]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Admin UI Components|Admin UI Components]]
-- [[_COMMUNITY_Jsconfig Module|Jsconfig Module]]
-- [[_COMMUNITY_Authentication Services|Authentication Services]]
-- [[_COMMUNITY_Screen Designer & Seat Layout|Screen Designer & Seat Layout]]
-- [[_COMMUNITY_User UI Components|User UI Components]]
-- [[_COMMUNITY_Ad Campaign Management|Ad Campaign Management]]
-- [[_COMMUNITY_Jsconfig Module|Jsconfig Module]]
-- [[_COMMUNITY_React Contexts & State|React Contexts & State]]
-- [[_COMMUNITY_Admin UI Components|Admin UI Components]]
-- [[_COMMUNITY_Admin UI Components|Admin UI Components]]
-- [[_COMMUNITY_Admin UI Components|Admin UI Components]]
-- [[_COMMUNITY_Admin Authentication & Security|Admin Authentication & Security]]
-- [[_COMMUNITY_User UI Components|User UI Components]]
-- [[_COMMUNITY_User UI Components|User UI Components]]
-- [[_COMMUNITY_Movie Catalog & TMDB Integration|Movie Catalog & TMDB Integration]]
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 36|Community 36]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 40|Community 40]]
+- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 45|Community 45]]
+- [[_COMMUNITY_Community 46|Community 46]]
+- [[_COMMUNITY_Community 47|Community 47]]
+- [[_COMMUNITY_Community 48|Community 48]]
+- [[_COMMUNITY_Community 51|Community 51]]
+- [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 59|Community 59]]
+- [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 62|Community 62]]
+- [[_COMMUNITY_Community 63|Community 63]]
+- [[_COMMUNITY_Community 65|Community 65]]
+- [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 71|Community 71]]
+- [[_COMMUNITY_Community 72|Community 72]]
+- [[_COMMUNITY_Community 74|Community 74]]
+- [[_COMMUNITY_Community 79|Community 79]]
+- [[_COMMUNITY_Community 82|Community 82]]
+- [[_COMMUNITY_Community 85|Community 85]]
+- [[_COMMUNITY_Community 86|Community 86]]
+- [[_COMMUNITY_Community 87|Community 87]]
+- [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_Community 91|Community 91]]
+- [[_COMMUNITY_Community 92|Community 92]]
+- [[_COMMUNITY_Community 94|Community 94]]
+- [[_COMMUNITY_Community 125|Community 125]]
+- [[_COMMUNITY_Community 126|Community 126]]
+- [[_COMMUNITY_Community 127|Community 127]]
+- [[_COMMUNITY_Community 128|Community 128]]
+- [[_COMMUNITY_Community 129|Community 129]]
+- [[_COMMUNITY_Community 130|Community 130]]
+- [[_COMMUNITY_Community 131|Community 131]]
+- [[_COMMUNITY_Community 132|Community 132]]
+- [[_COMMUNITY_Community 133|Community 133]]
+- [[_COMMUNITY_Community 134|Community 134]]
+- [[_COMMUNITY_Community 135|Community 135]]
+- [[_COMMUNITY_Community 136|Community 136]]
+- [[_COMMUNITY_Community 137|Community 137]]
+- [[_COMMUNITY_Community 138|Community 138]]
+- [[_COMMUNITY_Community 139|Community 139]]
+- [[_COMMUNITY_Community 140|Community 140]]
+- [[_COMMUNITY_Community 141|Community 141]]
+- [[_COMMUNITY_Community 142|Community 142]]
+- [[_COMMUNITY_Community 143|Community 143]]
+- [[_COMMUNITY_Community 144|Community 144]]
+- [[_COMMUNITY_Community 145|Community 145]]
+- [[_COMMUNITY_Community 146|Community 146]]
+- [[_COMMUNITY_Community 147|Community 147]]
+- [[_COMMUNITY_Community 148|Community 148]]
+- [[_COMMUNITY_Community 149|Community 149]]
+- [[_COMMUNITY_Community 150|Community 150]]
+- [[_COMMUNITY_Community 151|Community 151]]
+- [[_COMMUNITY_Community 152|Community 152]]
+- [[_COMMUNITY_Community 153|Community 153]]
+- [[_COMMUNITY_Community 154|Community 154]]
+- [[_COMMUNITY_Community 156|Community 156]]
+- [[_COMMUNITY_Community 157|Community 157]]
+- [[_COMMUNITY_Community 158|Community 158]]
+- [[_COMMUNITY_Community 159|Community 159]]
+- [[_COMMUNITY_Community 160|Community 160]]
+- [[_COMMUNITY_Community 161|Community 161]]
+- [[_COMMUNITY_Community 162|Community 162]]
+- [[_COMMUNITY_Community 163|Community 163]]
+- [[_COMMUNITY_Community 164|Community 164]]
+- [[_COMMUNITY_Community 165|Community 165]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `Documentation Index` - 119 edges
-2. `Admin Panel Documentation` - 109 edges
-3. `User Application Documentation` - 83 edges
-4. `⚙️ Cinema Hall Management - Admin Panel` - 60 edges
-5. `🎟️ Cinema Hall Ticket Booking - Customer Web App` - 55 edges
-6. `Backend API Documentation` - 55 edges
-7. `🎬 Cinema Hall Ticket Booking System - Backend API Service` - 42 edges
-8. `Concurrency-Safe Seat Booking - Implementation Plan` - 28 edges
-9. `useAuth()` - 26 edges
-10. `useCustomerAuth()` - 25 edges
+1. `useAuth()` - 26 edges
+2. `useCustomerAuth()` - 25 edges
+3. `hashToken()` - 18 edges
+4. `Admin Panel Documentation` - 18 edges
+5. `Concurrency-Safe Seat Booking - Implementation Plan` - 17 edges
+6. `useHall()` - 15 edges
+7. `2. Screen Designer` - 13 edges
+8. `Cinema Hall Ticket Booking App - Documentation` - 13 edges
+9. `2. Movie Management` - 12 edges
+10. `verifyCinemaAdminAccessToken()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `User Application Documentation` --conceptually_related_to--> `prefix`  [INFERRED]
-  docs/users.md → cinema-hall-admin/components.json
-- `🎬 Cinema Hall Ticket Booking System - Backend API Service` --conceptually_related_to--> `private`  [INFERRED]
-  cinema-hall-api/README.md → cinema-hall-admin/package.json
-- `Admin Panel Documentation` --conceptually_related_to--> `country-state-city`  [INFERRED]
-  docs/admin.md → cinema-hall-admin/package.json
-- `Admin Panel Documentation` --conceptually_related_to--> `html5-qrcode`  [INFERRED]
-  docs/admin.md → cinema-hall-admin/package.json
-- `User Application Documentation` --conceptually_related_to--> `lucide-react`  [INFERRED]
-  docs/users.md → cinema-hall-admin/package.json
+- `MoviePage()` --calls--> `getYouTubeEmbedUrl()`  [INFERRED]
+  cinema-hall-admin/src/pages/MoviePage.jsx → cinema-hall-users/src/pages/MovieInfoPage.jsx
+- `MovieDetailsPage()` --calls--> `getNextDates()`  [INFERRED]
+  cinema-hall-users/src/pages/MovieDetailsPage.jsx → cinema-hall-admin/src/pages/ShowsManagement.jsx
+- `TheatresPage()` --calls--> `getNextDates()`  [INFERRED]
+  cinema-hall-users/src/pages/TheatresPage.jsx → cinema-hall-admin/src/pages/ShowsManagement.jsx
+- `SettingsPage()` --calls--> `useAuth()`  [INFERRED]
+  cinema-hall-admin/src/pages/SettingsPage.jsx → cinema-hall-admin/src/context/AuthContext.jsx
+- `HallsManagement()` --calls--> `useHall()`  [EXTRACTED]
+  cinema-hall-admin/src/pages/HallManagement.jsx → cinema-hall-admin/src/context/HallContext.jsx
 
 ## Import Cycles
 - None detected.
 
-## Communities (125 total, 13 thin omitted)
+## Communities (167 total, 13 thin omitted)
 
-### Community 0 - "Admin Authentication & Security"
-Cohesion: 0.05
-Nodes (44): App(), CinemaLayout(), ThemeContext, HomePage(), ProfilePage(), SettingsPage(), ProtectedRoute(), AppSidebar() (+36 more)
+### Community 0 - "Community 0"
+Cohesion: 0.18
+Nodes (11): App(), ProfilePage(), SettingsPage(), ProtectedRoute(), AuthProvider(), useAuth(), HallProvider(), FEATURES (+3 more)
 
-### Community 1 - "Customer Authentication & OTP"
-Cohesion: 0.07
-Nodes (52): PASSWORD_POLICY_CHECKS, changePassword(), forgotPassword(), getAdminSecurity(), getAdminSecurityLogs(), getAllAdmins(), getCinemaAdminMe(), getLockDuration() (+44 more)
+### Community 1 - "Community 1"
+Cohesion: 0.17
+Nodes (26): changePassword(), forgotPassword(), getAdminSecurity(), getAdminSecurityLogs(), getAllAdmins(), getCinemaAdminMe(), getLockDuration(), LOCKOUT_THRESHOLDS (+18 more)
 
-### Community 2 - "Movie Catalog & TMDB Integration"
+### Community 2 - "Community 2"
 Cohesion: 0.07
 Nodes (21): debounce(), SearchMovies(), LANG_OPTIONS, SECTIONS, TMDB_GENRE_MAP, TMDBBrowser(), EMPTY_FORM, formatDate() (+13 more)
 
-### Community 3 - "Admin Frontend Dependencies"
+### Community 3 - "Community 3"
 Cohesion: 0.05
 Nodes (43): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, @fontsource-variable/jetbrains-mono, @hookform/resolvers (+35 more)
 
-### Community 4 - "Admin Frontend Dependencies"
+### Community 4 - "Community 4"
 Cohesion: 0.10
-Nodes (28): hooks, files, references, routes, __dirname, migrations, execArgs, ext (+20 more)
+Nodes (20): execArgs, ext, ignore, watch, crons, rewrites, version, 1. Generate bcrypt hash (+12 more)
 
-### Community 5 - "User Frontend Dependencies"
+### Community 5 - "Community 5"
 Cohesion: 0.05
-Nodes (41): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, embla-carousel-autoplay, embla-carousel-react (+33 more)
+Nodes (40): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, embla-carousel-autoplay, embla-carousel-react (+32 more)
 
-### Community 6 - "Booking & Payment APIs"
-Cohesion: 0.10
-Nodes (24): pool, getAllCustomers(), getDashboardStats(), getRefundByBooking(), getRefunds(), manuallySettleRefund(), createScreen(), deleteScreen() (+16 more)
+### Community 6 - "Community 6"
+Cohesion: 0.11
+Nodes (20): pool, getAllCustomers(), getDashboardStats(), getRefundByBooking(), getRefunds(), manuallySettleRefund(), getSettings(), updateSettings() (+12 more)
 
-### Community 7 - "Admin Frontend Dependencies"
+### Community 7 - "Community 7"
 Cohesion: 0.08
-Nodes (17): qrcode.react, react-lazy-load-image-component, builds, qrcode.react, react-lazy-load-image-component, adsAPI, bookingAPI, offersAPI (+9 more)
+Nodes (18): qrcode.react, react-lazy-load-image-component, builds, html-to-image, qrcode.react, react-lazy-load-image-component, adsAPI, offersAPI (+10 more)
 
-### Community 8 - "Customer Authentication & OTP"
-Cohesion: 0.12
-Nodes (17): adsAPI, bookingAPI, offersAPI, paymentAPI, settingsAPI, showsAPI, Admin Panel Documentation, EMPTY_FORM (+9 more)
+### Community 8 - "Community 8"
+Cohesion: 0.10
+Nodes (15): adsAPI, offersAPI, settingsAPI, showsAPI, EMPTY_FORM, historyColorClass, statusVariants, adminsAPI (+7 more)
 
-### Community 9 - "Booking & Payment APIs"
+### Community 9 - "Community 9"
 Cohesion: 0.17
 Nodes (19): createOffer(), deleteOffer(), getActiveOffers(), getAllCinemaHalls(), getAllOffers(), getOfferById(), updateOffer(), validateOffer() (+11 more)
 
-### Community 10 - "Admin Frontend Dependencies"
-Cohesion: 0.12
-Nodes (14): style, dayjs, recharts, shadcn, dayjs, components, style, dayjs (+6 more)
-
-### Community 11 - "Ad Campaign Management"
+### Community 10 - "Community 10"
 Cohesion: 0.10
-Nodes (19): devDependencies, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, tw-animate-css, @types/node (+11 more)
+Nodes (14): hooks, dayjs, bookingAPI, paymentAPI, PASSWORD_POLICY_CHECKS, routes, dayjs, express (+6 more)
 
-### Community 12 - "Package Dependencies"
-Cohesion: 0.10
-Nodes (19): author, dependencies, bcrypt, chalk, cookie-parser, cors, dotenv, jsonwebtoken (+11 more)
-
-### Community 13 - "Booking & Payment APIs"
-Cohesion: 0.16
-Nodes (14): allowedOrigins, app, appStartTime, cleanupExpiredHolds(), confirmBooking(), getBookingByPaymentId(), getBookingDetails(), getCinemaHallBookings() (+6 more)
-
-### Community 14 - "Admin Frontend Dependencies"
-Cohesion: 0.19
-Nodes (12): components, utils, react, tailwindcss, build, preview, ⚙️ Cinema Hall Management - Admin Panel, utils (+4 more)
-
-### Community 15 - "Booking & Payment APIs"
-Cohesion: 0.22
-Nodes (15): bookShow(), bulkCancelShows(), bulkOpenBooking(), bulkRestoreShows(), cancelShow(), createMultipleShows(), createShow(), deleteMultipleShows() (+7 more)
-
-### Community 18 - "Customer Authentication & OTP"
-Cohesion: 0.23
-Nodes (9): ProfilePage(), ProtectedRoute(), LoginModal(), CustomerAuthContext, CustomerAuthProvider(), useCustomerAuth(), MoviesPage(), OffersPage() (+1 more)
-
-### Community 19 - "Ad Campaign Management"
-Cohesion: 0.14
-Nodes (13): aliases, lib, ui, iconLibrary, rsc, $schema, tailwind, baseColor (+5 more)
-
-### Community 20 - "Tailwind Module"
-Cohesion: 0.14
-Nodes (13): aliases, lib, ui, iconLibrary, rsc, $schema, tailwind, baseColor (+5 more)
-
-### Community 22 - "Package Module"
+### Community 11 - "Community 11"
 Cohesion: 0.17
 Nodes (12): devDependencies, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, tw-animate-css, @types/node (+4 more)
 
-### Community 24 - "Movie Catalog & TMDB Integration"
+### Community 12 - "Community 12"
 Cohesion: 0.17
-Nodes (6): debounce(), MovieSearchDropdown(), activeConfig, debounce(), OffersManagement(), scopeConfig
+Nodes (12): dependencies, bcrypt, chalk, cookie-parser, cors, dotenv, jsonwebtoken, nodemailer (+4 more)
 
-### Community 29 - "Booking & Payment Views"
+### Community 13 - "Community 13"
+Cohesion: 0.18
+Nodes (13): allowedOrigins, app, appStartTime, cleanupExpiredHolds(), confirmBooking(), getBookingByPaymentId(), getBookingDetails(), getCinemaHallBookings() (+5 more)
+
+### Community 14 - "Community 14"
+Cohesion: 0.11
+Nodes (24): aliases, components, lib, ui, utils, style, react, recharts (+16 more)
+
+### Community 15 - "Community 15"
+Cohesion: 0.19
+Nodes (17): bookShow(), bulkCancelShows(), bulkOpenBooking(), bulkRestoreShows(), cancelShow(), createMultipleShows(), createShow(), deleteMultipleShows() (+9 more)
+
+### Community 18 - "Community 18"
+Cohesion: 0.05
+Nodes (34): ShowsManagement(), debounce(), SearchMovies(), ThemeContext, ProfilePage(), ProtectedRoute(), PASSWORD_POLICY_CHECKS, allCities (+26 more)
+
+### Community 19 - "Community 19"
+Cohesion: 0.18
+Nodes (10): iconLibrary, rsc, $schema, tailwind, baseColor, config, css, cssVariables (+2 more)
+
+### Community 20 - "Community 20"
+Cohesion: 0.18
+Nodes (10): iconLibrary, rsc, $schema, tailwind, baseColor, config, css, cssVariables (+2 more)
+
+### Community 22 - "Community 22"
+Cohesion: 0.17
+Nodes (12): devDependencies, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, tw-animate-css, @types/node (+4 more)
+
+### Community 24 - "Community 24"
+Cohesion: 0.50
+Nodes (4): activeConfig, debounce(), OffersManagement(), scopeConfig
+
+### Community 29 - "Community 29"
 Cohesion: 0.24
 Nodes (8): BookingDetailPage(), fmt(), refundStatusConfig, statusConfig, avatarColor(), avatarColors, getInitials(), paymentStatusConfig
 
-### Community 30 - "Movie Catalog & TMDB Integration"
+### Community 30 - "Community 30"
 Cohesion: 0.44
 Nodes (9): getTMDBInTheatres(), getTMDBMovieDetails(), getTMDBNowPlaying(), getTMDBPopular(), getTMDBTopRated(), getTMDBUpcoming(), searchTMDB(), tmdbFetch() (+1 more)
 
-### Community 31 - "Movie Catalog & TMDB Integration"
+### Community 31 - "Community 31"
 Cohesion: 0.33
 Nodes (9): getAllMovies(), getCinemaHallsByLocation(), getCinemaHallsWithShows(), getDistrictsInState(), getMovieById(), getMovieDetailsWithShowtimes(), getMoviesByLocation(), getMoviesByState() (+1 more)
 
-### Community 36 - "Ad Campaign Management"
+### Community 36 - "Community 36"
 Cohesion: 0.27
 Nodes (9): AdminDetailSheet(), AdminsPage(), avatarColor(), avatarColors, debounce(), fmtDate(), fmtDateTime(), getInitials() (+1 more)
 
-### Community 38 - "Admin UI Components"
+### Community 38 - "Community 38"
 Cohesion: 0.29
 Nodes (7): FormControl(), FormDescription(), FormFieldContext, FormItemContext, FormLabel(), FormMessage(), useFormField()
 
-### Community 39 - "Movie Catalog & TMDB Integration"
+### Community 39 - "Community 39"
 Cohesion: 0.36
 Nodes (8): addMovie(), deleteMovie(), editMovie(), getAllMovies(), getMovieById(), getMovieTmdbIds(), updateMovieStatus(), router
 
-### Community 40 - "Ad Campaign Management"
+### Community 40 - "Community 40"
 Cohesion: 0.36
 Nodes (8): createAd(), deleteAd(), getActiveAds(), getAdClicks(), getAllAds(), recordClick(), updateAd(), router
 
-### Community 42 - "User UI Components"
+### Community 42 - "Community 42"
 Cohesion: 0.29
 Nodes (7): FormControl(), FormDescription(), FormFieldContext, FormItemContext, FormLabel(), FormMessage(), useFormField()
 
-### Community 45 - "Booking & Payment Views"
-Cohesion: 0.25
-Nodes (5): ShowsManagement(), MovieDetailsPage(), getNextDates(), SHOW_BORDER_COLOR, STATUS_CONFIG
+### Community 45 - "Community 45"
+Cohesion: 0.07
+Nodes (28): 1. [Backend API Documentation](./backend.md), 2. [Admin Panel Documentation](./admin.md), 3. [Database Setup Script](./db_setup.sql), 4. [User Application Documentation](./users.md), Admin Features, Backend, Backend Features, Cinema Hall Ticket Booking App - Documentation (+20 more)
 
-### Community 46 - "Screen Designer & Seat Layout"
-Cohesion: 0.28
-Nodes (5): mockNotifications, TopBar(), leftNavItems, rightNavItems, TopNavbar()
+### Community 46 - "Community 46"
+Cohesion: 0.08
+Nodes (24): Admin Authentication (`/api/auth`), Admin Authentication Flow, API Endpoints, Authentication System, Backend API Documentation, Constraints, Customer Authentication Flow, Data Types (+16 more)
 
-### Community 47 - "Movie Catalog & TMDB Integration"
-Cohesion: 0.28
-Nodes (6): allCities, LocationModal(), POPULAR_CITIES, popularCitiesWithState, stateMap, TheatresPage()
+### Community 47 - "Community 47"
+Cohesion: 0.17
+Nodes (17): PASSWORD_POLICY_CHECKS, changePasswordCustomer(), forgotPasswordCustomer(), _generateAndSendOtp(), getCustomerMe(), getLockDuration(), LOCKOUT_THRESHOLDS, loginCustomer() (+9 more)
 
-### Community 48 - "Booking & Payment Views"
-Cohesion: 0.33
-Nodes (5): useRazorpayPayment(), discountLabel(), fmtExpiry(), OfferCard(), OrderSummaryPage()
+### Community 48 - "Community 48"
+Cohesion: 0.12
+Nodes (17): 10. Backend: Register Payment Routes, 11. Frontend: Razorpay Checkout Integration, 12. Frontend: Payment Component, 13. Frontend: Add Razorpay Script, 7. Backend: Payment Controller, 8. Database: Payment Orders Table, 9. Backend: Payment Routes, Environment Variables (+9 more)
 
-### Community 51 - "Package Module"
+### Community 51 - "Community 51"
 Cohesion: 0.25
 Nodes (7): name, private, scripts, dev, lint, type, version
 
-### Community 52 - "Booking & Payment Views"
+### Community 52 - "Community 52"
 Cohesion: 0.29
 Nodes (4): BookingDetailPage(), fmt(), refundStatusConfig, statusConfig
 
-### Community 55 - "User UI Components"
+### Community 55 - "Community 55"
 Cohesion: 0.39
 Nodes (6): CarouselContent(), CarouselContext, CarouselItem(), CarouselNext(), CarouselPrevious(), useCarousel()
 
-### Community 56 - "Booking & Payment Views"
+### Community 56 - "Community 56"
 Cohesion: 0.33
 Nodes (4): avatarColors, debounce(), PaymentOrders(), statusConfig
 
-### Community 57 - "Application Routing & Security Guards"
+### Community 57 - "Community 57"
 Cohesion: 0.48
 Nodes (5): createHall(), deleteHall(), getMyHalls(), updateHall(), router
 
-### Community 60 - "Booking & Payment Views"
+### Community 60 - "Community 60"
 Cohesion: 0.33
 Nodes (4): Bookings(), avatarColors, debounce(), statusConfig
 
-### Community 62 - "Ad Campaign Management"
+### Community 62 - "Community 62"
 Cohesion: 0.40
 Nodes (3): UsersPage(), avatarColors, debounce()
 
-### Community 63 - "Ad Campaign Management"
+### Community 63 - "Community 63"
 Cohesion: 0.40
 Nodes (4): compilerOptions, baseUrl, paths, @/*
 
-### Community 70 - "Jsconfig Module"
+### Community 70 - "Community 70"
 Cohesion: 0.40
 Nodes (4): compilerOptions, baseUrl, paths, @/*
 
-### Community 79 - "Ad Campaign Management"
-Cohesion: 0.50
-Nodes (4): compilerOptions, baseUrl, paths, @/*
+### Community 71 - "Community 71"
+Cohesion: 0.12
+Nodes (17): 1. `migration_idempotency.sql` (NEW), 2. `controllers/payment.Controller.js` (MODIFIED), 3. `routes/payment.routes.js` (MODIFIED), 4. `server.js` (MODIFIED), 5. `hooks/useRazorpayPayment.js` (MODIFIED), Fix 1 — `createOrder`: Dedup active orders, Fix 2 — `verifyPayment`: Idempotency guard, Fix 3 — `handleWebhook`: Event deduplication table (+9 more)
 
-### Community 82 - "Jsconfig Module"
-Cohesion: 0.50
-Nodes (4): compilerOptions, baseUrl, paths, @/*
+### Community 72 - "Community 72"
+Cohesion: 0.20
+Nodes (12): CinemaLayout(), AppSidebar(), managementItems, navigationItems, promotionItems, systemItems, mockNotifications, HallSwitcher() (+4 more)
 
-### Community 86 - "Admin UI Components"
+### Community 79 - "Community 79"
+Cohesion: 0.33
+Nodes (5): compilerOptions, baseUrl, paths, @/*, references
+
+### Community 82 - "Community 82"
+Cohesion: 0.22
+Nodes (8): files, description, compilerOptions, baseUrl, paths, files, @/*, references
+
+### Community 85 - "Community 85"
+Cohesion: 0.19
+Nodes (7): generateOtp(), hashOtp(), sendOtp(), verifyOtp(), sendCustomerOtpEmail(), transporter, router
+
+### Community 86 - "Community 86"
 Cohesion: 0.67
 Nodes (3): getPageNumbers(), PAGE_SIZE_OPTIONS, Pagination()
 
+### Community 90 - "Community 90"
+Cohesion: 0.21
+Nodes (5): Loader(), ResetPasswordPage(), VerifyEmailPage(), verifyingTokens, AdminProtectedRoute()
+
+### Community 94 - "Community 94"
+Cohesion: 0.15
+Nodes (7): HallContext, EMPTY_FORM, HallsManagement(), IN_STATES, OnboardingPage(), OnboardingPageSkeleton(), hallsAPI
+
+### Community 125 - "Community 125"
+Cohesion: 0.16
+Nodes (9): name, private, scripts, dev, lint, type, version, __dirname (+1 more)
+
+### Community 126 - "Community 126"
+Cohesion: 0.14
+Nodes (14): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Filtering System (+6 more)
+
+### Community 127 - "Community 127"
+Cohesion: 0.15
+Nodes (13): 2. Screen Designer, Aisle System, Feature Overview, Interactive Features, Layout Designer Workflow, Navigation Pattern, Rows/Columns Resize Behaviour, Screen Configuration (+5 more)
+
+### Community 128 - "Community 128"
+Cohesion: 0.15
+Nodes (13): 1. System Architecture, 2. Module Dependency Structure, 3. Frontend/Backend Communication Flow, 4. Shared Components, 5. Authentication Flows, 6. Data Flows, A. Concurrency-Safe Seat Hold and Ticket Booking, B. Show Cancellation and Refund Flow (+5 more)
+
+### Community 129 - "Community 129"
+Cohesion: 0.17
+Nodes (12): 1. Clone the repository, 2. Install dependencies, 3. Setup the Database Schema, 4. Running the Server, 📘 API Documentation, 🎬 Cinema Hall Ticket Booking System - Backend API Service, Development Mode (with hot reloading via Nodemon), 📂 Directory Structure (+4 more)
+
+### Community 130 - "Community 130"
+Cohesion: 0.17
+Nodes (12): Complete Payment Flow, Concurrency Handling, Concurrency-Safe Seat Booking - Implementation Plan, Core Principle, Implementation Order, Problem Statement, Security Checklist, Solution Architecture (+4 more)
+
+### Community 131 - "Community 131"
+Cohesion: 0.18
+Nodes (11): 4. Additional Features, BookingDetailPage, Bookings, Customers, Hall Admins, HomePage, PaymentOrders, ProfilePage (+3 more)
+
+### Community 132 - "Community 132"
+Cohesion: 0.18
+Nodes (11): 2. Backend: New Booking Controller, 3. Backend: Booking Routes, 4. Backend: Register Routes, 5. Backend: Background Cleanup Job, 6. Frontend: API Service, [MODIFY] [api.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-users/src/services/api.js), [MODIFY] [server.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-api/server.js), [MODIFY] [server.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-api/server.js) (+3 more)
+
+### Community 133 - "Community 133"
+Cohesion: 0.20
+Nodes (10): 1. Install Dependencies, 2. Start Development Server, 3. Build for Production, 4. Preview Production Build Locally, 📘 Admin Documentation, ⚙️ Cinema Hall Management - Admin Panel, 🔑 Environment Setup, 🚀 Execution Instructions (+2 more)
+
+### Community 134 - "Community 134"
+Cohesion: 0.29
+Nodes (6): HomePage(), ChartTooltip(), fmt(), fmtRupee(), greeting(), statusConfig
+
+### Community 135 - "Community 135"
+Cohesion: 0.20
+Nodes (9): author, keywords, license, main, name, scripts, dev, type (+1 more)
+
+### Community 136 - "Community 136"
+Cohesion: 0.20
+Nodes (10): 1. Install Dependencies include peer dependencies, 2. Start Development Server, 3. Build for Production, 4. Preview Production Build Locally, 🎟️ Cinema Hall Ticket Booking - Customer Web App, 🎨 Core Features, 🔑 Environment Setup, 🚀 Execution Instructions (+2 more)
+
+### Community 137 - "Community 137"
+Cohesion: 0.20
+Nodes (10): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+2 more)
+
+### Community 138 - "Community 138"
+Cohesion: 0.20
+Nodes (10): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Movie Search Component, Multi-Select Mode & Bulk Actions (+2 more)
+
+### Community 139 - "Community 139"
+Cohesion: 0.20
+Nodes (10): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Environment Variables, Future Enhancements, Image Upload, Overview (+2 more)
+
+### Community 140 - "Community 140"
+Cohesion: 0.22
+Nodes (9): AuthContext State Management, Authentication Flow, Authentication System, ForgotPasswordPage, Protected Routes, RegisterPage, RegisterPage, ResetPasswordPage (+1 more)
+
+### Community 141 - "Community 141"
+Cohesion: 0.25
+Nodes (8): 1. Offers Management (SuperAdmin Only), Date Picker Implementation Note, Export — Offers Management, Feature Overview, Offer Form Fields, Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`), Sidebar Navigation, Table Columns
+
+### Community 142 - "Community 142"
+Cohesion: 0.25
+Nodes (8): Application Architecture, Authentication System, Component Hierarchy, Customer Authentication Flow, Forgot Password Flow, Overview, Route Structure, User Application Documentation
+
+### Community 143 - "Community 143"
+Cohesion: 0.33
+Nodes (3): razorpay, razorpay, razorpay
+
+### Community 144 - "Community 144"
+Cohesion: 0.48
+Nodes (5): createScreen(), deleteScreen(), editScreen(), getMyScreens(), router
+
+### Community 145 - "Community 145"
+Cohesion: 0.33
+Nodes (6): 0. Dashboard (All Admins), Features Documentation, KPI Cards, Recent Bookings, Revenue Trend Chart, Today's Shows
+
+### Community 146 - "Community 146"
+Cohesion: 0.33
+Nodes (6): API Configuration, API Service Layer, Error Handling, Export — Shared Utility, Pagination — Shared Component, Service Modules
+
+### Community 147 - "Community 147"
+Cohesion: 0.33
+Nodes (6): Booking Success Page, Data displayed, Download Ticket, Flow, Seat Label Derivation, Why query param instead of location.state?
+
+### Community 148 - "Community 148"
+Cohesion: 0.40
+Nodes (5): 1. Onboarding Page (`/onboarding`), 2. Hall Guard (`HallGuard.jsx`), 3. Hall Switcher (`HallSwitcher.jsx`), 4. Halls Management (`/halls`), VerifyEmailPage
+
+### Community 151 - "Community 151"
+Cohesion: 0.67
+Nodes (3): formatTime(), ShowPage(), STATUS_CONFIG
+
+### Community 152 - "Community 152"
+Cohesion: 0.50
+Nodes (4): Add Multiple Shows Workflow, Complete Show Creation Workflow, Screen Designer Workflow, User Workflows
+
+### Community 153 - "Community 153"
+Cohesion: 0.50
+Nodes (4): Build & Deployment, Deployment, Development, Production Build
+
+### Community 156 - "Community 156"
+Cohesion: 0.67
+Nodes (3): Application Architecture, Component Hierarchy, Route Structure
+
+### Community 157 - "Community 157"
+Cohesion: 0.67
+Nodes (3): Custom Components, shadcn/ui Components Used, UI Components
+
+### Community 158 - "Community 158"
+Cohesion: 0.67
+Nodes (3): Dark Mode Support, Styling & Theming, Tailwind Configuration
+
+### Community 159 - "Community 159"
+Cohesion: 0.67
+Nodes (3): Debouncing, Lazy Loading, Performance Optimizations
+
+### Community 160 - "Community 160"
+Cohesion: 0.67
+Nodes (3): Navigation Structure, Route Protection, Routing & Navigation
+
+### Community 161 - "Community 161"
+Cohesion: 0.67
+Nodes (3): 1. Database Schema Changes, Migration SQL (for existing data), [MODIFY] [psql.sql](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-api/psql.sql)
+
+### Community 162 - "Community 162"
+Cohesion: 0.67
+Nodes (3): Automated Testing, Manual Verification, Verification Plan
+
+### Community 163 - "Community 163"
+Cohesion: 0.67
+Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
+
 ## Knowledge Gaps
-- **234 isolated node(s):** `$schema`, `rsc`, `tsx`, `config`, `css` (+229 more)
+- **485 isolated node(s):** `$schema`, `rsc`, `tsx`, `config`, `css` (+480 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Documentation Index` connect `Admin Frontend Dependencies` to `Admin Authentication & Security`, `Customer Authentication & OTP`, `Movie Catalog & TMDB Integration`, `Admin Frontend Dependencies`, `Admin Frontend Dependencies`, `User Frontend Dependencies`, `Booking & Payment APIs`, `Admin Frontend Dependencies`, `Customer Authentication & OTP`, `Booking & Payment APIs`, `Package Dependencies`, `Booking & Payment APIs`, `Admin Frontend Dependencies`, `Customer Authentication & OTP`, `Movie Catalog & TMDB Integration`, `Booking & Payment Views`, `Movie Catalog & TMDB Integration`, `Ad Campaign Management`, `Ad Campaign Management`, `Booking & Payment Views`, `Movie Catalog & TMDB Integration`, `Booking & Payment Views`, `Booking & Payment Views`, `Booking & Payment Views`, `Application Routing & Security Guards`, `Ad Campaign Management`, `Booking & Payment Views`, `Booking & Payment Views`, `Ad Campaign Management`, `Authentication Services`, `Screen Designer & Seat Layout`, `Admin Authentication & Security`?**
-  _High betweenness centrality (0.167) - this node is a cross-community bridge._
-- **Why does `Backend API Documentation` connect `Admin Frontend Dependencies` to `Customer Authentication & OTP`, `Booking & Payment APIs`, `Admin Frontend Dependencies`, `Customer Authentication & OTP`, `Admin Frontend Dependencies`, `Ad Campaign Management`, `Package Dependencies`, `Booking & Payment APIs`, `Admin Frontend Dependencies`, `Booking & Payment Views`, `Package Module`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
-- **Why does `Admin Panel Documentation` connect `Customer Authentication & OTP` to `Admin Authentication & Security`, `Movie Catalog & TMDB Integration`, `Admin Frontend Dependencies`, `Admin Frontend Dependencies`, `User Frontend Dependencies`, `Admin Frontend Dependencies`, `Booking & Payment APIs`, `Admin Frontend Dependencies`, `Admin Frontend Dependencies`, `Movie Catalog & TMDB Integration`, `Booking & Payment Views`, `Ad Campaign Management`, `Booking & Payment Views`, `Screen Designer & Seat Layout`, `Booking & Payment Views`, `Booking & Payment Views`, `Ad Campaign Management`, `Booking & Payment Views`, `Booking & Payment Views`, `Ad Campaign Management`, `Authentication Services`, `Screen Designer & Seat Layout`, `Admin UI Components`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
-- **Are the 115 inferred relationships involving `Documentation Index` (e.g. with `components` and `hooks`) actually correct?**
-  _`Documentation Index` has 115 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 106 inferred relationships involving `Admin Panel Documentation` (e.g. with `components` and `utils`) actually correct?**
-  _`Admin Panel Documentation` has 106 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 80 inferred relationships involving `User Application Documentation` (e.g. with `components` and `style`) actually correct?**
-  _`User Application Documentation` has 80 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 59 inferred relationships involving `⚙️ Cinema Hall Management - Admin Panel` (e.g. with `components` and `utils`) actually correct?**
-  _`⚙️ Cinema Hall Management - Admin Panel` has 59 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 8`, `Community 140`, `Community 145`, `Community 146`, `Community 152`, `Community 153`, `Community 156`, `Community 157`, `Community 158`, `Community 159`?**
+  _High betweenness centrality (0.126) - this node is a cross-community bridge._
+- **Why does `Features Documentation` connect `Community 145` to `Community 131`, `Community 137`, `Community 138`, `Community 139`, `Community 141`, `Community 126`, `Community 127`?**
+  _High betweenness centrality (0.092) - this node is a cross-community bridge._
+- **Why does `Concurrency-Safe Seat Booking - Implementation Plan` connect `Community 130` to `Community 162`, `Community 163`, `Community 132`, `Community 10`, `Community 48`, `Community 147`?**
+  _High betweenness centrality (0.063) - this node is a cross-community bridge._
+- **Are the 5 inferred relationships involving `dependencies` (e.g. with `README.md` and `README.md`) actually correct?**
+  _`dependencies` has 5 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 5 inferred relationships involving `dependencies` (e.g. with `README.md` and `README.md`) actually correct?**
+  _`dependencies` has 5 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 5 inferred relationships involving `dependencies` (e.g. with `README.md` and `README.md`) actually correct?**
+  _`dependencies` has 5 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `$schema`, `rsc`, `tsx` to the rest of the system?**
+  _485 weakly-connected nodes found - possible documentation gaps or missing edges._

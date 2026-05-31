@@ -3,3 +3,5 @@ graphify-out/.graphify_python
 graphify-out/cache/
 graphify-out/obsidian/
 graphify-out/*.canvas
+graphify-out/.graphify_labels.json
+graphify-out/.graphify_root

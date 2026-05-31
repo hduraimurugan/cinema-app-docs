@@ -13,6 +13,192 @@ Quick reference for all documentation files in this folder.
 
 ---
 
+## 🏗️ System Architecture Overview
+
+This section details the actual architecture, module dependencies, and data flows discovered during the static analysis and Graphify knowledge mapping of the Cinema Hall Ticket Booking codebase.
+
+### 1. System Architecture
+
+The application is structured as a **decoupled multi-package monorepo** consisting of three primary operational tiers:
+
+```mermaid
+graph TD
+    subgraph Clients [Frontend Client Tier]
+        UserApp["🎟️ User Client (cinema-hall-users)"]
+        AdminApp["⚙️ Admin Panel (cinema-hall-admin)"]
+    end
+    
+    subgraph API [Application Tier - Express API]
+        Server[server.js]
+        Routes[API Router Layer]
+        Middleware[Security & Verification Middleware]
+        Controllers[Controller Layer]
+        Logger[Winston Logger / Sentry]
+    end
+    
+    subgraph Storage [Data Tier]
+        DB[(PostgreSQL Database)]
+    end
+    
+    subgraph Services [External Integration Services]
+        Razorpay[Razorpay Payment Gateway]
+        SMTP[Nodemailer Email Server]
+        Cloudinary[Cloudinary CDN]
+        TMDB[TMDB Metadata Engine]
+    end
+
+    UserApp -->|Axios HTTP / HTTPS| Server
+    AdminApp -->|Axios HTTP / HTTPS| Server
+    
+    Server --> Routes
+    Routes --> Middleware
+    Middleware --> Controllers
+    Controllers -->|node-postgres Client Pool| DB
+    
+    Controllers --> Razorpay
+    Controllers --> SMTP
+    Controllers --> Cloudinary
+    Controllers --> TMDB
+```
+
+- **Frontend Client Tier**: Twin React 18 SPAs compiled via Vite and styled with Tailwind CSS + shadcn/ui.
+  - *User App* (Port 5173): Enables customer movie exploration, location-based cinema navigation, interactive seat selection, and order processing.
+  - *Admin App* (Port 5174): Exposes analytics dashboard, movie database CRUD, bulk show scheduling, ads manager, and interactive drag-and-drop screen layout designer.
+- **Application Tier**: Express.js REST API server. Handles route routing, validation rules, authentication enforcement, Sentry logging, and external HTTP integrations.
+- **Data Tier**: Relational PostgreSQL database (Neon serverless in production, local PostgreSQL for development). Features transactional isolation, triggers (e.g. show overlap validation), and relational indexes.
+- **External Integration Services**:
+  - *Razorpay*: Handles payment creation, signature verification, and automated/manual refunds.
+  - *Nodemailer*: Delivers transactional OTP codes and security warnings.
+  - *Cloudinary*: Manages image uploads for movie posters and advertisement assets.
+  - *TMDB API*: Synchronizes popular, upcoming, and detailed movie profiles.
+
+---
+
+### 2. Module Dependency Structure
+
+Graphify analysis grouped the system into distinct functional communities based on symbol calling patterns:
+
+| Community / Module Group | Core Files | Architectural Role | Dependencies |
+| :--- | :--- | :--- | :--- |
+| **Database Core** | `db.js`, `server.js` | Connection pool registry for PostgreSQL. | None (Base layer) |
+| **Booking & Payment core** | `booking.Controller.js`, `payment.Controller.js`, `refund.Controller.js` | Manages seat holdings, tickets, webhook verification, and refund logging. | `db.js`, `booking.Controller.js` (cross-references holds) |
+| **Authentication & Security** | `auth.Controller.js`, `customerAuth.Controller.js`, `otp.Controller.js` | Enforces lockout rules, email verification tokens, and OTP generation. | `db.js`, `generatetokenandsetcookie.js`, `mail/emails.js` |
+| **Catalog & Scheduling** | `movies.Controller.js`, `shows.Controller.js`, `userMovies.Controller.js` | Movie lists, screen layouts, active offers validation, and showtime listings. | `db.js`, `tmdb.Controller.js` |
+| **Admin Client Interface** | `src/context/HallContext.jsx`, `src/services/api.js` | Multi-hall active switching context and Admin API client layer. | `axios` |
+| **User Client Interface** | `src/hooks/useRazorpayPayment.js`, `src/services/api.js` | Handles local client states, checkout hooks, and user API services. | `axios` |
+
+---
+
+### 3. Frontend/Backend Communication Flow
+
+Communication between the React frontends and Express API is strictly stateless and flows through a custom API service layer:
+
+```
+[React Views (JSX)]
+       │ (calls hooks/handlers)
+       ▼
+[src/services/api.js] (Axios Instances)
+       │ (sends HTTP Requests with Cookies/Tokens)
+       ▼
+[server.js (Express Core)]
+       │ (checks CORS & runs Parser middlewares)
+       ▼
+[routes/*.routes.js]
+       │ (attaches verify middlewares)
+       ▼
+[middleware/verifyCinemaAdmin.js / verifyCustomer.js]
+       │ (extracts JWT, checks session validity)
+       ▼
+[controllers/*.Controller.js] (Runs business logic, queries DB)
+```
+
+- **Authentication Tokens**: Access tokens are carried as bearer parameters/cookies, while refresh tokens are stored in secure `httpOnly` cookies and checked against database-stored session revocation hashes (`admin_sessions` and `customer_sessions` tables).
+- **Unified Base Route**: Admin API requests are mapped to `/api/dashboard`, `/api/halls`, `/api/screens`, `/api/shows`, while Customer requests hit `/api/user/movies`, `/api/booking`, `/api/payment`, and `/api/offers`.
+
+---
+
+### 4. Shared Components
+
+To ensure compatibility, consistency, and avoid duplicate implementations, key components are shared or replicated with identical validation schemas across packages:
+
+- **Password Policy Engine** (`passwordPolicy.js`):
+  - Backend validation (`cinema-hall-api/utils/passwordPolicy.js`) enforces standard password metrics (8+ chars, uppercase, lowercase, digit, special char).
+  - Frontend checklist (`cinema-hall-admin/src/utils/passwordPolicy.js` and `cinema-hall-users/src/utils/passwordPolicy.js`) renders a live status checklist on signup/reset forms.
+- **Movie Search Autocomplete Dropdown** (`MovieSearchDropdown.jsx`):
+  - Used in admin scheduling pages (`AddShowPage.jsx`, `EditShowPage.jsx`, `AddMultipleShowsPage.jsx`) to fetch matching TMDB movies, auto-populating metadata and screen pricing fields.
+- **Leaflet Mapping Interface** (Leaflet Maps Integration):
+  - Used in admin onboarding (`OnboardingPage.jsx`) and admin profiles (`ProfilePage.jsx`) to pin geolocation coordinates, which are then queried by the customer app to list theatres near them.
+
+---
+
+### 5. Authentication Flows
+
+The project separates Admin and Customer auth flows, with a strong focus on security (lockouts, OTP, session verification):
+
+```
+CUSTOMER SIGNUP/LOGIN FLOW:
+Customer Request OTP ──> Generate OTP (SHA-256) ──> Send Email ──> Customer Submits Code
+                                                                          │
+Customer Locked Out <── Failed (>5 Attempts) <── Verify Hash <────────────┘
+                                                   │
+  Customer Profile <── Generate JWT Token (30d) <──┘
+```
+
+- **Customer Auth**:
+  - OTP verification uses temporary SHA-256 hashes (`otp_verifications` table). Codes expire quickly and are limited to 3 sends per 10 minutes.
+  - Locking mechanisms track failed attempts. When an account is locked, logins return a specific unlock timer and a warning banner.
+- **Admin Auth**:
+  - Requires email verification via custom tokens (`admin_verification_tokens`). Unverified admins are blocked from accessing hall-related routes by `HallGuard.jsx`.
+  - Admin login supports brute-force protection with lockouts scaling up (15 mins -> 60 mins -> 24 hours).
+
+---
+
+### 6. Data Flows
+
+#### A. Concurrency-Safe Seat Hold and Ticket Booking
+
+To prevent double-booking, the booking process implements a two-stage transaction flow using seat holds and database table-level checks:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Customer
+    participant Frontend as User Frontend
+    participant API as Express API
+    participant DB as PostgreSQL DB
+    participant Razorpay as Razorpay API
+
+    Customer->>Frontend: Select Seats (SeatSelectionPage)
+    Frontend->>API: POST /api/booking/hold (Seats + Show ID)
+    API->>DB: Check holds/bookings & INSERT into holds (5-min expiry)
+    API-->>Frontend: Hold successful (starts checkout timer)
+    Customer->>Frontend: Apply Coupon & Click Pay
+    Frontend->>API: POST /api/payment/create-order
+    API->>Razorpay: Generate Razorpay Order (with discount subtraction)
+    Razorpay-->>API: Return Order ID (order_xxx)
+    API-->>Frontend: Send Order ID
+    Frontend->>Customer: Display Razorpay Checkout Modal
+    Customer->>Razorpay: Complete Payment
+    Razorpay-->>Customer: Payment signature
+    Customer->>Frontend: Return Payment ID (pay_xxx)
+    Frontend->>API: POST /api/payment/verify (Signature details)
+    API->>DB: BEGIN Transaction (FOR UPDATE locking)
+    API->>DB: Verify Payment Signature & check unique payment_id
+    API->>DB: INSERT into bookings & Update holds status
+    API->>DB: COMMIT Transaction
+    API-->>Frontend: Success Response (booking_id)
+    Frontend-->>Customer: Display Booking Success Page & QR Ticket
+```
+
+#### B. Show Cancellation and Refund Flow
+- Admin cancels a show (`ShowsManagement.jsx` -> `POST /api/shows/cancel/:id`).
+- Backend queries the show's database record to fetch booking counts, convenience fees, and total revenue.
+- Transaction initiates refunds for all linked customer payments via the Razorpay Refund API.
+- Logs a refund record in the `refunds` table, indicating "refund_initiated" or "refund_failed" status.
+- A Webhook listener (`POST /api/payment/verify`) updates the refund status to "refund_processed" on transaction settlement.
+
+---
+
 ## Key API Endpoints Quick Reference
 
 | Method | Endpoint                               | Description                                                                                                                         |
