@@ -27,15 +27,97 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";   -- provides gen_random_uuid()
 -- ---------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS cinema_admin_user (
-  id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
-  email      TEXT        UNIQUE NOT NULL,
-  password   TEXT        NOT NULL,
-  name       TEXT        NOT NULL,
-  phone      TEXT,
-  role       VARCHAR(20) NOT NULL DEFAULT 'admin'
-               CHECK (role IN ('admin', 'superAdmin')),
-  created_at TIMESTAMPTZ DEFAULT now()
+  id                      UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  email                   TEXT        UNIQUE NOT NULL,
+  password                TEXT        NOT NULL,
+  name                    TEXT        NOT NULL,
+  phone                   TEXT,
+  role                    VARCHAR(20) NOT NULL DEFAULT 'admin'
+                            CHECK (role IN ('admin', 'superAdmin')),
+  email_verified          BOOLEAN     NOT NULL DEFAULT FALSE,
+  email_verified_at       TIMESTAMPTZ,
+  failed_login_attempts   INT         NOT NULL DEFAULT 0,
+  account_locked_until    TIMESTAMPTZ,
+  password_changed_at     TIMESTAMPTZ,
+  last_login_at           TIMESTAMPTZ,
+  created_at              TIMESTAMPTZ DEFAULT now()
 );
+
+-- Add auth-security columns to existing cinema_admin_user rows (idempotent)
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS email_verified        BOOLEAN     NOT NULL DEFAULT FALSE;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS email_verified_at     TIMESTAMPTZ;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS failed_login_attempts INT         NOT NULL DEFAULT 0;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS account_locked_until  TIMESTAMPTZ;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS password_changed_at   TIMESTAMPTZ;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS last_login_at         TIMESTAMPTZ;
+
+-- Mark all pre-existing admins as email-verified on fresh install
+-- (They registered before this feature existed and have no verification token)
+UPDATE cinema_admin_user
+  SET email_verified = TRUE, email_verified_at = now()
+  WHERE email_verified = FALSE;
+
+-- ── Admin email-verification tokens ───────────────────────────────────────
+-- Raw token sent in email; only the SHA-256 hash is stored here.
+CREATE TABLE IF NOT EXISTS admin_verification_tokens (
+  id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_id   UUID        NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  token_hash TEXT        NOT NULL UNIQUE,
+  expires_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_admin_verification_tokens_admin_id
+  ON admin_verification_tokens(admin_id);
+
+-- ── Admin password-reset tokens ─────────────────────────────────────────────
+-- Single-use; marked used = TRUE after redemption.
+CREATE TABLE IF NOT EXISTS admin_password_reset_tokens (
+  id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_id   UUID        NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  token_hash TEXT        NOT NULL UNIQUE,
+  expires_at TIMESTAMPTZ NOT NULL,
+  used       BOOLEAN     NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_admin_password_reset_tokens_admin_id
+  ON admin_password_reset_tokens(admin_id);
+
+-- ── Admin sessions (server-side refresh token store) ────────────────────────
+-- Enables logout-all-devices and token revocation.
+CREATE TABLE IF NOT EXISTS admin_sessions (
+  id                 UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_id           UUID        NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  refresh_token_hash TEXT        NOT NULL UNIQUE,
+  ip_address         TEXT,
+  user_agent         TEXT,
+  created_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+  last_used_at       TIMESTAMPTZ NOT NULL DEFAULT now(),
+  is_revoked         BOOLEAN     NOT NULL DEFAULT FALSE
+);
+
+CREATE INDEX IF NOT EXISTS idx_admin_sessions_admin_id
+  ON admin_sessions(admin_id);
+CREATE INDEX IF NOT EXISTS idx_admin_sessions_token_hash
+  ON admin_sessions(refresh_token_hash) WHERE is_revoked = FALSE;
+
+-- ── Admin security audit log ─────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS admin_security_logs (
+  id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_id   UUID        REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
+  action     TEXT        NOT NULL,
+  ip_address TEXT,
+  user_agent TEXT,
+  metadata   JSONB,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_admin_security_logs_admin_id
+  ON admin_security_logs(admin_id);
+CREATE INDEX IF NOT EXISTS idx_admin_security_logs_created_at
+  ON admin_security_logs(created_at DESC);
+
 
 CREATE TABLE IF NOT EXISTS cinema_hall (
   id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -399,12 +481,14 @@ ON CONFLICT (key) DO NOTHING;
 -- Run AFTER this script. Replace the hash with one generated by:
 --   node -e "import('bcrypt').then(b => b.default.hash('YourPassword', 10).then(console.log))"
 --
--- INSERT INTO cinema_admin_user (email, password, name, phone, role)
+-- INSERT INTO cinema_admin_user (email, password, name, phone, role, email_verified, email_verified_at)
 -- VALUES (
 --   'superadmin@cinemahall.com',
 --   '$2b$10$<your-bcrypt-hash-here>',
 --   'Super Admin',
 --   '9999999999',
---   'superAdmin'
+--   'superAdmin',
+--   TRUE,
+--   now()
 -- );
 -- =============================================================================
