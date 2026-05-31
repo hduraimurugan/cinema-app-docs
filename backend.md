@@ -22,6 +22,10 @@ The Cinema Hall Ticket Booking backend is built with **Express.js** and **Postgr
 ```mermaid
 erDiagram
     cinema_admin_user ||--o{ cinema_hall : "owns"
+    cinema_admin_user ||--o{ admin_verification_tokens : "verifies via"
+    cinema_admin_user ||--o{ admin_password_reset_tokens : "resets via"
+    cinema_admin_user ||--o{ admin_sessions : "has sessions"
+    cinema_admin_user ||--o{ admin_security_logs : "audited by"
     cinema_hall ||--o{ screens : "contains"
     screens ||--o{ shows : "hosts"
     movies ||--o{ shows : "featured in"
@@ -52,6 +56,50 @@ erDiagram
         text name
         text phone
         text role
+        boolean email_verified
+        timestamptz email_verified_at
+        int failed_login_attempts
+        timestamptz account_locked_until
+        timestamptz password_changed_at
+        timestamptz last_login_at
+        timestamptz created_at
+    }
+
+    admin_verification_tokens {
+        uuid id PK
+        uuid admin_id FK
+        text token_hash UK
+        timestamptz expires_at
+        timestamptz created_at
+    }
+
+    admin_password_reset_tokens {
+        uuid id PK
+        uuid admin_id FK
+        text token_hash UK
+        boolean used
+        timestamptz expires_at
+        timestamptz created_at
+    }
+
+    admin_sessions {
+        uuid id PK
+        uuid admin_id FK
+        text refresh_token_hash
+        text ip_address
+        text user_agent
+        boolean is_revoked
+        timestamptz last_used_at
+        timestamptz created_at
+    }
+
+    admin_security_logs {
+        uuid id PK
+        uuid admin_id FK
+        text action
+        text ip_address
+        text user_agent
+        jsonb metadata
         timestamptz created_at
     }
 
@@ -348,19 +396,26 @@ sequenceDiagram
 
 ### Token Strategy
 
-| Token Type       | Cookie Name       | Expiry | Purpose            |
-| ---------------- | ----------------- | ------ | ------------------ |
-| Admin Access     | `accessToken`     | 1 day  | API authentication |
-| Admin Refresh    | `refreshToken`    | 7 days | Token renewal      |
-| Customer Access  | `cusAccessToken`  | 1 day  | API authentication |
-| Customer Refresh | `cusRefreshToken` | 7 days | Token renewal      |
+| Token Type       | Cookie Name       | Expiry  | Purpose                              |
+| ---------------- | ----------------- | ------- | ------------------------------------ |
+| Admin Access     | `accessToken`     | 1 day   | API authentication                   |
+| Admin Refresh    | `refreshToken`    | 30 days | Token renewal (hash stored in DB)    |
+| Customer Access  | `cusAccessToken`  | 1 day   | API authentication                   |
+| Customer Refresh | `cusRefreshToken` | 7 days  | Token renewal                        |
 
 **Security Features:**
 
 - HttpOnly cookies (prevents XSS)
 - SameSite policy (production: `None`, dev: `Lax`)
 - Secure flag in production
-- Bcrypt password hashing (10 rounds)
+- Bcrypt password hashing (12 rounds)
+- Refresh tokens stored as **SHA-256 hashes** in `admin_sessions` — raw token never persisted
+- Server-side session revocation — refresh token checked against `admin_sessions.is_revoked` on every use
+- **Brute-force lockout**: 5 attempts → 15 min, 10 → 60 min, 15 → 24 hrs
+- **Email verification** required before first login
+- **Password policy**: min 8 chars, uppercase, lowercase, digit, special character
+- Reset/change password revokes all other sessions
+- Full security audit log in `admin_security_logs`
 
 ---
 
@@ -368,16 +423,26 @@ sequenceDiagram
 
 ### Admin Authentication (`/api/auth`)
 
-| Method | Endpoint    | Auth          | Description                         |
-| ------ | ----------- | ------------- | ----------------------------------- |
-| POST   | `/register` | None          | Register cinema admin (credentials only) |
-| POST   | `/login`    | None          | Login admin                         |
-| POST   | `/logout`   | None          | Clear auth cookies                  |
-| GET    | `/me`       | Access Token  | Get logged-in admin + hall info     |
-| POST   | `/refresh`  | Refresh Token | Refresh access token                |
-| PATCH  | `/hall`     | Access Token  | Update cinema hall details + coordinates |
+| Method | Endpoint               | Auth          | Description                                               |
+| ------ | ---------------------- | ------------- | --------------------------------------------------------- |
+| POST   | `/register`            | None          | Register admin — sends verification email                 |
+| GET    | `/verify-email`        | None          | Verify email via token from link                          |
+| POST   | `/resend-verification` | None          | Resend verification email (2-min rate limit)              |
+| POST   | `/login`               | None          | Login (blocked if unverified or locked)                   |
+| POST   | `/logout`              | None          | Clear cookies + revoke session                            |
+| POST   | `/logout-all`          | Access Token  | Revoke ALL sessions for this admin                        |
+| GET    | `/me`                  | Access Token  | Get logged-in admin + hall + security fields              |
+| POST   | `/refresh`             | Refresh Token | Refresh access token (revocation-checked)                 |
+| PATCH  | `/hall`                | Access Token  | Update cinema hall details + coordinates                  |
+| POST   | `/forgot-password`     | None          | Send password reset email (generic response always)       |
+| POST   | `/reset-password`      | None          | Set new password via reset token (revokes all sessions)   |
+| POST   | `/change-password`     | Access Token  | Change password while logged in (revokes other sessions)  |
+| GET    | `/security`            | Access Token  | Get security info: sessions, logs, lockout, verified status |
+| GET    | `/admins`              | SuperAdmin    | List all cinema hall admins with hall info                |
 
 #### POST `/api/auth/register`
+
+Registers a new admin account. Sets `email_verified = FALSE` and sends a verification email. Password must meet the policy (8+ chars, uppercase, lowercase, digit, special character).
 
 **Request Body:**
 
@@ -385,7 +450,7 @@ sequenceDiagram
 {
   "name": "John Doe",
   "email": "admin@cinema.com",
-  "password": "securepass123",
+  "password": "SecurePass@1",
   "phone": "+1234567890"
 }
 ```
@@ -394,7 +459,7 @@ sequenceDiagram
 
 ```json
 {
-  "message": "Cinema admin registered successfully!",
+  "message": "Account created. Please check your email to verify your account.",
   "admin": {
     "id": "uuid",
     "name": "John Doe",
@@ -402,6 +467,77 @@ sequenceDiagram
     "phone": "+1234567890",
     "created_at": "2024-01-29T10:00:00Z"
   }
+}
+```
+
+#### GET `/api/auth/verify-email?token=<token>`
+
+Verifies email using the token from the verification link. Token is SHA-256 hashed and looked up in `admin_verification_tokens`. Atomically marks `email_verified = TRUE` and deletes the token.
+
+**Response (200):** `{ "message": "Email verified successfully. You can now log in." }`
+
+**Error codes**: `INVALID_TOKEN` (400), `TOKEN_EXPIRED` (400)
+
+#### POST `/api/auth/resend-verification`
+
+Resends a verification email. Rate-limited to one email per 2 minutes. Always returns the same generic response whether or not the account exists, to prevent enumeration.
+
+**Request Body:** `{ "email": "admin@cinema.com" }`
+
+**Response (200):** `{ "message": "If an unverified account with that email exists, a verification email has been sent." }`
+
+#### POST `/api/auth/forgot-password`
+
+Sends a password reset link via email. Token valid for 15 minutes. Only sent if account exists AND is email-verified. Always returns a generic response to prevent user enumeration.
+
+**Request Body:** `{ "email": "admin@cinema.com" }`
+
+**Response (200):** `{ "message": "If an account with that email exists, a password reset link has been sent." }`
+
+#### POST `/api/auth/reset-password`
+
+Resets password using the token from the reset link. Prevents reuse of the same password. Revokes ALL sessions on success (forces re-login everywhere).
+
+**Request Body:** `{ "token": "<raw-token>", "newPassword": "NewPass@1" }`
+
+**Error codes**: `INVALID_TOKEN`, `TOKEN_USED`, `TOKEN_EXPIRED`
+
+**Response (200):** `{ "message": "Password reset successfully. Please log in with your new password." }`
+
+#### POST `/api/auth/change-password`
+
+Changes password for the currently logged-in admin. Verifies the current password, enforces the new password policy, and revokes all **other** sessions (current session remains active).
+
+**Request Body:** `{ "currentPassword": "OldPass@1", "newPassword": "NewPass@2" }`
+
+**Response (200):** `{ "message": "Password changed successfully." }`
+
+#### POST `/api/auth/logout-all`
+
+Revokes ALL active sessions for the admin. Clears cookies. Admin must re-login on all devices.
+
+**Response (200):** `{ "message": "Signed out from all devices." }`
+
+#### GET `/api/auth/security`
+
+Returns a comprehensive security snapshot for the logged-in admin.
+
+**Response (200):**
+
+```json
+{
+  "emailVerified": true,
+  "emailVerifiedAt": "2026-05-31T10:00:00Z",
+  "failedLoginAttempts": 0,
+  "accountLockedUntil": null,
+  "passwordChangedAt": "2026-05-31T10:00:00Z",
+  "lastLoginAt": "2026-05-31T10:00:00Z",
+  "activeSessions": [
+    { "id": "uuid", "ip_address": "1.2.3.4", "user_agent": "...", "created_at": "...", "last_used_at": "..." }
+  ],
+  "recentLogs": [
+    { "action": "LOGIN_SUCCESS", "ip_address": "1.2.3.4", "metadata": {}, "created_at": "..." }
+  ]
 }
 ```
 
@@ -464,19 +600,20 @@ Updates the logged-in admin's cinema hall details. Requires `Access Token`.
     "email": "admin@cinema.com",
     "phone": "+1234567890",
     "role": "admin",
+    "email_verified": true,
     "created_at": "2024-01-29T10:00:00Z"
   },
-  "hall": {
-    "id": "uuid",
-    "name": "Grand Cinema",
-    "location": "Downtown Plaza",
-    "district": "Mumbai",
-    "state": "Maharashtra",
-    "latitude": 19.07609,
-    "longitude": 72.877426,
-    "created_at": "2024-01-29T10:00:00Z"
-  }
+  "hall": { "..." }
 }
+```
+
+**Error codes:**
+
+| HTTP | Code | Condition |
+|------|------|-----------|
+| 401  | — | Wrong password / unknown email |
+| 403  | `EMAIL_NOT_VERIFIED` | Account not yet verified |
+| 423  | `ACCOUNT_LOCKED` | Too many failed attempts; includes `lockedUntil` timestamp |
 ```
 
 ---
@@ -3011,4 +3148,4 @@ Returns `400` if already settled.
 
 ---
 
-**Last Updated**: May 24, 2026 — Multi-Hall Support: Refactored database and API to support multiple cinema halls per admin. Simplified registration flow to collect admin credentials only, leaving hall creation to a dedicated onboarding flow or the new `/api/halls` endpoint group. Added a `halls` API group for full cinema hall CRUD operations, complete with location coordinates, phone numbers, descriptions, and activation statuses.
+**Last Updated**: May 31, 2026 — Admin Auth Security Upgrade: Complete auth system overhaul with email verification, forgot/reset password, change password, brute-force lockout (5→15min, 10→60min, 15→24hr), server-side session revocation via `admin_sessions` table (refresh tokens stored as SHA-256 hashes), password policy enforcement (8+ chars, uppercase, lowercase, digit, special char), full security audit log (`admin_security_logs`), 7 new auth routes, 4 new DB tables, `nodemailer` dependency added. Environment variables `ADMIN_FRONTEND_URL=http://localhost:5174` and `USER_FRONTEND_URL=http://localhost:5173` added.

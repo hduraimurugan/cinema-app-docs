@@ -2,56 +2,66 @@
 
 Quick reference for all documentation files in this folder.
 
-| File | Description | Key Topics |
-|------|-------------|------------|
-| [README.md](./README.md) | Project overview and navigation guide | Tech stack, quick start, doc structure |
-| [backend.md](./backend.md) | Backend API reference | All endpoints, DB schema, auth, middleware, payment integration, Sentry monitoring, Winston logging |
-| [users.md](./users.md) | User frontend documentation | Pages, components, auth flow, booking + payment flow |
-| [admin.md](./admin.md) | Admin panel documentation | Movie management, screen designer, show scheduling, bookings overview |
-| [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page, idempotency walkthrough |
-| [db_setup.sql](./db_setup.sql) | One-shot idempotent DB setup script | Full schema for both local PostgreSQL and Neon; run to create or update any DB |
+| File                                                                                | Description                            | Key Topics                                                                                          |
+| ----------------------------------------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| [README.md](./README.md)                                                               | Project overview and navigation guide  | Tech stack, quick start, doc structure                                                              |
+| [backend.md](./backend.md)                                                             | Backend API reference                  | All endpoints, DB schema, auth, middleware, payment integration, Sentry monitoring, Winston logging |
+| [users.md](./users.md)                                                                 | User frontend documentation            | Pages, components, auth flow, booking + payment flow                                                |
+| [admin.md](./admin.md)                                                                 | Admin panel documentation              | Movie management, screen designer, show scheduling, bookings overview                               |
+| [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page, idempotency walkthrough          |
+| [db_setup.sql](./db_setup.sql)                                                         | One-shot idempotent DB setup script    | Full schema for both local PostgreSQL and Neon; run to create or update any DB                      |
 
 ---
 
 ## Key API Endpoints Quick Reference
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/booking/hold` | Hold seats (5-min lock) |
-| POST | `/api/payment/create-order` | Create Razorpay order |
-| POST | `/api/payment/verify` | Verify signature + confirm booking |
-| GET | `/api/booking/by-payment/:id` | Fetch booking by payment_id (success page) |
-| GET | `/api/booking/my-bookings` | List all bookings for logged-in customer (includes refund status via LEFT JOIN) |
-| GET | `/api/booking/admin/all` | List all bookings for admin's cinema hall (with filters) |
-| GET | `/api/booking/admin/verify/:id` | Verify a booking by UUID — admin QR scan; includes refund fields |
-| GET | `/api/shows/booking-count/:id` | Confirmed booking count + total refund amount for a show (used by cancel dialog) |
-| GET | `/api/refunds` | List all refunds for admin's cinema hall (filterable by status, paginated) |
-| GET | `/api/refunds/booking/:booking_id` | Get refund record for a specific booking |
-| POST | `/api/refunds/:refund_id/settle` | Manually mark a refund as settled |
-| GET | `/api/ads/active?placement=` | Fetch currently active ads by placement (`banner` or `side`) — public |
-| POST | `/api/ads/click/:id` | Record a click-through on an ad (optional customer auth) |
-| GET | `/api/ads` | List all ads with click counts — SuperAdmin only |
-| GET | `/api/ads/:id/clicks` | List click-through details (customer name/email/phone, timestamp) — SuperAdmin only |
-| GET | `/api/offers/active` | List active, eligible, non-expired offers for the logged-in customer |
-| POST | `/api/offers/validate` | Validate a coupon code + calculate discount preview (customer auth) |
-| GET | `/api/offers` | List all offers with filters — SuperAdmin only |
-| GET | `/api/offers/:id` | Fetch single offer by ID — SuperAdmin only (used by edit page) |
-| POST | `/api/offers/create` | Create a new offer — SuperAdmin only |
-| PUT | `/api/offers/update/:id` | Update an offer — SuperAdmin only |
-| DELETE | `/api/offers/delete/:id` | Delete an offer — SuperAdmin only |
-| GET | `/api/payment/admin/orders` | List all payment orders for admin's cinema hall (with filters) |
-| POST | `/api/booking/release` | Release held seats |
-| GET | `/api/shows/get/:id` | Get show with seat layout |
-| GET | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage) |
-| GET | `/api/customers` | List all platform customers with search + pagination — SuperAdmin only |
-| GET | `/api/auth/admins` | List all cinema hall admins with their hall info — SuperAdmin only |
-| GET | `/api/dashboard/stats` | All dashboard metrics in one call (today stats, 7-day trend, recent bookings, today's shows) — Admin + Cinema Hall required |
-| GET | `/api/cron/jobs` | Vercel Cron endpoint — runs `cleanupExpiredHolds` + `updateShowStatuses`; protected by `Authorization: Bearer <CRON_SECRET>` |
-| PATCH | `/api/auth/hall` | Update cinema hall name, address, state, district, latitude, longitude — Admin auth required |
-| GET | `/api/halls` | Get all cinema halls owned by the logged-in admin |
-| POST | `/api/halls` | Create a new cinema hall |
-| PUT | `/api/halls/:id` | Update an existing cinema hall (must own the hall) |
-| DELETE | `/api/halls/:id` | Delete a cinema hall (cascades to screens/shows/bookings) |
+| Method | Endpoint                               | Description                                                                                                                         |
+| ------ | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| POST   | `/api/auth/register`                 | Register admin (sends verification email)                                                                                           |
+| GET    | `/api/auth/verify-email?token=`      | Verify email from link                                                                                                              |
+| POST   | `/api/auth/resend-verification`      | Resend verification email                                                                                                           |
+| POST   | `/api/auth/login`                    | Login (blocked if unverified/locked)                                                                                                |
+| POST   | `/api/auth/logout`                   | Logout + revoke session                                                                                                             |
+| POST   | `/api/auth/logout-all`               | Revoke ALL sessions                                                                                                                 |
+| POST   | `/api/auth/forgot-password`          | Send reset link                                                                                                                     |
+| POST   | `/api/auth/reset-password`           | Set new password via token                                                                                                          |
+| POST   | `/api/auth/change-password`          | Change password while logged in                                                                                                     |
+| GET    | `/api/auth/security`                 | Security info: sessions, logs, lockout                                                                                              |
+| POST   | `/api/booking/hold`                  | Hold seats (5-min lock)                                                                                                             |
+| POST   | `/api/payment/create-order`          | Create Razorpay order                                                                                                               |
+| POST   | `/api/payment/verify`                | Verify signature + confirm booking                                                                                                  |
+| GET    | `/api/booking/by-payment/:id`        | Fetch booking by payment_id (success page)                                                                                          |
+| GET    | `/api/booking/my-bookings`           | List all bookings for logged-in customer (includes refund status via LEFT JOIN)                                                     |
+| GET    | `/api/booking/admin/all`             | List all bookings for admin's cinema hall (with filters)                                                                            |
+| GET    | `/api/booking/admin/verify/:id`      | Verify a booking by UUID — admin QR scan; includes refund fields                                                                   |
+| GET    | `/api/shows/booking-count/:id`       | Confirmed booking count + total refund amount for a show (used by cancel dialog)                                                    |
+| GET    | `/api/refunds`                       | List all refunds for admin's cinema hall (filterable by status, paginated)                                                          |
+| GET    | `/api/refunds/booking/:booking_id`   | Get refund record for a specific booking                                                                                            |
+| POST   | `/api/refunds/:refund_id/settle`     | Manually mark a refund as settled                                                                                                   |
+| GET    | `/api/ads/active?placement=`         | Fetch currently active ads by placement (`banner` or `side`) — public                                                          |
+| POST   | `/api/ads/click/:id`                 | Record a click-through on an ad (optional customer auth)                                                                            |
+| GET    | `/api/ads`                           | List all ads with click counts — SuperAdmin only                                                                                   |
+| GET    | `/api/ads/:id/clicks`                | List click-through details (customer name/email/phone, timestamp) — SuperAdmin only                                                |
+| GET    | `/api/offers/active`                 | List active, eligible, non-expired offers for the logged-in customer                                                                |
+| POST   | `/api/offers/validate`               | Validate a coupon code + calculate discount preview (customer auth)                                                                 |
+| GET    | `/api/offers`                        | List all offers with filters — SuperAdmin only                                                                                     |
+| GET    | `/api/offers/:id`                    | Fetch single offer by ID — SuperAdmin only (used by edit page)                                                                     |
+| POST   | `/api/offers/create`                 | Create a new offer — SuperAdmin only                                                                                               |
+| PUT    | `/api/offers/update/:id`             | Update an offer — SuperAdmin only                                                                                                  |
+| DELETE | `/api/offers/delete/:id`             | Delete an offer — SuperAdmin only                                                                                                  |
+| GET    | `/api/payment/admin/orders`          | List all payment orders for admin's cinema hall (with filters)                                                                      |
+| POST   | `/api/booking/release`               | Release held seats                                                                                                                  |
+| GET    | `/api/shows/get/:id`                 | Get show with seat layout                                                                                                           |
+| GET    | `/api/user/movies/location/theatres` | Cinema halls with movies + shows for a date (TheatresPage)                                                                          |
+| GET    | `/api/customers`                     | List all platform customers with search + pagination — SuperAdmin only                                                             |
+| GET    | `/api/auth/admins`                   | List all cinema hall admins with their hall info — SuperAdmin only                                                                 |
+| GET    | `/api/dashboard/stats`               | All dashboard metrics in one call (today stats, 7-day trend, recent bookings, today's shows) — Admin + Cinema Hall required        |
+| GET    | `/api/cron/jobs`                     | Vercel Cron endpoint — runs `cleanupExpiredHolds` + `updateShowStatuses`; protected by `Authorization: Bearer <CRON_SECRET>` |
+| PATCH  | `/api/auth/hall`                     | Update cinema hall name, address, state, district, latitude, longitude — Admin auth required                                       |
+| GET    | `/api/halls`                         | Get all cinema halls owned by the logged-in admin                                                                                   |
+| POST   | `/api/halls`                         | Create a new cinema hall                                                                                                            |
+| PUT    | `/api/halls/:id`                     | Update an existing cinema hall (must own the hall)                                                                                  |
+| DELETE | `/api/halls/:id`                     | Delete a cinema hall (cascades to screens/shows/bookings)                                                                           |
 
 ---
 
@@ -76,68 +86,70 @@ BookingSuccessPage
 
 ## Critical Files
 
-| Area | File |
-|------|------|
-| Booking controller | `cinema-hall-api/controllers/booking.Controller.js` |
-| Payment controller | `cinema-hall-api/controllers/payment.Controller.js` |
-| Booking routes | `cinema-hall-api/routes/booking.routes.js` |
-| User frontend API service | `cinema-hall-users/src/services/api.js` |
-| Admin frontend API service | `cinema-hall-admin/src/services/api.js` |
-| Payment hook | `cinema-hall-users/src/hooks/useRazorpayPayment.js` |
-| Success page | `cinema-hall-users/src/pages/BookingSuccessPage.jsx` |
-| User bookings page | `cinema-hall-users/src/pages/Bookings.jsx` |
-| Admin bookings page | `cinema-hall-admin/src/pages/Bookings.jsx` |
-| Admin booking detail page | `cinema-hall-admin/src/pages/BookingDetailPage.jsx` |
-| Admin refunds page | `cinema-hall-admin/src/pages/RefundsPage.jsx` |
-| Admin payment orders page | `cinema-hall-admin/src/pages/PaymentOrders.jsx` |
-| Admin verify ticket page | `cinema-hall-admin/src/pages/VerifyTicket.jsx` |
-| Refund controller | `cinema-hall-api/controllers/refund.Controller.js` |
-| Refund routes | `cinema-hall-api/routes/refund.routes.js` |
-| Refund migration | `cinema-hall-api/migrations/migration_refunds.sql` |
-| Seat selection | `cinema-hall-users/src/pages/SeatSelectionPage.jsx` |
-| Order summary (pre-payment) | `cinema-hall-users/src/pages/OrderSummaryPage.jsx` |
-| Theatres page | `cinema-hall-users/src/pages/TheatresPage.jsx` |
-| Movie info page | `cinema-hall-users/src/pages/MovieInfoPage.jsx` |
-| Ad banner (carousel) | `cinema-hall-users/src/components/AdBanner.jsx` |
-| Ads controller | `cinema-hall-api/controllers/ads.Controller.js` |
-| Ads routes | `cinema-hall-api/routes/ads.routes.js` |
-| Admin Ads management page | `cinema-hall-admin/src/pages/AdsManagement.jsx` |
-| Ads DB migration | `cinema-hall-api/migration_ads.sql` |
-| Offers controller | `cinema-hall-api/controllers/offers.Controller.js` |
-| Offers routes | `cinema-hall-api/routes/offers.routes.js` |
-| Offers DB migration | `cinema-hall-api/migrations/migration_offers.sql` |
-| Admin Offers management page | `cinema-hall-admin/src/pages/OffersManagement.jsx` |
-| Admin Offer create/edit page | `cinema-hall-admin/src/pages/OfferFormPage.jsx` |
-| Admin Customers list page | `cinema-hall-admin/src/pages/UsersPage.jsx` |
-| Admin Cinema Hall Admins list page | `cinema-hall-admin/src/pages/AdminsPage.jsx` |
-| Admin registration page (simplified credentials) | `cinema-hall-admin/src/pages/RegisterPage.jsx` |
-| Admin first-time onboarding page | `cinema-hall-admin/src/pages/OnboardingPage.jsx` |
-| Admin halls management page | `cinema-hall-admin/src/pages/HallManagement.jsx` |
-| Admin hall switcher component | `cinema-hall-admin/src/components/HallSwitcher.jsx` |
-| Admin hall routing guard | `cinema-hall-admin/src/routes/HallGuard.jsx` |
-| Admin hall context provider | `cinema-hall-admin/src/context/HallContext.jsx` |
-| Admin profile + hall edit page | `cinema-hall-admin/src/pages/ProfilePage.jsx` |
-| Auth controller (register, login, updateHall) | `cinema-hall-api/controllers/auth.Controller.js` |
-| Cinema halls controller | `cinema-hall-api/controllers/halls.Controller.js` |
-| Cinema halls routes | `cinema-hall-api/routes/halls.routes.js` |
-| Customers controller | `cinema-hall-api/controllers/customers.Controller.js` |
-| Customers routes | `cinema-hall-api/routes/customers.routes.js` |
-| Admin dashboard page | `cinema-hall-admin/src/pages/HomePage.jsx` |
-| Dashboard controller | `cinema-hall-api/controllers/dashboard.Controller.js` |
-| Dashboard routes | `cinema-hall-api/routes/dashboard.routes.js` |
-| User Offers browse page | `cinema-hall-users/src/pages/OffersPage.jsx` |
-| Movie shows page | `cinema-hall-users/src/pages/MovieDetailsPage.jsx` |
-| User movies controller | `cinema-hall-api/controllers/userMovies.Controller.js` |
-| User movies routes | `cinema-hall-api/routes/userMovies.routes.js` |
-| Admin shows management (list) | `cinema-hall-admin/src/pages/ShowsManagement.jsx` |
-| Admin add show | `cinema-hall-admin/src/pages/AddShowPage.jsx` |
-| Admin edit show | `cinema-hall-admin/src/pages/EditShowPage.jsx` |
-| Admin bulk add shows | `cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx` |
-| Movie search dropdown (shared) | `cinema-hall-admin/src/components/MovieSearchDropdown.jsx` |
-| Admin screen list | `cinema-hall-admin/src/pages/CinemaScreens.jsx` |
-| Admin screen designer (add/edit) | `cinema-hall-admin/src/pages/ScreenDesignerPage.jsx` |
+| Area                                             | File                                                         |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| Booking controller                               | `cinema-hall-api/controllers/booking.Controller.js`        |
+| Payment controller                               | `cinema-hall-api/controllers/payment.Controller.js`        |
+| Booking routes                                   | `cinema-hall-api/routes/booking.routes.js`                 |
+| User frontend API service                        | `cinema-hall-users/src/services/api.js`                    |
+| Admin frontend API service                       | `cinema-hall-admin/src/services/api.js`                    |
+| Payment hook                                     | `cinema-hall-users/src/hooks/useRazorpayPayment.js`        |
+| Success page                                     | `cinema-hall-users/src/pages/BookingSuccessPage.jsx`       |
+| User bookings page                               | `cinema-hall-users/src/pages/Bookings.jsx`                 |
+| Admin bookings page                              | `cinema-hall-admin/src/pages/Bookings.jsx`                 |
+| Admin booking detail page                        | `cinema-hall-admin/src/pages/BookingDetailPage.jsx`        |
+| Admin refunds page                               | `cinema-hall-admin/src/pages/RefundsPage.jsx`              |
+| Admin payment orders page                        | `cinema-hall-admin/src/pages/PaymentOrders.jsx`            |
+| Admin verify ticket page                         | `cinema-hall-admin/src/pages/VerifyTicket.jsx`             |
+| Refund controller                                | `cinema-hall-api/controllers/refund.Controller.js`         |
+| Refund routes                                    | `cinema-hall-api/routes/refund.routes.js`                  |
+| Refund migration                                 | `cinema-hall-api/migrations/migration_refunds.sql`         |
+| Seat selection                                   | `cinema-hall-users/src/pages/SeatSelectionPage.jsx`        |
+| Order summary (pre-payment)                      | `cinema-hall-users/src/pages/OrderSummaryPage.jsx`         |
+| Theatres page                                    | `cinema-hall-users/src/pages/TheatresPage.jsx`             |
+| Movie info page                                  | `cinema-hall-users/src/pages/MovieInfoPage.jsx`            |
+| Ad banner (carousel)                             | `cinema-hall-users/src/components/AdBanner.jsx`            |
+| Ads controller                                   | `cinema-hall-api/controllers/ads.Controller.js`            |
+| Ads routes                                       | `cinema-hall-api/routes/ads.routes.js`                     |
+| Admin Ads management page                        | `cinema-hall-admin/src/pages/AdsManagement.jsx`            |
+| Ads DB migration                                 | `cinema-hall-api/migration_ads.sql`                        |
+| Offers controller                                | `cinema-hall-api/controllers/offers.Controller.js`         |
+| Offers routes                                    | `cinema-hall-api/routes/offers.routes.js`                  |
+| Offers DB migration                              | `cinema-hall-api/migrations/migration_offers.sql`          |
+| Admin Offers management page                     | `cinema-hall-admin/src/pages/OffersManagement.jsx`         |
+| Admin Offer create/edit page                     | `cinema-hall-admin/src/pages/OfferFormPage.jsx`            |
+| Admin Customers list page                        | `cinema-hall-admin/src/pages/UsersPage.jsx`                |
+| Admin Cinema Hall Admins list page               | `cinema-hall-admin/src/pages/AdminsPage.jsx`               |
+| Admin registration page (simplified credentials) | `cinema-hall-admin/src/pages/RegisterPage.jsx`             |
+| Admin first-time onboarding page                 | `cinema-hall-admin/src/pages/OnboardingPage.jsx`           |
+| Admin halls management page                      | `cinema-hall-admin/src/pages/HallManagement.jsx`           |
+| Admin hall switcher component                    | `cinema-hall-admin/src/components/HallSwitcher.jsx`        |
+| Admin hall routing guard                         | `cinema-hall-admin/src/routes/HallGuard.jsx`               |
+| Admin hall context provider                      | `cinema-hall-admin/src/context/HallContext.jsx`            |
+| Admin profile + hall edit page                   | `cinema-hall-admin/src/pages/ProfilePage.jsx`              |
+| Auth controller (register, login, updateHall)    | `cinema-hall-api/controllers/auth.Controller.js`           |
+| Cinema halls controller                          | `cinema-hall-api/controllers/halls.Controller.js`          |
+| Cinema halls routes                              | `cinema-hall-api/routes/halls.routes.js`                   |
+| Customers controller                             | `cinema-hall-api/controllers/customers.Controller.js`      |
+| Customers routes                                 | `cinema-hall-api/routes/customers.routes.js`               |
+| Admin dashboard page                             | `cinema-hall-admin/src/pages/HomePage.jsx`                 |
+| Dashboard controller                             | `cinema-hall-api/controllers/dashboard.Controller.js`      |
+| Dashboard routes                                 | `cinema-hall-api/routes/dashboard.routes.js`               |
+| User Offers browse page                          | `cinema-hall-users/src/pages/OffersPage.jsx`               |
+| Movie shows page                                 | `cinema-hall-users/src/pages/MovieDetailsPage.jsx`         |
+| User movies controller                           | `cinema-hall-api/controllers/userMovies.Controller.js`     |
+| User movies routes                               | `cinema-hall-api/routes/userMovies.routes.js`              |
+| Admin shows management (list)                    | `cinema-hall-admin/src/pages/ShowsManagement.jsx`          |
+| Admin add show                                   | `cinema-hall-admin/src/pages/AddShowPage.jsx`              |
+| Admin edit show                                  | `cinema-hall-admin/src/pages/EditShowPage.jsx`             |
+| Admin bulk add shows                             | `cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx`     |
+| Movie search dropdown (shared)                   | `cinema-hall-admin/src/components/MovieSearchDropdown.jsx` |
+| Admin screen list                                | `cinema-hall-admin/src/pages/CinemaScreens.jsx`            |
+| Admin screen designer (add/edit)                 | `cinema-hall-admin/src/pages/ScreenDesignerPage.jsx`       |
 
 ---
+
+*May 31, 2026 — Admin Auth Security Upgrade: Complete production-grade auth overhaul. New DB tables: `admin_verification_tokens`, `admin_password_reset_tokens`, `admin_sessions` (refresh token hashes for server-side revocation), `admin_security_logs`. New columns on `cinema_admin_user`: `email_verified`, `email_verified_at`, `failed_login_attempts`, `account_locked_until`, `password_changed_at`, `last_login_at`. New backend routes: `GET /api/auth/verify-email`, `POST /resend-verification`, `POST /forgot-password`, `POST /reset-password`, `POST /change-password`, `POST /logout-all`, `GET /security`. Brute-force lockout thresholds (5→15min, 10→60min, 15→24hr). Password policy: 8+ chars, uppercase, lowercase, digit, special char. Refresh tokens stored as SHA-256 hashes; revocation checked on every refresh. New frontend pages: `VerifyEmailPage`, `ForgotPasswordPage`, `ResetPasswordPage`. Updated: `LoginPage` (forgot-password link, lockout/unverified error handling), `RegisterPage` (password policy checklist, redirects to /verify-email), `ProfilePage` (Security section: email badge, change password, logout all devices, security timestamps). `ProtectedRoute` now redirects unverified users to `/verify-email`. Vite port locked: admin=5174 (`strictPort: true`), users=5173 (`strictPort: true`). `ADMIN_FRONTEND_URL` and `USER_FRONTEND_URL` added to `.env`. `nodemailer` added to `cinema-hall-api` dependencies.*
 
 *May 24, 2026 — Multi-Hall Support and Onboarding Flow: Refactored database schema and API handlers to support multiple cinema halls per admin. Simplified registration flow to admin credentials only. Added a dedicated onboarding flow (`OnboardingPage.jsx`) at `/onboarding` for first-time hall creation with Leaflet maps integration for coordinate pinning. Implemented `HallGuard` to protect hall-dependent routes while keeping profile, settings, and halls management exempt. Added a `HallSwitcher` dropdown in the sidebar header to toggle active halls, and created a full `HallsManagement` panel at `/halls` for CRUD operations on an admin's halls list.*
 

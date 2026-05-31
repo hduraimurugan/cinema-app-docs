@@ -26,35 +26,44 @@ The Cinema Hall Admin Panel is a **React-based web application** built for cinem
 graph TD
     A[App.jsx] --> B{User Logged In?}
     B -->|No| C[/login]
-    B -->|Yes| D{Has Halls?}
+    B -->|Yes| D{Email Verified?}
 
-    D -->|No| E[/onboarding]
-    D -->|Yes| F[CinemaLayout with HallGuard]
+    D -->|No| EV[/verify-email - VerifyEmailPage]
+    D -->|Yes| E{Has Halls?}
 
-    F --> G[Exempt Routes]
-    G --> G1[/profile - ProfilePage]
-    G --> G2[/settings - SettingsPage]
-    G --> G3[/halls - HallsManagement]
+    E -->|No| F[/onboarding]
+    E -->|Yes| G[CinemaLayout with HallGuard]
 
-    F --> H[Hall-Gated Routes]
-    H --> H1[/ - HomePage]
-    H --> H2[/movie/:id - MoviePage]
-    H --> H3[/screens - CinemaScreens list]
-    H --> H4[/screens/new - ScreenDesignerPage add]
-    H --> H5[/screens/:id/edit - ScreenDesignerPage edit]
-    H --> H6[/shows - ShowsManagement]
-    H --> H7[/shows/new - AddShowPage]
-    H --> H8[/shows/bulk - AddMultipleShowsPage]
-    H --> H9[/shows/:id/edit - EditShowPage]
-    H --> H10[/show/:id - ShowPage]
-    H --> H11[/bookings - Bookings]
-    H --> H12[/bookings/:id - BookingDetailPage]
-    H --> H13[/refunds - RefundsPage]
-    H --> H14[/payment-orders - PaymentOrders]
-    H --> H15[/verify-ticket - VerifyTicket]
+    C --> PUB[Public Routes]
+    PUB --> PUB1[/register - RegisterPage]
+    PUB --> PUB2[/verify-email - VerifyEmailPage]
+    PUB --> PUB3[/forgot-password - ForgotPasswordPage]
+    PUB --> PUB4[/reset-password - ResetPasswordPage]
 
-    B -->|Yes + SuperAdmin| I[CinemaLayout without HallGuard]
-    I --> J[SuperAdmin Routes]
+    G --> H[Exempt Routes]
+    H --> H1[/profile - ProfilePage]
+    H --> H2[/settings - SettingsPage]
+    H --> H3[/halls - HallsManagement]
+
+    G --> I[Hall-Gated Routes]
+    I --> I1[/ - HomePage]
+    I --> I2[/movie/:id - MoviePage]
+    I --> I3[/screens - CinemaScreens list]
+    I --> I4[/screens/new - ScreenDesignerPage add]
+    I --> I5[/screens/:id/edit - ScreenDesignerPage edit]
+    I --> I6[/shows - ShowsManagement]
+    I --> I7[/shows/new - AddShowPage]
+    I --> I8[/shows/bulk - AddMultipleShowsPage]
+    I --> I9[/shows/:id/edit - EditShowPage]
+    I --> I10[/show/:id - ShowPage]
+    I --> I11[/bookings - Bookings]
+    I --> I12[/bookings/:id - BookingDetailPage]
+    I --> I13[/refunds - RefundsPage]
+    I --> I14[/payment-orders - PaymentOrders]
+    I --> I15[/verify-ticket - VerifyTicket]
+
+    B -->|Yes + SuperAdmin| SA[CinemaLayout without HallGuard]
+    SA --> J[SuperAdmin Routes]
     J --> J1[/movies - MovieManagement]
     J --> J2[/ads - AdsManagement]
     J --> J3[/offers - OffersManagement]
@@ -62,8 +71,6 @@ graph TD
     J --> J5[/offers/:id/edit - OfferFormPage edit]
     J --> J6[/customers - UsersPage]
     J --> J7[/admins - AdminsPage]
-
-    C --> K[/register - RegisterPage]
 ```
 
 ### Component Hierarchy
@@ -100,18 +107,26 @@ graph TD
 ```mermaid
 sequenceDiagram
     participant User
-    participant LoginPage
+    participant Page
     participant AuthContext
     participant API
-    participant LocalStorage
 
-    User->>LoginPage: Enter credentials
-    LoginPage->>API: POST /api/auth/login
-    API-->>LoginPage: {admin, hall, tokens}
-    LoginPage->>AuthContext: setAdmin(admin)
-    AuthContext->>LocalStorage: Save admin data
-    AuthContext-->>LoginPage: isLoggedIn = true
-    LoginPage->>User: Redirect to /
+    User->>Page: Fill register form
+    Page->>API: POST /api/auth/register
+    API-->>Page: 201 {admin}
+    Page->>User: Redirect to /verify-email?email=...
+
+    User->>Page: Click verification link in email
+    Page->>API: GET /api/auth/verify-email?token=...
+    API-->>Page: 200 verified
+    Page->>User: Redirect to /login
+
+    User->>Page: Enter credentials
+    Page->>API: POST /api/auth/login
+    API-->>Page: {admin, hall, tokens}
+    Page->>AuthContext: setUser(admin)
+    AuthContext-->>Page: isLoggedIn = true
+    Page->>User: Redirect to /
 ```
 
 ### AuthContext State Management
@@ -122,47 +137,47 @@ sequenceDiagram
 
 ```javascript
 {
-  admin: {
+  user: {
     id: "uuid",
     name: "John Doe",
     email: "admin@cinema.com",
-    role: "admin" | "superadmin",
-    phone: "+1234567890"
+    role: "admin" | "superAdmin",
+    phone: "+1234567890",
+    email_verified: true,
+    email_verified_at: "2026-05-31T10:00:00Z",
+    password_changed_at: "2026-05-31T10:00:00Z",
+    last_login_at: "2026-05-31T10:00:00Z"
   },
-  hall: {
-    id: "uuid",
-    name: "Grand Cinema",
-    location: "Downtown Plaza",
-    district: "Mumbai",
-    state: "Maharashtra",
-    latitude: 19.07609,
-    longitude: 72.877426
-  },
+  cinemaHall: { id, name, location, district, state, latitude, longitude },
   isLoggedIn: boolean,
+  emailVerified: boolean,   // shorthand from user.email_verified
   loading: boolean
 }
 ```
 
 **Key Functions:**
 
-- `login(email, password)` - Authenticate admin
-- `logout()` - Clear session and redirect
-- `register(data)` - Register new admin + hall
-- `updateHall(data)` - Update hall details + coordinates; updates `cinemaHall` state in context
-- `checkAuth()` - Verify token on mount
-- `refreshToken()` - Auto-refresh access token
+- `login(email, password)` — returns `{ success, message, data, hall }`; `data` contains the raw error body on failure (with `code` for lockout/unverified)
+- `logout()` — revokes current session, clears state
+- `register(data)` — returns `{ success, message }`
+- `changePassword(currentPassword, newPassword)` — calls `/api/auth/change-password`
+- `logoutAllDevices()` — revokes all sessions, clears user/hall state
+- `checkAuth()` — verify token on mount
+- `refreshToken()` — auto-refresh access token
 
 ### Protected Routes
 
-**ProtectedRoute** - Requires authentication
+**ProtectedRoute** — Requires authentication + email verification
 
 ```jsx
+// Redirects to /login if not logged in
+// Redirects to /verify-email?email=... if logged in but email not verified
 <ProtectedRoute>
   <CinemaLayout />
 </ProtectedRoute>
 ```
 
-**AdminProtectedRoute** - Requires SuperAdmin role
+**AdminProtectedRoute** — Requires SuperAdmin role
 
 ```jsx
 <AdminProtectedRoute>
@@ -174,9 +189,42 @@ sequenceDiagram
 
 **Route**: `/register`
 **Component**: `RegisterPage.jsx`
-**Access**: Public (unauthenticated only)
+**Access**: Public
 
-Simplified credentials registration page. Collects Full Name, Phone number, Email Address, and Password. Upon successful registration, the admin is redirected to `/login` to sign in. The first-time cinema hall setup is offloaded to the **Onboarding Flow** after successful authentication.
+Collects Full Name, Phone, Email, and Password. Password is validated against the full policy (8+ chars, uppercase, lowercase, digit, special character) with a live checklist. On success, redirects to `/verify-email?email=<encoded-email>` — NOT to `/login` directly.
+
+---
+
+### VerifyEmailPage
+
+**Route**: `/verify-email`
+**Component**: `VerifyEmailPage.jsx`
+**Access**: Public
+
+Handles two states:
+
+- **With `?token=` param** — auto-submits verification request on mount. Shows success/expired/invalid result with contextual actions.
+- **With `?email=` param (no token)** — "pending" state shown after registration, with a resend form (2-min countdown between sends).
+
+---
+
+### ForgotPasswordPage
+
+**Route**: `/forgot-password`
+**Component**: `ForgotPasswordPage.jsx`
+**Access**: Public
+
+Email input form. Always shows a generic success message after submit regardless of whether the email exists (prevents enumeration). Link from `LoginPage` — "Forgot password?" beside the password label.
+
+---
+
+### ResetPasswordPage
+
+**Route**: `/reset-password`
+**Component**: `ResetPasswordPage.jsx`
+**Access**: Public (token from email link)
+
+Reads `?token=` from URL. Shows a live password policy checklist. Submit disabled until all checks pass and passwords match. Handles `TOKEN_EXPIRED`, `INVALID_TOKEN`, `TOKEN_USED` with specific UI states and a "Request New Link" button.
 
 ---
 
@@ -1492,20 +1540,21 @@ Lists all registered cinema hall admins (excludes SuperAdmin) with their associa
 **Route**: `/profile`
 **Component**: `ProfilePage.jsx`
 
-Two sections on one page:
+Three sections on one page:
 
 **Admin Profile (read-only):**
 - Avatar icon, name, role badge
 - Email and phone displayed with icons
 
-**Cinema Hall Details (editable):**
-- Hall Name, Full Address (text input), State dropdown, District dropdown (populated from `country-state-city`)
-- **Map location picker** — Leaflet (`react-leaflet`) map centered on India (or the hall's saved coordinates if already set)
-  - Click anywhere on the map to drop a pin → sets `latitude` / `longitude`
-  - Drag the pin to fine-tune position
-  - Address search bar using **Nominatim** (free OpenStreetMap geocoding API) — type a location and press Enter or click the search button; the map re-centers and drops a pin
-  - Current coordinates shown in a green badge below the map (`latitude, longitude` to 6 decimal places)
-- **Save Changes** button — calls `PATCH /api/auth/hall`; on success updates `cinemaHall` in `AuthContext` and shows a toast
+**Cinema Hall:**
+- Shows active hall name and location
+- "Manage Halls →" link navigates to `/halls`
+
+**Security:**
+- **Email Verification** — badge showing `Verified` (green) or `Not verified` (yellow) + **Resend** button when unverified; calls `POST /api/auth/resend-verification`
+- **Security Metadata** — Last sign-in timestamp + Password last changed timestamp (sourced from `user.last_login_at` / `user.password_changed_at`)
+- **Change Password** — form with Current Password, New Password (live policy checklist), Confirm Password; submit calls `useAuth().changePassword()` → `POST /api/auth/change-password`; revokes all other sessions
+- **Sign Out All Devices** — calls `useAuth().logoutAllDevices()` → `POST /api/auth/logout-all`; revokes every active session
 
 #### SettingsPage
 
@@ -1549,7 +1598,7 @@ graph LR
     A --> G5[paymentAPI]
     A --> G6[refundAPI]
 
-    B --> G[register, login, logout, getMe, refresh]
+    B --> G[register, login, logout, logoutAll, getMe, refresh, verifyEmail, resendVerification, forgotPassword, resetPassword, changePassword, getSecurityInfo]
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
     D --> I[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
@@ -2122,6 +2171,7 @@ Configured for Vercel deployment:
 
 ---
 
+**Last Updated**: May 31, 2026 (Admin Auth Security Upgrade — Email verification flow, Forgot/Reset Password, Change Password, Account Lockout & Brute Force Protection, Session revocation, Security Dashboard in ProfilePage; 3 new pages: VerifyEmailPage, ForgotPasswordPage, ResetPasswordPage; ProtectedRoute now redirects unverified users; RegisterPage redirects to /verify-email on success; LoginPage handles ACCOUNT_LOCKED and EMAIL_NOT_VERIFIED error codes with inline UI; Vite port locked: admin=5174, users=5173)
 **Last Updated**: March 29, 2026 (AppSidebar — professional redesign: icon containers, clean active pill, section dividers, collapsed tooltips, wider w-64 sidebar)
 
 ---
