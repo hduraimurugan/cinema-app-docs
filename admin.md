@@ -2214,6 +2214,7 @@ Configured for Vercel deployment:
 - Error handling with toast notifications
 - Responsive design
 - Keyboard navigation support
+- Global high-contrast hover styles for active buttons (preventing dark background color bleed)
 
 ✅ **Performance:**
 
@@ -2250,3 +2251,5 @@ Configured for Vercel deployment:
 **Last Updated**: April 3, 2026 (Refunds system — new `refunds` DB table tracks per-booking refund lifecycle; `cancelShow` + `bulkCancelShows` now insert refund records and store Razorpay refund IDs; `refund.processed` + `refund.failed` webhook events auto-update status; cancel dialog in `ShowsManagement` and `ShowPage` now fetches booking count + total refund amount before confirming; `BookingDetailPage` shows a Refund card with status, timestamps, and "Mark as Settled" button for cancelled bookings; new `RefundsPage` at `/refunds` lists all refunds with filter + manual settle; user `Bookings.jsx` shows refund status badge for cancelled bookings)
 
 **Last Updated**: April 19, 2026 (CSV / Excel export — new `ExportButton` component (`src/components/ExportButton.jsx`) + `exportUtils.js` utility (`src/utils/exportUtils.js`); `xlsx` package installed; Export dropdown added to 7 admin pages: Bookings, Refunds, Payment Orders, Ads Management ×2 (ads summary in header + per-ad click records in click modal), Offers, Customers, Hall Admins; all exports cover current page / loaded data only; button is disabled while loading or when list is empty; "Export data (CSV/PDF)" removed from Future Enhancements)
+
+**Last Updated**: June 5, 2026 (Transitions, Spacing & Global Hovers — consolidated auth routes under unified `AuthPage.jsx` with Framer Motion slide transitions; removed duplicate logos and card frames on mobile sizes; added scroll dynamic lifecycle overrides to bypass global `overflow: hidden` locks; added global hover styles in `index.css` replacing muddy opacity dark buttons with brightness glow filters and glassmorphic hovers)

@@ -1,11 +1,11 @@
 # Graph Report - cinema-hall  (2026-06-05)
 
 ## Corpus Check
-- 252 files · ~198,630 words
+- 252 files · ~198,708 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1569 nodes · 2560 edges · 166 communities (152 shown, 14 thin omitted)
+- 1569 nodes · 2560 edges · 167 communities (153 shown, 14 thin omitted)
 - Extraction: 78% EXTRACTED · 22% INFERRED · 0% AMBIGUOUS · INFERRED: 558 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -109,6 +109,7 @@
 - [[_COMMUNITY_Community 163|Community 163]]
 - [[_COMMUNITY_Community 164|Community 164]]
 - [[_COMMUNITY_Community 165|Community 165]]
+- [[_COMMUNITY_Community 166|Community 166]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useAuth()` - 26 edges
@@ -137,7 +138,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (166 total, 14 thin omitted)
+## Communities (167 total, 14 thin omitted)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.16
@@ -364,8 +365,8 @@ Cohesion: 0.18
 Nodes (11): 4. Additional Features, BookingDetailPage, Bookings, Customers, Hall Admins, HomePage, PaymentOrders, ProfilePage (+3 more)
 
 ### Community 132 - "Community 132"
-Cohesion: 0.14
-Nodes (14): 1. Database Schema Changes, 2. Backend: New Booking Controller, 3. Backend: Booking Routes, 4. Backend: Register Routes, 5. Backend: Background Cleanup Job, 6. Frontend: API Service, Migration SQL (for existing data), [MODIFY] [api.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-users/src/services/api.js) (+6 more)
+Cohesion: 0.18
+Nodes (11): 2. Backend: New Booking Controller, 3. Backend: Booking Routes, 4. Backend: Register Routes, 5. Backend: Background Cleanup Job, 6. Frontend: API Service, [MODIFY] [api.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-users/src/services/api.js), [MODIFY] [server.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-api/server.js), [MODIFY] [server.js](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-api/server.js) (+3 more)
 
 ### Community 133 - "Community 133"
 Cohesion: 0.20
@@ -478,6 +479,10 @@ Nodes (3): Automated Testing, Manual Verification, Verification Plan
 ### Community 163 - "Community 163"
 Cohesion: 0.67
 Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
+
+### Community 166 - "Community 166"
+Cohesion: 0.67
+Nodes (3): 1. Database Schema Changes, Migration SQL (for existing data), [MODIFY] [psql.sql](file:///d:/Users/Duraimurugan%20H/Git%20Cloned/My%20Projects/cinema-hall/cinema-hall-api/psql.sql)
 
 ## Knowledge Gaps
 - **498 isolated node(s):** `$schema`, `rsc`, `tsx`, `config`, `css` (+493 more)

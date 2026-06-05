@@ -12418,7 +12418,7 @@
       "label": "Future Enhancements",
       "file_type": "document",
       "source_file": "docs/admin.md",
-      "source_location": "L2234",
+      "source_location": "L2235",
       "id": "docs_admin_future_enhancements",
       "community": 139,
       "norm_label": "future enhancements"
@@ -12951,7 +12951,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L54",
       "id": "docs_payment_and_booking_implementation_1_database_schema_changes",
-      "community": 132,
+      "community": 166,
       "norm_label": "1. database schema changes"
     },
     {
@@ -12960,7 +12960,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L56",
       "id": "docs_payment_and_booking_implementation_modify_psql_sql_file_d_users_duraimurugan_20h_git_20cloned_my_20projects_cinema_hall_cinema_hall_api_psql_sql",
-      "community": 132,
+      "community": 166,
       "norm_label": "[modify] [psql.sql](file:///d:/users/duraimurugan%20h/git%20cloned/my%20projects/cinema-hall/cinema-hall-api/psql.sql)"
     },
     {
@@ -12969,7 +12969,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L104",
       "id": "docs_payment_and_booking_implementation_migration_sql_for_existing_data",
-      "community": 132,
+      "community": 166,
       "norm_label": "migration sql (for existing data)"
     },
     {
@@ -37497,9 +37497,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L188",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authentication_system",
-      "target": "docs_admin_authpage_unified_authentication_page",
-      "confidence_score": 1.0
+      "target": "docs_admin_authpage_unified_authentication_page"
     },
     {
       "relation": "contains",
@@ -37567,9 +37567,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L218",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authentication_system",
-      "target": "docs_admin_sub_form_reference",
-      "confidence_score": 1.0
+      "target": "docs_admin_sub_form_reference"
     },
     {
       "relation": "contains",
@@ -37597,9 +37597,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authpage_unified_authentication_page",
-      "target": "docs_admin_mobile_responsiveness_features",
-      "confidence_score": 1.0
+      "target": "docs_admin_mobile_responsiveness_features"
     },
     {
       "relation": "contains",
@@ -37607,9 +37607,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L204",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authpage_unified_authentication_page",
-      "target": "docs_admin_motion_graphics_transitions",
-      "confidence_score": 1.0
+      "target": "docs_admin_motion_graphics_transitions"
     },
     {
       "relation": "contains",
@@ -37617,9 +37617,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L199",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_authpage_unified_authentication_page",
-      "target": "docs_admin_unified_split_layout",
-      "confidence_score": 1.0
+      "target": "docs_admin_unified_split_layout"
     },
     {
       "relation": "contains",
@@ -37627,9 +37627,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L220",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_sub_form_reference",
-      "target": "docs_admin_1_loginform_loginform_jsx",
-      "confidence_score": 1.0
+      "target": "docs_admin_1_loginform_loginform_jsx"
     },
     {
       "relation": "contains",
@@ -37637,9 +37637,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L223",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_sub_form_reference",
-      "target": "docs_admin_2_registerform_registerform_jsx",
-      "confidence_score": 1.0
+      "target": "docs_admin_2_registerform_registerform_jsx"
     },
     {
       "relation": "contains",
@@ -37647,9 +37647,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L226",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_sub_form_reference",
-      "target": "docs_admin_3_forgotpasswordform_forgotpasswordform_jsx",
-      "confidence_score": 1.0
+      "target": "docs_admin_3_forgotpasswordform_forgotpasswordform_jsx"
     },
     {
       "relation": "contains",
@@ -37657,9 +37657,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L229",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_sub_form_reference",
-      "target": "docs_admin_4_verifyemailform_verifyemailform_jsx",
-      "confidence_score": 1.0
+      "target": "docs_admin_4_verifyemailform_verifyemailform_jsx"
     },
     {
       "relation": "contains",
@@ -37667,9 +37667,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L235",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_sub_form_reference",
-      "target": "docs_admin_5_resetpasswordform_resetpasswordform_jsx",
-      "confidence_score": 1.0
+      "target": "docs_admin_5_resetpasswordform_resetpasswordform_jsx"
     },
     {
       "relation": "contains",
@@ -38007,9 +38007,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L463",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_feature_overview_463",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_463"
     },
     {
       "relation": "contains",
@@ -38077,9 +38077,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L594",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_feature_overview_594",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_594"
     },
     {
       "relation": "contains",
@@ -38187,9 +38187,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L805",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_feature_overview_805",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_805"
     },
     {
       "relation": "contains",
@@ -38347,9 +38347,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1033",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_feature_overview_1033",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_1033"
     },
     {
       "relation": "contains",
