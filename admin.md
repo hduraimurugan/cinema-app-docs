@@ -25,20 +25,20 @@ The Cinema Hall Admin Panel is a **React-based web application** built for cinem
 ```mermaid
 graph TD
     A[App.jsx] --> B{User Logged In?}
-    B -->|No| C[/login]
+    B -->|No| C[/login - AuthPage view="login"]
     B -->|Yes| D{Email Verified?}
 
-    D -->|No| EV[/verify-email - VerifyEmailPage]
+    D -->|No| EV[/verify-email - AuthPage view="verify-email"]
     D -->|Yes| E{Has Halls?}
 
     E -->|No| F[/onboarding]
     E -->|Yes| G[CinemaLayout with HallGuard]
 
     C --> PUB[Public Routes]
-    PUB --> PUB1[/register - RegisterPage]
-    PUB --> PUB2[/verify-email - VerifyEmailPage]
-    PUB --> PUB3[/forgot-password - ForgotPasswordPage]
-    PUB --> PUB4[/reset-password - ResetPasswordPage]
+    PUB --> PUB1[/register - AuthPage view="register"]
+    PUB --> PUB2[/verify-email - AuthPage view="verify-email"]
+    PUB --> PUB3[/forgot-password - AuthPage view="forgot-password"]
+    PUB --> PUB4[/reset-password - AuthPage view="reset-password"]
 
     G --> H[Exempt Routes]
     H --> H1[/profile - ProfilePage]
@@ -185,66 +185,55 @@ sequenceDiagram
 </AdminProtectedRoute>
 ```
 
-### RegisterPage
+### AuthPage (Unified Authentication Page)
 
-**Route**: `/register`
-**Component**: `RegisterPage.jsx`
+**Routes**: 
+- `/login` (renders `LoginForm`)
+- `/register` (renders `RegisterForm`)
+- `/forgot-password` (renders `ForgotPasswordForm`)
+- `/verify-email` (renders `VerifyEmailForm`)
+- `/reset-password` (renders `ResetPasswordForm`)
+**Component**: `AuthPage.jsx`
 **Access**: Public
 
-Collects Full Name, Phone, Email, and Password. Password is validated against the full policy (8+ chars, uppercase, lowercase, digit, special character) with a live checklist. On success, redirects to `/verify-email?email=<encoded-email>` — NOT to `/login` directly.
+#### Unified Split Layout
+To provide a cohesive, highly professional brand presence, all authentication views share a unified responsive layout:
+- **Left Panel (Desktop)**: A styled dark sidebar (`lg:w-1/2`) featuring glowing background gradients, cinema operator metrics (screens, bookings), feature summaries, and operator trust badges. On mobile viewports (`lg:hidden`), this collapses into a compact branding header banner.
+- **Right Panel (Form Area)**: Hosts the dynamic form components, styled with a glassmorphic frame, a glowing top accent bar, and a film watermark backdrop.
+
+#### Motion Graphics Transitions
+Rather than full route re-renders causing layout flickering and empty state jumps, the `AuthPage` component remains mounted during navigation between paths. The active form transitions inside a unified container card using **Framer Motion**:
+- **Directional Tracking**: Page history indices are mapped (`login: 0` ➔ `forgot-password: 1` ➔ `register: 2` ➔ `verify-email: 3` ➔ `reset-password: 4`). Transition paths are evaluated on rendering:
+  - **Forward navigations** (index increases) slide the exiting form out to the left and slide the new form in from the right.
+  - **Backward navigations** (index decreases) slide the exiting form out to the right and slide the new form in from the left.
+- **Tactile Transition Dynamics**: Uses a spring configuration (`stiffness: 300, damping: 28`) combined with smooth opacity fades for a tactile and organic feel.
+
+#### Mobile Responsiveness Features
+- **Duplicate Brand Elimination**: Redundant logos inside the form cards are hidden on mobile screens, as the mobile header banner already displays the logo and branding.
+- **Maximized Viewport Spacing**: On mobile screens (`max-sm`), the card border, drop shadows, and card background are disabled (`bg-transparent border-0 p-0`), and the container top-aligns (`justify-start py-8`). This allows the forms to occupy the full width of the viewport without layout squeezing.
+- **Body Scroll Lifecycle Override**: A React lifecycle hook (`useEffect`) overrides global stylesheet scroll-locks (`overflow: hidden` on `html, body` in `index.css`) to enable scrolling (`overflow: auto`) while the auth page is active on mobile, restoring the original locks when unmounted to keep main dashboard screens intact.
 
 ---
 
-### VerifyEmailPage
+### Sub-Form Reference
 
-**Route**: `/verify-email`
-**Component**: `VerifyEmailPage.jsx`
-**Access**: Public
+#### 1. LoginForm (`LoginForm.jsx`)
+Collects Admin credentials, handles login requests, and reads authentication response payloads. Handles account lock banners and directs unverified registration emails to verification page triggers.
 
-Handles two states:
+#### 2. RegisterForm (`RegisterForm.jsx`)
+Provides fields for Full Name, Phone, Email, and Password. Includes client-side validations and password policy checkers displaying ticks upon satisfying rules.
 
-- **With `?token=` param** — auto-submits verification request on mount. Shows success/expired/invalid result with contextual actions.
-- **With `?email=` param (no token)** — "pending" state shown after registration, with a resend form (2-min countdown between sends).
+#### 3. ForgotPasswordForm (`ForgotPasswordForm.jsx`)
+An email submission form which triggers reset link dispatches. Displays a success confirmation state upon submission to prevent email enumeration.
 
----
+#### 4. VerifyEmailForm (`VerifyEmailForm.jsx`)
+Handles two primary states:
+- **With `?token=` parameter**: Automatically verifies user token in DB on mount. Renders success/expired/invalid feedback cards.
+- **With `?email=` parameter (no token)**: Renders a check-inbox page with manual resend triggers and a 2-minute cooldown timer.
+*Uses a module-level token cache to prevent React 18 StrictMode double-invocations from consuming verification tokens.*
 
-### ForgotPasswordPage
-
-**Route**: `/forgot-password`
-**Component**: `ForgotPasswordPage.jsx`
-**Access**: Public
-
-Email input form. Always shows a generic success message after submit regardless of whether the email exists (prevents enumeration). Link from `LoginPage` — "Forgot password?" beside the password label.
-
----
-
-### ResetPasswordPage
-
-**Route**: `/reset-password`
-**Component**: `ResetPasswordPage.jsx`
-**Access**: Public (token from email link)
-
-Reads `?token=` from URL. Shows a live password policy checklist. Submit disabled until all checks pass and passwords match. Handles `TOKEN_EXPIRED`, `INVALID_TOKEN`, `TOKEN_USED` with specific UI states and a "Request New Link" button.
-
----
-
-### RegisterPage
-
-**Route**: `/register`
-**Component**: `RegisterPage.jsx`
-**Access**: Public
-
-Collects Full Name, Phone, Email, and Password. Password is validated against the full policy (8+ chars, uppercase, lowercase, digit, special character) with a live checklist. On success, redirects to `/verify-email?email=<encoded-email>` — NOT to `/login` directly.
-
-**UI Design** (May 2026 redesign):
-- Fixed decorative background (dot grid + radial blobs) with `-z-10` so page content can scroll freely
-- Glass-style card with `backdrop-blur-xl`, a 3px gradient accent bar at the top, and a deep drop shadow
-- Logo icon has a `shadow-[0_0_24px...]` glow effect
-- Labels use `text-xs font-semibold uppercase tracking-wider` styling
-- Password policy checklist renders inside a styled container box with emerald `CheckCircle` icons
-- Primary button has a colour glow shadow that deepens on hover
-- Terms & Privacy displayed in a horizontal divider layout
-- **Scrolling**: outer `h-full overflow-y-auto` → inner `min-h-full flex items-center justify-center` prevents content being clipped by the global `overflow: hidden` on `body`
+#### 5. ResetPasswordForm (`ResetPasswordForm.jsx`)
+Reads `?token=` from the URL parameters. Renders new password inputs, matches, policy checklists, and handles token expiration, invalid tokens, or already-used token validation errors.
 
 ---
 
