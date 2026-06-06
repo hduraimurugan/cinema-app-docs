@@ -2363,7 +2363,7 @@ Returns detailed information for a single customer including recent bookings and
 
 #### GET `/api/auth/admins` *(SuperAdmin)*
 
-Returns a paginated list of all registered cinema hall admins (excludes SuperAdmin). Supports search by admin name, email, or hall name.
+Returns a paginated list of all registered cinema hall admins (filters `role = 'admin'` only). Each admin's halls are aggregated into a `halls` JSON array — no duplicate rows. Supports search by admin name, email, or hall name.
 
 **Query Parameters:**
 
@@ -2390,24 +2390,23 @@ Returns a paginated list of all registered cinema hall admins (excludes SuperAdm
       "created_at": "2025-02-01T08:00:00Z",
       "auth_providers": ["local", "google"],
       "avatar": "https://lh3.googleusercontent.com/...",
-      "hall_id": "uuid",
-      "hall_name": "Ravi Cinemas",
-      "location": "Tirunelveli",
-      "district": "Tirunelveli",
-      "state": "Tamil Nadu"
+      "halls": [
+        { "id": "uuid", "name": "Ravi Cinemas", "location": "Tirunelveli", "district": "Tirunelveli", "state": "Tamil Nadu" },
+        { "id": "uuid", "name": "Ravi IMAX", "location": "Madurai", "district": "Madurai", "state": "Tamil Nadu" }
+      ]
     }
   ],
   "total": 12
 }
 ```
 
-`hall_id` / `hall_name` / `location` will be `null` if the admin has not yet created a cinema hall. `avatar` is `null` if no OAuth profile picture. `auth_providers` lists all linked login methods.
+`halls` is an empty array `[]` if the admin has not yet created any cinema hall. `avatar` is `null` if no OAuth profile picture. `auth_providers` lists all linked login methods.
 
 ---
 
 #### GET `/api/auth/admins/:id/logs` *(SuperAdmin)*
 
-Returns the `admin_security_logs` entries for a specific admin, ordered by `created_at DESC`.
+Returns the admin's profile (with `halls` array) and `admin_security_logs` entries, ordered by `created_at DESC` (last 30).
 
 **Path Parameter:** `:id` — the admin's UUID
 
@@ -2415,9 +2414,26 @@ Returns the `admin_security_logs` entries for a specific admin, ordered by `crea
 
 ```json
 {
+  "admin": {
+    "id": "uuid",
+    "name": "Ravi Kumar",
+    "email": "ravi@example.com",
+    "role": "admin",
+    "email_verified": true,
+    "email_verified_at": "2025-02-01T09:00:00Z",
+    "failed_login_attempts": 0,
+    "account_locked_until": null,
+    "password_changed_at": "2026-05-20T08:00:00Z",
+    "last_login_at": "2026-06-01T10:00:00Z",
+    "created_at": "2025-02-01T08:00:00Z",
+    "auth_providers": ["local", "google"],
+    "avatar": "https://lh3.googleusercontent.com/...",
+    "halls": [
+      { "id": "uuid", "name": "Ravi Cinemas", "location": "Tirunelveli", "district": "Tirunelveli", "state": "Tamil Nadu" }
+    ]
+  },
   "logs": [
     {
-      "id": "uuid",
       "action": "LOGIN_SUCCESS",
       "ip_address": "103.27.12.45",
       "user_agent": "Mozilla/5.0 ...",
@@ -2425,7 +2441,6 @@ Returns the `admin_security_logs` entries for a specific admin, ordered by `crea
       "created_at": "2026-05-31T10:00:00Z"
     },
     {
-      "id": "uuid",
       "action": "LOGIN_FAILED",
       "ip_address": "103.27.12.45",
       "user_agent": "Mozilla/5.0 ...",
@@ -2436,7 +2451,9 @@ Returns the `admin_security_logs` entries for a specific admin, ordered by `crea
 }
 ```
 
-**Possible `action` values:** `LOGIN_SUCCESS`, `LOGIN_FAILED`, `LOGOUT`, `LOGOUT_ALL`, `EMAIL_VERIFIED`, `PASSWORD_RESET`, `PASSWORD_CHANGED`, `ACCOUNT_LOCKED`
+**Possible `action` values:** `LOGIN_SUCCESS`, `LOGIN_FAILED`, `LOGOUT`, `LOGOUT_ALL`, `EMAIL_VERIFIED`, `PASSWORD_RESET`, `PASSWORD_CHANGED`, `ACCOUNT_LOCKED`, `OAUTH_LOGIN`, `OAUTH_SIGNUP`, `PROVIDER_LINKED`, `PROVIDER_UNLINKED`, `PASSWORD_SET`
+
+**Response (404):** `{ "error": "Admin not found." }`
 
 ---
 

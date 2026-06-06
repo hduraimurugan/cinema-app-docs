@@ -1574,14 +1574,14 @@ Loading state: centered `Loader2` spinner. Error state: centered error message.
 **Access**: SuperAdmin only
 **Sidebar**: Management → Hall Admins (`Building2` icon)
 
-Lists all registered cinema hall admins (excludes SuperAdmin) with their associated hall details and click-to-open detail panel.
+Lists all registered cinema hall admins (`role = 'admin'` only) with their associated halls and click-to-open detail panel. Each admin's halls are returned as a `halls` JSON array from the backend — admins with multiple halls show all of them in the table, not as duplicate rows.
 
 **Features:**
 - **Search bar** — debounced 400ms, searches by admin name, email, or hall name; "Clear" button shown when input has a value
 - **Refresh** button — re-fetches with current filters
-- **Table columns**: Admin (avatar image if available, otherwise coloured initials circle + name + email), Phone, Verified (badge + date), Cinema Hall (`Building2` icon + hall name, or "No hall" fallback), Location (`MapPin` icon + location/district/state), Registered (date + last login sub-text), ChevronRight indicator
+- **Table columns**: Admin (avatar image if available, otherwise coloured initials circle + name + email), Phone, Verified (badge + date), Cinema Halls (list of `Building2` icon + hall name for each hall, or "No hall" fallback), Location (list of `MapPin` icon + location for each hall), Registered (date + last login sub-text), ChevronRight indicator
   - Avatar: renders `<img>` with `object-cover rounded-full` when `admin.avatar` is present; falls back to coloured initials circle
-  - OAuth provider badges in header area of the detail sheet
+  - Multiple halls: each hall rendered as a separate row within the cell (`space-y-1`)
 - **Clickable rows** — clicking any row opens the `AdminDetailSheet`
 - **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
 - **Structured loading skeleton** — full `<Table>` with column headers and per-column shapes: avatar circle + two stacked text lines, phone line, small icon skeleton + hall name line, small icon skeleton + location line, date line; mirrors actual table layout eliminating shift on load
@@ -1596,7 +1596,7 @@ Opened by clicking an admin row. Fetches security logs from `GET /api/auth/admin
 | **Header** | Avatar (image or initials), name, email, verified/unverified badge, role badge, OAuth provider badges (Google/GitHub with icons) |
 | **Account Details** | 2×3 grid: Phone, Registered, Email Verified (with timestamp), Last Login, Password Changed, Locked Until |
 | **Login Methods** | Provider pills (Email/Password, Google, GitHub) with coloured icons |
-| **Cinema Hall** | Hall name with `Building2` icon, location with `MapPin` icon; or "No cinema hall assigned" dashed placeholder |
+| **Cinema Halls** | List of all halls owned by the admin — each with `Building2` icon + name and `MapPin` icon + location; or "No cinema hall assigned" dashed placeholder when `halls` is empty |
 | **Security Activity** | Last 30 logs — colour-coded action entries with icon, label, timestamp, and IP address |
 
 **Security log action types (LOG_META):**
