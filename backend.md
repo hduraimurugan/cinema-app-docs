@@ -53,7 +53,7 @@ erDiagram
     cinema_admin_user {
         uuid id PK
         text email UK
-        text password
+        text password "nullable (OAuth-only accounts)"
         text name
         text phone
         text role
@@ -63,6 +63,9 @@ erDiagram
         timestamptz account_locked_until
         timestamptz password_changed_at
         timestamptz last_login_at
+        text[] auth_providers "e.g. ['local','google','github']"
+        jsonb provider_ids "e.g. {google: '123', github: '456'}"
+        text avatar "profile picture URL from OAuth provider"
         timestamptz created_at
     }
 
@@ -241,7 +244,7 @@ erDiagram
     customers {
         uuid id PK
         text email UK
-        text password
+        text password "nullable (OAuth-only accounts)"
         text name
         text phone
         text district
@@ -251,6 +254,9 @@ erDiagram
         timestamptz account_locked_until
         timestamptz last_login_at
         timestamptz password_changed_at
+        text[] auth_providers "e.g. ['local','google']"
+        jsonb provider_ids "e.g. {google: '123'}"
+        text avatar "profile picture URL from OAuth provider"
         timestamptz created_at
         timestamptz updated_at
     }
@@ -454,6 +460,63 @@ sequenceDiagram
 - Reset/change password revokes all other sessions
 - Full security audit log in `admin_security_logs`
 - **Customer OTP security**: SHA-256 hashed before storage; max 5 wrong-guess attempts; max 3 sends per 10 minutes per flow type (rate limited)
+- **OAuth rate limiting**: Custom in-memory counter — max 10 OAuth attempts per IP per 15-minute window; auto-cleanup every 5 minutes
+
+### OAuth Authentication
+
+The system supports **Google OAuth** (admin + customer) and **GitHub OAuth** (admin only) alongside the traditional email/password flow.
+
+#### OAuth Flow Architecture
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Google
+    participant GitHub
+
+    note over User,Google: Google OAuth (Implicit Flow)
+    User->>Frontend: Click "Continue with Google"
+    Frontend->>Google: useGoogleLogin() popup
+    Google-->>Frontend: access_token
+    Frontend->>Backend: POST /google-login {token}
+    Backend->>Google: GET userinfo (verify token)
+    Google-->>Backend: {email, name, picture, sub}
+    Backend->>Backend: Find/create user, set cookies
+    Backend-->>Frontend: {admin/customer, tokens}
+
+    note over User,GitHub: GitHub OAuth (Redirect Flow - Admin only)
+    User->>Frontend: Click "Continue with GitHub"
+    Frontend->>GitHub: Redirect to /login/oauth/authorize
+    GitHub-->>Frontend: Redirect to /auth/github/callback?code=xxx
+    Frontend->>Backend: POST /github-login {code}
+    Backend->>GitHub: Exchange code for access_token
+    GitHub-->>Backend: access_token
+    Backend->>GitHub: GET /user + GET /user/emails
+    GitHub-->>Backend: {login, name, avatar, email}
+    Backend->>Backend: Find/create user, set cookies
+    Backend-->>Frontend: {admin, tokens}
+```
+
+#### Account Linking Rules
+
+- **Email matching**: OAuth login matches existing accounts by email. If found, the provider is auto-linked.
+- **New accounts**: If no account with that email exists, a new account is created (no password, `auth_providers: ['google']` or `['github']`).
+- **Auto-verification**: OAuth accounts are auto-verified (`email_verified = TRUE` for admin, `is_verified = TRUE` for customer).
+- **Duplicate prevention**: Partial unique indexes on `(provider_ids->>'google')` and `(provider_ids->>'github')` prevent the same OAuth ID from being linked to multiple accounts.
+- **Unlink safety**: Cannot unlink a provider if it would leave the account with no login method (must have password or another provider).
+- **Password nullable**: `password` column is nullable to support OAuth-only accounts. Users can later set a password via `/set-password`.
+
+#### Environment Variables
+
+| Variable | App | Description |
+| -------- | --- | ----------- |
+| `GOOGLE_CLIENT_ID` | Backend | Google OAuth Client ID (for ID token verification) |
+| `GITHUB_CLIENT_ID` | Backend | GitHub OAuth App Client ID |
+| `GITHUB_CLIENT_SECRET` | Backend | GitHub OAuth App Client Secret |
+| `VITE_GOOGLE_CLIENT_ID` | Admin + User Frontend | Google OAuth Client ID (for `@react-oauth/google`) |
+| `VITE_GITHUB_CLIENT_ID` | Admin Frontend | GitHub OAuth App Client ID (for redirect URL) |
 
 ---
 
@@ -475,6 +538,11 @@ sequenceDiagram
 | POST   | `/forgot-password`     | None          | Send password reset email (generic response always)       |
 | POST   | `/reset-password`      | None          | Set new password via reset token (revokes all sessions)   |
 | POST   | `/change-password`     | Access Token  | Change password while logged in (revokes other sessions)  |
+| POST   | `/google-login`        | None          | Login/register via Google OAuth (access token or ID token) |
+| POST   | `/github-login`        | None          | Login/register via GitHub OAuth (authorization code)      |
+| POST   | `/link-provider`       | Access Token  | Link a new OAuth provider to existing account             |
+| POST   | `/unlink-provider`     | Access Token  | Unlink an OAuth provider (requires password or 2+ providers) |
+| POST   | `/set-password`        | Access Token  | Set password for OAuth-only accounts (no current password) |
 | GET    | `/security`            | Access Token  | Get security info: sessions, logs, lockout, verified status |
 | GET    | `/admins`              | SuperAdmin    | List all cinema hall admins with hall info                |
 | GET    | `/admins/:id/logs`     | SuperAdmin    | Get security audit logs for a specific admin              |
@@ -655,6 +723,114 @@ Updates the logged-in admin's cinema hall details. Requires `Access Token`.
 | 423  | `ACCOUNT_LOCKED` | Too many failed attempts; includes `lockedUntil` timestamp |
 ```
 
+#### POST `/api/auth/google-login`
+
+Authenticates an admin using a Google OAuth access token (or ID token). If the email matches an existing admin, links Google as a provider and logs in. If no account exists, creates a new admin with `auth_providers: ['google']` and no password (OAuth-only account). Email is auto-verified. Rate-limited: 10 attempts per IP per 15 minutes.
+
+**Request Body:**
+
+```json
+{
+  "token": "<google-access-token-or-id-token>"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "Login successful",
+  "admin": { "id": "uuid", "name": "...", "email": "...", "role": "admin", "auth_providers": ["google"], "avatar": "https://..." },
+  "hall": null
+}
+```
+
+**Errors:** `429` if rate-limited, `401` if token invalid.
+
+#### POST `/api/auth/github-login`
+
+Authenticates an admin using a GitHub authorization code (OAuth redirect flow). Backend exchanges the code for an access token, fetches user profile + verified email. Same account creation/linking logic as Google.
+
+**Request Body:**
+
+```json
+{
+  "code": "<github-authorization-code>"
+}
+```
+
+**Response (200):** Same shape as `/google-login`.
+
+**Errors:** `429` if rate-limited, `401` if code exchange fails or no verified email.
+
+#### POST `/api/auth/link-provider`
+
+Links a new OAuth provider (Google or GitHub) to an existing authenticated admin account. Prevents linking if the provider email doesn't match the admin email or if the provider is already linked to another account.
+
+**Request Body (Google):**
+
+```json
+{
+  "provider": "google",
+  "token": "<google-access-token>"
+}
+```
+
+**Request Body (GitHub):**
+
+```json
+{
+  "provider": "github",
+  "code": "<github-authorization-code>"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "google linked successfully",
+  "auth_providers": ["local", "google"]
+}
+```
+
+#### POST `/api/auth/unlink-provider`
+
+Removes an OAuth provider from the admin's account. Requires that the admin either has a password set or has at least one other provider remaining (cannot leave account with no login method).
+
+**Request Body:**
+
+```json
+{
+  "provider": "google"
+}
+```
+
+**Response (200):**
+
+```json
+{
+  "message": "google unlinked successfully",
+  "auth_providers": ["local"]
+}
+```
+
+#### POST `/api/auth/set-password`
+
+Sets a password for OAuth-only accounts that have no existing password. Enforces the standard password policy. Adds `'local'` to `auth_providers`.
+
+**Request Body:**
+
+```json
+{
+  "newPassword": "SecurePass@1"
+}
+```
+
+**Response (200):** `{ "message": "Password set successfully" }`
+
+**Error:** `400` if the account already has a password (use `/change-password` instead).
+
 ---
 
 ### Cinema Halls Management (`/api/halls`)
@@ -801,6 +977,10 @@ Deletes a specific cinema hall. The admin must own the hall. This action cascade
 | POST   | `/forgot-password`  | None           | Send password-reset OTP (generic response, no enumeration)       |
 | POST   | `/reset-password`   | None           | Verify OTP + set new password (revokes ALL sessions)             |
 | POST   | `/change-password`  | Customer Token | Change password while logged in (revokes other sessions)         |
+| POST   | `/google-login`     | None           | Login/register via Google OAuth (access token or ID token)       |
+| POST   | `/link-provider`    | Customer Token | Link a new OAuth provider to existing account                    |
+| POST   | `/unlink-provider`  | Customer Token | Unlink an OAuth provider (requires password or 2+ providers)     |
+| POST   | `/set-password`     | Customer Token | Set password for OAuth-only accounts (no current password)       |
 
 #### POST `/api/customer/signup`
 
@@ -866,6 +1046,45 @@ Verifies current password, enforces policy on new password, prevents reuse, upda
 **Request Body:** `{ "currentPassword": "OldPass@1", "newPassword": "NewPass@2" }`
 
 **Response (200):** `{ "message": "Password changed successfully. Other devices have been signed out." }`
+
+#### POST `/api/customer/google-login`
+
+Authenticates a customer using a Google OAuth access token (or ID token). If the email matches an existing customer, links Google as a provider and logs in. If no account exists, creates a new customer with `auth_providers: ['google']`, no password, and `is_verified: true`. Rate-limited: 10 attempts per IP per 15 minutes.
+
+**Request Body:** `{ "token": "<google-access-token-or-id-token>" }`
+
+**Response (200):**
+
+```json
+{
+  "message": "Login successful",
+  "customer": { "id": "uuid", "name": "...", "email": "...", "auth_providers": ["google"], "avatar": "https://..." }
+}
+```
+
+#### POST `/api/customer/link-provider`
+
+Links Google OAuth to an existing authenticated customer account. Provider email must match account email.
+
+**Request Body:** `{ "provider": "google", "token": "<google-access-token>" }`
+
+**Response (200):** `{ "message": "google linked successfully", "auth_providers": ["local", "google"] }`
+
+#### POST `/api/customer/unlink-provider`
+
+Removes an OAuth provider from the customer's account. Requires a password or at least one other provider remaining.
+
+**Request Body:** `{ "provider": "google" }`
+
+**Response (200):** `{ "message": "google unlinked successfully", "auth_providers": ["local"] }`
+
+#### POST `/api/customer/set-password`
+
+Sets a password for OAuth-only customer accounts (no existing password). Enforces password policy. Adds `'local'` to `auth_providers`.
+
+**Request Body:** `{ "newPassword": "SecurePass@1" }`
+
+**Response (200):** `{ "message": "Password set successfully" }`
 
 ---
 

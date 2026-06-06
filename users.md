@@ -138,15 +138,34 @@ sequenceDiagram
     API-->>ForgotPasswordPage: 200 OK
     ForgotPasswordPage->>User: Step 3 — Success screen + Sign In button
 ```
-    LoginModal->>User: Show success
 
-    User->>LoginModal: Click "Login"
-    User->>LoginModal: Enter credentials
-    LoginModal->>API: POST /api/customer/login
-    API-->>LoginModal: {customer, tokens}
+### Google OAuth Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LoginModal
+    participant Google
+    participant API
+    participant AuthContext
+
+    User->>LoginModal: Click "Continue with Google"
+    LoginModal->>Google: useGoogleLogin() popup (implicit flow)
+    Google-->>LoginModal: access_token
+    LoginModal->>API: POST /api/customer/google-login {token}
+    API->>Google: GET userinfo (verify access_token)
+    Google-->>API: {email, name, picture, sub}
+    alt Existing customer with matching email
+        API->>API: Link Google provider, update avatar
+    else New customer
+        API->>API: Create customer (no password, is_verified=true)
+    end
+    API-->>LoginModal: {customer, tokens via cookies}
     LoginModal->>AuthContext: setCustomer(customer)
-    AuthContext-->>User: Logged in
+    AuthContext-->>User: Logged in, modal closes
 ```
+
+The Google OAuth button appears in **both** the Login tab and the Signup tab of the LoginModal, separated by an "Or" divider. OAuth-created accounts have no password and `auth_providers: ['google']`.
 
 ### OTP Verification Process
 
@@ -179,7 +198,10 @@ stateDiagram-v2
     phone: "+9876543210",
     district: "Pune",
     state: "Maharashtra",
-    is_verified: true
+    is_verified: true,
+    auth_providers: ["local", "google"],
+    avatar: "https://lh3.googleusercontent.com/...",
+    has_password: true
   },
   isLoggedIn: boolean,
   loading: boolean
@@ -191,6 +213,8 @@ stateDiagram-v2
 - `login(email, password)` — Authenticate; returns `{ success, customer }` or `{ success: false, message, details }` (details contains `code` for ACCOUNT_LOCKED)
 - `logout()` — Clear session + revoke DB session
 - `signup(data)` — Register new customer
+- `googleLogin(token)` — Authenticate via Google OAuth access token; returns `{ success, message }`
+- `refreshCustomer()` — Re-fetches `/me` to update customer state (used after linking/unlinking providers)
 - `update(data)` — Update profile (name, phone, location)
 - `changePassword(currentPassword, newPassword)` — Change password (authenticated); revokes other sessions
 - `fetchLocationDetails()` — Detect location via browser geolocation
@@ -347,6 +371,9 @@ stateDiagram-v2
 - Email (required)
 - Password (required, with show/hide toggle)
 
+**OAuth Button:**
+- **"Continue with Google"** — Below the login form, separated by an "Or" divider (`Separator` component). Uses `@react-oauth/google` `useGoogleLogin` hook (implicit flow). On success, calls `customerAuthContext.googleLogin(token)`. Shows a spinner while processing.
+
 **Security Features:**
 
 - **Account lockout banner**: If `code === 'ACCOUNT_LOCKED'` in the response, shows a `ShieldAlert` red banner with the unlock time (formatted via `lockedUntil`)
@@ -379,6 +406,9 @@ A live `PasswordPolicyChecklist` component renders below the password field show
 5. One special character (`!@#$%^&*` etc.)
 
 The signup submit button is disabled until all 5 checks pass.
+
+**OAuth Button:**
+- **"Continue with Google"** — Below the signup form (only shown before OTP stage), separated by an "Or" divider. Same `useGoogleLogin` implicit flow as Login tab. OAuth signup creates the account immediately (no OTP needed since Google email is pre-verified).
 
 #### OTP Verification
 
@@ -1039,22 +1069,32 @@ Shown when Razorpay payment fails or the user dismisses the Razorpay modal. Rece
 **Component**: `ProfilePage.jsx`
 **Auth required**: Yes (protected route)
 
-Two-section layout:
+Three-section layout:
 
 **Profile Info Section:**
-- Displays customer name, email (read-only), phone
+- Displays customer avatar (from OAuth provider if available, fallback to initials)
+- Customer name, email (read-only), phone
 - Location (district, state) shown as read-only badges
 
-**Change Password Section:**
-- Current password field (with show/hide toggle)
-- New password field + live `PasswordPolicyChecklist`
-- Confirm new password field (with show/hide toggle)
-- Submit disabled until:
-  - All 5 policy checks pass
-  - New password matches confirm
-  - Current password is not empty
-- Calls `changePassword(currentPassword, newPassword)` from `CustomerAuthContext`
-- On success shows a `CheckCircle2` success state with "Password Changed" message
+**Connected Login Methods Section:**
+- Lists Google provider with connection status
+- **Connected** — shows green "Connected" badge + **Disconnect** button
+- **Not connected** — shows **Connect** button that triggers `useGoogleLogin` popup
+- Connect calls `POST /api/customer/link-provider` then `refreshCustomer()`
+- Disconnect calls `POST /api/customer/unlink-provider` then `refreshCustomer()`
+- Disconnect blocked (with toast error) if it's the only login method and no password is set
+
+**Change Password / Set Password Section:**
+- If `customer.has_password === true`: Shows **Change Password** form:
+  - Current password field (with show/hide toggle)
+  - New password field + live `PasswordPolicyChecklist`
+  - Confirm new password field (with show/hide toggle)
+  - Calls `changePassword(currentPassword, newPassword)` from `CustomerAuthContext`
+- If `customer.has_password === false` (OAuth-only account): Shows **Set Password** form:
+  - New password field + live `PasswordPolicyChecklist`
+  - Confirm new password field
+  - Calls `POST /api/customer/set-password` then `refreshCustomer()`
+- On success shows a `CheckCircle2` success state with "Password Changed/Set" message
 - Password policy same as signup: 8+ chars, uppercase, lowercase, digit, special char
 
 #### SettingsPage
@@ -1085,7 +1125,7 @@ graph LR
     A --> F2[adsAPI]
     A --> G2[settingsAPI]
 
-    B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp, forgotPassword, resetPassword, changePassword]
+    B --> F[signup, login, logout, getMe, update, refresh, sendOtp, verifyOtp, forgotPassword, resetPassword, changePassword, googleLogin, linkProvider, unlinkProvider, setPassword]
     C --> G[getAllMovies, getMovieById, getMoviesByLocation, getMovieDetailsWithShowtimes, getTheatresWithShows]
     D --> H[holdSeats, confirmBooking, releaseSeats, getBookingByPaymentId, getMyBookings, getBookingById]
     E --> I[createOrder, verifyPayment]
@@ -1779,7 +1819,7 @@ npm run build
 
 ---
 
-**Last Updated**: March 17, 2026 — Offers system: new `OffersPage` at `/offers` (card grid of eligible active offers, copy-code button); coupon input added to `OrderSummaryPage` (Apply/Remove UI, discount line in price breakdown); `offersAPI.validateOffer` called on apply; `offer_code` passed through `useRazorpayPayment` → `paymentAPI.createOrder` for server-side re-validation.
+**Last Updated**: June 6, 2026 — OAuth Authentication: Google OAuth login/signup in LoginModal (both Login and Signup tabs) via `@react-oauth/google` implicit flow; ProfilePage now shows Connected Login Methods (Google connect/disconnect) and conditional Set Password form for OAuth-only accounts; CustomerAuthContext extended with `googleLogin`, `refreshCustomer`; API service layer extended with `googleLogin`, `linkProvider`, `unlinkProvider`, `setPassword`; `GoogleOAuthProvider` wraps app in main.jsx.
 
 *March 20, 2026 — OffersPage now shows redeemed offers as disabled cards: `getActiveOffers` backend no longer filters out redeemed offers — returns them with `is_redeemed: true`, sorted available-first. Frontend renders redeemed cards at `opacity-60` with gray top band, green "Applied" badge, muted discount text, strikethrough code, and "Already used" label (copy button hidden).*
 

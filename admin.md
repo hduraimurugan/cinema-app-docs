@@ -39,6 +39,7 @@ graph TD
     PUB --> PUB2[/verify-email - AuthPage view="verify-email"]
     PUB --> PUB3[/forgot-password - AuthPage view="forgot-password"]
     PUB --> PUB4[/reset-password - AuthPage view="reset-password"]
+    PUB --> PUB5[/auth/github/callback - GitHubCallback]
 
     G --> H[Exempt Routes]
     H --> H1[/profile - ProfilePage]
@@ -146,7 +147,10 @@ sequenceDiagram
     email_verified: true,
     email_verified_at: "2026-05-31T10:00:00Z",
     password_changed_at: "2026-05-31T10:00:00Z",
-    last_login_at: "2026-05-31T10:00:00Z"
+    last_login_at: "2026-05-31T10:00:00Z",
+    auth_providers: ["local", "google", "github"],
+    avatar: "https://lh3.googleusercontent.com/...",
+    has_password: true
   },
   cinemaHall: { id, name, location, district, state, latitude, longitude },
   isLoggedIn: boolean,
@@ -160,6 +164,9 @@ sequenceDiagram
 - `login(email, password)` — returns `{ success, message, data, hall }`; `data` contains the raw error body on failure (with `code` for lockout/unverified)
 - `logout()` — revokes current session, clears state
 - `register(data)` — returns `{ success, message }`
+- `googleLogin(token)` — authenticate via Google OAuth access token; returns `{ success, message }`
+- `githubLogin(code)` — authenticate via GitHub authorization code; returns `{ success, message }`
+- `refreshUser()` — re-fetches `/me` to update user state (used after linking/unlinking providers)
 - `changePassword(currentPassword, newPassword)` — calls `/api/auth/change-password`
 - `logoutAllDevices()` — revokes all sessions, clears user/hall state
 - `checkAuth()` — verify token on mount
@@ -220,8 +227,14 @@ Rather than full route re-renders causing layout flickering and empty state jump
 #### 1. LoginForm (`LoginForm.jsx`)
 Collects Admin credentials, handles login requests, and reads authentication response payloads. Handles account lock banners and directs unverified registration emails to verification page triggers.
 
+**OAuth Buttons:**
+- **"Continue with Google"** — Uses `@react-oauth/google` `useGoogleLogin` hook (implicit flow). On success, sends access token to backend via `AuthContext.googleLogin()`.
+- **"Continue with GitHub"** — Redirects browser to `https://github.com/login/oauth/authorize` with `VITE_GITHUB_CLIENT_ID` and redirect URI `/auth/github/callback`. After authorization, GitHub redirects back with a `code` parameter.
+
 #### 2. RegisterForm (`RegisterForm.jsx`)
 Provides fields for Full Name, Phone, Email, and Password. Includes client-side validations and password policy checkers displaying ticks upon satisfying rules.
+
+**OAuth:** Includes a "Continue with Google" button below the form (same implicit flow as LoginForm).
 
 #### 3. ForgotPasswordForm (`ForgotPasswordForm.jsx`)
 An email submission form which triggers reset link dispatches. Displays a success confirmation state upon submission to prevent email enumeration.
@@ -234,6 +247,10 @@ Handles two primary states:
 
 #### 5. ResetPasswordForm (`ResetPasswordForm.jsx`)
 Reads `?token=` from the URL parameters. Renders new password inputs, matches, policy checklists, and handles token expiration, invalid tokens, or already-used token validation errors.
+
+#### 6. GitHubCallback (`/auth/github/callback`)
+**Component:** `GitHubCallback.jsx`
+Handles the GitHub OAuth redirect callback. Reads the `code` query parameter and calls `AuthContext.githubLogin(code)`. Shows a loading spinner while processing and redirects to `/` on success or `/login` on failure. Uses `useRef` guard to prevent duplicate code exchanges and `navigate({ replace: true })` to avoid leaving the callback in browser history.
 
 ---
 
@@ -1572,8 +1589,17 @@ Three sections on one page:
 **Security:**
 - **Email Verification** — badge showing `Verified` (green) or `Not verified` (yellow) + **Resend** button when unverified; calls `POST /api/auth/resend-verification`
 - **Security Metadata** — Last sign-in timestamp + Password last changed timestamp (sourced from `user.last_login_at` / `user.password_changed_at`)
-- **Change Password** — form with Current Password, New Password (live policy checklist), Confirm Password; submit calls `useAuth().changePassword()` → `POST /api/auth/change-password`; revokes all other sessions
+- **Change Password** — form with Current Password, New Password (live policy checklist), Confirm Password; submit calls `useAuth().changePassword()` → `POST /api/auth/change-password`; revokes all other sessions. Only shown when `user.has_password === true`.
+- **Set Password** — shown for OAuth-only accounts (`user.has_password === false`). Form with New Password + Confirm (no current password required). Calls `POST /api/auth/set-password`.
 - **Sign Out All Devices** — calls `useAuth().logoutAllDevices()` → `POST /api/auth/logout-all`; revokes every active session
+
+**Connected Login Methods:**
+- Lists all available providers: Google, GitHub
+- Each shows a **Connected** badge (green) with a **Disconnect** button, or a **Connect** button
+- **Connect Google** — uses `useGoogleLogin` popup, then calls `POST /api/auth/link-provider`
+- **Connect GitHub** — redirects to GitHub OAuth authorize URL, callback links the provider
+- **Disconnect** — calls `POST /api/auth/unlink-provider`; blocked if it's the only login method and no password is set
+- After connect/disconnect, calls `refreshUser()` to update `auth_providers` in state
 
 #### SettingsPage
 
@@ -1617,7 +1643,7 @@ graph LR
     A --> G5[paymentAPI]
     A --> G6[refundAPI]
 
-    B --> G[register, login, logout, logoutAll, getMe, refresh, verifyEmail, resendVerification, forgotPassword, resetPassword, changePassword, getSecurityInfo]
+    B --> G[register, login, logout, logoutAll, getMe, refresh, verifyEmail, resendVerification, forgotPassword, resetPassword, changePassword, getSecurityInfo, googleLogin, githubLogin, linkProvider, unlinkProvider, setPassword]
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
     D --> I[addMovie, editMovie, deleteMovie, getAllMovies, getMovieById]
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
@@ -2190,7 +2216,7 @@ Configured for Vercel deployment:
 
 ---
 
-**Last Updated**: May 31, 2026 (Admin Auth Security Upgrade — Email verification flow, Forgot/Reset Password, Change Password, Account Lockout & Brute Force Protection, Session revocation, Security Dashboard in ProfilePage; 3 new pages: VerifyEmailPage, ForgotPasswordPage, ResetPasswordPage; ProtectedRoute now redirects unverified users; RegisterPage redirects to /verify-email on success; LoginPage handles ACCOUNT_LOCKED and EMAIL_NOT_VERIFIED error codes with inline UI; Vite port locked: admin=5174, users=5173)
+**Last Updated**: June 6, 2026 (OAuth Authentication — Google + GitHub OAuth login/signup on LoginForm and RegisterForm; GitHubCallback page for redirect flow; ProfilePage now shows Connected Login Methods section with connect/disconnect for Google and GitHub; Set Password form for OAuth-only accounts; AuthContext extended with googleLogin, githubLogin, refreshUser; API service layer extended with googleLogin, githubLogin, linkProvider, unlinkProvider, setPassword; GoogleOAuthProvider wraps app in main.jsx)
 
 **June 5, 2026 (Bug fix — `validatePassword` call sites in `auth.Controller.js`)** — `validatePassword` returns `string | null`, but `auth.Controller.js` was incorrectly treating the return value as `{ valid, message }`, causing `TypeError: Cannot read properties of null (reading 'valid')` on valid password submissions in `registerCinemaAdmin`, `resetPassword`, and `changePassword`. All three call sites fixed to use the correct pattern. No frontend changes required.
 
