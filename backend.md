@@ -2252,6 +2252,7 @@ sequenceDiagram
 | Method | Endpoint | Auth       | Description                              |
 | ------ | -------- | ---------- | ---------------------------------------- |
 | GET    | `/`      | SuperAdmin | List all customers with search + stats   |
+| GET    | `/:id`   | SuperAdmin | Get customer details with bookings + sessions |
 
 #### GET `/api/customers` *(SuperAdmin)*
 
@@ -2279,6 +2280,8 @@ Returns a paginated list of all registered platform customers. Supports search a
       "state": "Tamil Nadu",
       "is_verified": true,
       "created_at": "2025-01-15T10:30:00Z",
+      "avatar": "https://lh3.googleusercontent.com/...",
+      "auth_providers": ["local", "google"],
       "booking_count": 5
     }
   ],
@@ -2290,7 +2293,65 @@ Returns a paginated list of all registered platform customers. Supports search a
 }
 ```
 
-`booking_count` is the number of confirmed (paid) bookings for each customer. `stats` always reflects the full unfiltered totals.
+`booking_count` is the number of confirmed (paid) bookings for each customer. `stats` always reflects the full unfiltered totals. `avatar` is `null` if no OAuth profile picture. `auth_providers` is an array of login methods (e.g. `["local"]`, `["google", "github"]`).
+
+---
+
+#### GET `/api/customers/:id` *(SuperAdmin)*
+
+Returns detailed information for a single customer including recent bookings and active sessions. Used by the admin panel's CustomerDetailSheet.
+
+**Path Parameter:** `:id` — the customer's UUID
+
+**Response (200):**
+
+```json
+{
+  "customer": {
+    "id": "uuid",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "9876543210",
+    "district": "Chennai",
+    "state": "Tamil Nadu",
+    "is_verified": true,
+    "failed_login_attempts": 0,
+    "account_locked_until": null,
+    "last_login_at": "2026-06-01T10:00:00Z",
+    "password_changed_at": "2026-05-20T08:00:00Z",
+    "created_at": "2025-01-15T10:30:00Z",
+    "updated_at": "2026-06-01T10:00:00Z",
+    "auth_providers": ["local", "google"],
+    "avatar": "https://lh3.googleusercontent.com/...",
+    "has_password": true
+  },
+  "recentBookings": [
+    {
+      "id": "uuid",
+      "booking_status": "confirmed",
+      "payment_status": "completed",
+      "total_amount": "350.00",
+      "created_at": "2026-06-01T14:30:00Z"
+    }
+  ],
+  "activeSessions": [
+    {
+      "id": "uuid",
+      "ip_address": "103.27.12.45",
+      "user_agent": "Mozilla/5.0 ...",
+      "is_revoked": false,
+      "last_used_at": "2026-06-01T16:00:00Z",
+      "created_at": "2026-06-01T10:00:00Z"
+    }
+  ]
+}
+```
+
+- `recentBookings`: last 10 bookings ordered by `created_at DESC`
+- `activeSessions`: last 10 non-revoked sessions ordered by `last_used_at DESC`
+- `has_password`: boolean indicating whether the customer has a password set (OAuth-only accounts may not)
+
+**Response (404):** `{ "error": "Customer not found." }`
 
 ---
 
@@ -2323,7 +2384,12 @@ Returns a paginated list of all registered cinema hall admins (excludes SuperAdm
       "email": "ravi@example.com",
       "phone": "9876543210",
       "role": "admin",
+      "email_verified": true,
+      "email_verified_at": "2025-02-01T09:00:00Z",
+      "last_login_at": "2026-06-01T10:00:00Z",
       "created_at": "2025-02-01T08:00:00Z",
+      "auth_providers": ["local", "google"],
+      "avatar": "https://lh3.googleusercontent.com/...",
       "hall_id": "uuid",
       "hall_name": "Ravi Cinemas",
       "location": "Tirunelveli",
@@ -2335,7 +2401,7 @@ Returns a paginated list of all registered cinema hall admins (excludes SuperAdm
 }
 ```
 
-`hall_id` / `hall_name` / `location` will be `null` if the admin has not yet created a cinema hall.
+`hall_id` / `hall_name` / `location` will be `null` if the admin has not yet created a cinema hall. `avatar` is `null` if no OAuth profile picture. `auth_providers` lists all linked login methods.
 
 ---
 

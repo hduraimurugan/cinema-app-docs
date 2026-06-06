@@ -1535,19 +1535,35 @@ Lists all Razorpay payment orders for the cinema hall in a paginated table. Show
 **Access**: SuperAdmin only
 **Sidebar**: Management → Customers (`Users` icon)
 
-Lists all registered platform customers in a paginated table with search and stats.
+Lists all registered platform customers in a paginated table with search, stats, and click-to-open detail panel.
 
 **Features:**
 - **Stats cards** (2-card grid): Total Customers (all-time count), Verified (email-verified count) — scoped to unfiltered totals; skeleton loading state while in flight
 - **Search bar** — debounced 400ms, searches across name, email, and phone; "Clear" button shown when input has a value
 - **Refresh** button — re-fetches with current filters
-- **Table columns**: Customer (coloured avatar circle with initials + name + email), Phone, Location (district + state), Status (Verified / Unverified badge), Joined (date), Bookings (booking count badge)
+- **Table columns**: Customer (avatar image if available, otherwise coloured initials circle + name + email), Phone, Location (district + state), Status (Verified / Unverified badge + OAuth provider badges), Joined (date), Bookings (booking count badge), ChevronRight indicator
+  - Avatar: renders `<img>` with `object-cover rounded-full` when `customer.avatar` is present; falls back to coloured initials circle
+  - OAuth provider badges: small inline icons for each provider in `auth_providers` array (Google/GitHub)
   - Verified badge: emerald pill with `CheckCircle2` icon; Unverified: amber pill
   - Booking count: primary-tinted rounded badge showing confirmed booking count
+- **Clickable rows** — clicking any row opens the `CustomerDetailSheet`
 - **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
 - **Structured loading skeleton** — full `<Table>` with column headers and per-column shapes: avatar circle + two stacked text lines, phone line, location line, `rounded-full` status pill, date line, small rounded badge for booking count
 - Contextual empty state with "Clear search" CTA when search is active; error state with icon
 - **Data source**: `GET /api/customers?search=&page=&limit=` via `customersAPI.getAll()`
+
+**CustomerDetailSheet** (right-side `Sheet`, `sm:max-w-lg`):
+Opened by clicking a customer row. Fetches detailed data from `GET /api/customers/:id` via `customersAPI.getDetails(id)`.
+
+| Section | Content |
+|---------|---------|
+| **Header** | Avatar (image or initials), name, email, verified/unverified badge, OAuth provider badges |
+| **Account Details** | 2×3 grid: Phone, Location, Registered, Last Login, Password Changed, Locked Until |
+| **Login Methods** | Provider pills (Email/Password, Google, GitHub) with coloured icons; "No password set" amber warning if `has_password === false` |
+| **Recent Bookings** | Last 10 bookings with status badge (confirmed/cancelled/pending), timestamp, and amount |
+| **Active Sessions** | Last 10 non-revoked sessions with truncated user-agent, IP, and last-used timestamp |
+
+Loading state: centered `Loader2` spinner. Error state: centered error message.
 
 ---
 
@@ -1558,16 +1574,35 @@ Lists all registered platform customers in a paginated table with search and sta
 **Access**: SuperAdmin only
 **Sidebar**: Management → Hall Admins (`Building2` icon)
 
-Lists all registered cinema hall admins (excludes SuperAdmin) with their associated hall details.
+Lists all registered cinema hall admins (excludes SuperAdmin) with their associated hall details and click-to-open detail panel.
 
 **Features:**
 - **Search bar** — debounced 400ms, searches by admin name, email, or hall name; "Clear" button shown when input has a value
 - **Refresh** button — re-fetches with current filters
-- **Table columns**: Admin (coloured avatar circle with initials + name + email), Phone, Cinema Hall (`Building2` icon + hall name, or "No hall" fallback), Location (`MapPin` icon + location/district/state), Registered (date)
+- **Table columns**: Admin (avatar image if available, otherwise coloured initials circle + name + email), Phone, Verified (badge + date), Cinema Hall (`Building2` icon + hall name, or "No hall" fallback), Location (`MapPin` icon + location/district/state), Registered (date + last login sub-text), ChevronRight indicator
+  - Avatar: renders `<img>` with `object-cover rounded-full` when `admin.avatar` is present; falls back to coloured initials circle
+  - OAuth provider badges in header area of the detail sheet
+- **Clickable rows** — clicking any row opens the `AdminDetailSheet`
 - **Pagination bar** (shared `Pagination` component): always visible when data exists; "Showing X–Y of Z" range, **Rows per page** dropdown (5 / 10 / 25 / 50, default 10), numbered page buttons with ellipsis, Prev/Next
 - **Structured loading skeleton** — full `<Table>` with column headers and per-column shapes: avatar circle + two stacked text lines, phone line, small icon skeleton + hall name line, small icon skeleton + location line, date line; mirrors actual table layout eliminating shift on load
 - Contextual empty state with "Clear search" CTA when search is active; error state with icon
 - **Data source**: `GET /api/auth/admins?search=&page=&limit=` via `adminsAPI.getAll()`
+
+**AdminDetailSheet** (right-side `Sheet`, `sm:max-w-lg`):
+Opened by clicking an admin row. Fetches security logs from `GET /api/auth/admins/:id/logs` via `adminsAPI.getLogs(id)`.
+
+| Section | Content |
+|---------|---------|
+| **Header** | Avatar (image or initials), name, email, verified/unverified badge, role badge, OAuth provider badges (Google/GitHub with icons) |
+| **Account Details** | 2×3 grid: Phone, Registered, Email Verified (with timestamp), Last Login, Password Changed, Locked Until |
+| **Login Methods** | Provider pills (Email/Password, Google, GitHub) with coloured icons |
+| **Cinema Hall** | Hall name with `Building2` icon, location with `MapPin` icon; or "No cinema hall assigned" dashed placeholder |
+| **Security Activity** | Last 30 logs — colour-coded action entries with icon, label, timestamp, and IP address |
+
+**Security log action types (LOG_META):**
+`LOGIN_SUCCESS`, `LOGIN_FAILED`, `LOGOUT`, `LOGOUT_ALL`, `EMAIL_VERIFIED`, `PASSWORD_RESET`, `PASSWORD_CHANGED`, `ACCOUNT_LOCKED`, `OAUTH_LOGIN` (Google/GitHub), `OAUTH_SIGNUP`, `PROVIDER_LINKED`, `PROVIDER_UNLINKED`, `PASSWORD_SET`
+
+Loading state: centered `Loader2` spinner. Error state: centered error message.
 
 ---
 
@@ -1649,8 +1684,8 @@ graph LR
     E --> J[createShow, createMultipleShows, editShow, deleteShow, getShowsByDate]
     F --> K[getCinemaHallBookings, verifyBooking, getBookingById]
     G2 --> L[getSettings, updateSettings]
-    G3 --> M[getAll - search/page/limit]
-    G4 --> N[getAll - search/page/limit]
+    G3 --> M[getAll - search/page/limit, getDetails - id]
+    G4 --> N[getAll - search/page/limit, getLogs - id]
     G5 --> O[getOrders - filters/page/limit, createOrder, verifyPayment]
     G6 --> P[getRefunds - filters/page/limit, settleRefund]
 ```
