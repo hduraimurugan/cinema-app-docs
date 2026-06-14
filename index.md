@@ -10,6 +10,7 @@ Quick reference for all documentation files in this folder.
 | [admin.md](./admin.md)                                                                 | Admin panel documentation              | Movie management, screen designer, show scheduling, bookings overview, OAuth (Google + GitHub)                               |
 | [payment and booking implementation.md](./payment%20and%20booking%20implementation.md) | Deep dive into seat booking + Razorpay | Hold mechanism, concurrency, payment verify, booking success page, idempotency walkthrough          |
 | [db_setup.sql](./db_setup.sql)                                                         | One-shot idempotent DB setup script    | Full schema for both local PostgreSQL and Neon; run to create or update any DB                      |
+| [backend_tests.md](./backend_tests.md)                                                                 | Test suite documentation               | 352 tests across 30 files, coverage report, test patterns, infrastructure overview                 |
 | [graphify-out/](./graphify-out/)                                                       | Graphify Knowledge Graph               | Interactive codebase graph (`graph.html`), audit report (`GRAPH_REPORT.md`), and raw model JSON     |
 
 ---

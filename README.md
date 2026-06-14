@@ -79,7 +79,27 @@ This folder contains complete documentation for all components of the applicatio
 
 ---
 
-### 5. [Graphify Knowledge Graph](./graphify-out/)
+### 5. [Test Suite Documentation](./backend_tests.md)
+
+**What's inside:**
+
+- 352 tests across 30 test files
+- Test infrastructure (DB, factories, mocks)
+- Test patterns and examples
+- Coverage report and thresholds
+- Per-phase test breakdown
+- Known issues and key findings
+- Quick start commands
+
+**Start here if you're:**
+
+- Running tests for the first time
+- Adding new tests to the API
+- Debugging test failures
+
+---
+
+### 6. [Graphify Knowledge Graph](./graphify-out/)
 
 **What's inside:**
 
@@ -161,7 +181,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 
 | Metric                | Count  |
 | --------------------- | ------ |
-| Documentation Files   | 6      |
+| Documentation Files   | 7      |
 | Total Lines           | 4,800+ |
 | Mermaid Diagrams      | 35+    |
 | API Endpoints         | 47+    |
