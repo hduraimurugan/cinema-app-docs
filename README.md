@@ -225,7 +225,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 ✅ Movie search  
 ✅ Profile management  
 ✅ Dark mode support  
-✅ **Interactive seat selection**
+✅ **Interactive seat selection** (BookMyShow-style with seat count modal + smart adjacency)
 ✅ **Real-time seat availability**
 ✅ **Secure payment with Razorpay**
 ✅ **Booking confirmation page (API-fetched, refresh-safe)**
@@ -335,7 +335,7 @@ If you need clarification on any documented feature:
 ## 📅 Last Updated
 
 **Created**: January 29, 2026
-**Last Updated**: April 19, 2026
+**Last Updated**: June 14, 2026
 
 ---
 

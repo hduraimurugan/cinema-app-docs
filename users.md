@@ -707,16 +707,20 @@ Interactive seat selection UI for a given show. Fetches live seat availability f
 
 **Layout:**
 - **Sticky header** — back button, movie poster thumbnail, title + language, show time badge, screen type badge (2D/3D/IMAX). Compact on mobile.
-- **Legend + toolbar row** — Available / Sold / Selected color swatches on the left; **Select / Pan mode toggle** button on the right.
+- **Seat Count Modal** — On first visit, a centered modal asks "How many seats would you like to book?" (1–10). User must choose a count before interacting with the seat grid. Modal cannot be dismissed without selecting. Once confirmed, a badge appears in the legend toolbar showing the chosen count.
+- **Legend + toolbar row** — Available / Sold / Selected color swatches on the left; seat count badge (if set); **Select / Pan mode toggle** button on the right.
 - **Seat grid** — horizontally scrollable, zero-padded column numbers (`01`, `02`…), row labels on both sides. Sections separated by a price header (`₹350 PREMIUM`). Screen indicator ("All Eyes This Way" blue line) positioned at `top` or `bottom` based on `screenPosition` from the layout.
 - **Floating zoom controls** — `+` / `−` circular buttons on the bottom-right of the seat grid with a percentage readout.
 - **Fixed minimap panel** — `"Layout Overview"` card fixed to the top-right of the viewport (below the sticky header); only shown on `sm+` screens when the layout overflows horizontally.
-- **Bottom payment bar** — fixed footer with ticket count, total price, and "Proceed to Payment" button; only visible when seats are selected.
+- **Bottom payment bar** — fixed footer with ticket count (`X/Y selected`), seat labels, total price, and "Proceed to Payment" button; only visible when seats are selected.
 
 **Key Features:**
 
 | Feature | Detail |
 |---|---|
+| **Seat Count Modal** | `SeatCountModal` asks "How many seats would you like to book?" (1–10). Non-dismissible — user must pick a count. Appears once per page visit via `showSeatCountModal` state. |
+| **Smart Adjacent Selection** | After setting seat count, clicking any available seat auto-selects the nearest contiguous block in the same row. Uses `findBestAdjacentSeats()` — a sliding-window algorithm that scores blocks by proximity to clicked seat, right-bias, and contiguity. |
+| **Best-Adjacent Algorithm** | `src/utils/seatSelection.js` — filters available seats in the same row, slides a window of size `seatCount`, scores by (1) contains clicked seat, (2) left extension, (3) distance. Returns seat IDs. |
 | **Seat hold** | `POST /api/booking/hold` — 5-minute row-level lock; on success navigates to `/order-summary` with full state |
 | **Hand / Pan tool** | Toggle between Select and Pan modes; in Pan mode dragging moves the seat grid instead of selecting seats. Cursor becomes `grab` / `grabbing`. Document-level `mousemove`+`mouseup` listeners attached while pan mode is active. |
 | **Layout Minimap** | 300×200px canvas fixed at `top-right` of viewport. Draws all seats as colored rectangles (amber = premium, yellow = gold, gray = silver, zinc = sold, emerald = selected). Blue rectangle shows the current scroll viewport. Click or drag on the minimap to jump to that area. Only visible when the grid overflows. |
@@ -727,11 +731,13 @@ Interactive seat selection UI for a given show. Fetches live seat availability f
 **State:**
 
 ```js
-selectedSeats   // string[] of seat IDs
-isPanMode       // bool — whether drag pans instead of selects
-isDraggingActive // bool — for grabbing cursor re-render
-isOverflowing   // bool — controls minimap visibility
-zoom            // number — 0.5 to 1.5, applied via CSS zoom
+selectedSeats        // string[] of seat IDs
+seatCount            // number|null — chosen seat count (1–10), null before modal confirmed
+showSeatCountModal   // bool — controls SeatCountModal visibility; true on first visit
+isPanMode            // bool — whether drag pans instead of selects
+isDraggingActive     // bool — for grabbing cursor re-render
+isOverflowing        // bool — controls minimap visibility
+zoom                 // number — 0.5 to 1.5, applied via CSS zoom
 ```
 
 **Refs:**
@@ -767,8 +773,22 @@ sequenceDiagram
     SeatSelectionPage->>API: GET /api/shows/:showId
     API-->>SeatSelectionPage: showData (seats with status, layout, pricing)
 
-    User->>SeatSelectionPage: Click seat (Select mode)
-    SeatSelectionPage->>SeatSelectionPage: toggleSeat() → update selectedSeats
+    SeatSelectionPage->>User: Show SeatCountModal (first visit)
+    User->>SeatSelectionPage: Select seat count (1–10)
+    SeatSelectionPage->>SeatSelectionPage: seatCount = N; close modal
+
+    User->>SeatSelectionPage: Click available seat
+    SeatSelectionPage->>SeatSelectionPage: findBestAdjacentSeats(clickedSeat, seatCount, seats)
+    Note over SeatSelectionPage: Sliding-window over same-row available seats<br/>Score: contains clicked, right-bias, min distance
+    alt Block found (exact count)
+        SeatSelectionPage->>SeatSelectionPage: selectedSeats = block seat IDs
+        SeatSelectionPage->>User: Highlight N seats; show "N/N selected"
+    else Block not found
+        SeatSelectionPage->>User: Toast: "Unable to find N adjacent seats"
+    end
+
+    User->>SeatSelectionPage: Click different seat
+    SeatSelectionPage->>SeatSelectionPage: Re-run adjacency (selection replaced)
 
     User->>SeatSelectionPage: Toggle Pan mode
     SeatSelectionPage->>SeatSelectionPage: isPanMode = true; drag moves scrollLeft
@@ -1272,6 +1292,19 @@ sequenceDiagram
 - Login/signup forms
 - OTP verification
 - Form validation
+
+**SeatCountModal** - Seat count selector (`src/components/SeatCountModal.jsx`)
+
+- Centered Dialog asking "How many seats would you like to book?"
+- Stepper UI (Minus / Plus buttons) for 1–10 seat count
+- Non-dismissible — user must confirm a count before proceeding
+- Uses shadcn `Dialog` component with hidden close button
+
+### Utility Files
+
+| File | Purpose |
+|---|---|
+| `src/utils/seatSelection.js` | `findBestAdjacentSeats(clickedSeat, seatCount, seats)` — sliding-window algorithm that finds the optimal contiguous seat block nearest to the clicked seat. Scoring: (1) contains clicked seat, (2) right-bias, (3) minimum distance. |
 
 ---
 
