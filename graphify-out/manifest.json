@@ -635,9 +635,9 @@
     "semantic_hash": "5f7cb556c1c0e65da449327f49cb0c11"
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\middleware\\verifyCinemaAdmin.js": {
-    "mtime": 1780230059.9789946,
-    "ast_hash": "ed801c6cd5f5900364210a7d74ac7a68",
-    "semantic_hash": "ed801c6cd5f5900364210a7d74ac7a68"
+    "mtime": 1781427481.0470939,
+    "ast_hash": "f889c3444dd8c203760df9eb5d4b820e",
+    "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\migrations\\migration_add_tmdb_id.sql": {
     "mtime": 1774454424.6097817,
@@ -1540,8 +1540,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\Bugs_report.md": {
-    "mtime": 1781426859.848865,
-    "ast_hash": "ee04f909cd4a416b28f76bbb61314fc3",
+    "mtime": 1781427503.1955495,
+    "ast_hash": "cf728e4f462302146d35fcda2b070297",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-api\\Tests_guide.md": {

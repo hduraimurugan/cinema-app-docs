@@ -1,11 +1,11 @@
 # Graph Report - cinema-hall  (2026-06-14)
 
 ## Corpus Check
-- 302 files · ~239,398 words
+- 302 files · ~239,373 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1905 nodes · 3294 edges · 175 communities (159 shown, 16 thin omitted)
+- 1905 nodes · 3294 edges · 178 communities (161 shown, 17 thin omitted)
 - Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 558 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -114,6 +114,7 @@
 - [[_COMMUNITY_Community 168|Community 168]]
 - [[_COMMUNITY_Community 169|Community 169]]
 - [[_COMMUNITY_Community 170|Community 170]]
+- [[_COMMUNITY_Community 175|Community 175]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `query()` - 29 edges
@@ -142,7 +143,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (175 total, 16 thin omitted)
+## Communities (178 total, 17 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -173,11 +174,11 @@ Cohesion: 0.05
 Nodes (53): pool, allowedOrigins, app, appStartTime, createAd(), deleteAd(), getActiveAds(), getAdClicks() (+45 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.13
-Nodes (7): ProfilePage(), adsAPI, offersAPI, settingsAPI, showsAPI, PASSWORD_POLICY_CHECKS, customerAuthAPI
+Cohesion: 0.20
+Nodes (3): ProfilePage(), PASSWORD_POLICY_CHECKS, customerAuthAPI
 
 ### Community 8 - "Community 8"
-Cohesion: 0.07
+Cohesion: 0.08
 Nodes (26): hooks, dayjs, adsAPI, bookingAPI, offersAPI, paymentAPI, settingsAPI, showsAPI (+18 more)
 
 ### Community 9 - "Community 9"
@@ -205,8 +206,8 @@ Cohesion: 0.05
 Nodes (76): createHeldSeat(), confirmBooking(), getBookingByPaymentId(), getBookingDetails(), getCinemaHallBookings(), getMyBookings(), holdSeats(), releaseSeats() (+68 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.07
-Nodes (28): ShowsManagement(), debounce(), SearchMovies(), ThemeContext, ProtectedRoute(), allCities, LocationModal(), POPULAR_CITIES (+20 more)
+Cohesion: 0.08
+Nodes (26): ShowsManagement(), ThemeContext, ProtectedRoute(), allCities, LocationModal(), POPULAR_CITIES, popularCitiesWithState, stateMap (+18 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.18
@@ -493,13 +494,13 @@ Cohesion: 0.67
 Nodes (3): Navigation Structure, Route Protection, Routing & Navigation
 
 ### Community 169 - "Community 169"
-Cohesion: 0.10
-Nodes (4): refundBadgeConfig, statusColors, getYouTubeEmbedUrl(), MovieInfoPage()
+Cohesion: 0.13
+Nodes (8): debounce(), SearchMovies(), adsAPI, offersAPI, settingsAPI, showsAPI, getYouTubeEmbedUrl(), MovieInfoPage()
 
 ## Knowledge Gaps
 - **668 isolated node(s):** `start-all-services.sh script`, `pg`, `pool`, `$schema`, `rsc` (+663 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
