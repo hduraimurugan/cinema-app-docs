@@ -1061,7 +1061,7 @@
       "source_file": "cinema-hall-admin/src/App.jsx",
       "source_location": "L38",
       "id": "cinema_hall_admin_src_app_jsx_src_app_app",
-      "community": 23,
+      "community": 24,
       "norm_label": "app()"
     },
     {
@@ -3059,7 +3059,7 @@
       "source_file": "cinema-hall-admin/src/context/HallContext.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_context_hallcontext_jsx",
-      "community": 24,
+      "community": 23,
       "norm_label": "hallcontext.jsx"
     },
     {
@@ -3068,7 +3068,7 @@
       "source_file": "cinema-hall-admin/src/context/HallContext.jsx",
       "source_location": "L5",
       "id": "context_hallcontext_hallcontext",
-      "community": 24,
+      "community": 23,
       "norm_label": "hallcontext"
     },
     {
@@ -3095,7 +3095,7 @@
       "source_file": "cinema-hall-admin/src/context/ThemeContext.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_context_themecontext_jsx",
-      "community": 23,
+      "community": 99,
       "norm_label": "themecontext.jsx"
     },
     {
@@ -3104,7 +3104,7 @@
       "source_file": "cinema-hall-admin/src/context/ThemeContext.jsx",
       "source_location": "L3",
       "id": "cinema_hall_admin_src_context_themecontext_jsx_context_themecontext_themecontext",
-      "community": 23,
+      "community": 99,
       "norm_label": "themecontext"
     },
     {
@@ -3113,7 +3113,7 @@
       "source_file": "cinema-hall-admin/src/context/ThemeContext.jsx",
       "source_location": "L5",
       "id": "cinema_hall_admin_src_context_themecontext_jsx_context_themecontext_themeprovider",
-      "community": 23,
+      "community": 99,
       "norm_label": "themeprovider()"
     },
     {
@@ -3122,7 +3122,7 @@
       "source_file": "cinema-hall-admin/src/context/ThemeContext.jsx",
       "source_location": "L28",
       "id": "cinema_hall_admin_src_context_themecontext_jsx_context_themecontext_usetheme",
-      "community": 23,
+      "community": 99,
       "norm_label": "usetheme()"
     },
     {
@@ -3149,7 +3149,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_addmultipleshowspage_jsx",
-      "community": 37,
+      "community": 24,
       "norm_label": "addmultipleshowspage.jsx"
     },
     {
@@ -3158,7 +3158,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx",
       "source_location": "L22",
       "id": "pages_addmultipleshowspage_time_presets",
-      "community": 37,
+      "community": 24,
       "norm_label": "time_presets"
     },
     {
@@ -3167,7 +3167,7 @@
       "source_file": "cinema-hall-admin/src/pages/AddMultipleShowsPage.jsx",
       "source_location": "L30",
       "id": "pages_addmultipleshowspage_addmultipleshowspage",
-      "community": 37,
+      "community": 24,
       "norm_label": "addmultipleshowspage()"
     },
     {
@@ -3455,7 +3455,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_bookings_jsx",
-      "community": 22,
+      "community": 75,
       "norm_label": "bookings.jsx"
     },
     {
@@ -3464,7 +3464,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L18",
       "id": "pages_bookings_debounce",
-      "community": 22,
+      "community": 75,
       "norm_label": "debounce()"
     },
     {
@@ -3473,7 +3473,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L26",
       "id": "pages_bookings_statusconfig",
-      "community": 22,
+      "community": 75,
       "norm_label": "statusconfig"
     },
     {
@@ -3482,7 +3482,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L32",
       "id": "pages_bookings_getinitials",
-      "community": 22,
+      "community": 75,
       "norm_label": "getinitials()"
     },
     {
@@ -3491,7 +3491,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L36",
       "id": "pages_bookings_avatarcolors",
-      "community": 22,
+      "community": 75,
       "norm_label": "avatarcolors"
     },
     {
@@ -3500,7 +3500,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L41",
       "id": "pages_bookings_avatarcolor",
-      "community": 22,
+      "community": 75,
       "norm_label": "avatarcolor()"
     },
     {
@@ -3509,7 +3509,7 @@
       "source_file": "cinema-hall-admin/src/pages/Bookings.jsx",
       "source_location": "L46",
       "id": "cinema_hall_admin_src_pages_bookings_jsx_pages_bookings_bookings",
-      "community": 22,
+      "community": 75,
       "norm_label": "bookings()"
     },
     {
@@ -3959,7 +3959,7 @@
       "source_file": "cinema-hall-admin/src/pages/OnboardingPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_onboardingpage_jsx",
-      "community": 24,
+      "community": 23,
       "norm_label": "onboardingpage.jsx"
     },
     {
@@ -3968,7 +3968,7 @@
       "source_file": "cinema-hall-admin/src/pages/OnboardingPage.jsx",
       "source_location": "L32",
       "id": "pages_onboardingpage_mapclickhandler",
-      "community": 24,
+      "community": 23,
       "norm_label": "mapclickhandler()"
     },
     {
@@ -3977,7 +3977,7 @@
       "source_file": "cinema-hall-admin/src/pages/OnboardingPage.jsx",
       "source_location": "L37",
       "id": "pages_onboardingpage_draggablemarker",
-      "community": 24,
+      "community": 23,
       "norm_label": "draggablemarker()"
     },
     {
@@ -3986,7 +3986,7 @@
       "source_file": "cinema-hall-admin/src/pages/OnboardingPage.jsx",
       "source_location": "L48",
       "id": "pages_onboardingpage_in_states",
-      "community": 24,
+      "community": 23,
       "norm_label": "in_states"
     },
     {
@@ -3995,7 +3995,7 @@
       "source_file": "cinema-hall-admin/src/pages/OnboardingPage.jsx",
       "source_location": "L50",
       "id": "pages_onboardingpage_onboardingpage",
-      "community": 24,
+      "community": 23,
       "norm_label": "onboardingpage()"
     },
     {
@@ -4004,7 +4004,7 @@
       "source_file": "cinema-hall-admin/src/pages/OnboardingPage.jsx",
       "source_location": "L454",
       "id": "pages_onboardingpage_onboardingpageskeleton",
-      "community": 24,
+      "community": 23,
       "norm_label": "onboardingpageskeleton()"
     },
     {
@@ -4076,7 +4076,7 @@
       "source_file": "cinema-hall-admin/src/pages/ProfilePage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_profilepage_jsx",
-      "community": 24,
+      "community": 23,
       "norm_label": "profilepage.jsx"
     },
     {
@@ -4085,7 +4085,7 @@
       "source_file": "cinema-hall-admin/src/pages/ProfilePage.jsx",
       "source_location": "L16",
       "id": "cinema_hall_admin_src_pages_profilepage_jsx_pages_profilepage_profilepage",
-      "community": 24,
+      "community": 23,
       "norm_label": "profilepage()"
     },
     {
@@ -4094,7 +4094,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_refundspage_jsx",
-      "community": 57,
+      "community": 22,
       "norm_label": "refundspage.jsx"
     },
     {
@@ -4103,7 +4103,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L18",
       "id": "pages_refundspage_refundstatusconfig",
-      "community": 57,
+      "community": 22,
       "norm_label": "refundstatusconfig"
     },
     {
@@ -4112,7 +4112,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L36",
       "id": "pages_refundspage_getinitials",
-      "community": 57,
+      "community": 22,
       "norm_label": "getinitials()"
     },
     {
@@ -4121,7 +4121,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L40",
       "id": "pages_refundspage_avatarcolors",
-      "community": 57,
+      "community": 22,
       "norm_label": "avatarcolors"
     },
     {
@@ -4130,7 +4130,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L45",
       "id": "pages_refundspage_avatarcolor",
-      "community": 57,
+      "community": 22,
       "norm_label": "avatarcolor()"
     },
     {
@@ -4139,7 +4139,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L50",
       "id": "pages_refundspage_fmt",
-      "community": 57,
+      "community": 22,
       "norm_label": "fmt()"
     },
     {
@@ -4148,7 +4148,7 @@
       "source_file": "cinema-hall-admin/src/pages/RefundsPage.jsx",
       "source_location": "L54",
       "id": "pages_refundspage_refundspage",
-      "community": 57,
+      "community": 22,
       "norm_label": "refundspage()"
     },
     {
@@ -4256,7 +4256,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_showsmanagement_jsx",
-      "community": 29,
+      "community": 41,
       "norm_label": "showsmanagement.jsx"
     },
     {
@@ -4265,7 +4265,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L31",
       "id": "pages_showsmanagement_formattime",
-      "community": 29,
+      "community": 41,
       "norm_label": "formattime()"
     },
     {
@@ -4274,7 +4274,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L39",
       "id": "pages_showsmanagement_formatduration",
-      "community": 29,
+      "community": 41,
       "norm_label": "formatduration()"
     },
     {
@@ -4283,7 +4283,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L45",
       "id": "pages_showsmanagement_status_config",
-      "community": 29,
+      "community": 41,
       "norm_label": "status_config"
     },
     {
@@ -4292,7 +4292,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L53",
       "id": "pages_showsmanagement_show_border_color",
-      "community": 29,
+      "community": 41,
       "norm_label": "show_border_color"
     },
     {
@@ -4301,7 +4301,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L61",
       "id": "pages_showsmanagement_formatdateparts",
-      "community": 29,
+      "community": 41,
       "norm_label": "formatdateparts()"
     },
     {
@@ -4310,7 +4310,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L67",
       "id": "pages_showsmanagement_getnextdates",
-      "community": 29,
+      "community": 41,
       "norm_label": "getnextdates()"
     },
     {
@@ -4319,7 +4319,7 @@
       "source_file": "cinema-hall-admin/src/pages/ShowsManagement.jsx",
       "source_location": "L79",
       "id": "cinema_hall_admin_src_pages_showsmanagement_jsx_pages_showsmanagement_showsmanagement",
-      "community": 29,
+      "community": 41,
       "norm_label": "showsmanagement()"
     },
     {
@@ -4571,7 +4571,7 @@
       "source_file": "cinema-hall-admin/src/pages/Auth/RegisterForm.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_auth_registerform_jsx",
-      "community": 24,
+      "community": 31,
       "norm_label": "registerform.jsx"
     },
     {
@@ -4580,7 +4580,7 @@
       "source_file": "cinema-hall-admin/src/pages/Auth/RegisterForm.jsx",
       "source_location": "L14",
       "id": "auth_registerform_registerform",
-      "community": 24,
+      "community": 31,
       "norm_label": "registerform()"
     },
     {
@@ -4733,7 +4733,7 @@
       "source_file": "cinema-hall-admin/src/services/api.js",
       "source_location": "L24",
       "id": "services_api_authapi",
-      "community": 22,
+      "community": 24,
       "norm_label": "authapi"
     },
     {
@@ -4850,7 +4850,7 @@
       "source_file": "cinema-hall-admin/src/services/api.js",
       "source_location": "L983",
       "id": "services_api_refundapi",
-      "community": 57,
+      "community": 22,
       "norm_label": "refundapi"
     },
     {
@@ -5012,7 +5012,7 @@
       "source_file": "cinema-hall-api/db.js",
       "source_location": "L1",
       "id": "cinema_hall_api_db_js",
-      "community": 20,
+      "community": 27,
       "norm_label": "db.js"
     },
     {
@@ -5021,7 +5021,7 @@
       "source_file": "cinema-hall-api/db.js",
       "source_location": "L7",
       "id": "cinema_hall_api_db_pool",
-      "community": 20,
+      "community": 27,
       "norm_label": "pool"
     },
     {
@@ -5030,7 +5030,7 @@
       "source_file": "cinema-hall-api/instrument.js",
       "source_location": "L1",
       "id": "cinema_hall_api_instrument_js",
-      "community": 20,
+      "community": 42,
       "norm_label": "instrument.js"
     },
     {
@@ -5453,7 +5453,7 @@
       "source_file": "cinema-hall-api/server.js",
       "source_location": "L1",
       "id": "cinema_hall_api_server_js",
-      "community": 20,
+      "community": 42,
       "norm_label": "server.js"
     },
     {
@@ -5462,7 +5462,7 @@
       "source_file": "cinema-hall-api/server.js",
       "source_location": "L37",
       "id": "cinema_hall_api_server_app",
-      "community": 20,
+      "community": 42,
       "norm_label": "app"
     },
     {
@@ -5471,7 +5471,7 @@
       "source_file": "cinema-hall-api/server.js",
       "source_location": "L40",
       "id": "cinema_hall_api_server_appstarttime",
-      "community": 20,
+      "community": 42,
       "norm_label": "appstarttime"
     },
     {
@@ -5480,7 +5480,7 @@
       "source_file": "cinema-hall-api/server.js",
       "source_location": "L43",
       "id": "cinema_hall_api_server_allowedorigins",
-      "community": 20,
+      "community": 42,
       "norm_label": "allowedorigins"
     },
     {
@@ -5489,7 +5489,7 @@
       "source_file": "cinema-hall-api/server.js",
       "source_location": "L172",
       "id": "cinema_hall_api_server_formatelapsedtime",
-      "community": 20,
+      "community": 42,
       "norm_label": "formatelapsedtime()"
     },
     {
@@ -5552,7 +5552,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_ads_controller_js",
-      "community": 20,
+      "community": 25,
       "norm_label": "ads.controller.js"
     },
     {
@@ -5561,7 +5561,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L6",
       "id": "controllers_ads_controller_getallads",
-      "community": 20,
+      "community": 25,
       "norm_label": "getallads()"
     },
     {
@@ -5570,7 +5570,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L23",
       "id": "controllers_ads_controller_createad",
-      "community": 20,
+      "community": 25,
       "norm_label": "createad()"
     },
     {
@@ -5579,7 +5579,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L44",
       "id": "controllers_ads_controller_updatead",
-      "community": 20,
+      "community": 25,
       "norm_label": "updatead()"
     },
     {
@@ -5588,7 +5588,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L65",
       "id": "controllers_ads_controller_deletead",
-      "community": 20,
+      "community": 25,
       "norm_label": "deletead()"
     },
     {
@@ -5597,7 +5597,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L78",
       "id": "controllers_ads_controller_getadclicks",
-      "community": 20,
+      "community": 25,
       "norm_label": "getadclicks()"
     },
     {
@@ -5606,7 +5606,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L99",
       "id": "controllers_ads_controller_getactiveads",
-      "community": 20,
+      "community": 25,
       "norm_label": "getactiveads()"
     },
     {
@@ -5615,7 +5615,7 @@
       "source_file": "cinema-hall-api/controllers/ads.Controller.js",
       "source_location": "L121",
       "id": "controllers_ads_controller_recordclick",
-      "community": 20,
+      "community": 25,
       "norm_label": "recordclick()"
     },
     {
@@ -5921,7 +5921,7 @@
       "source_file": "cinema-hall-api/controllers/booking.Controller.js",
       "source_location": "L540",
       "id": "controllers_booking_controller_cleanupexpiredholds",
-      "community": 20,
+      "community": 42,
       "norm_label": "cleanupexpiredholds()"
     },
     {
@@ -6083,7 +6083,7 @@
       "source_file": "cinema-hall-api/controllers/customers.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_customers_controller_js",
-      "community": 20,
+      "community": 27,
       "norm_label": "customers.controller.js"
     },
     {
@@ -6092,7 +6092,7 @@
       "source_file": "cinema-hall-api/controllers/customers.Controller.js",
       "source_location": "L6",
       "id": "controllers_customers_controller_getallcustomers",
-      "community": 20,
+      "community": 27,
       "norm_label": "getallcustomers()"
     },
     {
@@ -6101,7 +6101,7 @@
       "source_file": "cinema-hall-api/controllers/customers.Controller.js",
       "source_location": "L58",
       "id": "controllers_customers_controller_getcustomerdetails",
-      "community": 20,
+      "community": 27,
       "norm_label": "getcustomerdetails()"
     },
     {
@@ -6128,7 +6128,7 @@
       "source_file": "cinema-hall-api/controllers/halls.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_halls_controller_js",
-      "community": 20,
+      "community": 39,
       "norm_label": "halls.controller.js"
     },
     {
@@ -6137,7 +6137,7 @@
       "source_file": "cinema-hall-api/controllers/halls.Controller.js",
       "source_location": "L6",
       "id": "controllers_halls_controller_getmyhalls",
-      "community": 20,
+      "community": 39,
       "norm_label": "getmyhalls()"
     },
     {
@@ -6146,7 +6146,7 @@
       "source_file": "cinema-hall-api/controllers/halls.Controller.js",
       "source_location": "L25",
       "id": "controllers_halls_controller_createhall",
-      "community": 20,
+      "community": 39,
       "norm_label": "createhall()"
     },
     {
@@ -6155,7 +6155,7 @@
       "source_file": "cinema-hall-api/controllers/halls.Controller.js",
       "source_location": "L60",
       "id": "controllers_halls_controller_updatehall",
-      "community": 20,
+      "community": 39,
       "norm_label": "updatehall()"
     },
     {
@@ -6164,7 +6164,7 @@
       "source_file": "cinema-hall-api/controllers/halls.Controller.js",
       "source_location": "L113",
       "id": "controllers_halls_controller_deletehall",
-      "community": 20,
+      "community": 39,
       "norm_label": "deletehall()"
     },
     {
@@ -6245,7 +6245,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_offers_controller_js",
-      "community": 39,
+      "community": 18,
       "norm_label": "offers.controller.js"
     },
     {
@@ -6254,7 +6254,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L18",
       "id": "controllers_offers_controller_validateoffercode",
-      "community": 39,
+      "community": 18,
       "norm_label": "validateoffercode()"
     },
     {
@@ -6263,7 +6263,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L111",
       "id": "controllers_offers_controller_getallcinemahalls",
-      "community": 39,
+      "community": 18,
       "norm_label": "getallcinemahalls()"
     },
     {
@@ -6272,7 +6272,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L125",
       "id": "controllers_offers_controller_getalloffers",
-      "community": 39,
+      "community": 18,
       "norm_label": "getalloffers()"
     },
     {
@@ -6281,7 +6281,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L174",
       "id": "controllers_offers_controller_createoffer",
-      "community": 39,
+      "community": 18,
       "norm_label": "createoffer()"
     },
     {
@@ -6290,7 +6290,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L229",
       "id": "controllers_offers_controller_getofferbyid",
-      "community": 39,
+      "community": 18,
       "norm_label": "getofferbyid()"
     },
     {
@@ -6299,7 +6299,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L252",
       "id": "controllers_offers_controller_updateoffer",
-      "community": 39,
+      "community": 18,
       "norm_label": "updateoffer()"
     },
     {
@@ -6308,7 +6308,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L311",
       "id": "controllers_offers_controller_deleteoffer",
-      "community": 39,
+      "community": 18,
       "norm_label": "deleteoffer()"
     },
     {
@@ -6317,7 +6317,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L329",
       "id": "controllers_offers_controller_getactiveoffers",
-      "community": 39,
+      "community": 18,
       "norm_label": "getactiveoffers()"
     },
     {
@@ -6326,7 +6326,7 @@
       "source_file": "cinema-hall-api/controllers/offers.Controller.js",
       "source_location": "L384",
       "id": "controllers_offers_controller_validateoffer",
-      "community": 39,
+      "community": 18,
       "norm_label": "validateoffer()"
     },
     {
@@ -6335,7 +6335,7 @@
       "source_file": "cinema-hall-api/controllers/otp.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_otp_controller_js",
-      "community": 15,
+      "community": 26,
       "norm_label": "otp.controller.js"
     },
     {
@@ -6344,7 +6344,7 @@
       "source_file": "cinema-hall-api/controllers/otp.Controller.js",
       "source_location": "L7",
       "id": "controllers_otp_controller_generateotp",
-      "community": 15,
+      "community": 26,
       "norm_label": "generateotp()"
     },
     {
@@ -6353,7 +6353,7 @@
       "source_file": "cinema-hall-api/controllers/otp.Controller.js",
       "source_location": "L10",
       "id": "controllers_otp_controller_hashotp",
-      "community": 15,
+      "community": 26,
       "norm_label": "hashotp()"
     },
     {
@@ -6362,7 +6362,7 @@
       "source_file": "cinema-hall-api/controllers/otp.Controller.js",
       "source_location": "L20",
       "id": "controllers_otp_controller_sendotp",
-      "community": 15,
+      "community": 26,
       "norm_label": "sendotp()"
     },
     {
@@ -6371,7 +6371,7 @@
       "source_file": "cinema-hall-api/controllers/otp.Controller.js",
       "source_location": "L88",
       "id": "controllers_otp_controller_verifyotp",
-      "community": 15,
+      "community": 26,
       "norm_label": "verifyotp()"
     },
     {
@@ -6380,7 +6380,7 @@
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_payment_controller_js",
-      "community": 27,
+      "community": 18,
       "norm_label": "payment.controller.js"
     },
     {
@@ -6389,7 +6389,7 @@
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
       "source_location": "L7",
       "id": "controllers_payment_controller_razorpay",
-      "community": 27,
+      "community": 18,
       "norm_label": "razorpay"
     },
     {
@@ -6398,7 +6398,7 @@
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
       "source_location": "L24",
       "id": "controllers_payment_controller_createorder",
-      "community": 27,
+      "community": 18,
       "norm_label": "createorder()"
     },
     {
@@ -6407,52 +6407,52 @@
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
       "source_location": "L187",
       "id": "controllers_payment_controller_verifypayment",
-      "community": 27,
+      "community": 18,
       "norm_label": "verifypayment()"
     },
     {
       "label": "handleWebhook()",
       "file_type": "code",
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
-      "source_location": "L338",
+      "source_location": "L346",
       "id": "controllers_payment_controller_handlewebhook",
-      "community": 27,
+      "community": 18,
       "norm_label": "handlewebhook()"
     },
     {
       "label": "handlePaymentCaptured()",
       "file_type": "code",
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
-      "source_location": "L453",
+      "source_location": "L461",
       "id": "controllers_payment_controller_handlepaymentcaptured",
-      "community": 27,
+      "community": 18,
       "norm_label": "handlepaymentcaptured()"
     },
     {
       "label": "handlePaymentFailed()",
       "file_type": "code",
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
-      "source_location": "L519",
+      "source_location": "L558",
       "id": "controllers_payment_controller_handlepaymentfailed",
-      "community": 27,
+      "community": 18,
       "norm_label": "handlepaymentfailed()"
     },
     {
       "label": "handleOrderPaid()",
       "file_type": "code",
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
-      "source_location": "L575",
+      "source_location": "L614",
       "id": "controllers_payment_controller_handleorderpaid",
-      "community": 27,
+      "community": 18,
       "norm_label": "handleorderpaid()"
     },
     {
       "label": "getPaymentOrders()",
       "file_type": "code",
       "source_file": "cinema-hall-api/controllers/payment.Controller.js",
-      "source_location": "L591",
+      "source_location": "L630",
       "id": "controllers_payment_controller_getpaymentorders",
-      "community": 27,
+      "community": 18,
       "norm_label": "getpaymentorders()"
     },
     {
@@ -6461,7 +6461,7 @@
       "source_file": "cinema-hall-api/controllers/refund.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_refund_controller_js",
-      "community": 20,
+      "community": 87,
       "norm_label": "refund.controller.js"
     },
     {
@@ -6470,7 +6470,7 @@
       "source_file": "cinema-hall-api/controllers/refund.Controller.js",
       "source_location": "L9",
       "id": "controllers_refund_controller_getrefunds",
-      "community": 20,
+      "community": 87,
       "norm_label": "getrefunds()"
     },
     {
@@ -6479,7 +6479,7 @@
       "source_file": "cinema-hall-api/controllers/refund.Controller.js",
       "source_location": "L99",
       "id": "controllers_refund_controller_getrefundbybooking",
-      "community": 20,
+      "community": 87,
       "norm_label": "getrefundbybooking()"
     },
     {
@@ -6488,7 +6488,7 @@
       "source_file": "cinema-hall-api/controllers/refund.Controller.js",
       "source_location": "L130",
       "id": "controllers_refund_controller_manuallysettlerefund",
-      "community": 20,
+      "community": 87,
       "norm_label": "manuallysettlerefund()"
     },
     {
@@ -6497,7 +6497,7 @@
       "source_file": "cinema-hall-api/controllers/screens.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_screens_controller_js",
-      "community": 20,
+      "community": 37,
       "norm_label": "screens.controller.js"
     },
     {
@@ -6506,7 +6506,7 @@
       "source_file": "cinema-hall-api/controllers/screens.Controller.js",
       "source_location": "L6",
       "id": "controllers_screens_controller_createscreen",
-      "community": 20,
+      "community": 37,
       "norm_label": "createscreen()"
     },
     {
@@ -6515,7 +6515,7 @@
       "source_file": "cinema-hall-api/controllers/screens.Controller.js",
       "source_location": "L76",
       "id": "controllers_screens_controller_editscreen",
-      "community": 20,
+      "community": 37,
       "norm_label": "editscreen()"
     },
     {
@@ -6524,7 +6524,7 @@
       "source_file": "cinema-hall-api/controllers/screens.Controller.js",
       "source_location": "L147",
       "id": "controllers_screens_controller_deletescreen",
-      "community": 20,
+      "community": 37,
       "norm_label": "deletescreen()"
     },
     {
@@ -6533,7 +6533,7 @@
       "source_file": "cinema-hall-api/controllers/screens.Controller.js",
       "source_location": "L183",
       "id": "controllers_screens_controller_getmyscreens",
-      "community": 20,
+      "community": 37,
       "norm_label": "getmyscreens()"
     },
     {
@@ -6542,7 +6542,7 @@
       "source_file": "cinema-hall-api/controllers/settings.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_settings_controller_js",
-      "community": 20,
+      "community": 81,
       "norm_label": "settings.controller.js"
     },
     {
@@ -6551,7 +6551,7 @@
       "source_file": "cinema-hall-api/controllers/settings.Controller.js",
       "source_location": "L8",
       "id": "controllers_settings_controller_getsettings",
-      "community": 20,
+      "community": 81,
       "norm_label": "getsettings()"
     },
     {
@@ -6560,7 +6560,7 @@
       "source_file": "cinema-hall-api/controllers/settings.Controller.js",
       "source_location": "L31",
       "id": "controllers_settings_controller_updatesettings",
-      "community": 20,
+      "community": 81,
       "norm_label": "updatesettings()"
     },
     {
@@ -6569,7 +6569,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_shows_controller_js",
-      "community": 25,
+      "community": 18,
       "norm_label": "shows.controller.js"
     },
     {
@@ -6578,7 +6578,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L6",
       "id": "controllers_shows_controller_razorpay",
-      "community": 25,
+      "community": 18,
       "norm_label": "razorpay"
     },
     {
@@ -6587,7 +6587,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L12",
       "id": "controllers_shows_controller_createshow",
-      "community": 25,
+      "community": 18,
       "norm_label": "createshow()"
     },
     {
@@ -6596,7 +6596,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L42",
       "id": "controllers_shows_controller_createmultipleshows",
-      "community": 25,
+      "community": 18,
       "norm_label": "createmultipleshows()"
     },
     {
@@ -6605,7 +6605,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L108",
       "id": "controllers_shows_controller_editshow",
-      "community": 25,
+      "community": 18,
       "norm_label": "editshow()"
     },
     {
@@ -6614,7 +6614,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L175",
       "id": "controllers_shows_controller_deleteshow",
-      "community": 25,
+      "community": 18,
       "norm_label": "deleteshow()"
     },
     {
@@ -6623,7 +6623,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L188",
       "id": "controllers_shows_controller_deletemultipleshows",
-      "community": 25,
+      "community": 18,
       "norm_label": "deletemultipleshows()"
     },
     {
@@ -6632,7 +6632,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L207",
       "id": "controllers_shows_controller_getshowsbydate",
-      "community": 25,
+      "community": 18,
       "norm_label": "getshowsbydate()"
     },
     {
@@ -6641,7 +6641,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L270",
       "id": "controllers_shows_controller_bookshow",
-      "community": 25,
+      "community": 18,
       "norm_label": "bookshow()"
     },
     {
@@ -6650,7 +6650,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L315",
       "id": "controllers_shows_controller_getshowbyid",
-      "community": 25,
+      "community": 18,
       "norm_label": "getshowbyid()"
     },
     {
@@ -6659,7 +6659,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L422",
       "id": "controllers_shows_controller_updateshowstatuses",
-      "community": 20,
+      "community": 42,
       "norm_label": "updateshowstatuses()"
     },
     {
@@ -6668,7 +6668,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L479",
       "id": "controllers_shows_controller_cancelshow",
-      "community": 25,
+      "community": 18,
       "norm_label": "cancelshow()"
     },
     {
@@ -6677,7 +6677,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L578",
       "id": "controllers_shows_controller_updateshowbookingstatus",
-      "community": 25,
+      "community": 18,
       "norm_label": "updateshowbookingstatus()"
     },
     {
@@ -6686,7 +6686,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L635",
       "id": "controllers_shows_controller_bulkcancelshows",
-      "community": 25,
+      "community": 18,
       "norm_label": "bulkcancelshows()"
     },
     {
@@ -6695,7 +6695,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L737",
       "id": "controllers_shows_controller_bulkrestoreshows",
-      "community": 25,
+      "community": 18,
       "norm_label": "bulkrestoreshows()"
     },
     {
@@ -6704,7 +6704,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L779",
       "id": "controllers_shows_controller_bulkopenbooking",
-      "community": 25,
+      "community": 18,
       "norm_label": "bulkopenbooking()"
     },
     {
@@ -6713,7 +6713,7 @@
       "source_file": "cinema-hall-api/controllers/shows.Controller.js",
       "source_location": "L821",
       "id": "controllers_shows_controller_getshowbookingcount",
-      "community": 25,
+      "community": 18,
       "norm_label": "getshowbookingcount()"
     },
     {
@@ -6803,7 +6803,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L1",
       "id": "cinema_hall_api_controllers_usermovies_controller_js",
-      "community": 41,
+      "community": 18,
       "norm_label": "usermovies.controller.js"
     },
     {
@@ -6812,7 +6812,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L4",
       "id": "controllers_usermovies_controller_getmoviesbylocation",
-      "community": 41,
+      "community": 18,
       "norm_label": "getmoviesbylocation()"
     },
     {
@@ -6821,7 +6821,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L63",
       "id": "controllers_usermovies_controller_getmoviesbystate",
-      "community": 41,
+      "community": 18,
       "norm_label": "getmoviesbystate()"
     },
     {
@@ -6830,7 +6830,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L120",
       "id": "controllers_usermovies_controller_getmoviedetailswithshowtimes",
-      "community": 41,
+      "community": 18,
       "norm_label": "getmoviedetailswithshowtimes()"
     },
     {
@@ -6839,7 +6839,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L236",
       "id": "controllers_usermovies_controller_getdistrictsinstate",
-      "community": 41,
+      "community": 18,
       "norm_label": "getdistrictsinstate()"
     },
     {
@@ -6848,7 +6848,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L279",
       "id": "controllers_usermovies_controller_getcinemahallsbylocation",
-      "community": 41,
+      "community": 18,
       "norm_label": "getcinemahallsbylocation()"
     },
     {
@@ -6857,7 +6857,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L330",
       "id": "controllers_usermovies_controller_getallmovies",
-      "community": 41,
+      "community": 18,
       "norm_label": "getallmovies()"
     },
     {
@@ -6866,7 +6866,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L412",
       "id": "controllers_usermovies_controller_getcinemahallswithshows",
-      "community": 41,
+      "community": 18,
       "norm_label": "getcinemahallswithshows()"
     },
     {
@@ -6875,7 +6875,7 @@
       "source_file": "cinema-hall-api/controllers/userMovies.Controller.js",
       "source_location": "L521",
       "id": "controllers_usermovies_controller_getmoviebyid",
-      "community": 41,
+      "community": 18,
       "norm_label": "getmoviebyid()"
     },
     {
@@ -6965,7 +6965,7 @@
       "source_file": "cinema-hall-api/mail/emails.js",
       "source_location": "L186",
       "id": "mail_emails_sendcustomerotpemail",
-      "community": 15,
+      "community": 26,
       "norm_label": "sendcustomerotpemail()"
     },
     {
@@ -7100,7 +7100,7 @@
       "source_file": "cinema-hall-api/routes/ads.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_ads_routes_js",
-      "community": 20,
+      "community": 25,
       "norm_label": "ads.routes.js"
     },
     {
@@ -7109,7 +7109,7 @@
       "source_file": "cinema-hall-api/routes/ads.routes.js",
       "source_location": "L13",
       "id": "routes_ads_routes_router",
-      "community": 20,
+      "community": 25,
       "norm_label": "router"
     },
     {
@@ -7172,7 +7172,7 @@
       "source_file": "cinema-hall-api/routes/customers.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_customers_routes_js",
-      "community": 20,
+      "community": 27,
       "norm_label": "customers.routes.js"
     },
     {
@@ -7181,7 +7181,7 @@
       "source_file": "cinema-hall-api/routes/customers.routes.js",
       "source_location": "L5",
       "id": "routes_customers_routes_router",
-      "community": 20,
+      "community": 27,
       "norm_label": "router"
     },
     {
@@ -7208,7 +7208,7 @@
       "source_file": "cinema-hall-api/routes/halls.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_halls_routes_js",
-      "community": 20,
+      "community": 39,
       "norm_label": "halls.routes.js"
     },
     {
@@ -7217,7 +7217,7 @@
       "source_file": "cinema-hall-api/routes/halls.routes.js",
       "source_location": "L5",
       "id": "routes_halls_routes_router",
-      "community": 20,
+      "community": 39,
       "norm_label": "router"
     },
     {
@@ -7244,7 +7244,7 @@
       "source_file": "cinema-hall-api/routes/offers.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_offers_routes_js",
-      "community": 39,
+      "community": 18,
       "norm_label": "offers.routes.js"
     },
     {
@@ -7253,7 +7253,7 @@
       "source_file": "cinema-hall-api/routes/offers.routes.js",
       "source_location": "L17",
       "id": "routes_offers_routes_router",
-      "community": 39,
+      "community": 18,
       "norm_label": "router"
     },
     {
@@ -7262,7 +7262,7 @@
       "source_file": "cinema-hall-api/routes/otp.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_otp_routes_js",
-      "community": 15,
+      "community": 26,
       "norm_label": "otp.routes.js"
     },
     {
@@ -7271,7 +7271,7 @@
       "source_file": "cinema-hall-api/routes/otp.routes.js",
       "source_location": "L4",
       "id": "routes_otp_routes_router",
-      "community": 15,
+      "community": 26,
       "norm_label": "router"
     },
     {
@@ -7298,7 +7298,7 @@
       "source_file": "cinema-hall-api/routes/refund.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_refund_routes_js",
-      "community": 20,
+      "community": 87,
       "norm_label": "refund.routes.js"
     },
     {
@@ -7307,7 +7307,7 @@
       "source_file": "cinema-hall-api/routes/refund.routes.js",
       "source_location": "L5",
       "id": "routes_refund_routes_router",
-      "community": 20,
+      "community": 87,
       "norm_label": "router"
     },
     {
@@ -7316,7 +7316,7 @@
       "source_file": "cinema-hall-api/routes/screens.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_screens_routes_js",
-      "community": 20,
+      "community": 37,
       "norm_label": "screens.routes.js"
     },
     {
@@ -7325,7 +7325,7 @@
       "source_file": "cinema-hall-api/routes/screens.routes.js",
       "source_location": "L13",
       "id": "routes_screens_routes_router",
-      "community": 20,
+      "community": 37,
       "norm_label": "router"
     },
     {
@@ -7334,7 +7334,7 @@
       "source_file": "cinema-hall-api/routes/settings.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_settings_routes_js",
-      "community": 20,
+      "community": 81,
       "norm_label": "settings.routes.js"
     },
     {
@@ -7343,7 +7343,7 @@
       "source_file": "cinema-hall-api/routes/settings.routes.js",
       "source_location": "L5",
       "id": "routes_settings_routes_router",
-      "community": 20,
+      "community": 81,
       "norm_label": "router"
     },
     {
@@ -7352,7 +7352,7 @@
       "source_file": "cinema-hall-api/routes/shows.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_shows_routes_js",
-      "community": 25,
+      "community": 18,
       "norm_label": "shows.routes.js"
     },
     {
@@ -7361,7 +7361,7 @@
       "source_file": "cinema-hall-api/routes/shows.routes.js",
       "source_location": "L20",
       "id": "routes_shows_routes_router",
-      "community": 25,
+      "community": 18,
       "norm_label": "router"
     },
     {
@@ -7388,7 +7388,7 @@
       "source_file": "cinema-hall-api/routes/userMovies.routes.js",
       "source_location": "L1",
       "id": "cinema_hall_api_routes_usermovies_routes_js",
-      "community": 41,
+      "community": 18,
       "norm_label": "usermovies.routes.js"
     },
     {
@@ -7397,7 +7397,7 @@
       "source_file": "cinema-hall-api/routes/userMovies.routes.js",
       "source_location": "L13",
       "id": "routes_usermovies_routes_router",
-      "community": 41,
+      "community": 18,
       "norm_label": "router"
     },
     {
@@ -7406,7 +7406,7 @@
       "source_file": "cinema-hall-api/tests/setup.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_setup_test_js",
-      "community": 26,
+      "community": 18,
       "norm_label": "setup.test.js"
     },
     {
@@ -7586,7 +7586,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_setup_db_js",
-      "community": 26,
+      "community": 18,
       "norm_label": "db.js"
     },
     {
@@ -7595,7 +7595,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L5",
       "id": "setup_db_getpool",
-      "community": 26,
+      "community": 18,
       "norm_label": "getpool()"
     },
     {
@@ -7604,7 +7604,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L16",
       "id": "setup_db_query",
-      "community": 26,
+      "community": 18,
       "norm_label": "query()"
     },
     {
@@ -7613,7 +7613,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L26",
       "id": "setup_db_getclient",
-      "community": 26,
+      "community": 18,
       "norm_label": "getclient()"
     },
     {
@@ -7622,7 +7622,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L30",
       "id": "setup_db_cleanuptable",
-      "community": 26,
+      "community": 18,
       "norm_label": "cleanuptable()"
     },
     {
@@ -7631,7 +7631,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L34",
       "id": "setup_db_cleanupall",
-      "community": 26,
+      "community": 18,
       "norm_label": "cleanupall()"
     },
     {
@@ -7640,7 +7640,7 @@
       "source_file": "cinema-hall-api/tests/setup/db.js",
       "source_location": "L49",
       "id": "setup_db_closepool",
-      "community": 26,
+      "community": 18,
       "norm_label": "closepool()"
     },
     {
@@ -7748,7 +7748,7 @@
       "source_file": "cinema-hall-api/tests/setup/factories.js",
       "source_location": "L164",
       "id": "setup_factories_createsetting",
-      "community": 26,
+      "community": 18,
       "norm_label": "createsetting()"
     },
     {
@@ -7829,7 +7829,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/ads.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_ads_test_js",
-      "community": 20,
+      "community": 25,
       "norm_label": "ads.test.js"
     },
     {
@@ -7838,7 +7838,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/ads.test.js",
       "source_location": "L11",
       "id": "controllers_ads_test_mockreqres",
-      "community": 20,
+      "community": 25,
       "norm_label": "mockreqres()"
     },
     {
@@ -7847,7 +7847,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/ads.test.js",
       "source_location": "L17",
       "id": "controllers_ads_test_validad",
-      "community": 20,
+      "community": 25,
       "norm_label": "validad"
     },
     {
@@ -7856,7 +7856,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/ads.test.js",
       "source_location": "L26",
       "id": "controllers_ads_test_createtestad",
-      "community": 20,
+      "community": 25,
       "norm_label": "createtestad()"
     },
     {
@@ -7910,7 +7910,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/booking-concurrency.test.js",
       "source_location": "L26",
       "id": "controllers_booking_concurrency_test_createheldseat",
-      "community": 26,
+      "community": 18,
       "norm_label": "createheldseat()"
     },
     {
@@ -7955,7 +7955,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/booking-edge.test.js",
       "source_location": "L28",
       "id": "controllers_booking_edge_test_createheldseat",
-      "community": 26,
+      "community": 18,
       "norm_label": "createheldseat()"
     },
     {
@@ -7982,7 +7982,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/booking.test.js",
       "source_location": "L32",
       "id": "controllers_booking_test_createheldseat",
-      "community": 26,
+      "community": 18,
       "norm_label": "createheldseat()"
     },
     {
@@ -8018,7 +8018,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/customers.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_customers_test_js",
-      "community": 20,
+      "community": 27,
       "norm_label": "customers.test.js"
     },
     {
@@ -8027,7 +8027,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/customers.test.js",
       "source_location": "L8",
       "id": "controllers_customers_test_mockreqres",
-      "community": 20,
+      "community": 27,
       "norm_label": "mockreqres()"
     },
     {
@@ -8036,7 +8036,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/customers.test.js",
       "source_location": "L14",
       "id": "controllers_customers_test_customers",
-      "community": 20,
+      "community": 27,
       "norm_label": "customers"
     },
     {
@@ -8063,7 +8063,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/halls.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_halls_test_js",
-      "community": 20,
+      "community": 39,
       "norm_label": "halls.test.js"
     },
     {
@@ -8072,7 +8072,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/halls.test.js",
       "source_location": "L9",
       "id": "controllers_halls_test_mockreqres",
-      "community": 20,
+      "community": 39,
       "norm_label": "mockreqres()"
     },
     {
@@ -8108,7 +8108,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/offers-coverage.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_offers_coverage_test_js",
-      "community": 39,
+      "community": 18,
       "norm_label": "offers-coverage.test.js"
     },
     {
@@ -8117,7 +8117,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/offers-coverage.test.js",
       "source_location": "L9",
       "id": "controllers_offers_coverage_test_mockreqres",
-      "community": 39,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8126,7 +8126,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/offers-coverage.test.js",
       "source_location": "L29",
       "id": "controllers_offers_coverage_test_seedoffer",
-      "community": 26,
+      "community": 18,
       "norm_label": "seedoffer()"
     },
     {
@@ -8135,7 +8135,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/offers.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_offers_test_js",
-      "community": 39,
+      "community": 18,
       "norm_label": "offers.test.js"
     },
     {
@@ -8144,7 +8144,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/offers.test.js",
       "source_location": "L12",
       "id": "controllers_offers_test_mockreqres",
-      "community": 39,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8180,7 +8180,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment-edge.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_payment_edge_test_js",
-      "community": 27,
+      "community": 18,
       "norm_label": "payment-edge.test.js"
     },
     {
@@ -8189,7 +8189,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment-edge.test.js",
       "source_location": "L9",
       "id": "controllers_payment_edge_test_mocklogger",
-      "community": 27,
+      "community": 18,
       "norm_label": "mocklogger"
     },
     {
@@ -8198,7 +8198,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment-edge.test.js",
       "source_location": "L12",
       "id": "controllers_payment_edge_test_mockrazorpayorderscreate",
-      "community": 27,
+      "community": 18,
       "norm_label": "mockrazorpayorderscreate"
     },
     {
@@ -8207,7 +8207,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment-edge.test.js",
       "source_location": "L14",
       "id": "controllers_payment_edge_test_mockrazorpay",
-      "community": 27,
+      "community": 18,
       "norm_label": "mockrazorpay()"
     },
     {
@@ -8216,7 +8216,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment-edge.test.js",
       "source_location": "L30",
       "id": "controllers_payment_edge_test_mockreqres",
-      "community": 27,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8225,7 +8225,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_payment_test_js",
-      "community": 27,
+      "community": 18,
       "norm_label": "payment.test.js"
     },
     {
@@ -8234,7 +8234,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment.test.js",
       "source_location": "L9",
       "id": "controllers_payment_test_mocklogger",
-      "community": 27,
+      "community": 18,
       "norm_label": "mocklogger"
     },
     {
@@ -8243,7 +8243,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment.test.js",
       "source_location": "L13",
       "id": "controllers_payment_test_mockrazorpayorderscreate",
-      "community": 27,
+      "community": 18,
       "norm_label": "mockrazorpayorderscreate"
     },
     {
@@ -8252,7 +8252,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment.test.js",
       "source_location": "L16",
       "id": "controllers_payment_test_mockrazorpay",
-      "community": 27,
+      "community": 18,
       "norm_label": "mockrazorpay()"
     },
     {
@@ -8261,7 +8261,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/payment.test.js",
       "source_location": "L32",
       "id": "controllers_payment_test_mockreqres",
-      "community": 27,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8288,7 +8288,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/screens.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_screens_test_js",
-      "community": 20,
+      "community": 37,
       "norm_label": "screens.test.js"
     },
     {
@@ -8297,7 +8297,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/screens.test.js",
       "source_location": "L11",
       "id": "controllers_screens_test_mockreqres",
-      "community": 20,
+      "community": 37,
       "norm_label": "mockreqres()"
     },
     {
@@ -8306,7 +8306,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/screens.test.js",
       "source_location": "L27",
       "id": "controllers_screens_test_validscreen",
-      "community": 20,
+      "community": 37,
       "norm_label": "validscreen"
     },
     {
@@ -8315,7 +8315,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/settings.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_settings_test_js",
-      "community": 26,
+      "community": 81,
       "norm_label": "settings.test.js"
     },
     {
@@ -8324,7 +8324,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/settings.test.js",
       "source_location": "L9",
       "id": "controllers_settings_test_mockreqres",
-      "community": 26,
+      "community": 81,
       "norm_label": "mockreqres()"
     },
     {
@@ -8360,7 +8360,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/shows-edge.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_shows_edge_test_js",
-      "community": 25,
+      "community": 18,
       "norm_label": "shows-edge.test.js"
     },
     {
@@ -8369,7 +8369,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/shows-edge.test.js",
       "source_location": "L11",
       "id": "controllers_shows_edge_test_mockrazorpay",
-      "community": 25,
+      "community": 18,
       "norm_label": "mockrazorpay()"
     },
     {
@@ -8378,7 +8378,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/shows-edge.test.js",
       "source_location": "L28",
       "id": "controllers_shows_edge_test_mockreqres",
-      "community": 25,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8387,7 +8387,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/shows.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_shows_test_js",
-      "community": 25,
+      "community": 18,
       "norm_label": "shows.test.js"
     },
     {
@@ -8396,7 +8396,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/shows.test.js",
       "source_location": "L11",
       "id": "controllers_shows_test_mockrazorpay",
-      "community": 25,
+      "community": 18,
       "norm_label": "mockrazorpay()"
     },
     {
@@ -8405,7 +8405,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/shows.test.js",
       "source_location": "L36",
       "id": "controllers_shows_test_mockreqres",
-      "community": 25,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8468,7 +8468,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/userMovies.test.js",
       "source_location": "L1",
       "id": "cinema_hall_api_tests_unit_controllers_usermovies_test_js",
-      "community": 41,
+      "community": 18,
       "norm_label": "usermovies.test.js"
     },
     {
@@ -8477,7 +8477,7 @@
       "source_file": "cinema-hall-api/tests/unit/controllers/userMovies.test.js",
       "source_location": "L14",
       "id": "controllers_usermovies_test_mockreqres",
-      "community": 41,
+      "community": 18,
       "norm_label": "mockreqres()"
     },
     {
@@ -8594,7 +8594,7 @@
       "source_file": "cinema-hall-api/utils/logger.js",
       "source_location": "L1",
       "id": "cinema_hall_api_utils_logger_js",
-      "community": 20,
+      "community": 27,
       "norm_label": "logger.js"
     },
     {
@@ -8603,7 +8603,7 @@
       "source_file": "cinema-hall-api/utils/logger.js",
       "source_location": "L8",
       "id": "utils_logger_devformat",
-      "community": 20,
+      "community": 27,
       "norm_label": "devformat"
     },
     {
@@ -8612,7 +8612,7 @@
       "source_file": "cinema-hall-api/utils/logger.js",
       "source_location": "L20",
       "id": "utils_logger_prodformat",
-      "community": 20,
+      "community": 27,
       "norm_label": "prodformat"
     },
     {
@@ -8621,7 +8621,7 @@
       "source_file": "cinema-hall-api/utils/logger.js",
       "source_location": "L26",
       "id": "utils_logger_logger",
-      "community": 20,
+      "community": 27,
       "norm_label": "logger"
     },
     {
@@ -9701,7 +9701,7 @@
       "source_file": "cinema-hall-users/src/components/AdBanner.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_components_adbanner_jsx",
-      "community": 34,
+      "community": 98,
       "norm_label": "adbanner.jsx"
     },
     {
@@ -9710,7 +9710,7 @@
       "source_file": "cinema-hall-users/src/components/AdBanner.jsx",
       "source_location": "L11",
       "id": "components_adbanner_adbanner",
-      "community": 34,
+      "community": 98,
       "norm_label": "adbanner()"
     },
     {
@@ -9719,7 +9719,7 @@
       "source_file": "cinema-hall-users/src/components/CinemaLayout.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_components_cinemalayout_jsx",
-      "community": 42,
+      "community": 29,
       "norm_label": "cinemalayout.jsx"
     },
     {
@@ -9728,7 +9728,7 @@
       "source_file": "cinema-hall-users/src/components/CinemaLayout.jsx",
       "source_location": "L6",
       "id": "cinema_hall_users_src_components_cinemalayout_jsx_components_cinemalayout_cinemalayout",
-      "community": 42,
+      "community": 29,
       "norm_label": "cinemalayout()"
     },
     {
@@ -9791,7 +9791,7 @@
       "source_file": "cinema-hall-users/src/components/LoginModal.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_components_loginmodal_jsx",
-      "community": 35,
+      "community": 29,
       "norm_label": "loginmodal.jsx"
     },
     {
@@ -9800,7 +9800,7 @@
       "source_file": "cinema-hall-users/src/components/LoginModal.jsx",
       "source_location": "L37",
       "id": "components_loginmodal_passwordpolicychecklist",
-      "community": 35,
+      "community": 29,
       "norm_label": "passwordpolicychecklist()"
     },
     {
@@ -9809,7 +9809,7 @@
       "source_file": "cinema-hall-users/src/components/LoginModal.jsx",
       "source_location": "L54",
       "id": "components_loginmodal_loginmodal",
-      "community": 35,
+      "community": 29,
       "norm_label": "loginmodal()"
     },
     {
@@ -9885,12 +9885,30 @@
       "norm_label": "debounce()"
     },
     {
+      "label": "SeatCountModal.jsx",
+      "file_type": "code",
+      "source_file": "cinema-hall-users/src/components/SeatCountModal.jsx",
+      "source_location": "L1",
+      "id": "cinema_hall_users_src_components_seatcountmodal_jsx",
+      "community": 93,
+      "norm_label": "seatcountmodal.jsx"
+    },
+    {
+      "label": "SeatCountModal()",
+      "file_type": "code",
+      "source_file": "cinema-hall-users/src/components/SeatCountModal.jsx",
+      "source_location": "L12",
+      "id": "components_seatcountmodal_seatcountmodal",
+      "community": 93,
+      "norm_label": "seatcountmodal()"
+    },
+    {
       "label": "TopBar.jsx",
       "file_type": "code",
       "source_file": "cinema-hall-users/src/components/TopBar.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_components_topbar_jsx",
-      "community": 42,
+      "community": 29,
       "norm_label": "topbar.jsx"
     },
     {
@@ -9899,7 +9917,7 @@
       "source_file": "cinema-hall-users/src/components/TopBar.jsx",
       "source_location": "L21",
       "id": "components_topbar_mocknotifications",
-      "community": 42,
+      "community": 29,
       "norm_label": "mocknotifications"
     },
     {
@@ -9908,7 +9926,7 @@
       "source_file": "cinema-hall-users/src/components/TopBar.jsx",
       "source_location": "L27",
       "id": "components_topbar_topbar",
-      "community": 42,
+      "community": 29,
       "norm_label": "topbar()"
     },
     {
@@ -9917,7 +9935,7 @@
       "source_file": "cinema-hall-users/src/components/TopNavbar.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_components_topnavbar_jsx",
-      "community": 42,
+      "community": 29,
       "norm_label": "topnavbar.jsx"
     },
     {
@@ -9926,7 +9944,7 @@
       "source_file": "cinema-hall-users/src/components/TopNavbar.jsx",
       "source_location": "L5",
       "id": "components_topnavbar_leftnavitems",
-      "community": 42,
+      "community": 29,
       "norm_label": "leftnavitems"
     },
     {
@@ -9935,7 +9953,7 @@
       "source_file": "cinema-hall-users/src/components/TopNavbar.jsx",
       "source_location": "L10",
       "id": "components_topnavbar_rightnavitems",
-      "community": 42,
+      "community": 29,
       "norm_label": "rightnavitems"
     },
     {
@@ -9944,7 +9962,7 @@
       "source_file": "cinema-hall-users/src/components/TopNavbar.jsx",
       "source_location": "L15",
       "id": "components_topnavbar_topnavbar",
-      "community": 42,
+      "community": 29,
       "norm_label": "topnavbar()"
     },
     {
@@ -11672,7 +11690,7 @@
       "source_file": "cinema-hall-users/src/context/CustomerAuthContext.jsx",
       "source_location": "L299",
       "id": "context_customerauthcontext_usecustomerauth",
-      "community": 35,
+      "community": 29,
       "norm_label": "usecustomerauth()"
     },
     {
@@ -11681,7 +11699,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_context_themecontext_jsx",
-      "community": 42,
+      "community": 35,
       "norm_label": "themecontext.jsx"
     },
     {
@@ -11690,7 +11708,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L3",
       "id": "cinema_hall_users_src_context_themecontext_jsx_context_themecontext_themecontext",
-      "community": 42,
+      "community": 35,
       "norm_label": "themecontext"
     },
     {
@@ -11699,7 +11717,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L5",
       "id": "cinema_hall_users_src_context_themecontext_jsx_context_themecontext_themeprovider",
-      "community": 42,
+      "community": 35,
       "norm_label": "themeprovider()"
     },
     {
@@ -11708,7 +11726,7 @@
       "source_file": "cinema-hall-users/src/context/ThemeContext.jsx",
       "source_location": "L28",
       "id": "cinema_hall_users_src_context_themecontext_jsx_context_themecontext_usetheme",
-      "community": 42,
+      "community": 35,
       "norm_label": "usetheme()"
     },
     {
@@ -11753,7 +11771,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_bookingdetailpage_jsx",
-      "community": 51,
+      "community": 68,
       "norm_label": "bookingdetailpage.jsx"
     },
     {
@@ -11762,7 +11780,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L15",
       "id": "cinema_hall_users_src_pages_bookingdetailpage_jsx_pages_bookingdetailpage_statusconfig",
-      "community": 51,
+      "community": 68,
       "norm_label": "statusconfig"
     },
     {
@@ -11771,7 +11789,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L42",
       "id": "cinema_hall_users_src_pages_bookingdetailpage_jsx_pages_bookingdetailpage_refundstatusconfig",
-      "community": 51,
+      "community": 68,
       "norm_label": "refundstatusconfig"
     },
     {
@@ -11780,7 +11798,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L66",
       "id": "cinema_hall_users_src_pages_bookingdetailpage_jsx_pages_bookingdetailpage_fmt",
-      "community": 51,
+      "community": 68,
       "norm_label": "fmt()"
     },
     {
@@ -11789,7 +11807,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L73",
       "id": "pages_bookingdetailpage_statusbadge",
-      "community": 51,
+      "community": 68,
       "norm_label": "statusbadge()"
     },
     {
@@ -11798,7 +11816,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L88",
       "id": "pages_bookingdetailpage_skeletonbox",
-      "community": 51,
+      "community": 68,
       "norm_label": "skeletonbox()"
     },
     {
@@ -11807,7 +11825,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L92",
       "id": "pages_bookingdetailpage_loadingskeleton",
-      "community": 51,
+      "community": 68,
       "norm_label": "loadingskeleton()"
     },
     {
@@ -11816,7 +11834,7 @@
       "source_file": "cinema-hall-users/src/pages/BookingDetailPage.jsx",
       "source_location": "L105",
       "id": "cinema_hall_users_src_pages_bookingdetailpage_jsx_pages_bookingdetailpage_bookingdetailpage",
-      "community": 51,
+      "community": 68,
       "norm_label": "bookingdetailpage()"
     },
     {
@@ -11843,7 +11861,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_bookings_jsx",
-      "community": 99,
+      "community": 51,
       "norm_label": "bookings.jsx"
     },
     {
@@ -11852,7 +11870,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L8",
       "id": "pages_bookings_statuscolors",
-      "community": 99,
+      "community": 51,
       "norm_label": "statuscolors"
     },
     {
@@ -11861,7 +11879,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L14",
       "id": "pages_bookings_refundbadgeconfig",
-      "community": 99,
+      "community": 51,
       "norm_label": "refundbadgeconfig"
     },
     {
@@ -11870,7 +11888,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L29",
       "id": "pages_bookings_bookingcard",
-      "community": 99,
+      "community": 51,
       "norm_label": "bookingcard()"
     },
     {
@@ -11879,7 +11897,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L159",
       "id": "pages_bookings_emptystate",
-      "community": 99,
+      "community": 51,
       "norm_label": "emptystate()"
     },
     {
@@ -11888,7 +11906,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L166",
       "id": "pages_bookings_skeletoncard",
-      "community": 99,
+      "community": 51,
       "norm_label": "skeletoncard()"
     },
     {
@@ -11897,7 +11915,7 @@
       "source_file": "cinema-hall-users/src/pages/Bookings.jsx",
       "source_location": "L181",
       "id": "cinema_hall_users_src_pages_bookings_jsx_pages_bookings_bookings",
-      "community": 99,
+      "community": 51,
       "norm_label": "bookings()"
     },
     {
@@ -12032,7 +12050,7 @@
       "source_file": "cinema-hall-users/src/pages/MoviesPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_moviespage_jsx",
-      "community": 35,
+      "community": 98,
       "norm_label": "moviespage.jsx"
     },
     {
@@ -12041,7 +12059,7 @@
       "source_file": "cinema-hall-users/src/pages/MoviesPage.jsx",
       "source_location": "L6",
       "id": "pages_moviespage_moviespage",
-      "community": 35,
+      "community": 98,
       "norm_label": "moviespage()"
     },
     {
@@ -12176,16 +12194,16 @@
       "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
       "source_location": "L1",
       "id": "cinema_hall_users_src_pages_seatselectionpage_jsx",
-      "community": 35,
+      "community": 93,
       "norm_label": "seatselectionpage.jsx"
     },
     {
       "label": "SeatSelectionPage()",
       "file_type": "code",
       "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
-      "source_location": "L9",
+      "source_location": "L11",
       "id": "pages_seatselectionpage_seatselectionpage",
-      "community": 35,
+      "community": 93,
       "norm_label": "seatselectionpage()"
     },
     {
@@ -12394,6 +12412,24 @@
       "id": "cinema_hall_users_src_utils_passwordpolicy_js_utils_passwordpolicy_validatepassword",
       "community": 73,
       "norm_label": "validatepassword()"
+    },
+    {
+      "label": "seatSelection.js",
+      "file_type": "code",
+      "source_file": "cinema-hall-users/src/utils/seatSelection.js",
+      "source_location": "L1",
+      "id": "cinema_hall_users_src_utils_seatselection_js",
+      "community": 93,
+      "norm_label": "seatselection.js"
+    },
+    {
+      "label": "findBestAdjacentSeats()",
+      "file_type": "code",
+      "source_file": "cinema-hall-users/src/utils/seatSelection.js",
+      "source_location": "L18",
+      "id": "utils_seatselection_findbestadjacentseats",
+      "community": 93,
+      "norm_label": "findbestadjacentseats()"
     },
     {
       "label": "graphify.md",
@@ -16055,7 +16091,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L590",
       "id": "docs_payment_and_booking_implementation_verification_plan",
-      "community": 68,
+      "community": 71,
       "norm_label": "verification plan"
     },
     {
@@ -16064,7 +16100,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L592",
       "id": "docs_payment_and_booking_implementation_automated_testing",
-      "community": 68,
+      "community": 71,
       "norm_label": "automated testing"
     },
     {
@@ -16073,7 +16109,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L607",
       "id": "docs_payment_and_booking_implementation_manual_verification",
-      "community": 68,
+      "community": 71,
       "norm_label": "manual verification"
     },
     {
@@ -16253,7 +16289,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1246",
       "id": "docs_payment_and_booking_implementation_webhook_configuration",
-      "community": 71,
+      "community": 151,
       "norm_label": "webhook configuration"
     },
     {
@@ -16262,7 +16298,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1248",
       "id": "docs_payment_and_booking_implementation_razorpay_dashboard_setup",
-      "community": 71,
+      "community": 151,
       "norm_label": "razorpay dashboard setup"
     },
     {
@@ -16271,7 +16307,7 @@
       "source_file": "docs/payment and booking implementation.md",
       "source_location": "L1258",
       "id": "docs_payment_and_booking_implementation_testing_webhooks_locally",
-      "community": 71,
+      "community": 151,
       "norm_label": "testing webhooks locally"
     },
     {
@@ -38311,6 +38347,38 @@
       "target": "cinema_hall_users_src_components_searchmovies_jsx_components_searchmovies_debounce"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/components/SeatCountModal.jsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "cinema_hall_users_src_components_seatcountmodal_jsx",
+      "target": "components_seatcountmodal_seatcountmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "cinema_hall_users_src_pages_seatselectionpage_jsx",
+      "target": "cinema_hall_users_src_components_seatcountmodal_jsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "cinema_hall_users_src_pages_seatselectionpage_jsx",
+      "target": "components_seatcountmodal_seatcountmodal",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -41100,6 +41168,17 @@
       "target": "cinema_hall_users_src_services_api_js"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "cinema_hall_users_src_pages_seatselectionpage_jsx",
+      "target": "cinema_hall_users_src_utils_seatselection_js",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
@@ -41108,6 +41187,28 @@
       "confidence_score": 1.0,
       "source": "cinema_hall_users_src_pages_seatselectionpage_jsx",
       "target": "pages_seatselectionpage_seatselectionpage"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "cinema_hall_users_src_pages_seatselectionpage_jsx",
+      "target": "utils_seatselection_findbestadjacentseats",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/pages/SeatSelectionPage.jsx",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "pages_seatselectionpage_seatselectionpage",
+      "target": "utils_seatselection_findbestadjacentseats",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -41280,6 +41381,16 @@
       "confidence_score": 1.0,
       "source": "cinema_hall_users_src_utils_passwordpolicy_js",
       "target": "cinema_hall_users_src_utils_passwordpolicy_js_utils_passwordpolicy_validatepassword"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "cinema-hall-users/src/utils/seatSelection.js",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "cinema_hall_users_src_utils_seatselection_js",
+      "target": "utils_seatselection_findbestadjacentseats",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -43807,9 +43918,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L484",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_ads_management_superadmin_only",
-      "target": "docs_admin_feature_overview_484",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_484"
     },
     {
       "relation": "contains",
@@ -43897,9 +44008,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L615",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
-      "target": "docs_admin_feature_overview_615",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_615"
     },
     {
       "relation": "contains",
@@ -44027,9 +44138,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L826",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
-      "target": "docs_admin_feature_overview_826",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_826"
     },
     {
       "relation": "contains",
@@ -44207,9 +44318,9 @@
       "source_file": "docs/admin.md",
       "source_location": "L1054",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
-      "target": "docs_admin_feature_overview_1054",
-      "confidence_score": 1.0
+      "target": "docs_admin_feature_overview_1054"
     },
     {
       "relation": "contains",
