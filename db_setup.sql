@@ -347,7 +347,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   id              UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
   customer_id     UUID         NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
   show_id         UUID         NOT NULL REFERENCES shows(id)     ON DELETE CASCADE,
-  seats           TEXT[]       NOT NULL,
+  seats           JSONB        NOT NULL,
   total_amount    DECIMAL(10,2) NOT NULL,
   payment_status  VARCHAR(20)  DEFAULT 'pending',
   payment_id      VARCHAR(255) UNIQUE,                    -- UNIQUE constraint for idempotency
