@@ -49,12 +49,16 @@ Used for prominent highlight elements, active badges, and core visual action but
 | `--accent` | `oklch(71.87% 0.00008 271.15)` | `oklch(53.12% 0.00006 271.15)` |
 | `--card` | `oklch(0.96 0.008 240)` | `oklch(0.18 0.01 240)` |
 | `--border` | `oklch(0.85 0.01 250)` | `oklch(1 0 0 / 10%)` |
+| `--success` | `oklch(0.62 0.17 145)` | `oklch(0.68 0.16 145)` |
+| `--info` | `oklch(0.6 0.18 250)` | `oklch(0.68 0.16 250)` |
+| `--warning` | `oklch(0.7 0.15 60)` | `oklch(0.75 0.14 60)` |
+| `--destructive` | `oklch(0.6 0.23 27)` | `oklch(0.7 0.21 27)` |
 
 ### 3. Seat Status Color Coding
-*   **Available Seat**: Faint outline. Light border with light gray text in light theme; dark border with zinc text in dark theme.
+*   **Available Seat**: Faint outline. Light border with light gray text in light theme; dark border with zinc text in dark theme. Mapped via `--secondary` and `--border` variables.
     *   *Hover*: Brand red outline + border, 5% opacity brand red background.
-*   **Selected Seat**: High-contrast emerald green (`bg-emerald-500`) with active border-b and glowing outer shadow.
-*   **Sold/Held Seat**: Muted gray base with 35% opacity. Non-interactive.
+*   **Selected Seat**: High-contrast success green (`bg-success`) with active border-b and glowing success outer shadow (`shadow-success/20`).
+*   **Sold/Held Seat**: Muted gray base with 45% opacity using `--secondary/45`. Non-interactive.
 
 ---
 
@@ -124,7 +128,7 @@ Seats are represented as 3D theater chairs:
 
 ### 3. Curved Screen & Projector Glow
 *   Screen: A curved top border representing the silver screen curvature (`rounded-[50%/10px_10px_0_0]`).
-*   Projector Light: Fading vertical gradient light cone casting downwards (`bg-gradient-to-b from-blue-400/12 via-blue-400/3 to-transparent blur-md`).
+*   Projector Light: Fading vertical gradient light cone casting downwards using semantic info theme token (`bg-gradient-to-b from-info/12 via-info/3 to-transparent blur-md` with radial overlay glow utilizing `oklch(from var(--info) l c h / 0.04)`).
 
 ### 4. Floating Checkout Dock
 *   Fixed at the bottom of the viewport (`fixed bottom-5 left-1/2 -translate-x-1/2`).
