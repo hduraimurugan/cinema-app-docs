@@ -4,6 +4,29 @@ Welcome to the CineMax design system reference. This document specifies the desi
 
 ---
 
+## ⚙️ Developer & Agent Guidelines
+
+When working on components or modifying the codebase, follow these rules:
+
+1. **Use Project Skills**:
+   Also use and apply relevant skills from:
+   `C:\Users\Duraimurugan H\.claude\skills`
+
+   Specifically check for and utilize any relevant skills related to:
+   - `frontend-design`
+   - `ui-ux-pro-max`
+   - `shadcn`
+   - `vite`
+   - `webapp-testing`
+
+2. **Color Styling & Theme Compliance**:
+   - **Do NOT use inline colors** (e.g., hardcoded hex values, tailwind arbitrary colors like `text-[#f84464]`, or custom inline styles) inside components.
+   - **Use colors from `index.css`** only as per the defined themes (using CSS variables like `var(--foreground)`, `var(--primary)`, etc.).
+   - If you want to add new colors, **add them to the `index.css`** first, and then use them.
+   - **Do NOT change existing colors** without checking how many places and components it will affect.
+
+---
+
 ## 🎨 Color System
 
 CineMax leverages the modern OKLCH color space for system tokens (allowing precise light/dark mode variations without losing chroma consistency) combined with standard hexadecimal branding highlights.
