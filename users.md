@@ -301,7 +301,7 @@ A full-width auto-rotating carousel at the top of the page showcasing the top 5 
 - Autoplay at 5-second intervals; pauses on `mouseEnter` / `focus`, resumes on `mouseLeave` / `blur`
 - Fade crossfade between slides: `duration-400` with `opacity` + `scale` (only transform/opacity animated — no layout triggers)
 - Dot indicators at the bottom center — active dot is wider pill (`w-7 sm:w-9 h-2`), inactive dots are `w-2 h-2` with `hover:scale-125`
-- Poster rendered via `object-contain` with hero gradient overlays (`hero-gradient-t` + `hero-gradient-r`) using `--background` tokens
+- Backdrop image rendered via high-quality `backdrop_path` (with `poster_url` as a fallback) using `object-cover` and modern hero gradient overlays (`hero-gradient-t` + `hero-gradient-r`) using `--background` tokens
 - "Now Trending" badge: `bg-primary featured-glow` with animated pulse dot
 - Dual CTAs: "Book Now" (navigates to `/movie/shows/:id`) and "View Details" (navigates to `/movie/:id` with chevron hover animation)
 - Keyboard accessible: `role="region"`, `aria-roledescription="carousel"`, `inert` on inactive slides

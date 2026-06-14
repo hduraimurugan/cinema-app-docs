@@ -146,6 +146,7 @@ erDiagram
         text title
         text description
         text poster_url
+        text backdrop_path
         text trailer_url
         int duration_mins
         text[] genre
@@ -1149,6 +1150,7 @@ Hashes the submitted OTP and compares against the stored hash. Increments `otp_a
 
 | Method | Endpoint           | Auth       | Description                 |
 | ------ | ------------------ | ---------- | --------------------------- |
+| GET    | `/migrate-backdrops` | None       | Run database schema check & TMDB backdrop backfill |
 | POST   | `/add`             | SuperAdmin | Add new movie               |
 | PUT    | `/edit/:movieId`   | SuperAdmin | Edit movie details          |
 | DELETE | `/delete/:movieId` | SuperAdmin | Delete movie                |
@@ -1165,6 +1167,7 @@ Hashes the submitted OTP and compares against the stored hash. Increments `otp_a
   "title": "Inception",
   "description": "A mind-bending thriller",
   "poster_url": "https://example.com/poster.jpg",
+  "backdrop_path": "https://example.com/backdrop.jpg",
   "trailer_url": "https://youtube.com/watch?v=xyz",
   "duration_mins": 148,
   "genre": ["Action", "Sci-Fi", "Thriller"],
@@ -1188,6 +1191,7 @@ Hashes the submitted OTP and compares against the stored hash. Increments `otp_a
   "title": "Inception",
   "description": "A mind-bending thriller",
   "poster_url": "https://example.com/poster.jpg",
+  "backdrop_path": "https://example.com/backdrop.jpg",
   "trailer_url": "https://youtube.com/watch?v=xyz",
   "duration_mins": 148,
   "genre": ["Action", "Sci-Fi", "Thriller"],
@@ -1298,6 +1302,7 @@ Fetches a single movie's full details including trailers and cast via TMDB's `ap
 | `title`                           | `title`             |
 | `overview`                        | `description`       |
 | `https://image.tmdb.org/t/p/w500` + `poster_path` | `poster_url` |
+| `https://image.tmdb.org/t/p/original` + `backdrop_path` | `backdrop_path` |
 | First YouTube Trailer key         | `trailer_url`       |
 | `runtime`                         | `duration_mins`     |
 | `release_date`                    | `release_date`      |

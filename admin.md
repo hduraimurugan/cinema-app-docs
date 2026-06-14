@@ -676,6 +676,7 @@ The footer is always visible regardless of scroll position — action buttons ne
 | Title          | Text         | Yes      | Movie title                              |
 | Description    | Textarea     | Yes      | Movie synopsis                           |
 | Poster URL     | File Upload  | Yes      | Uploaded to Cloudinary                   |
+| Backdrop URL   | File Upload  | No       | Uploaded to Cloudinary / backdrop image  |
 | Trailer URL    | URL          | No       | YouTube/video link                       |
 | Duration       | Number       | Yes      | Duration in minutes                      |
 | Genres         | Multi-select | Yes      | Array of genres                          |
@@ -739,6 +740,7 @@ Each movie card has an **Import** button. Clicking it calls `GET /api/tmdb/movie
 | Title          | `title`                                           |
 | Description    | `overview`                                        |
 | Poster URL     | `https://image.tmdb.org/t/p/w500{poster_path}`    |
+| Backdrop URL   | `https://image.tmdb.org/t/p/original{backdrop_path}`|
 | Trailer URL    | YouTube key from `videos.results` (type=Trailer)  |
 | Duration       | `runtime` (minutes)                               |
 | Release Date   | `release_date`                                    |
@@ -763,6 +765,7 @@ The **"Sync from TMDB"** button (with a spinning `RefreshCw` icon during the req
 | Trailer URL    | `trailer_url` is empty                    |
 | Duration       | `duration_mins` is empty / 0              |
 | Poster URL     | `poster_url` is empty                     |
+| Backdrop URL   | `backdrop_path` is empty                  |
 
 #### Movie Detail Page
 

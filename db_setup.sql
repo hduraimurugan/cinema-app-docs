@@ -228,6 +228,7 @@ CREATE TABLE IF NOT EXISTS movies (
   title         TEXT    NOT NULL,
   description   TEXT,
   poster_url    TEXT,
+  backdrop_path TEXT,
   trailer_url   TEXT,
   duration_mins INT,
   genre         TEXT[],
@@ -240,6 +241,9 @@ CREATE TABLE IF NOT EXISTS movies (
   vote_count    INT,
   created_at    TIMESTAMPTZ DEFAULT now()
 );
+
+-- Idempotently check and append backdrop_path column
+ALTER TABLE movies ADD COLUMN IF NOT EXISTS backdrop_path TEXT;
 
 
 -- ---------------------------------------------------------------------------
