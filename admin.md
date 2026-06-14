@@ -284,7 +284,7 @@ To support admins managing multiple cinema halls, the system divides the admin's
 #### 3. Hall Switcher (`HallSwitcher.jsx`)
 - Dropdown component integrated into the sidebar layout header.
 - Displays the active hall name and location at a glance.
-- Clicking the switcher opens a dropdown displaying all halls owned by the admin, with the active one highlighted.
+- Clicking the switcher opens a dropdown displaying all halls owned by the admin. The active hall is highlighted with `bg-primary/10`, a checkmark indicator on the right, and the building icon set to `bg-primary text-white` (matching the white letters color of the item).
 - Selecting a different hall updates the global active hall, updates `localStorage`, and triggers state refetching on the current page.
 - Provides a direct link to the Halls Management page.
 
@@ -466,7 +466,11 @@ The **Valid Until** and **Joined After** date pickers use the standard shadcn `P
 
 #### Sidebar Navigation
 
-"Offers" (Tag icon) is added under the **Operations** section of `AppSidebar.jsx`, visible only to SuperAdmin (same pattern as Movies/Ads).
+- **Offers** (Tag icon) is added under the **Operations** section of `AppSidebar.jsx`, visible only to SuperAdmin (same pattern as Movies/Ads).
+- **Layout & Sizing** (Redesigned June 2026):
+  - Sidebar width reduced from `w-61` (244px) to `w-52` (208px) on desktop viewports to conserve screen space.
+  - Sidebar navigation items are scaled down to `text-[13px]` font-size, with smaller icons (`size-4`/16px) and reduced margins/paddings for a tighter and cleaner aesthetic.
+  - Native, custom, and Radix scrollbars are automatically hidden inside the navigation menu on mobile viewports (`max-width: 1023px`) via global media queries in `index.css`.
 
 ---
 
