@@ -1125,8 +1125,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\SeatSelectionPage.jsx": {
-    "mtime": 1781437956.8459024,
-    "ast_hash": "9a993d1f08c39a2a6235daa371c24abe",
+    "mtime": 1781439650.8897634,
+    "ast_hash": "7a368cd61210a7626d497fe7d5766f36",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\pages\\SettingsPage.jsx": {
@@ -1220,8 +1220,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\index.md": {
-    "mtime": 1781438233.6559906,
-    "ast_hash": "2fa68a05662ff5bffcd03d056053b55b",
+    "mtime": 1781440011.97436,
+    "ast_hash": "c0a2b6fb38fbb657dca704f195621bf0",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\payment and booking implementation.md": {
@@ -1235,8 +1235,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\users.md": {
-    "mtime": 1781438241.8762329,
-    "ast_hash": "f27d76394c49789e7f7cc0b1b8f66e63",
+    "mtime": 1781440050.453474,
+    "ast_hash": "3dbd7c9b4ec4bea89fedad79800d4846",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\public\\cinemax_logo.png": {
@@ -1570,13 +1570,18 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\components\\SeatCountModal.jsx": {
-    "mtime": 1781437677.0453486,
-    "ast_hash": "66a1a9f8912a8b4e844aaead521e5196",
+    "mtime": 1781439662.313389,
+    "ast_hash": "95dbe23eb6d554f81c8c4fd849762d77",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-users\\src\\utils\\seatSelection.js": {
     "mtime": 1781436875.0322597,
     "ast_hash": "53e17a5b1867f9242c9af3f9c0d40386",
+    "semantic_hash": ""
+  },
+  "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\Design system.md": {
+    "mtime": 1781440064.5216968,
+    "ast_hash": "d065223c0dc865a46298063f147a4c4e",
     "semantic_hash": ""
   }
 }
