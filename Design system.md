@@ -53,6 +53,8 @@ Used for prominent highlight elements, active badges, and core visual action but
 | `--info` | `oklch(0.6 0.18 250)` | `oklch(0.68 0.16 250)` |
 | `--warning` | `oklch(0.7 0.15 60)` | `oklch(0.75 0.14 60)` |
 | `--destructive` | `oklch(0.6 0.23 27)` | `oklch(0.7 0.21 27)` |
+| `--rating` | `oklch(0.78 0.18 75)` *(Golden star)* | `oklch(0.7 0.18 75)` *(Dimmed gold)* |
+| `--rating-foreground` | `oklch(0.12 0.02 75)` | `oklch(0.98 0.02 75)` |
 | `--shadow-sm` | `0 1px 2px 0 oklch(0 0 0 / 0.05)` | `0 1px 2px 0 oklch(0 0 0 / 0.3)` |
 | `--shadow-md` | `0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)` | `0 4px 6px -1px oklch(0 0 0 / 0.4), 0 2px 4px -2px oklch(0 0 0 / 0.3)` |
 | `--shadow-lg` | `0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1)` | `0 10px 15px -3px oklch(0 0 0 / 0.4), 0 4px 6px -4px oklch(0 0 0 / 0.3)` |
@@ -162,13 +164,21 @@ bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60
 ### 4. Utility Classes
 
 | Class | Purpose |
-|---|---|
+|---|---|---|
 | `.no-scrollbar` | Hides scrollbar on overflow containers (used for mobile nav strip). `scrollbar-width: none` + `display: none` on webkit scrollbar. |
 | `.page-enter` | Page transition animation (fade + 4px slide-up, 300ms cubic-bezier). Applied via `key={pathname}` on the `<Outlet />` wrapper. |
 | `.hover-lift` | Lifts element `-2px` on hover with shadow. |
 | `.hover-glow` | Adds primary-colored glow shadow on hover. |
 | `.glass-effect` | Standard frosted glass with `blur(12px) saturate(180%)`. |
 | `.cinema-shadow` | Applies `var(--shadow-lg)`. |
+| `.hero-gradient-t` | Hero bottom-to-top gradient overlay using `--background` for text readability (`to top`). |
+| `.hero-gradient-r` | Hero right-facing gradient overlay (`to right`) for text readability on the left side. |
+| `.card-hover` | Movie card hover: `translateY(-4px) scale(1.02)` + `var(--shadow-xl)`, 400ms cubic-bezier. |
+| `.shimmer` | Animated loading shimmer (gradient sweep 1.5s ease-in-out infinite). |
+| `.focus-ring` | Visible keyboard focus outline: `2px solid var(--primary)`, `2px offset`. |
+| `.scroll-snap-x` | Horizontal scroll snap container (`scroll-snap-type: x mandatory`). |
+| `.scroll-snap-start` | Snap alignment (`scroll-snap-align: start`) for cards in a scroll-snap row. |
+| `.featured-glow` | Glow shadow on the hero "Now Trending" badge (`0 0 20px var(--primary)/0.4`). |
 
 ### 5. Container System
 All layout components use a consistent container system:
