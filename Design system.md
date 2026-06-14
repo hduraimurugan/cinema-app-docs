@@ -53,6 +53,12 @@ Used for prominent highlight elements, active badges, and core visual action but
 | `--info` | `oklch(0.6 0.18 250)` | `oklch(0.68 0.16 250)` |
 | `--warning` | `oklch(0.7 0.15 60)` | `oklch(0.75 0.14 60)` |
 | `--destructive` | `oklch(0.6 0.23 27)` | `oklch(0.7 0.21 27)` |
+| `--shadow-sm` | `0 1px 2px 0 oklch(0 0 0 / 0.05)` | `0 1px 2px 0 oklch(0 0 0 / 0.3)` |
+| `--shadow-md` | `0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)` | `0 4px 6px -1px oklch(0 0 0 / 0.4), 0 2px 4px -2px oklch(0 0 0 / 0.3)` |
+| `--shadow-lg` | `0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1)` | `0 10px 15px -3px oklch(0 0 0 / 0.4), 0 4px 6px -4px oklch(0 0 0 / 0.3)` |
+| `--shadow-xl` | `0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1)` | `0 20px 25px -5px oklch(0 0 0 / 0.5), 0 8px 10px -6px oklch(0 0 0 / 0.4)` |
+| `--gradient-primary` | `linear-gradient(135deg, var(--primary), oklch(from var(--primary) l calc(c * 0.7) h))` | Same |
+| `--gradient-accent` | `linear-gradient(135deg, var(--accent), oklch(from var(--accent) l calc(c * 0.7) h))` | Same |
 
 ### 3. Seat Status Color Coding
 *   **Available Seat**: Faint outline. Light border with light gray text in light theme; dark border with zinc text in dark theme. Mapped via `--secondary` and `--border` variables.
@@ -121,15 +127,67 @@ Utilized for top headers, modals, floating panels, and sidebars.
     border: 1px solid oklch(from var(--border) l c h / 0.3);
     ```
 
-### 2. Physical 3D Seat Styling
+### 2. Top Header Glassmorphism (upgraded)
+The `TopBar` and `TopNavbar` use a premium glassmorphism with deeper blur:
+```css
+bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60
+```
+
+### 3. Navigation Active Indicator
+`TopNavbar` nav links use a CSS `::before` pseudo-element for animated underline:
+```css
+/* Each NavLink has a bottom bar that scales on hover/active */
+.relative.inline-flex.items-center {
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0.5rem;
+    bottom: 0;
+    height: 2px;
+    border-radius: 9999px;
+    transition: transform 0.2s;
+    transform: scaleX(0);           /* hidden by default */
+  }
+  &.active::before {
+    transform: scaleX(1);           /* fully visible when active */
+    background: var(--primary);
+  }
+  &:hover::before {
+    transform: scaleX(0.75);        /* 75% visible on hover */
+    background: oklch(from var(--foreground) l c h / 0.2);
+  }
+}
+```
+
+### 4. Utility Classes
+
+| Class | Purpose |
+|---|---|
+| `.no-scrollbar` | Hides scrollbar on overflow containers (used for mobile nav strip). `scrollbar-width: none` + `display: none` on webkit scrollbar. |
+| `.page-enter` | Page transition animation (fade + 4px slide-up, 300ms cubic-bezier). Applied via `key={pathname}` on the `<Outlet />` wrapper. |
+| `.hover-lift` | Lifts element `-2px` on hover with shadow. |
+| `.hover-glow` | Adds primary-colored glow shadow on hover. |
+| `.glass-effect` | Standard frosted glass with `blur(12px) saturate(180%)`. |
+| `.cinema-shadow` | Applies `var(--shadow-lg)`. |
+
+### 5. Container System
+All layout components use a consistent container system:
+```
+mx-auto max-w-7xl px-3 sm:px-6 lg:px-8
+```
+- `max-w-7xl` caps width at ~1280px for comfortable reading on ultra-wide screens
+- Responsive horizontal padding: `12px` mobile → `24px` tablet → `32px` desktop
+- Used by: `TopBar`, `TopNavbar`, `CinemaLayout` (main content + footer)
+
+### 6. Physical 3D Seat Styling
 Seats are represented as 3D theater chairs:
 *   Rounded top corners (`rounded-t-md`) + subtle rounded bottom corners (`rounded-b-[3px]`).
 *   Thicker bottom border cushion representing the seat fold (`border-b-2`).
 
-### 3. Curved Screen & Projector Glow
+### 7. Curved Screen & Projector Glow
 *   Screen: A curved top border representing the silver screen curvature (`rounded-[50%/10px_10px_0_0]`).
 *   Projector Light: Fading vertical gradient light cone casting downwards using semantic info theme token (`bg-gradient-to-b from-info/12 via-info/3 to-transparent blur-md` with radial overlay glow utilizing `oklch(from var(--info) l c h / 0.04)`).
 
-### 4. Floating Checkout Dock
+### 8. Floating Checkout Dock
 *   Fixed at the bottom of the viewport (`fixed bottom-5 left-1/2 -translate-x-1/2`).
 *   Uses a wide container (`w-[calc(100%-2rem)] max-w-4xl`) with frosted glass backing, selected seat list text tags, and a brand red CTA.

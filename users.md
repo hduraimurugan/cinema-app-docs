@@ -9,7 +9,7 @@ The Cinema Hall User Application is a **React-based web application** designed f
 - **Framework**: React 18 with Vite
 - **Routing**: React Router v6
 - **UI Library**: shadcn/ui (Radix UI primitives)
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS 
 - **State Management**: React Context API
 - **HTTP Client**: Fetch API
 - **Authentication**: JWT with HttpOnly cookies + OTP verification
@@ -57,18 +57,48 @@ graph TD
     D --> E[CinemaLayout]
 
     E --> F[TopBar]
-    E --> G[Main Content]
+    E --> G[TopNavbar]
+    E --> H[Main Content]
 
-    F --> H[Logo & Search]
-    F --> I[Location Selector]
-    F --> J[Login/User Menu]
-    F --> K[Theme Toggle]
+    F --> I[Logo & Search]
+    F --> J[Location Selector]
+    F --> K[Login/User Menu]
+    F --> L[Theme Toggle]
 
-    G --> L[Page Components]
-    L --> M[HomePage]
-    L --> N[MoviesPage]
-    L --> O[TheatresPage]
+    G --> M[NavLink (Movies, Theatres, Offers, Gift Cards, My Bookings)]
+
+    H --> N[Page Components]
+    N --> O[HomePage]
+    N --> P[MoviesPage]
+    N --> Q[TheatresPage]
 ```
+
+### CinemaLayout — Layout Architecture
+
+**Component**: `CinemaLayout.jsx`
+
+The root layout wrapper for all pages. Renders `TopBar` + `TopNavbar` + scrollable `<main>` + footer.
+
+**Layout structure:**
+```
+flex flex-col h-screen bg-background
+├── TopBar             (sticky, z-50, backdrop-blur-xl)
+├── TopNavbar          (border-b, backdrop-blur-sm)
+└── main               (flex-1 overflow-y-auto scroll-smooth)
+    └── min-h-full flex flex-col
+        ├── flex-1
+        │   └── mx-auto max-w-7xl px-4 sm:px-6 lg:px-8
+        │       └── [page-enter animated Outlet]
+        └── footer
+            └── mx-auto max-w-7xl
+```
+
+**Key features:**
+- **Page transitions**: The `<Outlet />` is wrapped in `<div key={pathname} className="page-enter">`. On each route change, the new page fades in with a 4px slide-up animation (300ms cubic-bezier). The `key={pathname}` ensures React unmounts/remounts the wrapper on every navigation.
+- **Scroll-to-top**: `useEffect` on `pathname` scrolls the main container to top with `behavior: "smooth"` on every route change.
+- **`scroll-smooth`**: Applied to the `<main>` element for smooth anchor scrolling.
+- **Container system**: All content is constrained to `max-w-7xl` with responsive horizontal padding, matching `TopBar` and `TopNavbar` for visual consistency.
+- **Accessibility**: `<main>` has `role="main"` and `aria-label="Main content"`. The footer uses semantic `<footer>` element.
 
 ---
 
@@ -531,9 +561,11 @@ When a user is redirected from a protected route (e.g. `/bookings` while logged 
 
 #### Search Functionality
 
+**TopBar implementation:** `sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 transition-all duration-300` with `role="banner"` landmark. Container uses `mx-auto max-w-7xl px-3 sm:px-6 lg:px-8` — consistent with other layout components. All icon-only buttons include `aria-label` attributes. Decorative indicators use `aria-hidden="true"`.
+
 **Desktop (`sm+`):** Full-width pill-shaped input bar (max `xl`) centered in the header. Submits via Enter and navigates to `/search?q=<term>`.
 
-**Mobile:** A `Search` icon button is always visible. Tapping it replaces the entire TopBar content with an inline search input + `X` cancel button (full-width). Cancelling clears the query and restores the normal bar. No alert — fully functional.
+**Mobile:** A `Search` icon button is always visible. Tapping it replaces the entire TopBar content with an inline search input + `X` cancel button (full-width). The overlay uses `animate-in slide-in-from-top-2 duration-200` for smooth entry. Cancelling clears the query and restores the normal bar. No alert — fully functional.
 
 #### Location Selector
 
@@ -616,21 +648,53 @@ This results in the Dialog visually closing but leaving the page frozen (no clic
 
 **Component**: `TopNavbar.jsx`
 
+#### Component Architecture
+
+Uses a `NavLink` helper component for consistent rendering across desktop (left/right split) and mobile (flat scrollable strip).
+
+```jsx
+function NavLink({ item, isActive }) {
+  const Icon = item.icon
+  return (
+    <Link
+      className={cn(
+        "relative inline-flex items-center gap-1.5 px-3 sm:px-4 text-sm font-medium transition-all duration-200 whitespace-nowrap",
+        "before:absolute before:inset-x-2 before:bottom-0 before:h-0.5 before:rounded-full before:transition-transform before:duration-200",
+        isActive
+          ? "text-primary before:bg-primary before:scale-x-100"
+          : "text-muted-foreground hover:text-foreground before:bg-foreground/20 hover:before:scale-x-75"
+      )}
+      aria-current={isActive ? "page" : undefined}
+    >
+      <Icon className="h-3.5 w-3.5 shrink-0" />
+      {item.name}
+    </Link>
+  )
+}
+```
+
 #### Navigation Items
 
-| Position | Item | Auth Required | Visible |
-|----------|------|---------------|---------|
-| Left | Movies | No | Always |
-| Left | Theatres | No | Always |
-| Right | My Bookings | **Yes** | `sm+`, logged in only |
-| Right | Offers | No | `sm+` |
-| Right | Gift Cards | No | `sm+` |
+| Position | Item | Icon | Auth Required | Mobile | Desktop |
+|----------|------|------|---------------|--------|---------|
+| Left | Movies | `Film` | No | Scrollable | Always |
+| Left | Theatres | `Building2` | No | Scrollable | Always |
+| Right | My Bookings | `Ticket` | **Yes** | Scrollable | `sm+`, logged in |
+| Right | Offers | `Tag` | No | Scrollable | `sm+` |
+| Right | Gift Cards | `Gift` | No | Scrollable | `sm+` |
 
-**Active indicator:** Each link uses `border-b-2 -mb-px` — the active link's `border-primary` bottom border visually bleeds into the container's `border-b` for a seamless tab underline. Inactive links show `border-transparent` by default and `border-border` on hover as a subtle preview.
+**Active indicator:** Animated underline via CSS `::before` pseudo-element. Uses `scaleX` transform for smooth animation:
+- **Active**: `scaleX(1)` with `--primary` color
+- **Hover (inactive)**: `scaleX(0.75)` with `foreground/20` color
+- **Default**: `scaleX(0)` — hidden
 
-**"My Bookings"** is conditionally rendered — only appears when the customer is logged in. Right nav items are hidden below `sm` breakpoint (was `lg` previously).
+**Mobile behavior:** All nav items render in a single horizontal scrollable strip (`overflow-x-auto no-scrollbar`). The `no-scrollbar` utility hides the scrollbar while preserving scroll functionality. Desktop retains left/right split layout.
 
-**Height & padding:** `h-11` with `px-3 sm:px-6 lg:px-8` — matching TopBar's spacing system.
+**"My Bookings"** is conditionally rendered — only appears when the customer is logged in.
+
+**Height & padding:** `h-11 sm:h-12` with `mx-auto max-w-7xl px-3 sm:px-6 lg:px-8` — matching TopBar's container system.
+
+**Backdrop:** `bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80` — subtle glassmorphism matching TopBar's aesthetic.
 
 ---
 
