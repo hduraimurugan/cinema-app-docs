@@ -17385,7 +17385,7 @@
       "label": "Utility Files",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1303",
+      "source_location": "L1305",
       "id": "docs_users_utility_files",
       "community": 12,
       "norm_label": "utility files"
@@ -17394,7 +17394,7 @@
       "label": "State Management",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1311",
+      "source_location": "L1313",
       "id": "docs_users_state_management",
       "community": 142,
       "norm_label": "state management"
@@ -17403,7 +17403,7 @@
       "label": "Context Providers",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1313",
+      "source_location": "L1315",
       "id": "docs_users_context_providers",
       "community": 142,
       "norm_label": "context providers"
@@ -17412,7 +17412,7 @@
       "label": "User Workflows",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1354",
+      "source_location": "L1356",
       "id": "docs_users_user_workflows",
       "community": 5,
       "norm_label": "user workflows"
@@ -17421,7 +17421,7 @@
       "label": "Complete Signup & Login Flow",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1356",
+      "source_location": "L1358",
       "id": "docs_users_complete_signup_login_flow",
       "community": 5,
       "norm_label": "complete signup & login flow"
@@ -17430,7 +17430,7 @@
       "label": "Movie Discovery Flow",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1394",
+      "source_location": "L1396",
       "id": "docs_users_movie_discovery_flow",
       "community": 5,
       "norm_label": "movie discovery flow"
@@ -17439,7 +17439,7 @@
       "label": "2. Movie Info Page",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1425",
+      "source_location": "L1427",
       "id": "docs_users_2_movie_info_page",
       "community": 5,
       "norm_label": "2. movie info page"
@@ -17448,7 +17448,7 @@
       "label": "3. Movie Shows Page",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1499",
+      "source_location": "L1501",
       "id": "docs_users_3_movie_shows_page",
       "community": 5,
       "norm_label": "3. movie shows page"
@@ -17457,7 +17457,7 @@
       "label": "Styling & Theming",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1572",
+      "source_location": "L1574",
       "id": "docs_users_styling_theming",
       "community": 8,
       "norm_label": "styling & theming"
@@ -17466,7 +17466,7 @@
       "label": "Tailwind Configuration",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1574",
+      "source_location": "L1576",
       "id": "docs_users_tailwind_configuration",
       "community": 8,
       "norm_label": "tailwind configuration"
@@ -17475,7 +17475,7 @@
       "label": "Responsive Design",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1583",
+      "source_location": "L1585",
       "id": "docs_users_responsive_design",
       "community": 8,
       "norm_label": "responsive design"
@@ -17484,7 +17484,7 @@
       "label": "Dark Mode",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1597",
+      "source_location": "L1599",
       "id": "docs_users_dark_mode",
       "community": 8,
       "norm_label": "dark mode"
@@ -17493,7 +17493,7 @@
       "label": "Performance Optimizations",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1611",
+      "source_location": "L1613",
       "id": "docs_users_performance_optimizations",
       "community": 10,
       "norm_label": "performance optimizations"
@@ -17502,7 +17502,7 @@
       "label": "Lazy Loading Images",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1613",
+      "source_location": "L1615",
       "id": "docs_users_lazy_loading_images",
       "community": 10,
       "norm_label": "lazy loading images"
@@ -17511,7 +17511,7 @@
       "label": "Horizontal Scrolling",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1632",
+      "source_location": "L1634",
       "id": "docs_users_horizontal_scrolling",
       "community": 10,
       "norm_label": "horizontal scrolling"
@@ -17520,7 +17520,7 @@
       "label": "Memoization",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1646",
+      "source_location": "L1648",
       "id": "docs_users_memoization",
       "community": 10,
       "norm_label": "memoization"
@@ -17529,7 +17529,7 @@
       "label": "Error Handling",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1656",
+      "source_location": "L1658",
       "id": "docs_users_error_handling",
       "community": 6,
       "norm_label": "error handling"
@@ -17538,7 +17538,7 @@
       "label": "API Error Handling",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1658",
+      "source_location": "L1660",
       "id": "docs_users_api_error_handling",
       "community": 6,
       "norm_label": "api error handling"
@@ -17547,7 +17547,7 @@
       "label": "Loading States",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1671",
+      "source_location": "L1673",
       "id": "docs_users_loading_states",
       "community": 6,
       "norm_label": "loading states"
@@ -17556,7 +17556,7 @@
       "label": "Empty States",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1681",
+      "source_location": "L1683",
       "id": "docs_users_empty_states",
       "community": 6,
       "norm_label": "empty states"
@@ -17565,7 +17565,7 @@
       "label": "Environment Variables",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1697",
+      "source_location": "L1699",
       "id": "docs_users_environment_variables",
       "community": 142,
       "norm_label": "environment variables"
@@ -17574,7 +17574,7 @@
       "label": "Build & Deployment",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1709",
+      "source_location": "L1711",
       "id": "docs_users_build_deployment",
       "community": 7,
       "norm_label": "build & deployment"
@@ -17583,7 +17583,7 @@
       "label": "Development",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1711",
+      "source_location": "L1713",
       "id": "docs_users_development",
       "community": 7,
       "norm_label": "development"
@@ -17592,7 +17592,7 @@
       "label": "Production Build",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1718",
+      "source_location": "L1720",
       "id": "docs_users_production_build",
       "community": 7,
       "norm_label": "production build"
@@ -17601,7 +17601,7 @@
       "label": "Deployment",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1725",
+      "source_location": "L1727",
       "id": "docs_users_deployment",
       "community": 7,
       "norm_label": "deployment"
@@ -17610,7 +17610,7 @@
       "label": "Accessibility",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1733",
+      "source_location": "L1735",
       "id": "docs_users_accessibility",
       "community": 142,
       "norm_label": "accessibility"
@@ -17619,7 +17619,7 @@
       "label": "Implemented Features",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1735",
+      "source_location": "L1737",
       "id": "docs_users_implemented_features",
       "community": 142,
       "norm_label": "implemented features"
@@ -17628,7 +17628,7 @@
       "label": "Best Practices Implemented",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1762",
+      "source_location": "L1764",
       "id": "docs_users_best_practices_implemented",
       "community": 142,
       "norm_label": "best practices implemented"
@@ -17637,7 +17637,7 @@
       "label": "Future Enhancements",
       "file_type": "document",
       "source_file": "docs/users.md",
-      "source_location": "L1795",
+      "source_location": "L1797",
       "id": "docs_users_future_enhancements",
       "community": 142,
       "norm_label": "future enhancements"
@@ -38380,9 +38380,9 @@
       "source_file": "cinema-hall-users/src/components/SeatCountModal.jsx",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinema_hall_users_src_components_seatcountmodal_jsx",
-      "target": "components_seatcountmodal_vehicleillustration",
-      "confidence_score": 1.0
+      "target": "components_seatcountmodal_vehicleillustration"
     },
     {
       "relation": "imports_from",
@@ -47436,9 +47436,9 @@
       "source_file": "docs/users.md",
       "source_location": "L1303",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_users_ui_components",
-      "target": "docs_users_utility_files",
-      "confidence_score": 1.0
+      "target": "docs_users_utility_files"
     },
     {
       "relation": "contains",

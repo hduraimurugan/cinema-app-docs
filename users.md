@@ -706,19 +706,19 @@ sequenceDiagram
 Interactive seat selection UI for a given show. Fetches live seat availability from the API, lets users select seats, then holds them for 5 minutes before navigating to `OrderSummaryPage`.
 
 **Layout:**
-- **Sticky header** — back button, movie poster thumbnail, title + language, show time badge, screen type badge (2D/3D/IMAX). Compact on mobile.
-- **Seat Count Modal** — On first visit, a centered modal asks "How many seats would you like to book?" (1–10). User must choose a count before interacting with the seat grid. Modal cannot be dismissed without selecting. Once confirmed, a badge appears in the legend toolbar showing the chosen count.
-- **Legend + toolbar row** — Available / Sold / Selected color swatches on the left; seat count badge (if set); **Select / Pan mode toggle** button on the right.
-- **Seat grid** — horizontally scrollable, zero-padded column numbers (`01`, `02`…), row labels on both sides. Sections separated by a price header (`₹350 PREMIUM`). Screen indicator ("All Eyes This Way" blue line) positioned at `top` or `bottom` based on `screenPosition` from the layout.
+- **Sticky header** — back button, movie poster thumbnail, title + language, show time badge, screen type badge (2D/3D/IMAX) styled with a frosted glassmorphic look. Compact on mobile.
+- **Seat Count Modal** — On first visit, a centered modal asks "How many seats?" (1–10) with a horizontal grid of 10 numbered pill buttons (red highlight for active selection, `#f84464` BookMyShow-style theming). Includes an animated SVG vehicle illustration that changes per count (bicycle → scooter → auto → car → SUV → minivan → bus). Displays live seat category stats (Premium/Gold/Silver with price, availability, and FILLING FAST/SOLD OUT badges). User must choose a count before interacting with the seat grid. Modal cannot be dismissed without selecting. Once confirmed, a badge appears in the legend toolbar showing the chosen count.
+- **Legend + toolbar row** — Available / Sold / Selected color indicators styled like miniature physical cinema chairs on the left; seat count badge (if set); **Select / Pan mode toggle** button on the right.
+- **Seat grid** — horizontally scrollable, zero-padded column numbers (`01`, `02`…), row labels on both sides. Sections separated by structured pricing pills centered between linear gradient divider lines. Screen indicator styled as a curved 3D cinema screen reflecting a soft radial projection beam. Individual seats are styled as physical 3D cinema chairs (rounded top, double bottom border cushion base, interactive scaling hover transitions).
 - **Floating zoom controls** — `+` / `−` circular buttons on the bottom-right of the seat grid with a percentage readout.
 - **Fixed minimap panel** — `"Layout Overview"` card fixed to the top-right of the viewport (below the sticky header); only shown on `sm+` screens when the layout overflows horizontally.
-- **Bottom payment bar** — fixed footer with ticket count (`X/Y selected`), seat labels, total price, and "Proceed to Payment" button; only visible when seats are selected.
+- **Bottom payment bar** — floating glassmorphic checkout dock with backdrop blur filter, selected seat labels, total price, and a glowing cinema red uppercase "Proceed to Payment" button.
 
 **Key Features:**
 
 | Feature | Detail |
 |---|---|
-| **Seat Count Modal** | `SeatCountModal` asks "How many seats would you like to book?" (1–10). Non-dismissible — user must pick a count. Appears once per page visit via `showSeatCountModal` state. |
+| **Seat Count Modal** | `SeatCountModal` — animated SVG vehicle illustration per count (bicycle/bus), horizontal 1–10 pill grid with `#f84464` selection, live section stats panel (Premium/Gold/Silver availability + price), backdrop-blur glass UI, non-dismissible. Defaults to 2. Appears once per page visit via `showSeatCountModal` state. Receives `showData` + `getSeatPrice` props from parent. |
 | **Smart Adjacent Selection** | After setting seat count, clicking any available seat auto-selects the nearest contiguous block in the same row. Uses `findBestAdjacentSeats()` — a sliding-window algorithm that scores blocks by proximity to clicked seat, right-bias, and contiguity. |
 | **Best-Adjacent Algorithm** | `src/utils/seatSelection.js` — filters available seats in the same row, slides a window of size `seatCount`, scores by (1) contains clicked seat, (2) left extension, (3) distance. Returns seat IDs. |
 | **Seat hold** | `POST /api/booking/hold` — 5-minute row-level lock; on success navigates to `/order-summary` with full state |
@@ -1295,10 +1295,12 @@ sequenceDiagram
 
 **SeatCountModal** - Seat count selector (`src/components/SeatCountModal.jsx`)
 
-- Centered Dialog asking "How many seats would you like to book?"
-- Stepper UI (Minus / Plus buttons) for 1–10 seat count
+- Centered Dialog asking "How many seats?" with pill-shaped 1–10 number grid (`#f84464` active state)
+- Animated SVG `VehicleIllustration` — changes dynamically per count: 1=bicycle, 2=vespa scooter, 3=auto-rickshaw, 4=beetle car, 5=SUV, 6-7=minivan, 8-10=double-decker bus. Wheels spin, body bobs, exhaust puffs smoke, bus headlights glow.
+- Live seat category stats panel: Premium/Gold/Silver price + AVAILABLE / FILLING FAST (≥70% booked) / SOLD OUT badges with icons (Check/Flame/AlertCircle)
 - Non-dismissible — user must confirm a count before proceeding
-- Uses shadcn `Dialog` component with hidden close button
+- Receives `showData` and `getSeatPrice` props from `SeatSelectionPage`
+- Uses shadcn `Dialog` component with hidden close button, backdrop-blur glass styling
 
 ### Utility Files
 
@@ -1796,6 +1798,12 @@ npm run build
 
 ✅ **Recently Implemented:**
 
+- **SeatSelectionPage + SeatCountModal — Premium Redesign & Visual Overhaul** (June 14, 2026):
+  - **Animated Vector Vehicle SVGs**: Dynamic inline `VehicleIllustration` inside `SeatCountModal` rendering Cycles, Vespa Scooters, Autos, Beetle Cars, SUVs, Minivans, and Double-decker Buses with keyframe animations (exhaust smoke, spinning wheels, headlight ray gradients, body bouncing) mapped to selected seat counts.
+  - **Seat Grid & Physical Chair Styling**: Seating grid buttons updated to look like physical cinema chairs with rounded tops, bottom border-b-2 cushion base, and hover scale micro-animations. Categories separated by clean centered text pills anchored by fading gradient lines.
+  - **Curved Theater Screen & Projector Glow**: Projection screen designed as a curved 3D cinema screen with an ambient radial light cone casting light downwards.
+  - **Floating Checkout Dock**: Replaced bottom block bar with an elevated glassmorphic checkout dock containing live details and brand-red uppercase action buttons.
+  - **Frosted Top Header**: Added a frosted backdrop blur effect to the sticky top navbar.
 - **SeatSelectionPage — Hand tool, Minimap, Zoom** (March 29, 2026):
   - **Hand / Pan tool**: Select ↔ Pan mode toggle button added to the legend toolbar. In Pan mode, clicking and dragging anywhere on the seat grid pans it horizontally instead of selecting seats. Cursor changes to `grab` / `grabbing`. Document-level mouse listeners are attached while pan mode is active and removed on exit.
   - **Layout Minimap**: Fixed `300×200px` canvas panel ("Layout Overview") pinned to the top-right of the viewport below the sticky header. Draws all seats as colored rectangles (amber = premium, yellow = gold, gray = silver, zinc = sold/held, emerald = selected). A blue semi-transparent rectangle tracks the current scroll viewport. Clicking or dragging on the minimap scrolls the main view to that position. Updates live on scroll, seat selection, and zoom changes. Hidden on mobile and when the layout doesn't overflow.
