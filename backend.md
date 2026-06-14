@@ -477,7 +477,7 @@ sequenceDiagram
     participant GitHub
 
     note over User,Google: Google OAuth (Implicit Flow)
-    User->>Frontend: Click "Continue with Google"
+    User->>Frontend: Click "Google" / "Continue with Google"
     Frontend->>Google: useGoogleLogin() popup
     Google-->>Frontend: access_token
     Frontend->>Backend: POST /google-login {token}
@@ -487,7 +487,7 @@ sequenceDiagram
     Backend-->>Frontend: {admin/customer, tokens}
 
     note over User,GitHub: GitHub OAuth (Redirect Flow - Admin only)
-    User->>Frontend: Click "Continue with GitHub"
+    User->>Frontend: Click "GitHub"
     Frontend->>GitHub: Redirect to /login/oauth/authorize
     GitHub-->>Frontend: Redirect to /auth/github/callback?code=xxx
     Frontend->>Backend: POST /github-login {code}

@@ -227,9 +227,9 @@ Rather than full route re-renders causing layout flickering and empty state jump
 #### 1. LoginForm (`LoginForm.jsx`)
 Collects Admin credentials, handles login requests, and reads authentication response payloads. Handles account lock banners and directs unverified registration emails to verification page triggers.
 
-**OAuth Buttons:**
-- **"Continue with Google"** — Uses `@react-oauth/google` `useGoogleLogin` hook (implicit flow). On success, sends access token to backend via `AuthContext.googleLogin()`.
-- **"Continue with GitHub"** — Redirects browser to `https://github.com/login/oauth/authorize` with `VITE_GITHUB_CLIENT_ID` and redirect URI `/auth/github/callback`. After authorization, GitHub redirects back with a `code` parameter.
+**OAuth Buttons:** (Aligned side-by-side in a single row)
+- **"Google"** — Uses `@react-oauth/google` `useGoogleLogin` hook (implicit flow). On success, sends access token to backend via `AuthContext.googleLogin()`.
+- **"GitHub"** — Redirects browser to `https://github.com/login/oauth/authorize` with `VITE_GITHUB_CLIENT_ID` and redirect URI `/auth/github/callback`. After authorization, GitHub redirects back with a `code` parameter.
 
 #### 2. RegisterForm (`RegisterForm.jsx`)
 Provides fields for Full Name, Phone, Email, and Password. Includes client-side validations and password policy checkers displaying ticks upon satisfying rules.
