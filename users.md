@@ -272,26 +272,52 @@ flowchart TD
     D --> F[Fetch Movies by District/State]
     E --> G[Fetch All Movies]
 
-    F --> H[MoviesList Component]
+    F --> H[AdBanner — Dynamic Banner Ads]
     G --> H
+    H --> I[GET /api/ads/active?placement=banner]
+    I --> J{Ads Returned?}
+    J -->|Yes| K[Render carousel]
+    J -->|No| L[Render nothing]
 
-    H --> I[Display Movie Cards]
-    I --> J[Horizontal Scroll]
+    A --> M[Category Tabs]
+    M --> N[Now Showing | Coming Soon]
+    N --> O[MoviesList Component - Single instance, keyed by tab]
 
-    A --> K[AdBanner — Dynamic Banner Ads]
-    K --> L[GET /api/ads/active?placement=banner]
-    L --> M{Ads Returned?}
-    M -->|Yes| N[Render carousel]
-    M -->|No| O[Render nothing]
+    O --> P[Fetch Movies by status]
+    P --> Q[Display Movie Cards in Horizontal Scroll Row]
+    Q --> R[Scroll snap + keyboard arrows + chevron buttons]
+
+    A --> S[HeroCarousel - top 5 rated movies]
+    S --> T[Autoplay 5s, hover pause, dot nav]
+    T --> U[Poster gradient overlays, metadata, dual CTAs]
 ```
 
-#### Location Context Strip
+#### Hero Carousel
 
-A slim strip rendered at the top of `MoviesPage` when the customer has a saved location.
+A full-width auto-rotating carousel at the top of the page showcasing the top 5 highest-rated "Now Showing" movies.
 
-- **Desktop (`sm+`):** Shows `📍 Showing results near Tirunelveli, Tamil Nadu`
-- **Mobile:** Shows only `📍 Tirunelveli, Tamil Nadu` — the "Showing results near" label is hidden (`hidden sm:inline`) to save space
-- The district and state are inline within a single `<span>` (not separate flex items) so text wraps naturally on very small screens
+**Behavior:**
+- Fetches `GET /api/user/movies?status=now_showing&limit=8`, sorted by rating descending, capped at 5
+- Autoplay at 5-second intervals; pauses on `mouseEnter` / `focus`, resumes on `mouseLeave` / `blur`
+- Fade crossfade between slides: `duration-400` with `opacity` + `scale` (only transform/opacity animated — no layout triggers)
+- Dot indicators at the bottom center — active dot is wider pill (`w-7 sm:w-9 h-2`), inactive dots are `w-2 h-2` with `hover:scale-125`
+- Poster rendered via `object-contain` with hero gradient overlays (`hero-gradient-t` + `hero-gradient-r`) using `--background` tokens
+- "Now Trending" badge: `bg-primary featured-glow` with animated pulse dot
+- Dual CTAs: "Book Now" (navigates to `/movie/shows/:id`) and "View Details" (navigates to `/movie/:id` with chevron hover animation)
+- Keyboard accessible: `role="region"`, `aria-roledescription="carousel"`, `inert` on inactive slides
+
+---
+
+#### Category Tabs
+
+Pill-style toggle between "Now Showing" and "Coming Soon" rendered below the hero.
+
+- Container: `bg-muted/70 p-1 rounded-xl`
+- Active tab: `bg-primary text-primary-foreground shadow-sm`
+- Inactive tab: `text-muted-foreground hover:text-foreground hover:bg-muted`
+- `aria-pressed` on each tab button
+- Single `MoviesList` instance rendered with `key={activeTab}` — remounts on tab switch, re-fetching with the corresponding `status` filter
+- Location context (district/state) shown inline on desktop next to the tabs
 
 ---
 
@@ -304,8 +330,9 @@ Fetches active `banner` placement ads from the API on mount. Renders a full-widt
 **Behaviour:**
 - Fetches `GET /api/ads/active?placement=banner`
 - Each slide is a clickable image — clicking records a click (`POST /api/ads/click/:id`) and opens `click_url` in a new tab
+- Yellow "AD" badge (`bg-rating/80 text-rating-foreground`) overlaid on the top-left corner of each ad image
 - Dot indicators shown only when there are 2+ slides
-- Falls back to rendering nothing if no ads or fetch fails
+- Section has no x-axis padding (banner spans edge-to-edge within its container)
 
 #### MoviesList Component
 
@@ -332,30 +359,45 @@ Fetches active `banner` placement ads from the API on mount. Renders a full-widt
 
 ```mermaid
 graph TD
-    A[Movie Card] --> B[Lazy Loaded Poster]
-    A --> C[Movie Title]
-    A --> D[Genres below title]
-    A --> E[Hover Overlay]
+    A[Movie Card - role=button, tabIndex=0] --> B[Poster Container - rounded-2xl]
+    A --> C[Title below poster]
+    A --> D[Metadata row]
 
-    B --> F[Blur Effect on Load]
-    B --> G[Rating Badge — always visible, top-left]
+    B --> E[LazyLoadImage - blur effect]
+    B --> F[Rating Badge - always visible, top-left]
+    B --> G[Genre Tags - always visible, bottom-left]
+    B --> H[Bottom gradient - black/60 to transparent]
+    B --> I[Hover Overlay - Book Now CTA]
 
-    E --> H[Genre pill badges]
-    E --> I[Language text]
-    E --> J[Book Now button — hidden for upcoming]
+    F --> J[fill-rating text-rating - yellow star token]
+    G --> K[bg-black/50 backdrop-blur-sm - always visible]
+    I --> L[bg-black/20 - scale-90 to scale-100 on hover]
+
+    C --> M[group-hover:text-primary - color transition]
+    D --> N[Genres + Clock icon + Duration]
+    N --> O[Separator | between items]
 ```
 
 **Card Information:**
 
-- Poster image (lazy loaded with blur effect), `rounded-xl`, scales up on hover (`scale-110`)
-- Rating badge (⭐ yellow, top-left corner) — always visible when `rating` is present
-- Hover overlay: gradient from black → transparent, reveals genre pill badges, language, and "Book Now" CTA
-- Movie title and genres shown below the poster at all times
-- "Book Now" button hidden when the parent `MoviesList` has `filters.status === 'upcoming'`
+- **Poster**: `rounded-2xl` overflow-hidden container with `shadow-md`. `LazyLoadImage` with blur effect. `aspect-[2/3]` with `object-cover` and `group-hover:scale-105` (500ms transition)
+- **Rating badge**: `bg-black/60 backdrop-blur-sm` pill at `top-2.5 left-2.5`. Uses `fill-rating text-rating` (golden `--rating` token). Always visible when `rating` is present
+- **Genre tags**: Always visible at `bottom-2.5 left-2.5`. `bg-black/50 backdrop-blur-sm text-white/90`. Max 2 genres shown. Constrained to `max-w-[70%]` of poster width
+- **Bottom gradient**: `from-black/60 to-transparent h-24` — ensures genre tags are readable. Present on all cards regardless of hover state
+- **Hover**: `card-hover` class: 400ms cubic-bezier transition on `transform` and `box-shadow`. On hover: `translateY(-4px) scale(1.02)` + `shadow-xl`. A `bg-black/20` overlay fades in with a "Book Now" button centered. Button scales from `scale-90` to `scale-100` on group hover. Button navigates to `/movie/shows/:id` with `e.stopPropagation()`
+- **Title**: Font-semibold, `text-sm md:text-base`, `line-clamp-1`. Color transitions to `text-primary` on group hover
+- **Metadata row**: Genres (first 2, joined by ` / `) + `|` separator + Clock icon + formatted duration (`Xh Ym`). All `text-xs text-muted-foreground`
+- **Language**: `text-[11px] text-muted-foreground/70` below metadata, `line-clamp-1`
+- **Keyboard accessibility**: `role="button"`, `tabIndex={0}`, `aria-label` = "movie title, rated X.X", `onKeyDown` for Enter/Space. `focus-ring` class for visible focus outline
 
 #### Scroll Navigation
 
-Each `MoviesList` section includes left/right chevron arrow buttons (desktop `sm+` only) in the section header. Buttons are enabled/disabled reactively via a `scroll` event listener and `ResizeObserver` on the scroll container. Clicking scrolls 75% of the container width with `behavior: 'smooth'`.
+Each `MoviesList` section uses a horizontal scroll container with the following features:
+
+- **Scroll snap**: `scroll-snap-x` (`scroll-snap-type: x mandatory`) on the container, `scroll-snap-start` on each card
+- **Keyboard arrows**: Scroll container has `tabIndex={0}` and `onKeyDown` handler for `ArrowLeft`/`ArrowRight`
+- **Chevron buttons**: Left/right arrow buttons (desktop `sm+` only) in the section header. `p-2` size, `border border-border bg-card`, `hover:bg-muted hover:border-primary/30`. Enabled/disabled reactively via `scroll` event + `ResizeObserver`. Scrolls 75% of container width with `behavior: 'smooth'`
+- **Section header**: `text-xl md:text-2xl font-bold` title with `h-7` accent bar. Movie count badge (`hidden sm:inline text-xs text-muted-foreground`) showing `N movies`
 
 #### Location-Based Filtering
 
@@ -1858,6 +1900,18 @@ npm run build
 ## Future Enhancements
 
 ✅ **Recently Implemented:**
+
+- **MoviesPage & MoviesList — Premium Cinema Discovery Redesign** (June 14, 2026):
+  - **HeroCarousel**: Full-width auto-rotating carousel showcasing top 5 highest-rated now-showing movies. 5-second interval, pauses on hover/focus, dot indicator navigation, fade crossfade transitions (`duration-400 opacity + scale`). Poster displayed via `object-contain` with theme-adaptive gradient overlays (`hero-gradient-t`, `hero-gradient-r`) for text readability. "Now Trending" badge with `featured-glow`. Metadata row (rating via `fill-rating text-rating`, duration via Clock icon, language). Dual CTAs: "Book Now" (`/movie/shows/:id`) and "View Details" (`/movie/:id`) with chevron animation.
+  - **Category Tabs**: Pill-style `bg-muted/70 p-1 rounded-xl` toggle between "Now Showing" and "Coming Soon". Active tab uses `bg-primary text-primary-foreground shadow-sm`. Single `MoviesList` instance keyed by `activeTab` (unmounts/remounts on switch). Location context inline on desktop (`hidden sm:flex`).
+  - **MovieCard Premium Rewrite**: `rounded-2xl` poster container with `card-hover` (400ms cubic-bezier: `translateY(-4px) scale(1.02)` + `shadow-xl`). Always-visible rating badge (`bg-black/60 backdrop-blur-sm`, `fill-rating text-rating` via `--rating` token). Genre tags always visible on poster bottom-left (`bg-black/50 backdrop-blur-sm`). Bottom gradient (`from-black/60 to-transparent`) for readability. Hover overlay (`bg-black/20`) reveals Book Now CTA button with scale animation. Title below poster with `group-hover:text-primary`. Metadata row: genres + duration (`Clock` icon) separated by `|`. Language as secondary text. `role="button"`, `tabIndex={0}`, keyboard Enter/Space handlers. `focus-ring` visible outline.
+  - **Section Headers**: Redesigned with movie count badge (`hidden sm:inline`), larger typography (`text-xl md:text-2xl`), taller accent bar (`h-7`).
+  - **Scroll Navigation**: Scroll-snap container (`scroll-snap-x` + `scroll-snap-start`). Keyboard arrow key support on the scroll region (`ArrowLeft`/`ArrowRight`). Refined chevron buttons: `p-2`, `hover:border-primary/30`, `shadow-sm`.
+  - **State Improvements**: Loading uses `shimmer` animated gradient (1.5s sweep) + `Skeleton` placeholders. Error state: `Film` icon + `border-destructive/20 bg-destructive/5`. Empty state: `Film` icon + `bg-muted/50`.
+  - **AdBanner AD Badge**: Yellow "AD" label (`bg-rating/80 text-rating-foreground`) added to top-left of each banner ad image. Section x-axis padding removed (banner spans edge-to-edge).
+  - **Design Tokens Added**: `--rating` / `--rating-foreground` (golden star, `oklch(0.78 0.18 75)` light / `oklch(0.7 0.18 75)` dark). Regenerated Tailwind utilities: `text-rating`, `fill-rating`, `bg-rating`, etc.
+  - **New Utility Classes** (in `index.css`): `hero-gradient-t`, `hero-gradient-r`, `card-hover`, `shimmer`, `featured-glow`, `focus-ring`, `scroll-snap-x`, `scroll-snap-start`.
+  - **Files changed**: `src/pages/MoviesPage.jsx`, `src/components/MoviesList.jsx`, `src/components/AdBanner.jsx`, `src/index.css`.
 
 - **SeatSelectionPage + SeatCountModal — Premium Redesign & Visual Overhaul** (June 14, 2026):
   - **Animated Vector Vehicle SVGs**: Dynamic inline `VehicleIllustration` inside `SeatCountModal` rendering Cycles, Vespa Scooters, Autos, Beetle Cars, SUVs, Minivans, and Double-decker Buses with keyframe animations (exhaust smoke, spinning wheels, headlight ray gradients, body bouncing) mapped to selected seat counts.
