@@ -191,3 +191,34 @@ Seats are represented as 3D theater chairs:
 ### 8. Floating Checkout Dock
 *   Fixed at the bottom of the viewport (`fixed bottom-5 left-1/2 -translate-x-1/2`).
 *   Uses a wide container (`w-[calc(100%-2rem)] max-w-4xl`) with frosted glass backing, selected seat list text tags, and a brand red CTA.
+
+### 9. Interactive Layout Overview (Minimap) Guidelines
+The Layout Overview (minimap) is displayed on desktop screens as a fixed panel (`fixed top-[196px] right-4 z-30 hidden sm:flex`) to assist users with panning the seat map:
+*   **Canvas Rendering**: Draws all seats dynamically as tiny filled circles/squares with their respective states (Available, Sold, Selected).
+*   **Active Viewport Indicator**: Draws a high-contrast bounding box representing the user's current scrolled viewport area. Supports clicking/dragging inside the minimap to pan the main scroll area.
+*   **Adaptive Curved Screen**: Dynamically renders a curved silver screen arc and projector glow (`--info` color gradient) at either the top or bottom of the canvas, aligning with the `screenPosition` layout variable.
+*   **Glow & Shadow Effects**: Encased in a frosted glass container with a subtle hover zoom transition (`hover:scale-[1.02]`) and faint branding glow.
+
+---
+
+## 📱 Mobile Responsiveness & Adaptive Component Rules
+
+Components must adapt smoothly to small viewports to maintain touch targets and prevent clipping.
+
+### 1. Header Navigation & Details Stacking
+*   **Page Title Stacking**: Long movie titles must truncate safely on mobile. Subtitles (theatre/hall details, show dates, language version) should stack vertically rather than extending horizontally.
+*   **Spacing**: Sticky headers must scale down vertical padding to `py-2.5` on mobile to preserve vertical viewport space.
+
+### 2. Seating Grid Action Bars & Mode Toggles
+*   **Legend Bar Stacking**: The seat status legend wraps into a vertical/horizontal flex stack on mobile, changing into a wide horizontal row on larger viewports.
+*   **Pan Mode Toggle**: A dedicated Touch Pan mode switch toggle is displayed on mobile screens (`flex md:hidden`) next to the Seat Count CTA, converting into a desktop toggle bar (`hidden md:flex`) at the top right of the seating card.
+
+### 3. Seat Count Modal Layout
+*   **Numbers Selection Selector**: Instead of using a single scrollable row where some numbers go offscreen, the numbers `1` to `10` are rendered in a clean, high-contrast **2-row by 5-column grid** (`grid-cols-5 gap-2`) on mobile. This ensures all counts are visible on-screen at once. It automatically displays as a single row (`sm:flex sm:justify-between`) on desktop.
+*   **Fluid Category Cards**: Pricing categories use a fluid 3-column layout (`grid-cols-3 gap-1.5 w-full`) without horizontal scrolling, utilizing truncation to keep labels clean.
+*   **Outer Padding**: Sized to `p-5 sm:p-6` to maximize modal content space.
+
+### 4. Floating Checkout Dock on Mobile
+*   **Width & Padding**: Shrinks to `w-[calc(100%-1.5rem)]` with `px-4 py-3` padding.
+*   **Seat Labels Truncation**: Selected seat label list is constrained to `max-w-[120px]` and truncated (`truncate`) on mobile viewports to prevent pricing or Proceed button displacement.
+*   **Proceed Button**: Text is shortened to "Proceed" on mobile and expands to "Proceed to Payment" on larger viewports.
