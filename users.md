@@ -302,7 +302,10 @@ A full-width auto-rotating carousel at the top of the page showcasing the top 5 
 - Fade crossfade between slides: `duration-400` with `opacity` + `scale` (only transform/opacity animated — no layout triggers)
 - Dot indicators at the bottom center — active dot is wider pill (`w-7 sm:w-9 h-2`), inactive dots are `w-2 h-2` with `hover:scale-125`
 - Backdrop image rendered via high-quality `backdrop_path` (with `poster_url` as a fallback) using `object-cover` and modern hero gradient overlays (`hero-gradient-t` + `hero-gradient-r`) using `--background` tokens
+- **Cinematic vignette**: A `hero-vignette` radial gradient overlay (`radial-gradient(ellipse at center, transparent 50%, oklch(from var(--background) l c h / 0.4) 100%)`) applied on top of the hero backdrop for premium depth
 - "Now Trending" badge: `bg-primary featured-glow` with animated pulse dot
+- Book Now button uses `custom-hover` class: `hover:scale-[1.02] active:scale-[0.98]` with primary glow shadow
+- Autoplay progress bar (commented out): thin `h-[3px]` bar animating via `@keyframes hero-progress` (5s linear) at the bottom of the carousel
 - Dual CTAs: "Book Now" (navigates to `/movie/shows/:id`) and "View Details" (navigates to `/movie/:id` with chevron hover animation)
 - Keyboard accessible: `role="region"`, `aria-roledescription="carousel"`, `inert` on inactive slides
 
@@ -312,9 +315,9 @@ A full-width auto-rotating carousel at the top of the page showcasing the top 5 
 
 Pill-style toggle between "Now Showing" and "Coming Soon" rendered below the hero.
 
-- Container: `bg-muted/70 p-1 rounded-xl`
-- Active tab: `bg-primary text-primary-foreground shadow-sm`
-- Inactive tab: `text-muted-foreground hover:text-foreground hover:bg-muted`
+- Container: `glass-effect p-1 rounded-xl shadow-sm`
+- Active tab: `bg-primary text-primary-foreground shadow-sm shadow-primary/20`
+- Inactive tab: `text-muted-foreground hover:text-foreground hover:bg-background/50`
 - `aria-pressed` on each tab button
 - Single `MoviesList` instance rendered with `key={activeTab}` — remounts on tab switch, re-fetching with the corresponding `status` filter
 - Location context (district/state) shown inline on desktop next to the tabs
@@ -380,14 +383,14 @@ graph TD
 
 **Card Information:**
 
-- **Poster**: `rounded-2xl` overflow-hidden container with `shadow-md`. `LazyLoadImage` with blur effect. `aspect-[2/3]` with `object-cover` and `group-hover:scale-105` (500ms transition)
-- **Rating badge**: `bg-black/60 backdrop-blur-sm` pill at `top-2.5 left-2.5`. Uses `fill-rating text-rating` (golden `--rating` token). Always visible when `rating` is present
-- **Genre tags**: Always visible at `bottom-2.5 left-2.5`. `bg-black/50 backdrop-blur-sm text-white/90`. Max 2 genres shown. Constrained to `max-w-[70%]` of poster width
-- **Bottom gradient**: `from-black/60 to-transparent h-24` — ensures genre tags are readable. Present on all cards regardless of hover state
-- **Hover**: `card-hover` class: 400ms cubic-bezier transition on `transform` and `box-shadow`. On hover: `translateY(-4px) scale(1.02)` + `shadow-xl`. A `bg-black/20` overlay fades in with a "Book Now" button centered. Button scales from `scale-90` to `scale-100` on group hover. Button navigates to `/movie/shows/:id` with `e.stopPropagation()`
-- **Title**: Font-semibold, `text-sm md:text-base`, `line-clamp-1`. Color transitions to `text-primary` on group hover
-- **Metadata row**: Genres (first 2, joined by ` / `) + `|` separator + Clock icon + formatted duration (`Xh Ym`). All `text-xs text-muted-foreground`
-- **Language**: `text-[11px] text-muted-foreground/70` below metadata, `line-clamp-1`
+- **Poster**: `rounded-2xl` overflow-hidden container with `shadow-md` and `border border-border/40` base. Adds `card-glow-border` class — on hover, border transitions to `primary/25` with a `20px` primary glow shadow (`box-shadow: 0 0 20px oklch(from var(--primary) l c h / 0.12), var(--shadow-xl)`), 400ms cubic-bezier. `LazyLoadImage` with blur effect. `aspect-[2/3]` with `object-cover` and `group-hover:scale-105` (500ms transition)
+- **Rating badge**: `bg-black/65 backdrop-blur-md shadow-lg shadow-black/20` pill at `top-3 left-3` with `pl-1.5 pr-2.5 py-1`. Uses `fill-rating text-rating` (golden `--rating` token) with `tabular-nums` font variant. Always visible when `rating` is present
+- **Genre tags**: Always visible at `bottom-3 left-3`. `bg-black/55 backdrop-blur-sm text-white/90` with `gap-1.5`. Max 2 genres shown. Constrained to `max-w-[70%]` of poster width
+- **Bottom gradient**: `from-black/65 via-black/20 to-transparent h-28` (taller, with mid-stop) — ensures genre tags are readable. Present on all cards regardless of hover state
+- **Hover**: `card-hover` class: 400ms cubic-bezier transition on `transform` and `box-shadow`. On hover: `translateY(-4px) scale(1.02)` + `shadow-xl`. A `bg-gradient-to-t from-black/40 via-black/10 to-transparent` overlay fades in with a "Book Now" button centered. Button uses `custom-hover` class with `hover:scale-105 active:scale-95` and larger padding (`py-2.5 px-5`). Button navigates to `/movie/shows/:id` with `e.stopPropagation()`
+- **Title**: Font-semibold, `text-sm md:text-[15px]`, `line-clamp-1`. Color transitions to `text-primary` on group hover
+- **Metadata row**: Genres (first 2, joined by ` / `) with `font-medium max-w-[55%]` + `|` separator (`text-border/60`) + Clock icon + formatted duration (`Xh Ym`). All `text-xs text-muted-foreground` with `mt-1.5`
+- **Language**: `text-[11px] text-muted-foreground/60` below metadata, `line-clamp-1`
 - **Keyboard accessibility**: `role="button"`, `tabIndex={0}`, `aria-label` = "movie title, rated X.X", `onKeyDown` for Enter/Space. `focus-ring` class for visible focus outline
 
 #### Scroll Navigation
@@ -396,8 +399,9 @@ Each `MoviesList` section uses a horizontal scroll container with the following 
 
 - **Scroll snap**: `scroll-snap-x` (`scroll-snap-type: x mandatory`) on the container, `scroll-snap-start` on each card
 - **Keyboard arrows**: Scroll container has `tabIndex={0}` and `onKeyDown` handler for `ArrowLeft`/`ArrowRight`
-- **Chevron buttons**: Left/right arrow buttons (desktop `sm+` only) in the section header. `p-2` size, `border border-border bg-card`, `hover:bg-muted hover:border-primary/30`. Enabled/disabled reactively via `scroll` event + `ResizeObserver`. Scrolls 75% of container width with `behavior: 'smooth'`
-- **Section header**: `text-xl md:text-2xl font-bold` title with `h-7` accent bar. Movie count badge (`hidden sm:inline text-xs text-muted-foreground`) showing `N movies`
+- **Chevron buttons**: Left/right arrow buttons (desktop `sm+` only) in the section header. Uses `arrow-glass` class: `backdrop-filter: blur(8px)`, `background: oklch(from var(--card) l c h / 0.85)`, `border: 1px solid oklch(from var(--border) l c h / 0.4)`. On hover: `blur(12px)`, `background: oklch(from var(--card) l c h / 0.95)`, `border-color: primary/30`, primary glow shadow. Enabled/disabled reactively via `scroll` event + `ResizeObserver` (disabled opacity `25%`). Scrolls 75% of container width with `behavior: 'smooth'`
+- **Scroll fade edge overlays**: The scroll row is wrapped in a `relative` div with absolutely-positioned `scroll-fade-left` and `scroll-fade-right` elements (48px wide, z-5). These render gradient blends from `--background` to transparent, providing a soft fade-in effect at the edges. Their `opacity` is `0` by default and transitions to `0.85` via `scroll-fade-visible` class when the corresponding scroll direction is available — preventing an abrupt hard edge on the first/last cards
+- **Section header**: `text-xl md:text-2xl font-bold` title with `h-7` accent bar. "View All" button uses `group` with an `ArrowRight` icon that animates `hover:translate-x-0.5` on hover. Movie count badge (`hidden sm:inline text-xs text-muted-foreground`) showing `N movies`
 
 #### Location-Based Filtering
 
@@ -1909,16 +1913,16 @@ npm run build
 
 ✅ **Recently Implemented:**
 
-- **MoviesPage & MoviesList — Premium Cinema Discovery Redesign** (June 14, 2026):
-  - **HeroCarousel**: Full-width auto-rotating carousel showcasing top 5 highest-rated now-showing movies. 5-second interval, pauses on hover/focus, dot indicator navigation, fade crossfade transitions (`duration-400 opacity + scale`). Poster displayed via `object-contain` with theme-adaptive gradient overlays (`hero-gradient-t`, `hero-gradient-r`) for text readability. "Now Trending" badge with `featured-glow`. Metadata row (rating via `fill-rating text-rating`, duration via Clock icon, language). Dual CTAs: "Book Now" (`/movie/shows/:id`) and "View Details" (`/movie/:id`) with chevron animation.
-  - **Category Tabs**: Pill-style `bg-muted/70 p-1 rounded-xl` toggle between "Now Showing" and "Coming Soon". Active tab uses `bg-primary text-primary-foreground shadow-sm`. Single `MoviesList` instance keyed by `activeTab` (unmounts/remounts on switch). Location context inline on desktop (`hidden sm:flex`).
-  - **MovieCard Premium Rewrite**: `rounded-2xl` poster container with `card-hover` (400ms cubic-bezier: `translateY(-4px) scale(1.02)` + `shadow-xl`). Always-visible rating badge (`bg-black/60 backdrop-blur-sm`, `fill-rating text-rating` via `--rating` token). Genre tags always visible on poster bottom-left (`bg-black/50 backdrop-blur-sm`). Bottom gradient (`from-black/60 to-transparent`) for readability. Hover overlay (`bg-black/20`) reveals Book Now CTA button with scale animation. Title below poster with `group-hover:text-primary`. Metadata row: genres + duration (`Clock` icon) separated by `|`. Language as secondary text. `role="button"`, `tabIndex={0}`, keyboard Enter/Space handlers. `focus-ring` visible outline.
-  - **Section Headers**: Redesigned with movie count badge (`hidden sm:inline`), larger typography (`text-xl md:text-2xl`), taller accent bar (`h-7`).
-  - **Scroll Navigation**: Scroll-snap container (`scroll-snap-x` + `scroll-snap-start`). Keyboard arrow key support on the scroll region (`ArrowLeft`/`ArrowRight`). Refined chevron buttons: `p-2`, `hover:border-primary/30`, `shadow-sm`.
+- **MoviesPage & MoviesList — Premium Cinema Discovery Redesign** (June 14 + 21, 2026):
+  - **HeroCarousel**: Full-width auto-rotating carousel showcasing top 5 highest-rated now-showing movies. 5-second interval, pauses on hover/focus, dot indicator navigation, fade crossfade transitions (`duration-400 opacity + scale`). Poster displayed via `object-contain` with theme-adaptive gradient overlays (`hero-gradient-t`, `hero-gradient-r`) for text readability. "Now Trending" badge with `featured-glow`. Metadata row (rating via `fill-rating text-rating`, duration via Clock icon, language). Dual CTAs: "Book Now" (`/movie/shows/:id`) and "View Details" (`/movie/:id`) with chevron animation. Added `hero-vignette` radial gradient overlay for cinematic depth. Book Now button uses `custom-hover` class (`hover:scale-[1.02] active:scale-[0.98]`). Autoplay progress bar (commented out) with `animate-hero-progress` keyframes.
+  - **Category Tabs**: Pill-style `glass-effect p-1 rounded-xl shadow-sm` toggle between "Now Showing" and "Coming Soon". Active tab uses `bg-primary text-primary-foreground shadow-sm shadow-primary/20`. Inactive hover uses `bg-background/50`. Single `MoviesList` instance keyed by `activeTab` (unmounts/remounts on switch). Location context inline on desktop (`hidden sm:flex`).
+  - **MovieCard Premium Rewrite**: `rounded-2xl` poster container with `card-hover` (400ms cubic-bezier: `translateY(-4px) scale(1.02)` + `shadow-xl`) and `card-glow-border` (border transitions to `primary/25` with 20px glow on hover). Always-visible rating badge (`bg-black/65 backdrop-blur-md shadow-lg`, `fill-rating text-rating` via `--rating` token, `tabular-nums`). Genre tags always visible on poster bottom-left (`bg-black/55 backdrop-blur-sm`). Bottom gradient (`from-black/65 via-black/20 to-transparent h-28`) for readability. Hover overlay (`bg-gradient-to-t from-black/40 via-black/10 to-transparent`) reveals Book Now CTA button with `custom-hover` class (`hover:scale-105 active:scale-95`, `py-2.5 px-5`). Title below poster with `group-hover:text-primary` and `md:text-[15px]`. Metadata row: genres (`font-medium max-w-[55%]`) + duration (`Clock` icon) separated by `|` (`text-border/60`). Language as secondary text (`text-muted-foreground/60`). `role="button"`, `tabIndex={0}`, keyboard Enter/Space handlers. `focus-ring` visible outline.
+  - **Section Headers**: Redesigned with movie count badge (`hidden sm:inline`), larger typography (`text-xl md:text-2xl`), taller accent bar (`h-7`). "View All" button now has `group` class with `ArrowRight` icon animating `hover:translate-x-0.5`.
+  - **Scroll Navigation**: Scroll-snap container (`scroll-snap-x` + `scroll-snap-start`). Keyboard arrow key support on the scroll region (`ArrowLeft`/`ArrowRight`). Chevron buttons upgraded to `arrow-glass` class: `backdrop-filter: blur(8px)`, `background: card/85`, `border: border/40`. Hover: `blur(12px)`, `background: card/95`, `border: primary/30`, primary glow shadow. Scroll row wrapped in `relative` div with `scroll-fade-left`/`scroll-fade-right` fade edge overlays (48px, gradient to transparent, appear at `opacity: 0.85` when scrollable).
   - **State Improvements**: Loading uses `shimmer` animated gradient (1.5s sweep) + `Skeleton` placeholders. Error state: `Film` icon + `border-destructive/20 bg-destructive/5`. Empty state: `Film` icon + `bg-muted/50`.
   - **AdBanner AD Badge**: Yellow "AD" label (`bg-rating/80 text-rating-foreground`) added to top-left of each banner ad image. Section x-axis padding removed (banner spans edge-to-edge).
   - **Design Tokens Added**: `--rating` / `--rating-foreground` (golden star, `oklch(0.78 0.18 75)` light / `oklch(0.7 0.18 75)` dark). Regenerated Tailwind utilities: `text-rating`, `fill-rating`, `bg-rating`, etc.
-  - **New Utility Classes** (in `index.css`): `hero-gradient-t`, `hero-gradient-r`, `card-hover`, `shimmer`, `featured-glow`, `focus-ring`, `scroll-snap-x`, `scroll-snap-start`.
+  - **New Utility Classes** (in `index.css`): `hero-gradient-t`, `hero-gradient-r`, `card-hover`, `shimmer`, `featured-glow`, `focus-ring`, `scroll-snap-x`, `scroll-snap-start`, `hero-vignette`, `card-glow-border`, `scroll-fade-left`, `scroll-fade-right`, `glow-soft`, `arrow-glass`, `animate-hero-progress`.
   - **Files changed**: `src/pages/MoviesPage.jsx`, `src/components/MoviesList.jsx`, `src/components/AdBanner.jsx`, `src/index.css`.
 
 - **SeatSelectionPage + SeatCountModal — Premium Redesign & Visual Overhaul** (June 14, 2026):
@@ -1986,7 +1990,7 @@ npm run build
 
 ---
 
-**Last Updated**: June 6, 2026 — OAuth Authentication: Google OAuth login/signup in LoginModal (both Login and Signup tabs) via `@react-oauth/google` implicit flow; ProfilePage now shows Connected Login Methods (Google connect/disconnect) and conditional Set Password form for OAuth-only accounts; CustomerAuthContext extended with `googleLogin`, `refreshCustomer`; API service layer extended with `googleLogin`, `linkProvider`, `unlinkProvider`, `setPassword`; `GoogleOAuthProvider` wraps app in main.jsx.
+**Last Updated**: June 21, 2026 — MoviesPage & MoviesList premium visual refinement: `hero-vignette` overlay, `card-glow-border` hover effect, `arrow-glass` scroll buttons, `scroll-fade` edge overlays, `glass-effect` category tabs, `custom-hover` on CTAs, `ArrowRight` section header icon. See index.md for full changelog. Google OAuth login/signup in LoginModal (both Login and Signup tabs) via `@react-oauth/google` implicit flow; ProfilePage now shows Connected Login Methods (Google connect/disconnect) and conditional Set Password form for OAuth-only accounts; CustomerAuthContext extended with `googleLogin`, `refreshCustomer`; API service layer extended with `googleLogin`, `linkProvider`, `unlinkProvider`, `setPassword`; `GoogleOAuthProvider` wraps app in main.jsx.
 
 *March 20, 2026 — OffersPage now shows redeemed offers as disabled cards: `getActiveOffers` backend no longer filters out redeemed offers — returns them with `is_redeemed: true`, sorted available-first. Frontend renders redeemed cards at `opacity-60` with gray top band, green "Applied" badge, muted discount text, strikethrough code, and "Already used" label (copy button hidden).*
 

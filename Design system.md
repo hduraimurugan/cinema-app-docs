@@ -183,6 +183,12 @@ bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60
 | `.featured-glow` | Glow shadow on the hero "Now Trending" badge (`0 0 20px var(--primary)/0.4`). |
 | `.shadow-premium` | Premium elevated shadow for payment cards and modals (`shadow-md hover:shadow-lg` with backdrop blur). |
 | `.gradient-btn-primary` | Primary gradient button: `bg-gradient-to-br from-primary to-[oklch(from_var(--primary)_l_calc(c*0.75)_h)]` with `hover:brightness-110` and `custom-hover`. |
+| `.hero-vignette` | Cinematic radial gradient overlay: `radial-gradient(ellipse at center, transparent 50%, oklch(from var(--background) l c h / 0.4) 100%)`. Applied over hero backdrop. |
+| `.card-glow-border` | Premium border glow on movie card hover: `border-color: primary/25` + `box-shadow: 0 0 20px primary/12, var(--shadow-xl)`, 400ms cubic-bezier. |
+| `.scroll-fade-left` / `.scroll-fade-right` | 48px fade edge overlays for movie scroll rows. Gradient from `--background` to transparent. Opacity `0` default → `0.85` when `.scroll-fade-visible`. |
+| `.glow-soft` | Soft primary glow: `0 0 30px oklch(from var(--primary) l c h / 0.15)`. |
+| `.arrow-glass` | Premium glass scroll arrow button: `backdrop-filter: blur(8px)`, `background: card/85`, `border: border/40`. Hover: `blur(12px)`, `background: card/95`, `border: primary/30`, `box-shadow: 0 0 16px primary/12`. |
+| `.animate-hero-progress` | `@keyframes hero-progress` — 5s linear width animation from `0%` to `100%` for the carousel autoplay bar (currently commented out in HeroCarousel). |
 
 ### 5. Container System
 All layout components use a consistent container system:
