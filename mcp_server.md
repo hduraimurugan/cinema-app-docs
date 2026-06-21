@@ -417,3 +417,278 @@ Tables accessible to the MCP server (via `cinemax_reader` role):
 | 6 | Multi-cinema business intelligence | 🔜 Planned |
 
 See `mcp_implementation_plan.md` for detailed implementation notes, tool schemas, and future capabilities.
+
+---
+
+## Deployment Guide
+
+### 1. Local Setup (stdio mode for Claude Desktop / OpenCode)
+
+#### Step 1: Install dependencies
+```bash
+cd cinemax-mcp-server
+npm install
+cp .env.example .env
+```
+
+#### Step 2: Configure `.env`
+
+| Variable | Example Value |
+|---|---|
+| `DATABASE_URL` | `postgresql://cinemax_reader:password@localhost:5432/cinema_hall_db` |
+| `API_BASE_URL` | `http://localhost:5000` (local API) or your deployed API |
+| `CINEMAX_MCP_API_KEY` | `cmax_` + 64 hex chars (generate: `node -e "console.log('cmax_'+require('crypto').randomBytes(32).toString('hex'))"`) |
+| `MCP_SERVICE_TOKEN` | JWT from Step 3 (required for API-sourced tools) |
+| `MCP_TRANSPORT` | `stdio` (default for local) |
+
+#### Step 3: Generate a JWT service token
+
+API-sourced tools (`list_bookings`, `get_dashboard_stats`, `list_customers`, etc.) require a valid admin JWT to authenticate with the backend API. Generate one using the admin's actual UUID from your database:
+
+```bash
+node -e "
+const jwt = require('jsonwebtoken');
+const secret = '<your_jwt_secret_from_api_env>';
+const payload = {
+  id: '<admin_uuid_from_db>',
+  name: '<admin_name>',
+  email: '<admin_email>',
+  role: 'superAdmin',
+  iat: Math.floor(Date.now() / 1000),
+  exp: Math.floor(Date.now() / 1000) + 365 * 24 * 3600  // 1 year
+};
+console.log(jwt.sign(payload, secret));
+"
+```
+
+Run this inside your API directory (`cinema-hall-api/`) where `jsonwebtoken` is available. Set the output as `MCP_SERVICE_TOKEN` in your `.env`.
+
+#### Step 4: Run
+```bash
+# stdio mode (for Claude Desktop, OpenCode, Cursor, etc.)
+npm start
+
+# Or with file watching
+npm run dev
+```
+
+#### Step 5: Configure your AI assistant
+
+**Claude Desktop** — edit `claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "cinemax": {
+      "command": "node",
+      "args": ["D:/path/to/cinemax-mcp-server/src/server.js"],
+      "env": {
+        "CINEMAX_MCP_API_KEY": "cmax_your_api_key_here",
+        "DATABASE_URL": "postgresql://cinemax_reader:password@localhost:5432/cinema_hall_db",
+        "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here",
+        "LOG_LEVEL": "info"
+      }
+    }
+  }
+}
+```
+
+**OpenCode / Cursor / Cline** — same format; see `examples/` for templates.
+
+---
+
+### 2. Cloud Deployment (Render.com + Neon DB)
+
+#### Prerequisites
+- GitHub repository with the cinemax-mcp-server code
+- Neon PostgreSQL database (or any cloud Postgres)
+- Cinemax API deployed (Vercel or other)
+
+#### Step 1: Database setup on Neon
+
+Connect to your Neon database and run the setup scripts:
+
+```bash
+# Create the cinemax_reader role and grant SELECT permissions
+psql "<neon_admin_connection_string>" -f sql/01_readonly_role.sql
+
+# Enable Row-Level Security policies
+psql "<neon_admin_connection_string>" -f sql/02_rls_policies.sql
+```
+
+The scripts will:
+- Create `cinemax_reader` role with a password
+- Grant SELECT on all existing and future tables
+- Revoke access to sensitive tables (sessions, tokens, OTPs)
+- Set up RLS policies for hall-scoped data access
+
+#### Step 2: Push code to GitHub
+
+```bash
+cd cinemax-mcp-server
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/<your-username>/cinemax-mcp-server.git
+git push -u origin main
+```
+
+#### Step 3: Create a Render Web Service
+
+1. Go to [render.com](https://render.com) → Dashboard → **New +** → **Web Service**
+2. Connect your GitHub repository
+3. Configure the service:
+
+| Setting | Value |
+|---|---|
+| **Name** | `cinemax-mcp` |
+| **Runtime** | Node |
+| **Build Command** | `npm install` |
+| **Start Command** | `node src/server.js` |
+| **Plan** | Free (or paid for production) |
+
+4. Add the following **Environment Variables**:
+
+| Key | Value |
+|---|---|
+| `MCP_TRANSPORT` | `http` |
+| `HTTP_PORT` | `10000` |
+| `DATABASE_URL` | `postgresql://cinemax_reader:password@<neon-host>/<dbname>?sslmode=require` |
+| `API_BASE_URL` | `https://your-cinemax-api.vercel.app` (or your API URL) |
+| `CINEMAX_MCP_API_KEY` | `cmax_` + 64 hex chars |
+| `MCP_SERVICE_TOKEN` | JWT generated from Step 5 (required for API-sourced tools) |
+| `LOG_LEVEL` | `info` |
+
+> **Important:** For Neon, always add `?sslmode=require` to the `DATABASE_URL`. The Node.js `pg` driver rejects non-SSL connections with error code `28000`.
+
+5. Click **Deploy**
+
+#### Step 4: Verify deployment
+
+Check Render logs for:
+```
+cinemax-mcp HTTP transport listening on port 10000
+```
+
+Test the MCP endpoint:
+```bash
+curl -X POST "https://cinemax-mcp-server.onrender.com/mcp" \
+  -H "x-api-key: cmax_your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+Expected response: SSE stream with all 36 tool definitions.
+
+#### Step 5: Generate a JWT for the production database
+
+The JWT must contain the **correct admin UUID from your production database** (not local). Local and production databases assign different UUIDs to the same admin user.
+
+```bash
+# 1. Get the admin's UUID from production DB
+psql "<neon_admin_connection_string>" -c "SELECT id, name, email, role FROM cinema_admin_user WHERE email = 'your@email.com';"
+
+# 2. Generate the JWT using your API's JWT_SECRET
+node -e "
+const jwt = require('jsonwebtoken');
+const secret = '<production_jwt_secret>';
+const payload = {
+  id: '<admin_uuid_from_step_1>',
+  name: '<admin_name>',
+  email: '<admin_email>',
+  role: 'superAdmin',
+  iat: Math.floor(Date.now() / 1000),
+  exp: Math.floor(Date.now() / 1000) + 365 * 24 * 3600
+};
+console.log(jwt.sign(payload, secret));
+"
+```
+
+Set this JWT as `MCP_SERVICE_TOKEN` on Render, then restart the service.
+
+#### Step 6: Connect Claude.ai (Web)
+
+1. Go to **Settings → Your Account → MCP Connectors** on [claude.ai](https://claude.ai)
+2. Click **Add Custom Connector**
+3. Configure:
+
+| Setting | Value |
+|---|---|
+| **Name** | `Cinemax` |
+| **URL** | `https://cinemax-mcp-server.onrender.com/mcp` |
+
+4. Click **Advanced** and add a **Custom Header**:
+
+| Header Name | Header Value |
+|---|---|
+| `x-api-key` | `cmax_your_api_key_here` (same as `CINEMAX_MCP_API_KEY`) |
+
+5. Click **Save**. Claude will discover all 36 tools.
+
+If Claude shows "no tools available", check:
+- Render logs for startup errors
+- Confirm `MCP_TRANSPORT=http` is set
+- Ensure the JWT service token is valid and has the correct admin UUID
+
+---
+
+### 3. Troubleshooting
+
+#### Database Error Code 28000
+
+**Error:** `error: "An internal error occurred", code: "28000"`
+
+**Cause:** The Node.js `pg` driver requires SSL for cloud databases like Neon.
+
+**Fix:** Ensure `DATABASE_URL` has `?sslmode=require` at the end:
+```
+postgresql://cinemax_reader:password@host/db?sslmode=require
+```
+
+#### RLS Returns Empty Results
+
+**Error:** `list_cinemas` returns zero rows even though data exists.
+
+**Cause:** The `cinemax_reader` role has `NOBYPASSRLS`. When connecting directly via psql without setting session variables, RLS policies filter all rows.
+
+**Fix:** The MCP server automatically sets `app.scope_role` and `app.current_hall_ids` session variables before each query. When running as superAdmin (single-key mode), RLS is bypassed and all rows are visible. Verify:
+- `CINEMAX_MCP_API_KEY` is set correctly on Render
+- `scopeResolver.js` returns `{ role: "superAdmin", hall_ids: [] }`
+
+To test with psql:
+```sql
+SELECT set_config('app.scope_role', 'superAdmin', false);
+SELECT * FROM cinema_hall;  -- should now return all rows
+```
+
+#### Hall Not Found or Access Denied (API tools)
+
+**Error:** "Hall not found or access denied" from `list_bookings`, `get_dashboard_stats`, etc.
+
+**Cause:** The JWT token (`MCP_SERVICE_TOKEN`) contains a wrong admin UUID that doesn't match the admin in the production database.
+
+**Fix:** Generate a fresh JWT using the **production database's** admin UUID (see deployment Step 5 above).
+
+#### API Returns "X-Hall-Id header is required"
+
+**Cause:** The API endpoint requires the `X-Hall-Id` header to identify which hall the request is for.
+
+**Fix:** This is handled automatically by the MCP server's `api/client.js`. If you see this error directly, the MCP server's scope resolver isn't associating a hall ID with the request. Ensure the tool handler passes `hall_ids` when creating the API client.
+
+---
+
+### 4. Architecture Summary
+
+```
+┌──────────────────┐     stdio/HTTP      ┌─────────────────────────┐     DB/API      ┌──────────────┐
+│  AI Assistant    │ ──────────────────> │  cinemax-mcp-server     │ ─────────────> │  Cinemax     │
+│  (Claude.ai,     │ <────────────────── │  (McpServer + 36 tools │ <───────────── │  API +       │
+│   OpenCode,      │     MCP results     │   + RLS + scope auth)  │   SQL results  │  PostgreSQL  │
+│   ChatGPT...)    │                     └─────────────────────────┘               └──────────────┘
+```
+
+**Authentication layers:**
+1. **Client → MCP Server:** API key (`x-api-key` header or stdio env var) → resolves to scope `{role, hall_ids}`
+2. **MCP Server → Backend API:** `MCP_SERVICE_TOKEN` JWT → authenticates as admin for REST proxy calls
+3. **MCP Server → Database:** `cinemax_reader` PostgreSQL role with RLS → hall-scoped read-only access
