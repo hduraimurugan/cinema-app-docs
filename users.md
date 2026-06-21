@@ -1054,7 +1054,7 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
 **Layout (two-column on desktop, stacked on mobile):**
 - **Left column** (stacked cards):
   - **Available Offers card** — fetches `GET /api/offers/active` on mount; shows a scrollable list of offer cards (up to 3 by default, expandable); applicable vs. ineligible offers visually differentiated
-  - **Secure Payment card** — Razorpay branding banner (lightning-bolt icon, `PCI-DSS` badge, 256-bit SSL note), payment method chips (Cards, UPI, Wallets, Net Banking, EMI), coupon input, amount summary, Pay button, trust row
+   - **Secure Payment card** — Frosted glass panel (`bg-card/40 backdrop-blur-md`), "SECURE CHECKOUT" badge header with lock icon, Razorpay branding banner (gradient background, `Razorpay Secure` with `PCI-DSS` badge, 256-bit SSL note), payment method chips (Cards via `CreditCard`, UPI via `Smartphone`, Wallets, Net Banking, EMI), coupon/offer section with shadow inset styling, price summary, gradient Pay button, trust row with uppercase "100% SECURE CHECKOUT" badge
 - **Right panel (sticky)** — Order summary card: poster thumbnail (`h-16 w-11`) + movie title + ticket count, show date/time/language/format, seat labels, cinema name, price breakdown (ticket price + convenience fee + GST on convenience fee + optional discount line + amount payable), "Cancel and release seats" link
 
 **Sticky header:**
@@ -1084,10 +1084,10 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
 - Skeleton placeholders shown while loading; hides the panel if no offers exist
 
 **Coupon / Offer Code section:**
-- Input field (uppercase monospace, percent icon prefix) + "Apply" button (violet) — manual code entry
+- Input field (uppercase monospace, percent icon prefix) + "Apply" button (violet) — manual code entry; `border-dashed` applied state with destructive hover on remove button
 - On apply: calls `POST /api/offers/validate` with `{ offer_code, show_id, total_amount }`
-- On success: shows green "applied" row with offer code, discount amount, and ✕ remove button; applied offer card in the offers panel shows a green checkmark
-- On error: shows red error message below input
+- On success: shows green "applied" row with offer code, discount amount, and ✕ remove button (hover turns destructive red); applied offer card in the offers panel shows a green checkmark
+- On error: shows red error message below input using `AlertCircle` icon
 - Offer is re-validated server-side in `createOrder` — frontend discount preview is never trusted for the final charge
 
 **Countdown timer:**
@@ -1095,6 +1095,8 @@ Intermediate page between seat selection and Razorpay payment. Reached after sea
 - On expiry: shows toast error, releases seats, navigates back to `/show/:showId`
 
 **Pay button:**
+- Gradient-styled button (`bg-gradient-to-br from-primary to-[oklch(from_var(--primary)_l_calc(c*0.75)_h)]`) with `custom-hover` class
+- Spinner shows "Processing Payment..." while processing
 - Calls `useRazorpayPayment.initiatePayment()` with `show_id`, `seats`, `customer` — **no amount sent** (backend calculates it)
 - On success: navigates to `/booking/success?payment_id=xxx`
 - On cancel or failure: navigates to `/booking/failure` with `reason` (`'cancelled'` or `'failed'`) + full booking state — seats remain held

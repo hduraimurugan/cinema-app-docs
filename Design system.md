@@ -113,8 +113,10 @@ button:not(.bg-primary):not(.bg-destructive):not(.bg-secondary):not(.bg-emerald-
 ```
 
 ### 3. Brand CTA Buttons (`.custom-hover`)
-Buttons that leverage the brand red color scheme (`bg-[#f84464]`) **must** include the `.custom-hover` class to avoid global outline/ghost override matches, allowing their specific brand transitions to run:
-*   *Hover state*: `hover:bg-[#e23655] hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#f84464]/20 hover:shadow-[#f84464]/35`
+Buttons that leverage the brand red color scheme **must** include the `.custom-hover` class to avoid global outline/ghost override matches, allowing their specific brand transitions to run:
+*   **Solid variant**: `bg-primary hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/20 hover:shadow-primary/35`
+*   **Gradient variant**: `bg-gradient-to-br from-primary to-[oklch(from_var(--primary)_l_calc(c*0.75)_h)] hover:brightness-110 active:scale-[0.98] shadow-lg shadow-primary/20 hover:shadow-primary/35`
+*   **Text on CTA buttons**: `text-primary-foreground font-bold`
 
 ---
 
@@ -179,6 +181,8 @@ bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60
 | `.scroll-snap-x` | Horizontal scroll snap container (`scroll-snap-type: x mandatory`). |
 | `.scroll-snap-start` | Snap alignment (`scroll-snap-align: start`) for cards in a scroll-snap row. |
 | `.featured-glow` | Glow shadow on the hero "Now Trending" badge (`0 0 20px var(--primary)/0.4`). |
+| `.shadow-premium` | Premium elevated shadow for payment cards and modals (`shadow-md hover:shadow-lg` with backdrop blur). |
+| `.gradient-btn-primary` | Primary gradient button: `bg-gradient-to-br from-primary to-[oklch(from_var(--primary)_l_calc(c*0.75)_h)]` with `hover:brightness-110` and `custom-hover`. |
 
 ### 5. Container System
 All layout components use a consistent container system:
