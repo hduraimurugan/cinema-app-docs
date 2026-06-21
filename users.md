@@ -980,13 +980,13 @@ Full detail view for a single customer booking. Fetches from `/api/booking/:id` 
    - CineMax branding pill top-left
    - Movie title (large bold white), language · genre (comma-separated) · duration in muted white below
    - Show date, time, cinema hall, screen in icon rows
-   - Movie poster thumbnail (`w-16 h-24`) on the right — only rendered when `poster_url` is present
-   - **Perforated divider** — dashed border with half-circle notches (same style as `BookingSuccessPage`)
-   - Ticket body: Booking ID (first 8 chars, monospace) with copy button, status badge, seat label chips, total amount `text-3xl`, QR code (`QRCodeSVG` 80×80, level M)
-   - "Present this QR code at the cinema entrance" hint
-3. **Action buttons row** (two side-by-side):
-   - **Get Directions** — opens Google Maps in a new tab (coordinates if available, else hall name + address fallback)
-   - **Download Ticket** — captures `ticketRef` as JPEG using `html-to-image` at 3× pixel ratio (same logic as `BookingSuccessPage`); falls back to navigating to `/booking/success?payment_id=…` if capture fails. Hidden for cancelled bookings.
+    - Movie poster thumbnail (`w-16 h-24`) on the right — only rendered when `poster_url` is present; uses `/api/movies/proxy-image` when source is TMDB, with `crossOrigin="anonymous"`
+    - **Perforated divider** — dashed border with half-circle notches (same style as `BookingSuccessPage`)
+    - Ticket body: Booking ID (first 8 chars, monospace) with copy button, `StatusBadge` component (confirmed/cancelled/completed), seat label chips, total amount `text-3xl`, QR code (`QRCodeSVG` 80×80, level M)
+    - "Present this QR code at the cinema entrance" hint
+ 3. **Action buttons row** (two side-by-side):
+    - **Get Directions** — opens Google Maps in a new tab (coordinates if available, else hall name + address fallback)
+    - **Download Ticket** — captures `ticketRef` as JPEG using `html-to-image` at 3× pixel ratio (same logic as `BookingSuccessPage`); no longer falls back to navigation — logs error on failure. Hidden for cancelled bookings.
 4. **Price Breakdown card** — Seats (calculated as `total − discount − convenience − gst`), Convenience Fee, GST, Offer Discount (green, shown only when `discount_amount > 0`), Total
 5. **Refund Details card** — only rendered when `booking_status === 'cancelled'` AND `refund_status` is set:
    - Refund status badge (amber = initiated, green = settled, red = failed)
@@ -1132,20 +1132,26 @@ Displayed after successful Razorpay payment, and also accessible by clicking a b
 - Navigates to `/` if no `payment_id` in URL
 - **Download Ticket** button — captures the entire ticket card as a JPEG using `html-to-image` at 3× pixel ratio, temporarily strips dark mode during capture for correct colors, downloads as `ticket-<id>.jpg`
 
-**UI Design (redesigned — premium cinema ticket style):**
+**UI Design (premium cinema ticket style):**
 
 **Success header:**
 - Pulsing green ring animation (`animate-ping`) behind a `CheckCircle` icon for a dynamic confirmation feel
 - Bold heading + subtitle copy
 
 **Ticket card** (`ticketRef` — this is what gets captured as JPEG):
-- **Header banner** — deep red gradient (`#e11d48 → #9f1239`) with CineMax logo pill, movie title in large white bold type, date & time with `CalendarDays` / `Clock` icons
+- **Gradient header** — deep red gradient (`#e11d48 → #9f1239`) for active bookings; grey (`#374151 → #1f2937`) for cancelled. Includes:
+  - CineMax branding pill top-left
+  - Movie title in large white bold type with `language` · `genre` (comma-separated) · `duration_mins` metadata row below
+  - Date (`CalendarDays`) / time (`Clock`), cinema hall name (`MapPin`) / screen name (`Monitor`) in icon rows
+  - Movie poster thumbnail (`w-16 h-24`) on the right — uses TMDB proxy-image when source is `image.tmdb.org`, with `crossOrigin="anonymous"`
 - **Perforated divider** — dashed border with half-circle notches cut into both sides (`-left-3` / `-right-3` absolutely positioned circles) — classic physical ticket aesthetic
 - **Body section:**
-  - Booking ID in monospace font with `Hash` icon label; green live-dot status badge with ring border
-  - Seat labels as pill tags with zinc ring border
-  - Total amount right-aligned in `text-3xl font-extrabold`; payment ID below in muted text
-- **QR stub** — `QRCodeSVG` (90×90, level `M`) in a white padded `rounded-xl` card with drop shadow; "scan to verify" instructions beside it
+  - Booking ID (first 8 chars, monospace) with copy-to-clipboard button (`Copy`/`Check` icon toggle, 2-second reset)
+  - `StatusBadge` component — dynamic status display for `confirmed` (green), `cancelled` (red), and `completed` (blue) with dot indicator and ring border
+  - Seat labels as pill tags with `bg-secondary text-secondary-foreground ring-1 ring-border`
+  - Total amount right-aligned in `text-3xl font-extrabold` with `fmt()` helper for Indian locale (`en-IN`)
+- **QR stub** — `QRCodeSVG` (80×80, level `M`) in a white padded `rounded-xl` card with drop shadow; "Present this QR code at the cinema entrance for entry" hint below
+- `booking.poster_url` proxied through `/api/movies/proxy-image` when source is TMDB
 
 **Info banner:** Blue-tinted email confirmation notice below the ticket
 
@@ -1154,7 +1160,7 @@ Displayed after successful Razorpay payment, and also accessible by clicking a b
 **Dependencies:**
 - `html-to-image` — DOM-to-image capture (supports Tailwind v4 `oklch` colors)
 - `qrcode.react` — `QRCodeSVG` component (SVG-based, serializes correctly with `html-to-image`)
-- `lucide-react` — `CheckCircle`, `CalendarDays`, `Clock`, `Hash`, `Ticket`, `Download`, `Loader2`
+- `lucide-react` — `CheckCircle`, `CheckCircle2`, `XCircle`, `CalendarDays`, `Clock`, `MapPin`, `Monitor`, `Hash`, `Ticket`, `Download`, `Loader2`, `Copy`, `Check`
 
 #### BookingFailurePage
 

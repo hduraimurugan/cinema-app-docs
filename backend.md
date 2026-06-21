@@ -1151,6 +1151,7 @@ Hashes the submitted OTP and compares against the stored hash. Increments `otp_a
 | Method | Endpoint           | Auth       | Description                 |
 | ------ | ------------------ | ---------- | --------------------------- |
 | GET    | `/migrate-backdrops` | None       | Run database schema check & TMDB backdrop backfill |
+| GET    | `/proxy-image`       | None       | Proxy TMDB images (validates `url` starts with `https://image.tmdb.org/`) |
 | POST   | `/add`             | SuperAdmin | Add new movie               |
 | PUT    | `/edit/:movieId`   | SuperAdmin | Edit movie details          |
 | DELETE | `/delete/:movieId` | SuperAdmin | Delete movie                |
@@ -1241,6 +1242,20 @@ Hashes the submitted OTP and compares against the stored hash. Increments `otp_a
   "total": 25
 }
 ```
+
+#### GET `/api/movies/proxy-image`
+
+Proxies TMDB poster/backdrop images through the backend to avoid CORS issues on the frontend. Used by `BookingSuccessPage` and `BookingDetailPage` when displaying poster images from `image.tmdb.org`.
+
+**Query Parameters:**
+
+| Parameter | Type   | Required | Description |
+|-----------|--------|----------|-------------|
+| `url`     | string | Yes      | Full TMDB image URL (must start with `https://image.tmdb.org/`) |
+
+**Response:** Binary image data with the original `Content-Type` header.
+
+**Validation:** Returns `400` if `url` is missing or doesn't start with `https://image.tmdb.org/`.
 
 ---
 
