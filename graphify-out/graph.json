@@ -5064,7 +5064,7 @@
       "label": "pool",
       "file_type": "code",
       "source_file": "cinema-hall-api/db.js",
-      "source_location": "L7",
+      "source_location": "L12",
       "id": "cinema_hall_api_db_pool",
       "community": 42,
       "norm_label": "pool"
@@ -13131,7 +13131,7 @@
       "label": "pool",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L5",
+      "source_location": "L10",
       "id": "db_readonly_pool",
       "community": 22,
       "norm_label": "pool"
@@ -13140,7 +13140,7 @@
       "label": "query()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L16",
+      "source_location": "L21",
       "id": "db_readonly_query",
       "community": 22,
       "norm_label": "query()"
@@ -13149,7 +13149,7 @@
       "label": "queryTx()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L29",
+      "source_location": "L34",
       "id": "db_readonly_querytx",
       "community": 22,
       "norm_label": "querytx()"
@@ -13158,7 +13158,7 @@
       "label": "queryOne()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L46",
+      "source_location": "L51",
       "id": "db_readonly_queryone",
       "community": 22,
       "norm_label": "queryone()"
@@ -13167,7 +13167,7 @@
       "label": "listCinemas()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L51",
+      "source_location": "L56",
       "id": "db_readonly_listcinemas",
       "community": 22,
       "norm_label": "listcinemas()"
@@ -13176,7 +13176,7 @@
       "label": "getCinema()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L62",
+      "source_location": "L67",
       "id": "db_readonly_getcinema",
       "community": 22,
       "norm_label": "getcinema()"
@@ -13185,7 +13185,7 @@
       "label": "listScreens()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L74",
+      "source_location": "L79",
       "id": "db_readonly_listscreens",
       "community": 22,
       "norm_label": "listscreens()"
@@ -13194,7 +13194,7 @@
       "label": "getDailyCollections()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L84",
+      "source_location": "L89",
       "id": "db_readonly_getdailycollections",
       "community": 22,
       "norm_label": "getdailycollections()"
@@ -13203,7 +13203,7 @@
       "label": "getWeeklyCollections()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L101",
+      "source_location": "L106",
       "id": "db_readonly_getweeklycollections",
       "community": 22,
       "norm_label": "getweeklycollections()"
@@ -13212,7 +13212,7 @@
       "label": "getMonthlyCollections()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L118",
+      "source_location": "L123",
       "id": "db_readonly_getmonthlycollections",
       "community": 22,
       "norm_label": "getmonthlycollections()"
@@ -13221,7 +13221,7 @@
       "label": "getHallOccupancy()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L136",
+      "source_location": "L141",
       "id": "db_readonly_gethalloccupancy",
       "community": 22,
       "norm_label": "gethalloccupancy()"
@@ -13230,7 +13230,7 @@
       "label": "getSeatUtilization()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L153",
+      "source_location": "L158",
       "id": "db_readonly_getseatutilization",
       "community": 22,
       "norm_label": "getseatutilization()"
@@ -13239,7 +13239,7 @@
       "label": "getMoviePerformance()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L174",
+      "source_location": "L179",
       "id": "db_readonly_getmovieperformance",
       "community": 22,
       "norm_label": "getmovieperformance()"
@@ -13248,7 +13248,7 @@
       "label": "getShowOccupancy()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L200",
+      "source_location": "L205",
       "id": "db_readonly_getshowoccupancy",
       "community": 22,
       "norm_label": "getshowoccupancy()"
@@ -13257,7 +13257,7 @@
       "label": "getShowPerformance()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L215",
+      "source_location": "L220",
       "id": "db_readonly_getshowperformance",
       "community": 22,
       "norm_label": "getshowperformance()"
@@ -13266,7 +13266,7 @@
       "label": "getBookingSummary()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L242",
+      "source_location": "L247",
       "id": "db_readonly_getbookingsummary",
       "community": 22,
       "norm_label": "getbookingsummary()"
@@ -13275,7 +13275,7 @@
       "label": "getCustomerBookingHistory()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L263",
+      "source_location": "L268",
       "id": "db_readonly_getcustomerbookinghistory",
       "community": 22,
       "norm_label": "getcustomerbookinghistory()"
@@ -13284,7 +13284,7 @@
       "label": "getMovieStats()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L290",
+      "source_location": "L295",
       "id": "db_readonly_getmoviestats",
       "community": 22,
       "norm_label": "getmoviestats()"
@@ -13293,7 +13293,7 @@
       "label": "getCinemaStats()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L321",
+      "source_location": "L326",
       "id": "db_readonly_getcinemastats",
       "community": 22,
       "norm_label": "getcinemastats()"
@@ -13302,7 +13302,7 @@
       "label": "getBookingsByDate()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L364",
+      "source_location": "L369",
       "id": "db_readonly_getbookingsbydate",
       "community": 22,
       "norm_label": "getbookingsbydate()"
@@ -13311,7 +13311,7 @@
       "label": "getRevenueReport()",
       "file_type": "code",
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
-      "source_location": "L381",
+      "source_location": "L386",
       "id": "db_readonly_getrevenuereport",
       "community": 22,
       "norm_label": "getrevenuereport()"
@@ -18423,7 +18423,7 @@
       "label": "OpenCode (`~/.opencode/config.json` or MCP config)",
       "file_type": "document",
       "source_file": "docs/mcp_implementation_plan.md",
-      "source_location": "L1690",
+      "source_location": "L1691",
       "id": "docs_mcp_implementation_plan_opencode_opencode_config_json_or_mcp_config",
       "community": 235,
       "norm_label": "opencode (`~/.opencode/config.json` or mcp config)"
@@ -18432,7 +18432,7 @@
       "label": "Cursor / Windsurf",
       "file_type": "document",
       "source_file": "docs/mcp_implementation_plan.md",
-      "source_location": "L1708",
+      "source_location": "L1710",
       "id": "docs_mcp_implementation_plan_cursor_windsurf",
       "community": 235,
       "norm_label": "cursor / windsurf"
@@ -18441,7 +18441,7 @@
       "label": "Cline / Roo Code",
       "file_type": "document",
       "source_file": "docs/mcp_implementation_plan.md",
-      "source_location": "L1728",
+      "source_location": "L1731",
       "id": "docs_mcp_implementation_plan_cline_roo_code",
       "community": 235,
       "norm_label": "cline / roo code"
@@ -18450,7 +18450,7 @@
       "label": "ChatGPT / OpenAI Agents (HTTP Mode)",
       "file_type": "document",
       "source_file": "docs/mcp_implementation_plan.md",
-      "source_location": "L1748",
+      "source_location": "L1752",
       "id": "docs_mcp_implementation_plan_chatgpt_openai_agents_http_mode",
       "community": 235,
       "norm_label": "chatgpt / openai agents (http mode)"
@@ -18459,7 +18459,7 @@
       "label": "10. Future AI Capabilities",
       "file_type": "document",
       "source_file": "docs/mcp_implementation_plan.md",
-      "source_location": "L1759",
+      "source_location": "L1763",
       "id": "docs_mcp_implementation_plan_10_future_ai_capabilities",
       "community": 226,
       "norm_label": "10. future ai capabilities"
@@ -18468,7 +18468,7 @@
       "label": "Appendix: DB Schema Reference",
       "file_type": "document",
       "source_file": "docs/mcp_implementation_plan.md",
-      "source_location": "L1776",
+      "source_location": "L1780",
       "id": "docs_mcp_implementation_plan_appendix_db_schema_reference",
       "community": 226,
       "norm_label": "appendix: db schema reference"
@@ -18576,7 +18576,7 @@
       "label": "Architecture",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L181",
+      "source_location": "L183",
       "id": "docs_mcp_server_architecture",
       "community": 87,
       "norm_label": "architecture"
@@ -18585,7 +18585,7 @@
       "label": "High-Level Flow",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L183",
+      "source_location": "L185",
       "id": "docs_mcp_server_high_level_flow",
       "community": 87,
       "norm_label": "high-level flow"
@@ -18594,7 +18594,7 @@
       "label": "Tool Call Flow",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L192",
+      "source_location": "L194",
       "id": "docs_mcp_server_tool_call_flow",
       "community": 87,
       "norm_label": "tool call flow"
@@ -18603,7 +18603,7 @@
       "label": "Security Layers",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L207",
+      "source_location": "L209",
       "id": "docs_mcp_server_security_layers",
       "community": 87,
       "norm_label": "security layers"
@@ -18612,7 +18612,7 @@
       "label": "Security",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L220",
+      "source_location": "L222",
       "id": "docs_mcp_server_security",
       "community": 87,
       "norm_label": "security"
@@ -18621,7 +18621,7 @@
       "label": "Permission Model",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L222",
+      "source_location": "L224",
       "id": "docs_mcp_server_permission_model",
       "community": 87,
       "norm_label": "permission model"
@@ -18630,7 +18630,7 @@
       "label": "RLS Architecture",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L229",
+      "source_location": "L231",
       "id": "docs_mcp_server_rls_architecture",
       "community": 87,
       "norm_label": "rls architecture"
@@ -18639,7 +18639,7 @@
       "label": "Tool Catalog",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L240",
+      "source_location": "L242",
       "id": "docs_mcp_server_tool_catalog",
       "community": 87,
       "norm_label": "tool catalog"
@@ -18648,7 +18648,7 @@
       "label": "Cinema Tools (4)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L242",
+      "source_location": "L244",
       "id": "docs_mcp_server_cinema_tools_4",
       "community": 87,
       "norm_label": "cinema tools (4)"
@@ -18657,7 +18657,7 @@
       "label": "Movie Tools (5)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L251",
+      "source_location": "L253",
       "id": "docs_mcp_server_movie_tools_5",
       "community": 87,
       "norm_label": "movie tools (5)"
@@ -18666,7 +18666,7 @@
       "label": "Show Tools (4)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L261",
+      "source_location": "L263",
       "id": "docs_mcp_server_show_tools_4",
       "community": 87,
       "norm_label": "show tools (4)"
@@ -18675,7 +18675,7 @@
       "label": "Booking Tools (4)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L270",
+      "source_location": "L272",
       "id": "docs_mcp_server_booking_tools_4",
       "community": 87,
       "norm_label": "booking tools (4)"
@@ -18684,7 +18684,7 @@
       "label": "User Tools (3) \u2014 superAdmin only",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L279",
+      "source_location": "L281",
       "id": "docs_mcp_server_user_tools_3_superadmin_only",
       "community": 87,
       "norm_label": "user tools (3) \u2014 superadmin only"
@@ -18693,7 +18693,7 @@
       "label": "Analytics Tools (8)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L287",
+      "source_location": "L289",
       "id": "docs_mcp_server_analytics_tools_8",
       "community": 87,
       "norm_label": "analytics tools (8)"
@@ -18702,7 +18702,7 @@
       "label": "Platform Tools (8)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L300",
+      "source_location": "L302",
       "id": "docs_mcp_server_platform_tools_8",
       "community": 87,
       "norm_label": "platform tools (8)"
@@ -18711,7 +18711,7 @@
       "label": "Client Configuration",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L315",
+      "source_location": "L317",
       "id": "docs_mcp_server_client_configuration",
       "community": 87,
       "norm_label": "client configuration"
@@ -18720,7 +18720,7 @@
       "label": "Claude Desktop",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L317",
+      "source_location": "L319",
       "id": "docs_mcp_server_claude_desktop",
       "community": 87,
       "norm_label": "claude desktop"
@@ -18729,7 +18729,7 @@
       "label": "OpenCode",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L338",
+      "source_location": "L341",
       "id": "docs_mcp_server_opencode",
       "community": 87,
       "norm_label": "opencode"
@@ -18738,7 +18738,7 @@
       "label": "Cursor / Windsurf / Cline / Roo Code",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L358",
+      "source_location": "L362",
       "id": "docs_mcp_server_cursor_windsurf_cline_roo_code",
       "community": 87,
       "norm_label": "cursor / windsurf / cline / roo code"
@@ -18747,7 +18747,7 @@
       "label": "ChatGPT / OpenAI Agents (HTTP Mode)",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L362",
+      "source_location": "L366",
       "id": "docs_mcp_server_chatgpt_openai_agents_http_mode",
       "community": 87,
       "norm_label": "chatgpt / openai agents (http mode)"
@@ -18756,7 +18756,7 @@
       "label": "Database Setup",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L375",
+      "source_location": "L379",
       "id": "docs_mcp_server_database_setup",
       "community": 87,
       "norm_label": "database setup"
@@ -18765,7 +18765,7 @@
       "label": "Phase Roadmap",
       "file_type": "document",
       "source_file": "docs/mcp_server.md",
-      "source_location": "L404",
+      "source_location": "L408",
       "id": "docs_mcp_server_phase_roadmap",
       "community": 87,
       "norm_label": "phase roadmap"
@@ -44629,9 +44629,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_bin",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_bin"
     },
     {
       "relation": "contains",
@@ -44639,9 +44639,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_dependencies",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies"
     },
     {
       "relation": "contains",
@@ -44649,9 +44649,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_description",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_description"
     },
     {
       "relation": "contains",
@@ -44659,9 +44659,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_devdependencies",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_devdependencies"
     },
     {
       "relation": "contains",
@@ -44669,9 +44669,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_name",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_name"
     },
     {
       "relation": "contains",
@@ -44679,9 +44679,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_scripts",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_scripts"
     },
     {
       "relation": "contains",
@@ -44689,9 +44689,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_type",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_type"
     },
     {
       "relation": "contains",
@@ -44699,9 +44699,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_json",
-      "target": "cinemax_mcp_server_package_version",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_version"
     },
     {
       "relation": "contains",
@@ -44709,9 +44709,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_bin",
-      "target": "cinemax_mcp_server_package_bin_cinemax_mcp",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_bin_cinemax_mcp"
     },
     {
       "relation": "contains",
@@ -44719,9 +44719,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_scripts",
-      "target": "cinemax_mcp_server_package_scripts_dev",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_scripts_dev"
     },
     {
       "relation": "contains",
@@ -44729,9 +44729,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_scripts",
-      "target": "cinemax_mcp_server_package_scripts_start",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_scripts_start"
     },
     {
       "relation": "contains",
@@ -44739,9 +44739,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_scripts",
-      "target": "cinemax_mcp_server_package_scripts_start_http",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_scripts_start_http"
     },
     {
       "relation": "contains",
@@ -44749,9 +44749,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_scripts",
-      "target": "cinemax_mcp_server_package_scripts_test",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_scripts_test"
     },
     {
       "relation": "contains",
@@ -44759,9 +44759,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_scripts",
-      "target": "cinemax_mcp_server_package_scripts_test_run",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_scripts_test_run"
     },
     {
       "relation": "contains",
@@ -44769,9 +44769,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_axios",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_axios"
     },
     {
       "relation": "contains",
@@ -44779,9 +44779,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_cross_env",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_cross_env"
     },
     {
       "relation": "contains",
@@ -44789,9 +44789,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_dotenv",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_dotenv"
     },
     {
       "relation": "contains",
@@ -44799,9 +44799,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_modelcontextprotocol_sdk",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_modelcontextprotocol_sdk"
     },
     {
       "relation": "contains",
@@ -44809,9 +44809,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_pg",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_pg"
     },
     {
       "relation": "contains",
@@ -44819,9 +44819,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_pino",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_pino"
     },
     {
       "relation": "contains",
@@ -44829,9 +44829,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_dependencies",
-      "target": "cinemax_mcp_server_package_dependencies_zod",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_dependencies_zod"
     },
     {
       "relation": "contains",
@@ -44839,9 +44839,9 @@
       "source_file": "cinemax-mcp-server/package.json",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_package_devdependencies",
-      "target": "cinemax_mcp_server_package_devdependencies_vitest",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_package_devdependencies_vitest"
     },
     {
       "relation": "contains",
@@ -44910,9 +44910,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_examples_opencode_mcp_config_json",
-      "target": "examples_opencode_mcp_config_mcpservers",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_mcpservers"
     },
     {
       "relation": "contains",
@@ -44920,9 +44920,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_mcpservers",
-      "target": "examples_opencode_mcp_config_mcpservers_cinemax",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_mcpservers_cinemax"
     },
     {
       "relation": "contains",
@@ -44930,9 +44930,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_mcpservers_cinemax",
-      "target": "examples_opencode_mcp_config_cinemax_args",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_cinemax_args"
     },
     {
       "relation": "contains",
@@ -44940,9 +44940,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_mcpservers_cinemax",
-      "target": "examples_opencode_mcp_config_cinemax_command",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_cinemax_command"
     },
     {
       "relation": "contains",
@@ -44950,9 +44950,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_mcpservers_cinemax",
-      "target": "examples_opencode_mcp_config_cinemax_env",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_cinemax_env"
     },
     {
       "relation": "contains",
@@ -44960,9 +44960,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_cinemax_env",
-      "target": "examples_opencode_mcp_config_env_api_base_url",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_env_api_base_url"
     },
     {
       "relation": "contains",
@@ -44970,9 +44970,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_cinemax_env",
-      "target": "examples_opencode_mcp_config_env_cinemax_mcp_api_key",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_env_cinemax_mcp_api_key"
     },
     {
       "relation": "contains",
@@ -44980,9 +44980,9 @@
       "source_file": "cinemax-mcp-server/examples/opencode_mcp_config.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "examples_opencode_mcp_config_cinemax_env",
-      "target": "examples_opencode_mcp_config_env_database_url",
-      "confidence_score": 1.0
+      "target": "examples_opencode_mcp_config_env_database_url"
     },
     {
       "relation": "imports_from",
@@ -44991,9 +44991,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "cinemax_mcp_server_src_config_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_config_index_js"
     },
     {
       "relation": "imports_from",
@@ -45002,9 +45002,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "cinemax_mcp_server_src_logging_logger_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_logging_logger_js"
     },
     {
       "relation": "imports_from",
@@ -45013,9 +45013,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "cinemax_mcp_server_src_registry_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_registry_index_js"
     },
     {
       "relation": "imports_from",
@@ -45024,9 +45024,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "cinemax_mcp_server_src_transports_http_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_transports_http_js"
     },
     {
       "relation": "imports_from",
@@ -45035,9 +45035,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "cinemax_mcp_server_src_transports_stdio_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_transports_stdio_js"
     },
     {
       "relation": "imports",
@@ -45046,9 +45046,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "registry_index_registertools",
-      "confidence_score": 1.0
+      "target": "registry_index_registertools"
     },
     {
       "relation": "contains",
@@ -45056,9 +45056,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "src_server_server",
-      "confidence_score": 1.0
+      "target": "src_server_server"
     },
     {
       "relation": "imports",
@@ -45067,9 +45067,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "transports_http_starthttp",
-      "confidence_score": 1.0
+      "target": "transports_http_starthttp"
     },
     {
       "relation": "imports",
@@ -45078,9 +45078,9 @@
       "source_file": "cinemax-mcp-server/src/server.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_server_js",
-      "target": "transports_stdio_startstdio",
-      "confidence_score": 1.0
+      "target": "transports_stdio_startstdio"
     },
     {
       "relation": "contains",
@@ -45088,9 +45088,9 @@
       "source_file": "cinemax-mcp-server/src/api/client.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_api_client_js",
-      "target": "api_client_apiclient",
-      "confidence_score": 1.0
+      "target": "api_client_apiclient"
     },
     {
       "relation": "imports_from",
@@ -45099,9 +45099,9 @@
       "source_file": "cinemax-mcp-server/src/api/client.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_api_client_js",
-      "target": "cinemax_mcp_server_src_config_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_config_index_js"
     },
     {
       "relation": "imports_from",
@@ -45110,9 +45110,9 @@
       "source_file": "cinemax-mcp-server/src/tools/booking.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "target": "cinemax_mcp_server_src_api_client_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_api_client_js"
     },
     {
       "relation": "imports_from",
@@ -45121,9 +45121,9 @@
       "source_file": "cinemax-mcp-server/src/tools/movie.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_movie_tools_js",
-      "target": "cinemax_mcp_server_src_api_client_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_api_client_js"
     },
     {
       "relation": "imports_from",
@@ -45132,9 +45132,9 @@
       "source_file": "cinemax-mcp-server/src/tools/platform.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_platform_tools_js",
-      "target": "cinemax_mcp_server_src_api_client_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_api_client_js"
     },
     {
       "relation": "imports_from",
@@ -45143,9 +45143,9 @@
       "source_file": "cinemax-mcp-server/src/tools/show.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_show_tools_js",
-      "target": "cinemax_mcp_server_src_api_client_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_api_client_js"
     },
     {
       "relation": "imports_from",
@@ -45154,9 +45154,9 @@
       "source_file": "cinemax-mcp-server/src/tools/user.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_user_tools_js",
-      "target": "cinemax_mcp_server_src_api_client_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_api_client_js"
     },
     {
       "relation": "imports",
@@ -45165,9 +45165,9 @@
       "source_file": "cinemax-mcp-server/src/tools/booking.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "target": "api_client_apiclient",
-      "confidence_score": 1.0
+      "target": "api_client_apiclient"
     },
     {
       "relation": "imports",
@@ -45176,9 +45176,9 @@
       "source_file": "cinemax-mcp-server/src/tools/movie.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_movie_tools_js",
-      "target": "api_client_apiclient",
-      "confidence_score": 1.0
+      "target": "api_client_apiclient"
     },
     {
       "relation": "imports",
@@ -45187,9 +45187,9 @@
       "source_file": "cinemax-mcp-server/src/tools/platform.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_platform_tools_js",
-      "target": "api_client_apiclient",
-      "confidence_score": 1.0
+      "target": "api_client_apiclient"
     },
     {
       "relation": "imports",
@@ -45198,9 +45198,9 @@
       "source_file": "cinemax-mcp-server/src/tools/show.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_show_tools_js",
-      "target": "api_client_apiclient",
-      "confidence_score": 1.0
+      "target": "api_client_apiclient"
     },
     {
       "relation": "imports",
@@ -45209,9 +45209,9 @@
       "source_file": "cinemax-mcp-server/src/tools/user.tools.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_user_tools_js",
-      "target": "api_client_apiclient",
-      "confidence_score": 1.0
+      "target": "api_client_apiclient"
     },
     {
       "relation": "contains",
@@ -45219,9 +45219,9 @@
       "source_file": "cinemax-mcp-server/src/auth/permissions.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_permissions_js",
-      "target": "auth_permissions_requirepermission",
-      "confidence_score": 1.0
+      "target": "auth_permissions_requirepermission"
     },
     {
       "relation": "imports_from",
@@ -45230,9 +45230,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_auth_permissions_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_auth_permissions_js"
     },
     {
       "relation": "imports",
@@ -45241,9 +45241,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "auth_permissions_requirepermission",
-      "confidence_score": 1.0
+      "target": "auth_permissions_requirepermission"
     },
     {
       "relation": "contains",
@@ -45251,9 +45251,9 @@
       "source_file": "cinemax-mcp-server/src/auth/scopeResolver.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "target": "auth_scoperesolver_resolvescope",
-      "confidence_score": 1.0
+      "target": "auth_scoperesolver_resolvescope"
     },
     {
       "relation": "contains",
@@ -45261,9 +45261,9 @@
       "source_file": "cinemax-mcp-server/src/auth/scopeResolver.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "target": "auth_scoperesolver_scopemap",
-      "confidence_score": 1.0
+      "target": "auth_scoperesolver_scopemap"
     },
     {
       "relation": "imports_from",
@@ -45272,9 +45272,9 @@
       "source_file": "cinemax-mcp-server/src/auth/scopeResolver.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "target": "cinemax_mcp_server_src_config_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_config_index_js"
     },
     {
       "relation": "imports_from",
@@ -45283,9 +45283,9 @@
       "source_file": "cinemax-mcp-server/src/auth/scopeResolver.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "target": "cinemax_mcp_server_src_config_scope_map_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_config_scope_map_js"
     },
     {
       "relation": "imports_from",
@@ -45294,9 +45294,9 @@
       "source_file": "cinemax-mcp-server/src/auth/scopeResolver.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "target": "cinemax_mcp_server_src_logging_logger_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_logging_logger_js"
     },
     {
       "relation": "imports",
@@ -45305,9 +45305,9 @@
       "source_file": "cinemax-mcp-server/src/auth/scopeResolver.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "target": "config_scope_map_loadscopemap",
-      "confidence_score": 1.0
+      "target": "config_scope_map_loadscopemap"
     },
     {
       "relation": "imports_from",
@@ -45316,9 +45316,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_auth_scoperesolver_js"
     },
     {
       "relation": "imports_from",
@@ -45327,9 +45327,9 @@
       "source_file": "cinemax-mcp-server/src/transports/http.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_http_js",
-      "target": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_auth_scoperesolver_js"
     },
     {
       "relation": "imports_from",
@@ -45338,9 +45338,9 @@
       "source_file": "cinemax-mcp-server/src/transports/stdio.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_stdio_js",
-      "target": "cinemax_mcp_server_src_auth_scoperesolver_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_auth_scoperesolver_js"
     },
     {
       "relation": "imports",
@@ -45349,9 +45349,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "auth_scoperesolver_resolvescope",
-      "confidence_score": 1.0
+      "target": "auth_scoperesolver_resolvescope"
     },
     {
       "relation": "imports",
@@ -45360,9 +45360,9 @@
       "source_file": "cinemax-mcp-server/src/transports/http.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_http_js",
-      "target": "auth_scoperesolver_resolvescope",
-      "confidence_score": 1.0
+      "target": "auth_scoperesolver_resolvescope"
     },
     {
       "relation": "imports",
@@ -45371,9 +45371,9 @@
       "source_file": "cinemax-mcp-server/src/transports/stdio.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_stdio_js",
-      "target": "auth_scoperesolver_resolvescope",
-      "confidence_score": 1.0
+      "target": "auth_scoperesolver_resolvescope"
     },
     {
       "relation": "contains",
@@ -45381,9 +45381,9 @@
       "source_file": "cinemax-mcp-server/src/config/index.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_config_index_js",
-      "target": "config_index_dirname",
-      "confidence_score": 1.0
+      "target": "config_index_dirname"
     },
     {
       "relation": "contains",
@@ -45391,9 +45391,9 @@
       "source_file": "cinemax-mcp-server/src/config/index.js",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_config_index_js",
-      "target": "config_index_envschema",
-      "confidence_score": 1.0
+      "target": "config_index_envschema"
     },
     {
       "relation": "contains",
@@ -45401,9 +45401,9 @@
       "source_file": "cinemax-mcp-server/src/config/index.js",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_config_index_js",
-      "target": "config_index_parsed",
-      "confidence_score": 1.0
+      "target": "config_index_parsed"
     },
     {
       "relation": "imports_from",
@@ -45412,9 +45412,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "cinemax_mcp_server_src_config_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_config_index_js"
     },
     {
       "relation": "imports_from",
@@ -45423,9 +45423,9 @@
       "source_file": "cinemax-mcp-server/src/transports/http.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_http_js",
-      "target": "cinemax_mcp_server_src_config_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_config_index_js"
     },
     {
       "relation": "contains",
@@ -45433,9 +45433,9 @@
       "source_file": "cinemax-mcp-server/src/config/scope-map.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_config_scope_map_js",
-      "target": "config_scope_map_loadscopemap",
-      "confidence_score": 1.0
+      "target": "config_scope_map_loadscopemap"
     },
     {
       "relation": "imports_from",
@@ -45444,9 +45444,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "cinemax_mcp_server_src_logging_logger_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_logging_logger_js"
     },
     {
       "relation": "contains",
@@ -45454,9 +45454,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L364",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getbookingsbydate",
-      "confidence_score": 1.0
+      "target": "db_readonly_getbookingsbydate"
     },
     {
       "relation": "contains",
@@ -45464,9 +45464,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L242",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getbookingsummary",
-      "confidence_score": 1.0
+      "target": "db_readonly_getbookingsummary"
     },
     {
       "relation": "contains",
@@ -45474,9 +45474,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getcinema",
-      "confidence_score": 1.0
+      "target": "db_readonly_getcinema"
     },
     {
       "relation": "contains",
@@ -45484,9 +45484,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L321",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getcinemastats",
-      "confidence_score": 1.0
+      "target": "db_readonly_getcinemastats"
     },
     {
       "relation": "contains",
@@ -45494,9 +45494,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getcustomerbookinghistory",
-      "confidence_score": 1.0
+      "target": "db_readonly_getcustomerbookinghistory"
     },
     {
       "relation": "contains",
@@ -45504,9 +45504,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L84",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getdailycollections",
-      "confidence_score": 1.0
+      "target": "db_readonly_getdailycollections"
     },
     {
       "relation": "contains",
@@ -45514,9 +45514,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L136",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_gethalloccupancy",
-      "confidence_score": 1.0
+      "target": "db_readonly_gethalloccupancy"
     },
     {
       "relation": "contains",
@@ -45524,9 +45524,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L118",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getmonthlycollections",
-      "confidence_score": 1.0
+      "target": "db_readonly_getmonthlycollections"
     },
     {
       "relation": "contains",
@@ -45534,9 +45534,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getmovieperformance",
-      "confidence_score": 1.0
+      "target": "db_readonly_getmovieperformance"
     },
     {
       "relation": "contains",
@@ -45544,9 +45544,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L290",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getmoviestats",
-      "confidence_score": 1.0
+      "target": "db_readonly_getmoviestats"
     },
     {
       "relation": "contains",
@@ -45554,9 +45554,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L381",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getrevenuereport",
-      "confidence_score": 1.0
+      "target": "db_readonly_getrevenuereport"
     },
     {
       "relation": "contains",
@@ -45564,9 +45564,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L153",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getseatutilization",
-      "confidence_score": 1.0
+      "target": "db_readonly_getseatutilization"
     },
     {
       "relation": "contains",
@@ -45574,9 +45574,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L200",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getshowoccupancy",
-      "confidence_score": 1.0
+      "target": "db_readonly_getshowoccupancy"
     },
     {
       "relation": "contains",
@@ -45584,9 +45584,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L215",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getshowperformance",
-      "confidence_score": 1.0
+      "target": "db_readonly_getshowperformance"
     },
     {
       "relation": "contains",
@@ -45594,9 +45594,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L101",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_getweeklycollections",
-      "confidence_score": 1.0
+      "target": "db_readonly_getweeklycollections"
     },
     {
       "relation": "contains",
@@ -45604,9 +45604,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L51",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_listcinemas",
-      "confidence_score": 1.0
+      "target": "db_readonly_listcinemas"
     },
     {
       "relation": "contains",
@@ -45614,9 +45614,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_listscreens",
-      "confidence_score": 1.0
+      "target": "db_readonly_listscreens"
     },
     {
       "relation": "contains",
@@ -45624,9 +45624,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_pool",
-      "confidence_score": 1.0
+      "target": "db_readonly_pool"
     },
     {
       "relation": "contains",
@@ -45634,9 +45634,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "contains",
@@ -45644,9 +45644,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_queryone",
-      "confidence_score": 1.0
+      "target": "db_readonly_queryone"
     },
     {
       "relation": "contains",
@@ -45654,9 +45654,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_db_readonly_js",
-      "target": "db_readonly_querytx",
-      "confidence_score": 1.0
+      "target": "db_readonly_querytx"
     },
     {
       "relation": "imports_from",
@@ -45665,9 +45665,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "cinemax_mcp_server_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_db_readonly_js"
     },
     {
       "relation": "imports_from",
@@ -45676,9 +45676,9 @@
       "source_file": "cinemax-mcp-server/src/tools/booking.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "target": "cinemax_mcp_server_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_db_readonly_js"
     },
     {
       "relation": "imports_from",
@@ -45687,9 +45687,9 @@
       "source_file": "cinemax-mcp-server/src/tools/cinema.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "target": "cinemax_mcp_server_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_db_readonly_js"
     },
     {
       "relation": "imports_from",
@@ -45698,9 +45698,9 @@
       "source_file": "cinemax-mcp-server/src/tools/movie.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_movie_tools_js",
-      "target": "cinemax_mcp_server_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_db_readonly_js"
     },
     {
       "relation": "imports_from",
@@ -45709,9 +45709,9 @@
       "source_file": "cinemax-mcp-server/src/tools/show.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_show_tools_js",
-      "target": "cinemax_mcp_server_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_db_readonly_js"
     },
     {
       "relation": "imports_from",
@@ -45720,9 +45720,9 @@
       "source_file": "cinemax-mcp-server/src/tools/user.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_user_tools_js",
-      "target": "cinemax_mcp_server_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_db_readonly_js"
     },
     {
       "relation": "calls",
@@ -45731,9 +45731,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L365",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getbookingsbydate",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45742,9 +45742,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L85",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getdailycollections",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45753,9 +45753,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L137",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_gethalloccupancy",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45764,9 +45764,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L119",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getmonthlycollections",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45775,9 +45775,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getmovieperformance",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45786,9 +45786,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L382",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getrevenuereport",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45797,9 +45797,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L154",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getseatutilization",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45808,9 +45808,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getshowperformance",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45819,9 +45819,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L102",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getweeklycollections",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45830,9 +45830,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L52",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_listcinemas",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45841,9 +45841,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_listscreens",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45852,9 +45852,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_queryone",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45863,9 +45863,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_querytx",
-      "target": "db_readonly_query",
-      "confidence_score": 1.0
+      "target": "db_readonly_query"
     },
     {
       "relation": "calls",
@@ -45874,9 +45874,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L265",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getcustomerbookinghistory",
-      "target": "db_readonly_querytx",
-      "confidence_score": 1.0
+      "target": "db_readonly_querytx"
     },
     {
       "relation": "calls",
@@ -45885,9 +45885,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L243",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getbookingsummary",
-      "target": "db_readonly_queryone",
-      "confidence_score": 1.0
+      "target": "db_readonly_queryone"
     },
     {
       "relation": "calls",
@@ -45896,9 +45896,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getcinema",
-      "target": "db_readonly_queryone",
-      "confidence_score": 1.0
+      "target": "db_readonly_queryone"
     },
     {
       "relation": "calls",
@@ -45907,9 +45907,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L322",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getcinemastats",
-      "target": "db_readonly_queryone",
-      "confidence_score": 1.0
+      "target": "db_readonly_queryone"
     },
     {
       "relation": "calls",
@@ -45918,9 +45918,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getmoviestats",
-      "target": "db_readonly_queryone",
-      "confidence_score": 1.0
+      "target": "db_readonly_queryone"
     },
     {
       "relation": "calls",
@@ -45929,9 +45929,9 @@
       "source_file": "cinemax-mcp-server/src/db/readonly.js",
       "source_location": "L201",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "db_readonly_getshowoccupancy",
-      "target": "db_readonly_queryone",
-      "confidence_score": 1.0
+      "target": "db_readonly_queryone"
     },
     {
       "relation": "imports",
@@ -45940,9 +45940,9 @@
       "source_file": "cinemax-mcp-server/src/tools/cinema.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "target": "db_readonly_listcinemas",
-      "confidence_score": 1.0
+      "target": "db_readonly_listcinemas"
     },
     {
       "relation": "imports",
@@ -45951,9 +45951,9 @@
       "source_file": "cinemax-mcp-server/src/tools/cinema.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "target": "db_readonly_getcinema",
-      "confidence_score": 1.0
+      "target": "db_readonly_getcinema"
     },
     {
       "relation": "imports",
@@ -45962,9 +45962,9 @@
       "source_file": "cinemax-mcp-server/src/tools/cinema.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "target": "db_readonly_listscreens",
-      "confidence_score": 1.0
+      "target": "db_readonly_listscreens"
     },
     {
       "relation": "imports",
@@ -45973,9 +45973,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getdailycollections",
-      "confidence_score": 1.0
+      "target": "db_readonly_getdailycollections"
     },
     {
       "relation": "imports",
@@ -45984,9 +45984,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getweeklycollections",
-      "confidence_score": 1.0
+      "target": "db_readonly_getweeklycollections"
     },
     {
       "relation": "imports",
@@ -45995,9 +45995,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getmonthlycollections",
-      "confidence_score": 1.0
+      "target": "db_readonly_getmonthlycollections"
     },
     {
       "relation": "imports",
@@ -46006,9 +46006,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_gethalloccupancy",
-      "confidence_score": 1.0
+      "target": "db_readonly_gethalloccupancy"
     },
     {
       "relation": "imports",
@@ -46017,9 +46017,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getseatutilization",
-      "confidence_score": 1.0
+      "target": "db_readonly_getseatutilization"
     },
     {
       "relation": "imports",
@@ -46028,9 +46028,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getmovieperformance",
-      "confidence_score": 1.0
+      "target": "db_readonly_getmovieperformance"
     },
     {
       "relation": "imports",
@@ -46039,9 +46039,9 @@
       "source_file": "cinemax-mcp-server/src/tools/show.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_show_tools_js",
-      "target": "db_readonly_getshowoccupancy",
-      "confidence_score": 1.0
+      "target": "db_readonly_getshowoccupancy"
     },
     {
       "relation": "imports",
@@ -46050,9 +46050,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getshowperformance",
-      "confidence_score": 1.0
+      "target": "db_readonly_getshowperformance"
     },
     {
       "relation": "imports",
@@ -46061,9 +46061,9 @@
       "source_file": "cinemax-mcp-server/src/tools/booking.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "target": "db_readonly_getbookingsummary",
-      "confidence_score": 1.0
+      "target": "db_readonly_getbookingsummary"
     },
     {
       "relation": "imports",
@@ -46072,9 +46072,9 @@
       "source_file": "cinemax-mcp-server/src/tools/user.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_user_tools_js",
-      "target": "db_readonly_getcustomerbookinghistory",
-      "confidence_score": 1.0
+      "target": "db_readonly_getcustomerbookinghistory"
     },
     {
       "relation": "imports",
@@ -46083,9 +46083,9 @@
       "source_file": "cinemax-mcp-server/src/tools/movie.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_movie_tools_js",
-      "target": "db_readonly_getmoviestats",
-      "confidence_score": 1.0
+      "target": "db_readonly_getmoviestats"
     },
     {
       "relation": "imports",
@@ -46094,9 +46094,9 @@
       "source_file": "cinemax-mcp-server/src/tools/cinema.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "target": "db_readonly_getcinemastats",
-      "confidence_score": 1.0
+      "target": "db_readonly_getcinemastats"
     },
     {
       "relation": "imports",
@@ -46105,9 +46105,9 @@
       "source_file": "cinemax-mcp-server/src/tools/booking.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "target": "db_readonly_getbookingsbydate",
-      "confidence_score": 1.0
+      "target": "db_readonly_getbookingsbydate"
     },
     {
       "relation": "imports",
@@ -46116,9 +46116,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "db_readonly_getrevenuereport",
-      "confidence_score": 1.0
+      "target": "db_readonly_getrevenuereport"
     },
     {
       "relation": "contains",
@@ -46126,9 +46126,9 @@
       "source_file": "cinemax-mcp-server/src/errors/index.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_errors_index_js",
-      "target": "errors_index_tomcperror",
-      "confidence_score": 1.0
+      "target": "errors_index_tomcperror"
     },
     {
       "relation": "imports_from",
@@ -46137,9 +46137,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_errors_index_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_errors_index_js"
     },
     {
       "relation": "imports",
@@ -46148,9 +46148,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "errors_index_tomcperror",
-      "confidence_score": 1.0
+      "target": "errors_index_tomcperror"
     },
     {
       "relation": "contains",
@@ -46158,9 +46158,9 @@
       "source_file": "cinemax-mcp-server/src/logging/logger.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_logging_logger_js",
-      "target": "logging_logger_logger",
-      "confidence_score": 1.0
+      "target": "logging_logger_logger"
     },
     {
       "relation": "imports_from",
@@ -46169,9 +46169,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_logging_logger_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_logging_logger_js"
     },
     {
       "relation": "imports_from",
@@ -46180,9 +46180,9 @@
       "source_file": "cinemax-mcp-server/src/transports/http.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_http_js",
-      "target": "cinemax_mcp_server_src_logging_logger_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_logging_logger_js"
     },
     {
       "relation": "contains",
@@ -46190,9 +46190,9 @@
       "source_file": "cinemax-mcp-server/src/ratelimit/tokenBucket.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_ratelimit_tokenbucket_js",
-      "target": "ratelimit_tokenbucket_buckets",
-      "confidence_score": 1.0
+      "target": "ratelimit_tokenbucket_buckets"
     },
     {
       "relation": "contains",
@@ -46200,9 +46200,9 @@
       "source_file": "cinemax-mcp-server/src/ratelimit/tokenBucket.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_ratelimit_tokenbucket_js",
-      "target": "ratelimit_tokenbucket_checkratelimit",
-      "confidence_score": 1.0
+      "target": "ratelimit_tokenbucket_checkratelimit"
     },
     {
       "relation": "imports_from",
@@ -46211,9 +46211,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_ratelimit_tokenbucket_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_ratelimit_tokenbucket_js"
     },
     {
       "relation": "imports",
@@ -46222,9 +46222,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "ratelimit_tokenbucket_checkratelimit",
-      "confidence_score": 1.0
+      "target": "ratelimit_tokenbucket_checkratelimit"
     },
     {
       "relation": "imports_from",
@@ -46233,9 +46233,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_analytics_tools_js"
     },
     {
       "relation": "imports_from",
@@ -46244,9 +46244,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_booking_tools_js"
     },
     {
       "relation": "imports_from",
@@ -46255,9 +46255,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_cinema_tools_js"
     },
     {
       "relation": "imports_from",
@@ -46266,9 +46266,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_movie_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_movie_tools_js"
     },
     {
       "relation": "imports_from",
@@ -46277,9 +46277,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_platform_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_platform_tools_js"
     },
     {
       "relation": "imports_from",
@@ -46288,9 +46288,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_show_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_show_tools_js"
     },
     {
       "relation": "imports_from",
@@ -46299,9 +46299,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "cinemax_mcp_server_src_tools_user_tools_js",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_src_tools_user_tools_js"
     },
     {
       "relation": "contains",
@@ -46309,9 +46309,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "registry_index_alltooldefs",
-      "confidence_score": 1.0
+      "target": "registry_index_alltooldefs"
     },
     {
       "relation": "contains",
@@ -46319,9 +46319,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "registry_index_registertools",
-      "confidence_score": 1.0
+      "target": "registry_index_registertools"
     },
     {
       "relation": "imports",
@@ -46330,9 +46330,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_analytics_tools_analyticstools",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_analyticstools"
     },
     {
       "relation": "imports",
@@ -46341,9 +46341,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_booking_tools_bookingtools",
-      "confidence_score": 1.0
+      "target": "tools_booking_tools_bookingtools"
     },
     {
       "relation": "imports",
@@ -46352,9 +46352,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_cinema_tools_cinematools",
-      "confidence_score": 1.0
+      "target": "tools_cinema_tools_cinematools"
     },
     {
       "relation": "imports",
@@ -46363,9 +46363,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_movie_tools_movietools",
-      "confidence_score": 1.0
+      "target": "tools_movie_tools_movietools"
     },
     {
       "relation": "imports",
@@ -46374,9 +46374,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_platform_tools_platformtools",
-      "confidence_score": 1.0
+      "target": "tools_platform_tools_platformtools"
     },
     {
       "relation": "imports",
@@ -46385,9 +46385,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_show_tools_showtools",
-      "confidence_score": 1.0
+      "target": "tools_show_tools_showtools"
     },
     {
       "relation": "imports",
@@ -46396,9 +46396,9 @@
       "source_file": "cinemax-mcp-server/src/registry/index.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_registry_index_js",
-      "target": "tools_user_tools_usertools",
-      "confidence_score": 1.0
+      "target": "tools_user_tools_usertools"
     },
     {
       "relation": "contains",
@@ -46406,9 +46406,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "tools_analytics_tools_analyticstools",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_analyticstools"
     },
     {
       "relation": "contains",
@@ -46416,9 +46416,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "tools_analytics_tools_datestr",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_datestr"
     },
     {
       "relation": "contains",
@@ -46426,9 +46426,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "tools_analytics_tools_daysago",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_daysago"
     },
     {
       "relation": "contains",
@@ -46436,9 +46436,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "tools_analytics_tools_todatestr",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_todatestr"
     },
     {
       "relation": "contains",
@@ -46446,9 +46446,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "tools_analytics_tools_todaystr",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_todaystr"
     },
     {
       "relation": "contains",
@@ -46456,9 +46456,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_analytics_tools_js",
-      "target": "tools_analytics_tools_uuid",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_uuid"
     },
     {
       "relation": "calls",
@@ -46467,9 +46467,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tools_analytics_tools_daysago",
-      "target": "tools_analytics_tools_todatestr",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_todatestr"
     },
     {
       "relation": "calls",
@@ -46478,9 +46478,9 @@
       "source_file": "cinemax-mcp-server/src/tools/analytics.tools.js",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tools_analytics_tools_todaystr",
-      "target": "tools_analytics_tools_todatestr",
-      "confidence_score": 1.0
+      "target": "tools_analytics_tools_todatestr"
     },
     {
       "relation": "contains",
@@ -46488,9 +46488,9 @@
       "source_file": "cinemax-mcp-server/src/tools/booking.tools.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_booking_tools_js",
-      "target": "tools_booking_tools_bookingtools",
-      "confidence_score": 1.0
+      "target": "tools_booking_tools_bookingtools"
     },
     {
       "relation": "contains",
@@ -46498,9 +46498,9 @@
       "source_file": "cinemax-mcp-server/src/tools/cinema.tools.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_cinema_tools_js",
-      "target": "tools_cinema_tools_cinematools",
-      "confidence_score": 1.0
+      "target": "tools_cinema_tools_cinematools"
     },
     {
       "relation": "contains",
@@ -46508,9 +46508,9 @@
       "source_file": "cinemax-mcp-server/src/tools/movie.tools.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_movie_tools_js",
-      "target": "tools_movie_tools_movietools",
-      "confidence_score": 1.0
+      "target": "tools_movie_tools_movietools"
     },
     {
       "relation": "contains",
@@ -46518,9 +46518,9 @@
       "source_file": "cinemax-mcp-server/src/tools/platform.tools.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_platform_tools_js",
-      "target": "tools_platform_tools_datestr",
-      "confidence_score": 1.0
+      "target": "tools_platform_tools_datestr"
     },
     {
       "relation": "contains",
@@ -46528,9 +46528,9 @@
       "source_file": "cinemax-mcp-server/src/tools/platform.tools.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_platform_tools_js",
-      "target": "tools_platform_tools_platformtools",
-      "confidence_score": 1.0
+      "target": "tools_platform_tools_platformtools"
     },
     {
       "relation": "contains",
@@ -46538,9 +46538,9 @@
       "source_file": "cinemax-mcp-server/src/tools/show.tools.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_show_tools_js",
-      "target": "tools_show_tools_showtools",
-      "confidence_score": 1.0
+      "target": "tools_show_tools_showtools"
     },
     {
       "relation": "contains",
@@ -46548,9 +46548,9 @@
       "source_file": "cinemax-mcp-server/src/tools/user.tools.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_tools_user_tools_js",
-      "target": "tools_user_tools_usertools",
-      "confidence_score": 1.0
+      "target": "tools_user_tools_usertools"
     },
     {
       "relation": "contains",
@@ -46558,9 +46558,9 @@
       "source_file": "cinemax-mcp-server/src/transports/http.js",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_http_js",
-      "target": "transports_http_starthttp",
-      "confidence_score": 1.0
+      "target": "transports_http_starthttp"
     },
     {
       "relation": "contains",
@@ -46568,9 +46568,9 @@
       "source_file": "cinemax-mcp-server/src/transports/stdio.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_transports_stdio_js",
-      "target": "transports_stdio_startstdio",
-      "confidence_score": 1.0
+      "target": "transports_stdio_startstdio"
     },
     {
       "relation": "contains",
@@ -46578,9 +46578,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_bookingstatus",
-      "confidence_score": 1.0
+      "target": "validation_schemas_bookingstatus"
     },
     {
       "relation": "contains",
@@ -46588,9 +46588,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_cinemahallid",
-      "confidence_score": 1.0
+      "target": "validation_schemas_cinemahallid"
     },
     {
       "relation": "contains",
@@ -46598,9 +46598,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_daterange",
-      "confidence_score": 1.0
+      "target": "validation_schemas_daterange"
     },
     {
       "relation": "contains",
@@ -46608,9 +46608,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_datestr",
-      "confidence_score": 1.0
+      "target": "validation_schemas_datestr"
     },
     {
       "relation": "contains",
@@ -46618,9 +46618,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_moviestatus",
-      "confidence_score": 1.0
+      "target": "validation_schemas_moviestatus"
     },
     {
       "relation": "contains",
@@ -46628,9 +46628,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_pagination",
-      "confidence_score": 1.0
+      "target": "validation_schemas_pagination"
     },
     {
       "relation": "contains",
@@ -46638,9 +46638,9 @@
       "source_file": "cinemax-mcp-server/src/validation/schemas.js",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_src_validation_schemas_js",
-      "target": "validation_schemas_uuid",
-      "confidence_score": 1.0
+      "target": "validation_schemas_uuid"
     },
     {
       "relation": "contains",
@@ -48378,9 +48378,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_md",
-      "target": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_cinemax_mcp_server"
     },
     {
       "relation": "contains",
@@ -48388,9 +48388,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L94",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_architecture",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_architecture"
     },
     {
       "relation": "contains",
@@ -48398,9 +48398,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L82",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_database_setup",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_database_setup"
     },
     {
       "relation": "contains",
@@ -48408,9 +48408,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L118",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_phase_roadmap",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_phase_roadmap"
     },
     {
       "relation": "contains",
@@ -48418,9 +48418,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_quick_start",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_quick_start"
     },
     {
       "relation": "contains",
@@ -48428,9 +48428,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_running_with_ai_assistants",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_running_with_ai_assistants"
     },
     {
       "relation": "contains",
@@ -48438,9 +48438,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L109",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_security",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_security"
     },
     {
       "relation": "contains",
@@ -48448,9 +48448,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_cinemax_mcp_server",
-      "target": "cinemax_mcp_server_readme_tools",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_tools"
     },
     {
       "relation": "contains",
@@ -48458,9 +48458,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L13",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_quick_start",
-      "target": "cinemax_mcp_server_readme_installation",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_installation"
     },
     {
       "relation": "contains",
@@ -48468,9 +48468,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_quick_start",
-      "target": "cinemax_mcp_server_readme_prerequisites",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_prerequisites"
     },
     {
       "relation": "contains",
@@ -48478,9 +48478,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_quick_start",
-      "target": "cinemax_mcp_server_readme_run",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_run"
     },
     {
       "relation": "contains",
@@ -48488,9 +48488,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_running_with_ai_assistants",
-      "target": "cinemax_mcp_server_readme_chatgpt_openai_agents",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_chatgpt_openai_agents"
     },
     {
       "relation": "contains",
@@ -48498,9 +48498,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_running_with_ai_assistants",
-      "target": "cinemax_mcp_server_readme_claude_desktop",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_claude_desktop"
     },
     {
       "relation": "contains",
@@ -48508,9 +48508,9 @@
       "source_file": "cinemax-mcp-server/README.md",
       "source_location": "L58",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "cinemax_mcp_server_readme_running_with_ai_assistants",
-      "target": "cinemax_mcp_server_readme_opencode_cursor_windsurf_cline_roo_code",
-      "confidence_score": 1.0
+      "target": "cinemax_mcp_server_readme_opencode_cursor_windsurf_cline_roo_code"
     },
     {
       "relation": "contains",
@@ -51318,9 +51318,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_md",
-      "target": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan"
     },
     {
       "relation": "contains",
@@ -51328,9 +51328,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1759",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_10_future_ai_capabilities",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_10_future_ai_capabilities"
     },
     {
       "relation": "contains",
@@ -51338,9 +51338,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_1_architecture_overview",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_1_architecture_overview"
     },
     {
       "relation": "contains",
@@ -51348,9 +51348,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L160",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_2_technology_stack",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_2_technology_stack"
     },
     {
       "relation": "contains",
@@ -51358,9 +51358,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L177",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_3_folder_structure",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_3_folder_structure"
     },
     {
       "relation": "contains",
@@ -51368,9 +51368,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L252",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_phase_1_tool_catalog"
     },
     {
       "relation": "contains",
@@ -51378,9 +51378,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L522",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_5_backend_integration_strategy",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_5_backend_integration_strategy"
     },
     {
       "relation": "contains",
@@ -51388,9 +51388,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L634",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_6_security_architecture",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_6_security_architecture"
     },
     {
       "relation": "contains",
@@ -51398,9 +51398,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L722",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_7_phase_wise_roadmap"
     },
     {
       "relation": "contains",
@@ -51408,9 +51408,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L794",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_8_initial_implementation",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_initial_implementation"
     },
     {
       "relation": "contains",
@@ -51418,9 +51418,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1669",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_9_client_configuration",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_9_client_configuration"
     },
     {
       "relation": "contains",
@@ -51428,9 +51428,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1776",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_appendix_db_schema_reference",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_appendix_db_schema_reference"
     },
     {
       "relation": "contains",
@@ -51438,9 +51438,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "target": "docs_mcp_implementation_plan_table_of_contents",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_table_of_contents"
     },
     {
       "relation": "contains",
@@ -51448,9 +51448,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_1_architecture_overview",
-      "target": "docs_mcp_implementation_plan_component_architecture",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_component_architecture"
     },
     {
       "relation": "contains",
@@ -51458,9 +51458,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_1_architecture_overview",
-      "target": "docs_mcp_implementation_plan_context",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_context"
     },
     {
       "relation": "contains",
@@ -51468,9 +51468,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L118",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_1_architecture_overview",
-      "target": "docs_mcp_implementation_plan_data_flow_single_tool_call",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_data_flow_single_tool_call"
     },
     {
       "relation": "contains",
@@ -51478,9 +51478,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_1_architecture_overview",
-      "target": "docs_mcp_implementation_plan_high_level_architecture",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_high_level_architecture"
     },
     {
       "relation": "contains",
@@ -51488,9 +51488,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L141",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_1_architecture_overview",
-      "target": "docs_mcp_implementation_plan_security_architecture",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_security_architecture"
     },
     {
       "relation": "contains",
@@ -51498,9 +51498,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L262",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_1_cinema_tools_1_4",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_1_cinema_tools_1_4"
     },
     {
       "relation": "contains",
@@ -51508,9 +51508,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L292",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_2_movie_tools_5_9",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_2_movie_tools_5_9"
     },
     {
       "relation": "contains",
@@ -51518,9 +51518,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L329",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_3_show_tools_10_13",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_3_show_tools_10_13"
     },
     {
       "relation": "contains",
@@ -51528,9 +51528,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L359",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_4_booking_tools_14_17",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_4_booking_tools_14_17"
     },
     {
       "relation": "contains",
@@ -51538,9 +51538,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L389",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_5_user_tools_18_20_superadmin_only",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_5_user_tools_18_20_superadmin_only"
     },
     {
       "relation": "contains",
@@ -51548,9 +51548,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L412",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28"
     },
     {
       "relation": "contains",
@@ -51558,9 +51558,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L462",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_phase_1_tool_catalog",
-      "target": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_4_7_platform_tools_29_36"
     },
     {
       "relation": "contains",
@@ -51568,9 +51568,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L271",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_1_cinema_tools_1_4",
-      "target": "docs_mcp_implementation_plan_get_cinema",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_cinema"
     },
     {
       "relation": "contains",
@@ -51578,9 +51578,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L278",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_1_cinema_tools_1_4",
-      "target": "docs_mcp_implementation_plan_get_cinema_stats",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_cinema_stats"
     },
     {
       "relation": "contains",
@@ -51588,9 +51588,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L285",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_1_cinema_tools_1_4",
-      "target": "docs_mcp_implementation_plan_list_cinema_screens",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_cinema_screens"
     },
     {
       "relation": "contains",
@@ -51598,9 +51598,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L264",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_1_cinema_tools_1_4",
-      "target": "docs_mcp_implementation_plan_list_cinemas",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_cinemas"
     },
     {
       "relation": "contains",
@@ -51608,9 +51608,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L301",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_2_movie_tools_5_9",
-      "target": "docs_mcp_implementation_plan_get_movie",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_movie"
     },
     {
       "relation": "contains",
@@ -51618,9 +51618,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L322",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_2_movie_tools_5_9",
-      "target": "docs_mcp_implementation_plan_get_movie_stats",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_movie_stats"
     },
     {
       "relation": "contains",
@@ -51628,9 +51628,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L294",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_2_movie_tools_5_9",
-      "target": "docs_mcp_implementation_plan_list_movies",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_movies"
     },
     {
       "relation": "contains",
@@ -51638,9 +51638,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_2_movie_tools_5_9",
-      "target": "docs_mcp_implementation_plan_list_now_showing_movies",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_now_showing_movies"
     },
     {
       "relation": "contains",
@@ -51648,9 +51648,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L315",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_2_movie_tools_5_9",
-      "target": "docs_mcp_implementation_plan_list_upcoming_movies",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_upcoming_movies"
     },
     {
       "relation": "contains",
@@ -51658,9 +51658,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L338",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_3_show_tools_10_13",
-      "target": "docs_mcp_implementation_plan_get_show",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_show"
     },
     {
       "relation": "contains",
@@ -51668,9 +51668,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L352",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_3_show_tools_10_13",
-      "target": "docs_mcp_implementation_plan_get_show_booking_count",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_show_booking_count"
     },
     {
       "relation": "contains",
@@ -51678,9 +51678,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L345",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_3_show_tools_10_13",
-      "target": "docs_mcp_implementation_plan_get_show_occupancy",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_show_occupancy"
     },
     {
       "relation": "contains",
@@ -51688,9 +51688,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L331",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_3_show_tools_10_13",
-      "target": "docs_mcp_implementation_plan_list_shows_by_date",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_shows_by_date"
     },
     {
       "relation": "contains",
@@ -51698,9 +51698,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L361",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_4_booking_tools_14_17",
-      "target": "docs_mcp_implementation_plan_get_booking",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_booking"
     },
     {
       "relation": "contains",
@@ -51708,9 +51708,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L375",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_4_booking_tools_14_17",
-      "target": "docs_mcp_implementation_plan_get_booking_summary",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_booking_summary"
     },
     {
       "relation": "contains",
@@ -51718,9 +51718,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L382",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_4_booking_tools_14_17",
-      "target": "docs_mcp_implementation_plan_get_bookings_by_date",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_bookings_by_date"
     },
     {
       "relation": "contains",
@@ -51728,9 +51728,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L368",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_4_booking_tools_14_17",
-      "target": "docs_mcp_implementation_plan_list_bookings",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_bookings"
     },
     {
       "relation": "contains",
@@ -51738,9 +51738,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L398",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_5_user_tools_18_20_superadmin_only",
-      "target": "docs_mcp_implementation_plan_get_customer",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_customer"
     },
     {
       "relation": "contains",
@@ -51748,9 +51748,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L405",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_5_user_tools_18_20_superadmin_only",
-      "target": "docs_mcp_implementation_plan_get_customer_booking_history",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_customer_booking_history"
     },
     {
       "relation": "contains",
@@ -51758,9 +51758,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L391",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_5_user_tools_18_20_superadmin_only",
-      "target": "docs_mcp_implementation_plan_list_customers",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_customers"
     },
     {
       "relation": "contains",
@@ -51768,9 +51768,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L414",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_daily_collections",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_daily_collections"
     },
     {
       "relation": "contains",
@@ -51778,9 +51778,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L432",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_hall_occupancy",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_hall_occupancy"
     },
     {
       "relation": "contains",
@@ -51788,9 +51788,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L426",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_monthly_collections",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_monthly_collections"
     },
     {
       "relation": "contains",
@@ -51798,9 +51798,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L450",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_movie_performance",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_movie_performance"
     },
     {
       "relation": "contains",
@@ -51808,9 +51808,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L444",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_revenue_report",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_revenue_report"
     },
     {
       "relation": "contains",
@@ -51818,9 +51818,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L438",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_seat_utilization",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_seat_utilization"
     },
     {
       "relation": "contains",
@@ -51828,9 +51828,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L456",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_show_performance",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_show_performance"
     },
     {
       "relation": "contains",
@@ -51838,9 +51838,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L420",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_6_analytics_tools_21_28",
-      "target": "docs_mcp_implementation_plan_get_weekly_collections",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_weekly_collections"
     },
     {
       "relation": "contains",
@@ -51848,9 +51848,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L513",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_get_admin_audit_logs",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_admin_audit_logs"
     },
     {
       "relation": "contains",
@@ -51858,9 +51858,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L464",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_get_dashboard_stats",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_dashboard_stats"
     },
     {
       "relation": "contains",
@@ -51868,9 +51868,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L499",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_get_settings",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_get_settings"
     },
     {
       "relation": "contains",
@@ -51878,9 +51878,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L492",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_list_active_ads",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_active_ads"
     },
     {
       "relation": "contains",
@@ -51888,9 +51888,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L506",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_list_admins",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_admins"
     },
     {
       "relation": "contains",
@@ -51898,9 +51898,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L485",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_list_offers",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_offers"
     },
     {
       "relation": "contains",
@@ -51908,9 +51908,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L471",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_list_payment_orders",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_payment_orders"
     },
     {
       "relation": "contains",
@@ -51918,9 +51918,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L478",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_4_7_platform_tools_29_36",
-      "target": "docs_mcp_implementation_plan_list_refunds",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_list_refunds"
     },
     {
       "relation": "contains",
@@ -51928,9 +51928,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L524",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_5_backend_integration_strategy",
-      "target": "docs_mcp_implementation_plan_5_1_two_access_paths",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_5_1_two_access_paths"
     },
     {
       "relation": "contains",
@@ -51938,9 +51938,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L536",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_5_backend_integration_strategy",
-      "target": "docs_mcp_implementation_plan_5_2_trade_offs_db_read_vs_api_proxy",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_5_2_trade_offs_db_read_vs_api_proxy"
     },
     {
       "relation": "contains",
@@ -51948,9 +51948,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L549",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_5_backend_integration_strategy",
-      "target": "docs_mcp_implementation_plan_5_3_recommended_hybrid_approach",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_5_3_recommended_hybrid_approach"
     },
     {
       "relation": "contains",
@@ -51958,9 +51958,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L559",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_5_backend_integration_strategy",
-      "target": "docs_mcp_implementation_plan_5_4_read_only_role_sql",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_5_4_read_only_role_sql"
     },
     {
       "relation": "contains",
@@ -51968,9 +51968,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L582",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_5_backend_integration_strategy",
-      "target": "docs_mcp_implementation_plan_5_5_row_level_security_policies",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_5_5_row_level_security_policies"
     },
     {
       "relation": "contains",
@@ -51978,9 +51978,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L636",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_6_security_architecture",
-      "target": "docs_mcp_implementation_plan_6_1_authentication_layers",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_6_1_authentication_layers"
     },
     {
       "relation": "contains",
@@ -51988,9 +51988,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L655",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_6_security_architecture",
-      "target": "docs_mcp_implementation_plan_6_2_api_key_model",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_6_2_api_key_model"
     },
     {
       "relation": "contains",
@@ -51998,9 +51998,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L674",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_6_security_architecture",
-      "target": "docs_mcp_implementation_plan_6_3_permission_model",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_6_3_permission_model"
     },
     {
       "relation": "contains",
@@ -52008,9 +52008,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L691",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_6_security_architecture",
-      "target": "docs_mcp_implementation_plan_6_4_prompt_injection_protections",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_6_4_prompt_injection_protections"
     },
     {
       "relation": "contains",
@@ -52018,9 +52018,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L700",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_6_security_architecture",
-      "target": "docs_mcp_implementation_plan_6_5_audit_logging",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_6_5_audit_logging"
     },
     {
       "relation": "contains",
@@ -52028,9 +52028,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L724",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "target": "docs_mcp_implementation_plan_phase_1_read_only_tools_current",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_phase_1_read_only_tools_current"
     },
     {
       "relation": "contains",
@@ -52038,9 +52038,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L740",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "target": "docs_mcp_implementation_plan_phase_2_analytics_deep_dive",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_phase_2_analytics_deep_dive"
     },
     {
       "relation": "contains",
@@ -52048,9 +52048,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L752",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "target": "docs_mcp_implementation_plan_phase_3_admin_management_write",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_phase_3_admin_management_write"
     },
     {
       "relation": "contains",
@@ -52058,9 +52058,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L763",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "target": "docs_mcp_implementation_plan_phase_4_booking_management_write",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_phase_4_booking_management_write"
     },
     {
       "relation": "contains",
@@ -52068,9 +52068,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L773",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "target": "docs_mcp_implementation_plan_phase_5_ai_powered_analytics_recommendations",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_phase_5_ai_powered_analytics_recommendations"
     },
     {
       "relation": "contains",
@@ -52078,9 +52078,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L782",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_7_phase_wise_roadmap",
-      "target": "docs_mcp_implementation_plan_phase_6_multi_cinema_bi_platform",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_phase_6_multi_cinema_bi_platform"
     },
     {
       "relation": "contains",
@@ -52088,9 +52088,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_10_src_ratelimit_tokenbucket_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_10_src_ratelimit_tokenbucket_js"
     },
     {
       "relation": "contains",
@@ -52098,9 +52098,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1349",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_11_src_transports_stdio_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_11_src_transports_stdio_js"
     },
     {
       "relation": "contains",
@@ -52108,9 +52108,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1365",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_12_src_transports_http_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_12_src_transports_http_js"
     },
     {
       "relation": "contains",
@@ -52118,9 +52118,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1401",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_13_src_validation_schemas_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_13_src_validation_schemas_js"
     },
     {
       "relation": "contains",
@@ -52128,9 +52128,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1414",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_14_src_logging_logger_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_14_src_logging_logger_js"
     },
     {
       "relation": "contains",
@@ -52138,9 +52138,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1433",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_15_tool_example_src_tools_cinema_tools_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_15_tool_example_src_tools_cinema_tools_js"
     },
     {
       "relation": "contains",
@@ -52148,9 +52148,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1505",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_16_src_tools_movie_tools_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_16_src_tools_movie_tools_js"
     },
     {
       "relation": "contains",
@@ -52158,9 +52158,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1604",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_17_src_api_client_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_17_src_api_client_js"
     },
     {
       "relation": "contains",
@@ -52168,9 +52168,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1629",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_18_env_example",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_18_env_example"
     },
     {
       "relation": "contains",
@@ -52178,9 +52178,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L796",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_1_package_json",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_1_package_json"
     },
     {
       "relation": "contains",
@@ -52188,9 +52188,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L829",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_2_src_server_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_2_src_server_js"
     },
     {
       "relation": "contains",
@@ -52198,9 +52198,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L860",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_3_src_config_index_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_3_src_config_index_js"
     },
     {
       "relation": "contains",
@@ -52208,9 +52208,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L881",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_4_src_config_scope_map_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_4_src_config_scope_map_js"
     },
     {
       "relation": "contains",
@@ -52218,9 +52218,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L898",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_5_src_auth_scoperesolver_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_5_src_auth_scoperesolver_js"
     },
     {
       "relation": "contains",
@@ -52228,9 +52228,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L928",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_6_src_auth_permissions_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_6_src_auth_permissions_js"
     },
     {
       "relation": "contains",
@@ -52238,9 +52238,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L942",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_7_src_db_readonly_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_7_src_db_readonly_js"
     },
     {
       "relation": "contains",
@@ -52248,9 +52248,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_8_src_registry_index_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_8_src_registry_index_js"
     },
     {
       "relation": "contains",
@@ -52258,9 +52258,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1294",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_8_initial_implementation",
-      "target": "docs_mcp_implementation_plan_8_9_src_errors_index_js",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_8_9_src_errors_index_js"
     },
     {
       "relation": "contains",
@@ -52268,9 +52268,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1748",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_9_client_configuration",
-      "target": "docs_mcp_implementation_plan_chatgpt_openai_agents_http_mode",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_chatgpt_openai_agents_http_mode"
     },
     {
       "relation": "contains",
@@ -52278,9 +52278,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1671",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_9_client_configuration",
-      "target": "docs_mcp_implementation_plan_claude_desktop_claude_desktop_config_json",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_claude_desktop_claude_desktop_config_json"
     },
     {
       "relation": "contains",
@@ -52288,9 +52288,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1728",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_9_client_configuration",
-      "target": "docs_mcp_implementation_plan_cline_roo_code",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_cline_roo_code"
     },
     {
       "relation": "contains",
@@ -52298,9 +52298,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1708",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_9_client_configuration",
-      "target": "docs_mcp_implementation_plan_cursor_windsurf",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_cursor_windsurf"
     },
     {
       "relation": "contains",
@@ -52308,9 +52308,9 @@
       "source_file": "docs/mcp_implementation_plan.md",
       "source_location": "L1690",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_implementation_plan_9_client_configuration",
-      "target": "docs_mcp_implementation_plan_opencode_opencode_config_json_or_mcp_config",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_opencode_opencode_config_json_or_mcp_config"
     },
     {
       "relation": "contains",
@@ -52318,9 +52318,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_md",
-      "target": "docs_mcp_server_cinemax_mcp_server",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_cinemax_mcp_server"
     },
     {
       "relation": "contains",
@@ -52328,9 +52328,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L181",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_architecture",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_architecture"
     },
     {
       "relation": "contains",
@@ -52338,9 +52338,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L315",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_client_configuration",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_client_configuration"
     },
     {
       "relation": "contains",
@@ -52348,9 +52348,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L160",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_configuration",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_configuration"
     },
     {
       "relation": "contains",
@@ -52358,9 +52358,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L375",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_database_setup",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_database_setup"
     },
     {
       "relation": "contains",
@@ -52368,9 +52368,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_overview",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_overview"
     },
     {
       "relation": "contains",
@@ -52378,9 +52378,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L404",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_phase_roadmap",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_phase_roadmap"
     },
     {
       "relation": "contains",
@@ -52388,9 +52388,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L52",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_project_structure",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_project_structure"
     },
     {
       "relation": "contains",
@@ -52398,9 +52398,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L124",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_quick_start",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_quick_start"
     },
     {
       "relation": "contains",
@@ -52408,9 +52408,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L220",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_security",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_security"
     },
     {
       "relation": "contains",
@@ -52418,9 +52418,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_table_of_contents",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_table_of_contents"
     },
     {
       "relation": "contains",
@@ -52428,9 +52428,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_technology_stack",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_technology_stack"
     },
     {
       "relation": "contains",
@@ -52438,9 +52438,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L240",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_cinemax_mcp_server",
-      "target": "docs_mcp_server_tool_catalog",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_tool_catalog"
     },
     {
       "relation": "contains",
@@ -52448,9 +52448,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L132",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_quick_start",
-      "target": "docs_mcp_server_installation",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_installation"
     },
     {
       "relation": "contains",
@@ -52458,9 +52458,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L126",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_quick_start",
-      "target": "docs_mcp_server_prerequisites",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_prerequisites"
     },
     {
       "relation": "contains",
@@ -52468,9 +52468,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L145",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_quick_start",
-      "target": "docs_mcp_server_run",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_run"
     },
     {
       "relation": "contains",
@@ -52478,9 +52478,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L183",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_architecture",
-      "target": "docs_mcp_server_high_level_flow",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_high_level_flow"
     },
     {
       "relation": "contains",
@@ -52488,9 +52488,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L207",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_architecture",
-      "target": "docs_mcp_server_security_layers",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_security_layers"
     },
     {
       "relation": "contains",
@@ -52498,9 +52498,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L192",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_architecture",
-      "target": "docs_mcp_server_tool_call_flow",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_tool_call_flow"
     },
     {
       "relation": "contains",
@@ -52508,9 +52508,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L222",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_security",
-      "target": "docs_mcp_server_permission_model",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_permission_model"
     },
     {
       "relation": "contains",
@@ -52518,9 +52518,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L229",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_security",
-      "target": "docs_mcp_server_rls_architecture",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_rls_architecture"
     },
     {
       "relation": "contains",
@@ -52528,9 +52528,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L287",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_analytics_tools_8",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_analytics_tools_8"
     },
     {
       "relation": "contains",
@@ -52538,9 +52538,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L270",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_booking_tools_4",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_booking_tools_4"
     },
     {
       "relation": "contains",
@@ -52548,9 +52548,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L242",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_cinema_tools_4",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_cinema_tools_4"
     },
     {
       "relation": "contains",
@@ -52558,9 +52558,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L251",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_movie_tools_5",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_movie_tools_5"
     },
     {
       "relation": "contains",
@@ -52568,9 +52568,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_platform_tools_8",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_platform_tools_8"
     },
     {
       "relation": "contains",
@@ -52578,9 +52578,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L261",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_show_tools_4",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_show_tools_4"
     },
     {
       "relation": "contains",
@@ -52588,9 +52588,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L279",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_tool_catalog",
-      "target": "docs_mcp_server_user_tools_3_superadmin_only",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_user_tools_3_superadmin_only"
     },
     {
       "relation": "contains",
@@ -52598,9 +52598,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L362",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_client_configuration",
-      "target": "docs_mcp_server_chatgpt_openai_agents_http_mode",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_chatgpt_openai_agents_http_mode"
     },
     {
       "relation": "contains",
@@ -52608,9 +52608,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L317",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_client_configuration",
-      "target": "docs_mcp_server_claude_desktop",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_claude_desktop"
     },
     {
       "relation": "contains",
@@ -52618,9 +52618,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L358",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_client_configuration",
-      "target": "docs_mcp_server_cursor_windsurf_cline_roo_code",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_cursor_windsurf_cline_roo_code"
     },
     {
       "relation": "contains",
@@ -52628,9 +52628,9 @@
       "source_file": "docs/mcp_server.md",
       "source_location": "L338",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_mcp_server_client_configuration",
-      "target": "docs_mcp_server_opencode",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_opencode"
     },
     {
       "relation": "contains",

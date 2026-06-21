@@ -1649,8 +1649,8 @@ CINEMAX_MCP_API_KEY=cmax_abc123...
 # Option B: Multi-key scoped (key=role:hallId1,hallId2)
 # MCP_API_KEYS="cmax_admin=admin:uuid1,uuid2;cmax_super=superAdmin"
 
-# Optional: service token (Phase 3+)
-# MCP_SERVICE_TOKEN=eyJhbGci...
+# Required for API-proxied tools: service token (JWT admin access token)
+MCP_SERVICE_TOKEN=eyJhbGci...
 
 # Rate limiting limits
 RATELIMIT_CAPACITY=30
@@ -1680,6 +1680,7 @@ LOG_LEVEL=info
         "CINEMAX_MCP_API_KEY": "cmax_your_key_here",
         "DATABASE_URL": "postgresql://cinemax_reader:password@host:5432/cinema_hall_db",
         "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here",
         "LOG_LEVEL": "info"
       }
     }
@@ -1698,7 +1699,8 @@ LOG_LEVEL=info
       "env": {
         "CINEMAX_MCP_API_KEY": "cmax_your_key_here",
         "DATABASE_URL": "postgresql://cinemax_reader:password@host:5432/cinema_hall_db",
-        "API_BASE_URL": "http://localhost:5000"
+        "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here"
       }
     }
   }
@@ -1718,7 +1720,8 @@ Create `.cursor/mcp.json` (or platform equivalent):
       "env": {
         "CINEMAX_MCP_API_KEY": "cmax_your_key_here",
         "DATABASE_URL": "postgresql://cinemax_reader:password@host:5432/cinema_hall_db",
-        "API_BASE_URL": "http://localhost:5000"
+        "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here"
       }
     }
   }
@@ -1738,7 +1741,8 @@ Add to MCP settings in the extension settings UI or config file:
       "env": {
         "CINEMAX_MCP_API_KEY": "cmax_your_key_here",
         "DATABASE_URL": "postgresql://cinemax_reader:password@host:5432/cinema_hall_db",
-        "API_BASE_URL": "http://localhost:5000"
+        "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here"
       }
     }
   }

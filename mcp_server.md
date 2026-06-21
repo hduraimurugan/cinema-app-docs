@@ -171,6 +171,8 @@ All configuration is via environment variables, validated at startup by a zod sc
 | `MCP_API_KEYS` | Maybe | — | Multi-key scoped config: `key1=admin:uuid1,uuid2;key2=superAdmin` |
 | `LOG_LEVEL` | No | `info` | pino log level: `fatal`, `error`, `warn`, `info`, `debug`, `trace` |
 | `SENTRY_DSN` | No | — | Sentry error tracking DSN (optional) |
+| `MCP_SERVICE_TOKEN` | Yes (for API tools) | — | JWT access token used by the MCP server to authenticate its proxy requests with the backend API |
+
 
 **Authentication modes:**
 - **Single-key mode:** Set `CINEMAX_MCP_API_KEY` — the key gets `superAdmin` privileges with access to all halls.
@@ -328,6 +330,7 @@ Add to `claude_desktop_config.json`:
         "CINEMAX_MCP_API_KEY": "cmax_your_api_key_here",
         "DATABASE_URL": "postgresql://cinemax_reader:password@localhost:5432/cinema_hall_db",
         "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here",
         "LOG_LEVEL": "info"
       }
     }
@@ -348,7 +351,8 @@ Add to MCP config (typically `~/.opencode/config.json`):
       "env": {
         "CINEMAX_MCP_API_KEY": "cmax_your_api_key_here",
         "DATABASE_URL": "postgresql://cinemax_reader:password@localhost:5432/cinema_hall_db",
-        "API_BASE_URL": "http://localhost:5000"
+        "API_BASE_URL": "http://localhost:5000",
+        "MCP_SERVICE_TOKEN": "your_jwt_service_token_here"
       }
     }
   }
