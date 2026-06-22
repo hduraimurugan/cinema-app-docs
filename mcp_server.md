@@ -247,7 +247,7 @@ The SQL scripts in `sql/` set up:
 
 | Tool | Description | Input | Permission | Source |
 |---|---|---|---|---|
-| `list_cinemas` | List cinema halls (admins see own, superAdmins see all) | `{ active?: boolean }` | any | DB |
+| `list_cinemas` | List cinema halls scoped to the admin's organization (superAdmin scoped to their org) | `{ active?: boolean }` | any | DB |
 | `get_cinema` | Single cinema hall by ID with screen count + today's shows | `{ cinema_hall_id: uuid }` | any | DB |
 | `get_cinema_stats` | KPIs over date range: bookings, revenue, fees, top movies | `{ cinema_hall_id: uuid, from_date?, to_date? }` | any | DB |
 | `list_cinema_screens` | Screens in a hall with seat config and pricing tiers | `{ cinema_hall_id: uuid }` | any | DB |

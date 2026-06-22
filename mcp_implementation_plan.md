@@ -262,7 +262,7 @@ All 36 tools are **read-only**. Tools are grouped by domain. Each entry lists:
 ### 4.1 Cinema Tools (1–4)
 
 #### `list_cinemas`
-- **Description:** List cinema halls. Admins see only their own halls; SuperAdmins see all active halls.
+- **Description:** List cinema halls. Admins see only their own halls; SuperAdmins see only their organization's halls.
 - **Input:** `{ active?: boolean }` — filter by active status
 - **Output:** `{ cinemas: T[] }` — `{ id, name, location, district, state, phone, is_active, screens_count, created_at }`
 - **Access:** any authenticated scope
@@ -584,7 +584,7 @@ REVOKE SELECT (password) ON customers FROM cinemax_reader;
 ```sql
 -- sql/02_rls_policies.sql
 
--- cinema_hall: admins see only their halls; superAdmin sees all
+-- cinema_hall: admins see only their halls; superAdmin sees only their org's halls
 ALTER TABLE cinema_hall ENABLE ROW LEVEL SECURITY;
 CREATE POLICY cinema_hall_admin_scope ON cinema_hall
   FOR SELECT TO cinemax_reader
@@ -1439,7 +1439,7 @@ import { listCinemas, getCinema, getCinemaStats, listScreens } from "../db/reado
 export const cinemaTools = [
   {
     name: "list_cinemas",
-    description: "List cinema halls. Admins see only their own halls; SuperAdmins see all.",
+    description: "List cinema halls. Admins see only their own halls; SuperAdmins see only their organization's halls.",
     inputSchema: { active: z.boolean().optional() },
     permission: "any",
     rateLimit: { capacity: 30, refillPerSec: 2 },

@@ -929,18 +929,18 @@ Sets a password for OAuth-only accounts that have no existing password. Enforces
 
 ### Cinema Halls Management (`/api/halls`)
 
-All endpoints require **Admin** authentication (verified via `verifyCinemaAdminAccessToken`).
+All endpoints require **Admin** authentication (verified via `verifyCinemaAdminAccessToken`). Halls are scoped to the admin's organization — superAdmin sees their org's halls, not all platform halls.
 
 | Method | Endpoint | Auth | Description |
 | ------ | -------- | ---- | ----------- |
-| GET    | `/`      | Admin | Get all cinema halls owned by the logged-in admin |
+| GET    | `/`      | Admin | Get cinema halls scoped to the admin's organization |
 | POST   | `/`      | Admin | Create a new cinema hall |
 | PUT    | `/:id`   | Admin | Update an existing cinema hall (must own the hall) |
 | DELETE | `/:id`   | Admin | Delete a cinema hall (cascades to screens/shows/bookings) |
 
 #### GET `/api/halls`
 
-Returns all halls owned by the authenticated admin.
+Returns halls scoped to the authenticated admin's organization (superAdmin included).
 
 **Response (200):**
 
