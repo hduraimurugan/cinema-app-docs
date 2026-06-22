@@ -12,7 +12,7 @@
 5. [Configuration](#configuration)
 6. [Architecture](#architecture)
 7. [Security](#security)
-8. [Tool Catalog (36 Tools)](#tool-catalog)
+8. [Tool Catalog (40 Tools)](#tool-catalog)
 9. [Client Configuration](#client-configuration)
 10. [Database Setup](#database-setup)
 11. [Phase Roadmap](#phase-roadmap)
@@ -21,7 +21,7 @@
 
 ## Overview
 
-The Cinemax MCP server acts as a bridge between AI assistants (Claude Desktop, OpenCode, Cursor, ChatGPT, etc.) and the Cinemax cinema booking platform. It exposes **36 read-only tools** across 7 domains — Cinema, Movies, Shows, Bookings, Users, Analytics, and Platform.
+The Cinemax MCP server acts as a bridge between AI assistants (Claude Desktop, OpenCode, Cursor, ChatGPT, etc.) and the Cinemax cinema booking platform. It exposes **40 read-only tools** across 8 domains — Cinema, Movies, Shows, Bookings, Users, Analytics, Platform, and Team.
 
 **Data sources:**
 - **Direct DB queries** — analytics, aggregate stats, cinema/screen/show occupancy (PostgreSQL via `pg` pool, `cinemax_reader` role, RLS-enforced)
@@ -81,7 +81,7 @@ cinemax-mcp-server/
 │   │   └── client.js               # axios client (MCP_SERVICE_TOKEN + X-Hall-Id)
 │   │
 │   ├── registry/
-│   │   └── index.js                # Aggregates all 36 tools, registers on McpServer with middleware
+│   │   └── index.js                # Aggregates all 40 tools, registers on McpServer with middleware
 │   │
 │   ├── tools/
 │   │   ├── cinema.tools.js         # 4 tools: list/get cinemas, stats, screens
@@ -90,7 +90,8 @@ cinemax-mcp-server/
 │   │   ├── booking.tools.js        # 4 tools: single booking, list, summary, daily trend
 │   │   ├── user.tools.js           # 3 tools: customers list/detail/history (superAdmin only)
 │   │   ├── analytics.tools.js      # 8 tools: daily/weekly/monthly collections, occupancy, utilization, revenue, movie/show performance
-│   │   └── platform.tools.js       # 8 tools: dashboard stats, payment orders, refunds, offers, ads, settings, admins, audit logs
+│   │   ├── platform.tools.js       # 8 tools: dashboard stats, payment orders, refunds, offers, ads, settings, admins, audit logs
+│   │   └── team.tools.js           # 4 tools: organization settings, hall settings, team members, roles/permissions
 │   │
 │   ├── validation/
 │   │   └── schemas.js              # Shared zod: uuid, dateStr, pagination, dateRange, cinemaHallId, bookingStatus
@@ -225,8 +226,9 @@ AI Assistant ──stdio/HTTP──> cinemax-mcp-server ──DB/API──> Cine
 
 | Role | Can call | Cannot call |
 |---|---|---|
-| `admin` | Cinema (1–4), Movie (5–9), Show (10–13), Booking (14–17), Analytics (21–28), Dashboard stats (29), Payment orders (30), Refunds (31), Active ads (33), Settings (34) | User tools (18–20), Offers (32), Admins (35), Audit logs (36) |
-| `superAdmin` | All 36 tools | — |
+| `admin` | Cinema (1–4), Movie (5–9), Show (10–13), Booking (14–17), Analytics (21–28), Dashboard stats (29), Payment orders (30), Refunds (31), Active ads (33), Settings (34), Team & settings tools (37–40) | User tools (18–20), Offers (32), Admins (35), Audit logs (36) |
+| `owner` | Same as `admin` | User tools (18–20), Offers (32), Admins (35), Audit logs (36) |
+| `superAdmin` | All 40 tools | — |
 
 ### RLS Architecture
 
@@ -312,6 +314,15 @@ The SQL scripts in `sql/` set up:
 | `list_admins` | All cinema hall admins with hall details | `{ search?, page?, limit? }` | superAdmin | API |
 | `get_admin_audit_logs` | Security audit logs for a specific admin | `{ admin_id: uuid }` | superAdmin | API |
 
+### Team & Settings Tools (4)
+
+| Tool | Description | Input | Permission | Source |
+|---|---|---|---|---|
+| `get_org_settings` | Fetch all configuration settings sections for the caller's organization | `{}` | admin | DB |
+| `get_hall_settings` | Fetch configuration settings for a specific cinema hall | `{ cinema_hall_id: uuid }` | admin | DB |
+| `list_team_members` | List all administrators and staff members in the caller's organization | `{}` | admin | DB |
+| `list_roles_permissions` | List all roles and their associated permissions configured in the caller's organization | `{}` | admin | DB |
+
 ---
 
 ## Client Configuration
@@ -396,10 +407,16 @@ Tables accessible to the MCP server (via `cinemax_reader` role):
 - `payment_orders` — Razorpay payment orders
 - `refunds` — refund records
 - `customers` — registered customers (superAdmin only via RLS)
-- `cinema_admin_user` — admin users (superAdmin only via RLS)
+- `cinema_admin_user` — admin users (restricted to own organization members via RLS, unless superAdmin)
 - `offers` / `offer_redemptions` — discount offers
 - `ads` / `ad_clicks` — advertisements
-- `settings` — global system settings
+- `organizations` — multi-tenant organizations
+- `organization_settings` — organization-level settings (JSONB)
+- `hall_settings` — branch/hall-level settings (JSONB)
+- `user_settings` — admin user preferences (JSONB)
+- `roles` / `permissions` / `role_permissions` — RBAC configuration tables
+- `organization_members` — team membership directory
+- `hall_assignments` — staff assignments to branches
 
 **Explicitly revoked** from the reader role: `admin_sessions`, `customer_sessions`, `admin_verification_tokens`, `admin_password_reset_tokens`, `otp_verifications`, `webhook_events`, and `password` columns on `cinema_admin_user` and `customers`.
 
