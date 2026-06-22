@@ -29,11 +29,11 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";   -- provides gen_random_uuid()
 CREATE TABLE IF NOT EXISTS cinema_admin_user (
   id                      UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   email                   TEXT        UNIQUE NOT NULL,
-  password                TEXT        NOT NULL,
+  password                TEXT,
   name                    TEXT        NOT NULL,
   phone                   TEXT,
   role                    VARCHAR(20) NOT NULL DEFAULT 'admin'
-                            CHECK (role IN ('admin', 'superAdmin')),
+                            CHECK (role IN ('admin', 'superAdmin', 'staff')),
   email_verified          BOOLEAN     NOT NULL DEFAULT FALSE,
   email_verified_at       TIMESTAMPTZ,
   failed_login_attempts   INT         NOT NULL DEFAULT 0,
@@ -56,6 +56,18 @@ ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS last_login_at         TIM
 UPDATE cinema_admin_user
   SET email_verified = TRUE, email_verified_at = now()
   WHERE email_verified = FALSE;
+
+-- Ensure constraints allow 'staff' role
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM pg_constraint WHERE conname = 'cinema_admin_user_role_check'
+  ) THEN
+    ALTER TABLE cinema_admin_user DROP CONSTRAINT cinema_admin_user_role_check;
+  END IF;
+END $$;
+ALTER TABLE cinema_admin_user ADD CONSTRAINT cinema_admin_user_role_check
+  CHECK (role IN ('superAdmin', 'admin', 'staff'));
 
 -- ── Admin email-verification tokens ───────────────────────────────────────
 -- Raw token sent in email; only the SHA-256 hash is stored here.
@@ -103,6 +115,7 @@ CREATE INDEX IF NOT EXISTS idx_admin_sessions_token_hash
   ON admin_sessions(refresh_token_hash) WHERE is_revoked = FALSE;
 
 -- ── Admin security audit log ─────────────────────────────────────────────────
+-- Raw tokens usage tracking and security logs.
 CREATE TABLE IF NOT EXISTS admin_security_logs (
   id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   admin_id   UUID        REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
@@ -118,10 +131,68 @@ CREATE INDEX IF NOT EXISTS idx_admin_security_logs_admin_id
 CREATE INDEX IF NOT EXISTS idx_admin_security_logs_created_at
   ON admin_security_logs(created_at DESC);
 
+-- ── Organizations (tenant layer) ───────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS organizations (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name              TEXT NOT NULL,
+  slug              TEXT UNIQUE NOT NULL,
+  owner_id          UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
+  default_timezone  TEXT NOT NULL DEFAULT 'Asia/Kolkata',
+  default_currency  TEXT NOT NULL DEFAULT 'INR',
+  is_active         BOOLEAN NOT NULL DEFAULT TRUE,
+  plan              TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','pro','enterprise')),
+  created_at        TIMESTAMPTZ DEFAULT now(),
+  updated_at        TIMESTAMPTZ DEFAULT now()
+);
 
+-- ── Roles & Permissions (RBAC layer) ───────────────────────────────────────
+CREATE TABLE IF NOT EXISTS roles (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id            UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  key               VARCHAR(50) NOT NULL,
+  label             VARCHAR(100) NOT NULL,
+  description       TEXT,
+  is_system         BOOLEAN NOT NULL DEFAULT FALSE,
+  permissions_version INTEGER NOT NULL DEFAULT 1,
+  created_at        TIMESTAMPTZ DEFAULT now(),
+  updated_at        TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (org_id, key)
+);
+
+CREATE TABLE IF NOT EXISTS permissions (
+  id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  key       VARCHAR(100) UNIQUE NOT NULL,
+  label     VARCHAR(200) NOT NULL,
+  resource  VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS role_permissions (
+  role_id       UUID NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+  permission_id UUID NOT NULL REFERENCES permissions(id) ON DELETE CASCADE,
+  PRIMARY KEY (role_id, permission_id)
+);
+
+-- ── Organization Members ───────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS organization_members (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id      UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  admin_id    UUID NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  role_id     UUID NOT NULL REFERENCES roles(id),
+  status      VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('invited','active','suspended','removed')),
+  invited_by  UUID REFERENCES cinema_admin_user(id),
+  invited_at  TIMESTAMPTZ,
+  joined_at   TIMESTAMPTZ,
+  created_at  TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (org_id, admin_id)
+);
+CREATE INDEX IF NOT EXISTS idx_org_members_admin ON organization_members(admin_id);
+CREATE INDEX IF NOT EXISTS idx_org_members_org ON organization_members(org_id);
+
+-- ── Cinema Halls & Hall Assignments ────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS cinema_hall (
   id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
   admin_id     UUID         REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  org_id       UUID         NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   name         TEXT         NOT NULL,
   location     TEXT         NOT NULL,
   district     TEXT         NOT NULL DEFAULT '',
@@ -132,6 +203,19 @@ CREATE TABLE IF NOT EXISTS cinema_hall (
   description  TEXT,
   is_active    BOOLEAN      NOT NULL DEFAULT TRUE,
   created_at   TIMESTAMPTZ  DEFAULT now()
+);
+
+-- Add org_id to existing cinema_hall table (idempotent)
+ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS org_id UUID REFERENCES organizations(id) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS hall_assignments (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_member_id   UUID NOT NULL REFERENCES organization_members(id) ON DELETE CASCADE,
+  hall_id         UUID NOT NULL REFERENCES cinema_hall(id) ON DELETE CASCADE,
+  scope           VARCHAR(20) NOT NULL DEFAULT 'full' CHECK (scope IN ('full','read_only','limited')),
+  assigned_by     UUID REFERENCES cinema_admin_user(id),
+  created_at      TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (org_member_id, hall_id)
 );
 
 -- Add columns to existing cinema_hall tables (idempotent)
@@ -464,49 +548,11 @@ CREATE TABLE IF NOT EXISTS ad_clicks (
 
 
 -- ---------------------------------------------------------------------------
--- 8. SETTINGS
+-- 8. SETTINGS & SCHEMAS
 -- ---------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS settings (
-  key        TEXT PRIMARY KEY,
-  value      TEXT NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-INSERT INTO settings (key, value) VALUES
-  ('convenience_fee_per_ticket', '15'),
-  ('gst_percentage', '18')
-ON CONFLICT (key) DO NOTHING;
-
-
--- ---------------------------------------------------------------------------
--- 9. SETTINGS MODULE (Phase 1)
--- ---------------------------------------------------------------------------
-
--- ── Organizations (tenant layer) ──────────────────────────────────────
-CREATE TABLE IF NOT EXISTS organizations (
-  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name              TEXT NOT NULL,
-  slug              TEXT UNIQUE NOT NULL,
-  owner_id          UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
-  default_timezone  TEXT NOT NULL DEFAULT 'Asia/Kolkata',
-  default_currency  TEXT NOT NULL DEFAULT 'INR',
-  is_active         BOOLEAN NOT NULL DEFAULT TRUE,
-  plan              TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','pro','enterprise')),
-  created_at        TIMESTAMPTZ DEFAULT now(),
-  updated_at        TIMESTAMPTZ DEFAULT now()
-);
-
--- Auto-create an org for every existing admin who does not have one
-INSERT INTO organizations (name, slug, owner_id)
-SELECT
-  COALESCE(cau.name, cau.email) || '''s Cinema',
-  LOWER(REPLACE(COALESCE(cau.name, cau.email), ' ', '-')) || '-' || LEFT(cau.id::text, 8),
-  cau.id
-FROM cinema_admin_user cau
-WHERE NOT EXISTS (
-  SELECT 1 FROM organizations o WHERE o.owner_id = cau.id
-);
+-- Drop legacy settings table if it exists
+DROP TABLE IF EXISTS settings CASCADE;
 
 -- ── Organization-level settings (JSONB per section) ──────────────────
 -- Sections: general, payment, tickets, security, notifications, branding, integrations, advanced
@@ -548,26 +594,220 @@ CREATE TABLE IF NOT EXISTS user_settings (
 );
 CREATE INDEX IF NOT EXISTS idx_user_settings_admin ON user_settings(admin_id);
 
--- ── Migrate legacy settings into organization_settings.payment ──────
-INSERT INTO organization_settings (org_id, section, value, updated_at)
-SELECT o.id, 'payment',
-  jsonb_build_object(
-    'convenience_fee', jsonb_build_object('model', 'per_ticket', 'amount', COALESCE((SELECT value::numeric FROM settings WHERE key='convenience_fee_per_ticket'), 15)),
-    'gst_percentage', COALESCE((SELECT value::numeric FROM settings WHERE key='gst_percentage'), 18),
-    'gst_applies_to', 'convenience_fee',
-    'state_taxes', '[]'::jsonb
-  ),
-  now()
-FROM organizations o
+-- ---------------------------------------------------------------------------
+-- 9. RBAC & PERMISSION SEEDING
+-- ---------------------------------------------------------------------------
+
+-- Seed Permissions
+INSERT INTO permissions (key, label, resource) VALUES
+  ('movies.create',   'Create Movies',          'movies'),
+  ('movies.read',     'Read Movies',            'movies'),
+  ('movies.update',   'Update Movies',          'movies'),
+  ('movies.delete',   'Delete Movies',          'movies'),
+  ('shows.create',    'Create Shows',           'shows'),
+  ('shows.read',      'Read Shows',             'shows'),
+  ('shows.update',    'Update Shows',           'shows'),
+  ('shows.delete',    'Delete Shows',           'shows'),
+  ('shows.cancel',    'Cancel Shows',           'shows'),
+  ('screens.create',  'Create Screens',         'screens'),
+  ('screens.read',    'Read Screens',           'screens'),
+  ('screens.update',  'Update Screens',         'screens'),
+  ('screens.delete',  'Delete Screens',         'screens'),
+  ('bookings.read',   'Read Bookings',          'bookings'),
+  ('bookings.verify', 'Verify Bookings',        'bookings'),
+  ('bookings.cancel', 'Cancel Bookings',        'bookings'),
+  ('bookings.modify', 'Modify Bookings',        'bookings'),
+  ('refunds.create',  'Create Refunds',         'refunds'),
+  ('refunds.read',    'Read Refunds',           'refunds'),
+  ('refunds.settle',  'Settle Refunds',         'refunds'),
+  ('offers.create',   'Create Offers',          'offers'),
+  ('offers.read',     'Read Offers',            'offers'),
+  ('offers.update',   'Update Offers',          'offers'),
+  ('offers.delete',   'Delete Offers',          'offers'),
+  ('ads.create',      'Create Ads',             'ads'),
+  ('ads.read',        'Read Ads',               'ads'),
+  ('ads.update',      'Update Ads',             'ads'),
+  ('ads.delete',      'Delete Ads',             'ads'),
+  ('customers.read',  'Read Customers',         'customers'),
+  ('customers.manage','Manage Customers',       'customers'),
+  ('payment.read',    'Read Payment',           'payment'),
+  ('payment.manage',  'Manage Payment',         'payment'),
+  ('payment.settle',  'Settle Payment',         'payment'),
+  ('settings.org.read',   'Read Org Settings',     'settings'),
+  ('settings.org.update', 'Update Org Settings',   'settings'),
+  ('settings.hall.read',  'Read Hall Settings',    'settings'),
+  ('settings.hall.update','Update Hall Settings',  'settings'),
+  ('settings.user.read',  'Read User Settings',    'settings'),
+  ('settings.user.update','Update User Settings',  'settings'),
+  ('settings.advanced.manage','Manage Advanced Settings','settings'),
+  ('team.manage',    'Manage Team',             'team'),
+  ('team.invite',    'Invite Team Members',     'team'),
+  ('team.revoke',    'Revoke Team Members',     'team'),
+  ('roles.manage',   'Manage Roles',            'roles'),
+  ('roles.read',     'Read Roles',              'roles'),
+  ('audit.view',     'View Audit Logs',         'audit'),
+  ('analytics.view', 'View Analytics',          'analytics'),
+  ('analytics.manage','Manage Analytics',       'analytics'),
+  ('dashboard.view', 'View Dashboard',          'dashboard'),
+  ('verify-ticket.use','Use Verify Ticket',     'verify-ticket'),
+  ('integrations.manage','Manage Integrations', 'integrations'),
+  ('billing.manage', 'Manage Billing',          'billing'),
+  ('org.delete',     'Delete Organization',     'org')
+ON CONFLICT (key) DO NOTHING;
+
+-- Seed default orgs for any cinema admin who doesn't have one yet (backfill)
+INSERT INTO organizations (name, slug, owner_id)
+SELECT
+  COALESCE(cau.name, cau.email) || '''s Cinema',
+  LOWER(REPLACE(COALESCE(cau.name, cau.email), ' ', '-')) || '-' || LEFT(cau.id::text, 8),
+  cau.id
+FROM cinema_admin_user cau
 WHERE NOT EXISTS (
-  SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'payment'
+  SELECT 1 FROM organizations o WHERE o.owner_id = cau.id
 );
 
--- ── Seed default org-level sections for every org (if missing) ───────
+-- Associate halls with organization if missing (backfill org_id column)
+UPDATE cinema_hall ch
+SET org_id = COALESCE(
+  (SELECT id FROM organizations o WHERE o.owner_id = ch.admin_id LIMIT 1),
+  (SELECT id FROM organizations LIMIT 1)
+)
+WHERE org_id IS NULL;
+
+-- Seed System Roles for all organizations
+INSERT INTO roles (org_id, key, label, description, is_system)
+SELECT o.id, r.key, r.label, r.description, TRUE
+FROM organizations o
+CROSS JOIN (VALUES
+  ('owner',           'Owner',           'Full access to all features including billing and org management'),
+  ('admin',           'Admin',           'Full access except billing, org deletion, and role management'),
+  ('manager',         'Manager',         'Manage shows, screens, bookings, refunds, and view customers'),
+  ('sales',           'Sales',           'Handle bookings, refunds, and customer inquiries'),
+  ('finance',         'Finance',         'View bookings, payments, refunds, and analytics'),
+  ('marketing',       'Marketing',       'Manage offers, ads, and view customer analytics'),
+  ('ticket_operator', 'Ticket Operator',  'Verify tickets and view bookings and shows'),
+  ('auditor',         'Auditor',         'Read-only access across all resources')
+) AS r(key, label, description)
+WHERE NOT EXISTS (
+  SELECT 1 FROM roles r2 WHERE r2.org_id = o.id AND r2.key = r.key
+);
+
+-- Seed Role Permissions per organization
+-- Owner
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'owner'
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Admin
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'admin'
+  AND p.key NOT IN ('org.delete', 'roles.manage', 'billing.manage')
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Manager
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'manager'
+  AND p.key IN (
+    'shows.create', 'shows.read', 'shows.update', 'shows.delete', 'shows.cancel',
+    'screens.create', 'screens.read', 'screens.update', 'screens.delete',
+    'bookings.read', 'bookings.verify', 'bookings.cancel', 'bookings.modify',
+    'refunds.create', 'refunds.read', 'refunds.settle',
+    'movies.read', 'movies.update',
+    'settings.hall.read', 'settings.hall.update',
+    'customers.read', 'dashboard.view'
+  )
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Sales
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'sales'
+  AND p.key IN ('bookings.read', 'bookings.cancel', 'refunds.create', 'refunds.read', 'dashboard.view', 'customers.read')
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Finance
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'finance'
+  AND p.key IN ('bookings.read', 'payment.read', 'refunds.create', 'refunds.read', 'refunds.settle', 'analytics.view', 'dashboard.view', 'customers.read')
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Marketing
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'marketing'
+  AND p.key IN ('offers.create', 'offers.read', 'offers.update', 'offers.delete', 'ads.create', 'ads.read', 'ads.update', 'ads.delete', 'movies.read', 'customers.read', 'analytics.view', 'dashboard.view')
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Ticket Operator
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'ticket_operator'
+  AND p.key IN ('shows.read', 'bookings.read', 'bookings.verify', 'verify-ticket.use', 'customers.read', 'dashboard.view')
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Auditor
+INSERT INTO role_permissions (role_id, permission_id)
+SELECT r.id, p.id
+FROM roles r
+CROSS JOIN permissions p
+WHERE r.key = 'auditor'
+  AND (p.key LIKE '%.read' OR p.key IN ('audit.view', 'dashboard.view'))
+  AND NOT EXISTS (
+    SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
+  );
+
+-- Backfill: Add existing owners as org members
+INSERT INTO organization_members (org_id, admin_id, role_id, status, joined_at)
+SELECT o.id, o.owner_id, r.id, 'active', now()
+FROM organizations o
+JOIN roles r ON r.org_id = o.id AND r.key = 'owner'
+WHERE o.owner_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM organization_members om WHERE om.org_id = o.id AND om.admin_id = o.owner_id
+  );
+
+-- ── Seed default org-level settings for every org (if missing) ───────
 INSERT INTO organization_settings (org_id, section, value)
 SELECT o.id, 'general', '{"org_name":"","timezone":"Asia/Kolkata","currency":"INR","language":"en"}'::jsonb
 FROM organizations o
 WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'general');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'payment', '{"convenience_fee":{"model":"per_ticket","amount":15},"gst_percentage":18,"gst_applies_to":"convenience_fee","state_taxes":[]}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'payment');
 
 INSERT INTO organization_settings (org_id, section, value)
 SELECT o.id, 'tickets', '{"booking_id_prefix":"CINE","qr_error_correction":"M","pdf_footer_text":""}'::jsonb

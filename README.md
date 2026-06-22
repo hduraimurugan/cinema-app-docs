@@ -48,7 +48,7 @@ This folder contains complete documentation for all components of the applicatio
 
 **What's inside:**
 
-- Full idempotent schema: all 16 tables, indexes, triggers, seed data
+- Full idempotent schema: all 30 tables, indexes, triggers, seed data
 - Works on both local PostgreSQL and Neon (paste into pgAdmin or Neon SQL Editor)
 - Fixes ordering bugs in the original `psql.sql` (FK dependencies, missing `role` column, missing UNIQUE on `otp_verifications.email`)
 - Commented superAdmin INSERT template at the bottom
@@ -185,7 +185,7 @@ All documentation includes **34 Mermaid diagrams** for visual representation:
 | Total Lines           | 4,800+ |
 | Mermaid Diagrams      | 35+    |
 | API Endpoints         | 47+    |
-| Database Tables       | 16 (+ 2 new columns) |
+| Database Tables       | 30 |
 | Components Documented | 26+    |
 
 ---

@@ -21,7 +21,19 @@ The Cinema Hall Ticket Booking backend is built with **Express.js** and **Postgr
 
 ```mermaid
 erDiagram
-    cinema_admin_user ||--o{ cinema_hall : "owns"
+    cinema_admin_user ||--o{ organizations : "owns"
+    organizations ||--o{ organization_members : "has"
+    cinema_admin_user ||--o{ organization_members : "member of"
+    organizations ||--o{ roles : "defines"
+    roles ||--o{ role_permissions : "has"
+    permissions ||--o{ role_permissions : "granted to"
+    organization_members ||--o{ hall_assignments : "assigned to"
+    cinema_hall ||--o{ hall_assignments : "has"
+    organizations ||--o{ cinema_hall : "owns"
+    organizations ||--o{ organization_settings : "has"
+    cinema_hall ||--o{ hall_settings : "has"
+    cinema_admin_user ||--o{ user_settings : "has"
+    
     cinema_admin_user ||--o{ admin_verification_tokens : "verifies via"
     cinema_admin_user ||--o{ admin_password_reset_tokens : "resets via"
     cinema_admin_user ||--o{ admin_sessions : "has sessions"
@@ -44,9 +56,89 @@ erDiagram
     cinema_hall ||--o{ offers : "scoped to (optional)"
     cinema_admin_user ||--o{ offers : "created by"
 
-    settings {
-        text key PK
-        text value
+    organizations {
+        uuid id PK
+        text name
+        text slug UK
+        uuid owner_id FK
+        text default_timezone
+        text default_currency
+        boolean is_active
+        text plan
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    organization_members {
+        uuid id PK
+        uuid org_id FK
+        uuid admin_id FK
+        uuid role_id FK
+        varchar status
+        uuid invited_by FK
+        timestamptz invited_at
+        timestamptz joined_at
+        timestamptz created_at
+    }
+
+    roles {
+        uuid id PK
+        uuid org_id FK
+        varchar key
+        varchar label
+        text description
+        boolean is_system
+        int permissions_version
+        timestamptz created_at
+        timestamptz updated_at
+    }
+
+    permissions {
+        uuid id PK
+        varchar key UK
+        varchar label
+        varchar resource
+    }
+
+    role_permissions {
+        uuid role_id PK, FK
+        uuid permission_id PK, FK
+    }
+
+    hall_assignments {
+        uuid id PK
+        uuid org_member_id FK
+        uuid hall_id FK
+        varchar scope
+        uuid assigned_by FK
+        timestamptz created_at
+    }
+
+    organization_settings {
+        uuid id PK
+        uuid org_id FK
+        text section
+        jsonb value
+        int schema_version
+        uuid updated_by FK
+        timestamptz updated_at
+    }
+
+    hall_settings {
+        uuid id PK
+        uuid hall_id FK
+        text section
+        jsonb value
+        int schema_version
+        uuid updated_by FK
+        timestamptz updated_at
+    }
+
+    user_settings {
+        uuid id PK
+        uuid admin_id FK
+        text section
+        jsonb value
         timestamptz updated_at
     }
 
@@ -110,6 +202,7 @@ erDiagram
     cinema_hall {
         uuid id PK
         uuid admin_id FK
+        uuid org_id FK
         text name
         text location
         text district
@@ -2025,68 +2118,105 @@ Looks up a booking by its full UUID — used by the admin QR code scanner to ver
 
 ---
 
-### Settings (`/api/settings`)
+### Settings Management (`/api/settings`)
+
+The platform settings are structured into three scopes: Organization level (tenant branding, billing/payment fees, tickets config, security), Hall level (cinema profile, showtimes defaults, booking rules), and User level (UI theme and notification channels).
+
+#### 1. Organization Settings
 
 | Method | Endpoint | Auth | Description |
 | ------ | -------- | ---- | ----------- |
-| GET    | `/`      | None (public) | Get current system settings |
-| PUT    | `/`      | SuperAdmin | Update convenience fee and/or GST percentage |
+| GET    | `/org`   | Admin | Get all organization settings sections |
+| PATCH  | `/org`   | Admin + SuperAdmin | Update specific organization settings section |
 
-#### GET `/api/settings`
-
-Returns system-wide booking fee configuration. Used by the user frontend to calculate the order total.
-
-**Response (200):**
-
+**Request Body for PATCH `/org`**:
 ```json
 {
-  "convenience_fee_per_ticket": 15,
-  "gst_percentage": 18
+  "section": "payment",
+  "value": {
+    "convenience_fee": { "model": "per_ticket", "amount": 15 },
+    "gst_percentage": 18,
+    "gst_applies_to": "convenience_fee",
+    "state_taxes": []
+  }
+}
+```
+*Note: Organization name updates to the "general" section are automatically synchronized directly into the `organizations.name` column (the source of truth).*
+
+#### 2. Hall-level Settings
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| GET    | `/hall/:hallId` | Admin + Active Hall | Get active cinema hall settings sections |
+| PATCH  | `/hall/:hallId` | Admin + Active Hall | Update specific cinema hall settings section |
+
+**Request Body for PATCH `/hall/:hallId`**:
+```json
+{
+  "section": "booking",
+  "value": {
+    "max_seats_per_booking": 10,
+    "hold_minutes": 5,
+    "cancellation": { "allowed": true, "window_minutes": 120, "penalty_percentage": 10 }
+  }
 }
 ```
 
-#### PUT `/api/settings`
+#### 3. User-level Settings
 
-Updates one or both settings. SuperAdmin only.
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| GET    | `/user`  | Admin | Get authenticated admin settings preferences |
+| PATCH  | `/user`  | Admin | Update admin user appearance and notification toggles |
 
-**Request Body:**
+#### 4. Backward Compatibility Endpoints
 
+To support existing frontend and customer flow calculations, compatibility shims are provided:
+
+- **GET `/api/settings`** (Public): Resolves the `convenience_fee_per_ticket` and `gst_percentage` from the authenticated user's organization settings `payment` section dynamically.
+- **PUT `/api/settings`** (Admin + SuperAdmin): Updates the convenience fee and GST percentage fields in the active organization settings `payment` section.
+
+---
+
+### Onboarding API (`/api/auth/onboarding`)
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| POST   | `/onboarding` | Admin | Transactionally initializes the multi-tenant organization, seeds roles, assigns permissions, configures default settings, and creates the first cinema hall. |
+
+**Request Body**:
 ```json
 {
-  "convenience_fee_per_ticket": 20,
-  "gst_percentage": 18
+  "orgName": "Cineplex Entertainment",
+  "name": "Grand Cinema Salai",
+  "location": "42 Anna Salai, Chennai",
+  "district": "Chennai",
+  "state": "Tamil Nadu",
+  "latitude": 13.0827,
+  "longitude": 80.2707,
+  "phone": "9876543210",
+  "description": "Premium multi-screen theater in Anna Salai"
 }
 ```
 
-Both fields are optional — only the fields provided are updated.
-
-**Response (200):**
-
+**Response (201)**:
 ```json
-{ "message": "Settings updated successfully" }
+{
+  "message": "Onboarding completed successfully",
+  "orgId": "org-uuid-xxxx",
+  "orgName": "Cineplex Entertainment",
+  "hall": {
+    "id": "hall-uuid-xxxx",
+    "name": "Grand Cinema Salai",
+    "location": "42 Anna Salai, Chennai",
+    "district": "Chennai",
+    "state": "Tamil Nadu",
+    "is_active": true
+  }
+}
 ```
+*Note: The onboarding process uses transactions (`BEGIN/COMMIT/ROLLBACK`) to guarantee that organizations, roles, permissions, settings, members, and halls are seeded atomicly without half-created records.*
 
-**Validation:**
-- `convenience_fee_per_ticket` must be ≥ 0
-- `gst_percentage` must be between 0 and 100
-
-#### settings table
-
-```sql
-CREATE TABLE IF NOT EXISTS settings (
-  key TEXT PRIMARY KEY,
-  value TEXT NOT NULL,
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Default seed values
-INSERT INTO settings (key, value) VALUES
-  ('convenience_fee_per_ticket', '15'),
-  ('gst_percentage', '18')
-ON CONFLICT (key) DO NOTHING;
-```
-
-**Migration**: Run `migration_settings.sql`
 
 ---
 

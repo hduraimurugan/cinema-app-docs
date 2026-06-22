@@ -184,13 +184,24 @@ sequenceDiagram
 </ProtectedRoute>
 ```
 
-**AdminProtectedRoute** — Requires SuperAdmin role
+**AdminProtectedRoute** — Requires platform SuperAdmin or specific role-based organization permissions
 
 ```jsx
-<AdminProtectedRoute>
+// Gated by a specific permission:
+<AdminProtectedRoute permission="movies.read">
   <MovieManagement />
 </AdminProtectedRoute>
+
+// Restrict strictly to platform superAdmin:
+<AdminProtectedRoute requireSuperAdmin={true}>
+  <AdsManagement />
+</AdminProtectedRoute>
 ```
+
+- `requireSuperAdmin`: restricts access exclusively to platform-level superAdmin users, bypassing normal organization permissions (used for Ads, Customers, and Hall Admins list pages).
+- `permission`: checks if the user possesses the required permission inside their organization using the `can(permission)` helper from the `PermissionContext`. Platform-level superAdmins bypass all permission checks.
+- **Onboarding Redirect**: If the user is authenticated but does not have an organization (`user.orgId`) and is not a platform superAdmin, they are redirected to `/onboarding`.
+
 
 ### AuthPage (Unified Authentication Page)
 
@@ -259,21 +270,24 @@ Handles the GitHub OAuth redirect callback. Reads the `code` query parameter and
 To support admins managing multiple cinema halls, the system divides the admin's workspace by the selected active hall.
 
 #### 1. Onboarding Page (`/onboarding`)
-- **Access**: Gated behind `ProtectedRoute`. Displayed only if the logged-in admin has no cinema halls created.
-- **Wizard**: 2-step setup:
-  - **Step 1 — Hall Details**: Hall Name, Full Address, State, and District (populated via `country-state-city`).
-  - **Step 2 — Location Pinning**: Leaflet map for coordinate selection. Includes search functionality via Nominatim geocoding. Pin is draggable, and coordinates are saved automatically.
-- Upon completion, calls `POST /api/halls` to save the hall, refetches the user's halls list, sets the newly created hall as active, and redirects to the home dashboard.
+- **Access**: Gated behind `ProtectedRoute`. Displayed only if the logged-in admin does not belong to an organization (`user.orgId` is missing).
+- **Wizard**: 3-step setup:
+  - **Step 1 — Create Your Organization**: Enter the Organization Name (e.g., Cineplex Entertainment).
+  - **Step 2 — First Cinema Hall Details**: Enter the Hall Name, Full Address, State, and District (populated via `country-state-city` dynamic dropdowns).
+  - **Step 3 — Location Pinning**: Leaflet map for coordinate selection, with Nominatim geocoding search and a draggable map marker (Optional).
+  - **Step 4 — Success Screen**: Animated success loading bar, refetches user and halls list, and redirects to the home dashboard.
+- Upon completion, calls `POST /api/auth/onboarding` to transactionally create the organization, seed default roles and permissions, insert default organization/hall/user settings, create the first cinema hall, assign the onboarding user as the "owner" role within the organization, set the hall as active, and redirect.
 
-**UI Design** (May 2026 redesign):
+**UI Design** (June 2026 redesign):
 - Same fixed-background + two-layer scrolling pattern as `RegisterPage` — body `overflow: hidden` no longer clips the page
 - Glass card with a 3px gradient accent bar at the top, `backdrop-blur-xl`, and deep drop shadow
 - Step indicator circles are `w-9 h-9`; active step has a glow ring; completed steps show `CheckCircle2`
 - Step connector line animates left-to-right on step completion via CSS transition on width
 - Section headers use a small icon box (`w-7 h-7 rounded-lg bg-primary/15`) rather than a bare icon
-- "Optional" label on Step 2 is a styled pill badge
+- "Optional" label on Step 3 is a styled pill badge
 - Coordinates badge has a subtle `shadow-[0_0_16px_rgba(var(--primary-rgb),0.1)]` glow
 - **Sign Out button**: `fixed top-4 left-4 z-50` — always pinned to the viewport top-left, independent of scroll position
+
 
 #### 2. Hall Guard (`HallGuard.jsx`)
 - Gated routes are checked against the global `halls` context.
@@ -1643,26 +1657,45 @@ Three sections on one page:
 - **Disconnect** — calls `POST /api/auth/unlink-provider`; blocked if it's the only login method and no password is set
 - After connect/disconnect, calls `refreshUser()` to update `auth_providers` in state
 
-#### SettingsPage
+#### Settings Layout
 
-**Route**: `/settings`
-**Component**: `SettingsPage.jsx`
-**Access**: All admins can view; only Super Admins can edit
+**Route**: `/settings`  
+**Component**: `SettingsLayout.jsx` (Sidebar navigation wrapper with nested routes)  
+**Access**: Gated by organization permissions or platform superAdmin status.
 
-Configure system-wide booking fees. Behavior differs by role:
+The settings panel has been refactored from a single global card into a comprehensive, multi-scope configuration layout containing separate sub-pages:
 
-**Super Admin (editable):**
-- **Convenience Fee (₹ per ticket)** — editable number input; flat fee added to every ticket
-- **GST Percentage (%)** — editable number input; applied only on the convenience fee (not on seat prices)
-- **Live preview** — card below the inputs shows the per-ticket fee + GST + total in real time as you type
-- **Save Settings** button — calls `PUT /api/settings` (SuperAdmin auth required); shows success/error toast
+1. **General Settings** (`/settings/general`):
+   - **Scope**: Organization level.
+   - **Fields**: Organization name, timezone, default currency, default language.
+   - **Actions**: Syncs organization name directly to the `organizations` table (source of truth).
 
-**Cinema Admin (read-only):**
-- Same Convenience Fee and GST Percentage values displayed as styled read-only text (no inputs)
-- Same live preview card showing per-ticket breakdown
-- No Save button; a note reads "Only Super Admins can modify booking fee settings"
+2. **Cinema Profile** (`/settings/cinema-profile`):
+   - **Scope**: Cinema Hall level.
+   - **Fields**: Cinema name, address, district, state, phone, description, and operating hours.
 
-Both roles load current values from `GET /api/settings` on mount. Role is determined via `isSuperAdmin` from `AuthContext` (`user.role === 'superAdmin'`).
+3. **Showtimes Settings** (`/settings/showtimes`):
+   - **Scope**: Cinema Hall level.
+   - **Fields**: Default buffer minutes, overlap prevention toggle, default language version, auto-status-transitions.
+
+4. **Booking Settings** (`/settings/booking`):
+   - **Scope**: Cinema Hall level.
+   - **Fields**: Max seats per booking (1–10 slider), seat hold duration (minutes), cancellation policy rules.
+
+5. **Payment Settings** (`/settings/payment`):
+   - **Scope**: Organization level.
+   - **Fields**: Convenience fee model (flat or per-ticket), convenience fee amount, and GST percentage. Used for order summary fee resolution.
+
+6. **Team Management** (`/settings/team`):
+   - **Scope**: Organization level.
+   - **Features**: Invite organization members, edit roles, suspend or remove members, and assign cinema hall access scopes.
+
+7. **Roles & Permissions** (`/settings/roles`):
+   - **Scope**: Organization level.
+   - **Features**: Visual permissions grid matrix demonstrating mapped permissions for system-defined roles (Owner, Admin, Manager, Sales, Finance, Marketing, Ticket Operator, Auditor).
+
+Both organization-level and hall-level settings are transactionally saved, and values are validated against the organization's or active hall's JSONB schemas.
+
 
 ---
 

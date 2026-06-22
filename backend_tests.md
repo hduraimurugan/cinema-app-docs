@@ -60,7 +60,7 @@ postgresql://postgres:Durai@1234@localhost:5432/cinema_hall_test
 | `createCustomer()` | `customers` | Unique email |
 | `createBooking(customerId, showId)` | `bookings` | Optional overrides |
 | `createPaymentOrder(showId, customerId)` | `payment_orders` | Seeds order_id, seats |
-| `createSetting(key, value)` | `settings` | Upsert via ON CONFLICT |
+| `createSetting(key, value)` | `organization_settings` | Upsert via ON CONFLICT (payment section) |
 | `createOffer(hallId, adminId)` | `offers` | Auto-generated code |
 
 ### Mocks
