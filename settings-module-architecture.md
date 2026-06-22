@@ -79,6 +79,8 @@ Keep `/settings` as the entry (already wired in `AppSidebar.jsx` `systemItems`).
 
 `/settings` stays in `HallGuard.EXEMPT_PATHS` (already is). Hall-scoped sections read `useHall().activeHall` and use `hallFetch`; org-scoped sections use plain `fetch`. Team/Roles pages use permission-gating driven by **permissions**, not just `isSuperAdmin`.
 
+**Layout pattern (Phase 1):** The `<SettingsLayout>` renders a 64-unit-wide sticky sidebar with grouped nav items ("Organization" / "Cinema Branch") and a floating save bar at the bottom-right of the content area. The sidebar is `sticky top-0 h-[calc(100vh-4rem)]` — it stays fixed while the page scrolls. No nested scroll containers: the parent `<CinemaLayout>` provides the single page-level scroll container, avoiding double scrollbars.
+
 ### 2.2 Sidebar Structure
 
 Extend `systemItems` in `AppSidebar.jsx` into a collapsible **Settings group**:
@@ -140,7 +142,7 @@ Driven by the RBAC system (§4). The backend embeds a `permissionsVersion` in th
 ```
 src/
 ├── pages/settings/
-│   ├── SettingsLayout.jsx              ✅ # section sidebar + <Outlet/> + dirty-dot indicators + Save button
+│   ├── SettingsLayout.jsx              ✅ # sticky sidebar (grouped nav) + <Outlet/> + floating save bar
 │   ├── GeneralSettingsPage.jsx         ✅
 │   ├── CinemaProfilePage.jsx           ✅
 │   ├── ShowtimesSettingsPage.jsx       ✅
@@ -173,6 +175,9 @@ src/
 │   │   ├── PermissionMatrixTable.jsx
 │   │   ├── BrandingUploader.jsx
 │   │   └── ...
+├── components/settings/
+│   ├── SettingsPageHeader.jsx          ✅ # icon + title + description + scope badge (org/hall/user)
+│   ├── SettingsCard.jsx                ✅ # card with icon header, border-b separator, shadow hover
 ├── context/
 │   ├── SettingsContext.jsx              ✅ # settings cache + dirty tracking + optimistic update + save/reset
 │   └── PermissionContext.jsx            ❌ Phase 2
@@ -224,7 +229,7 @@ Mirrors the `HallContext` pattern. No Zustand.
 
 **Cache strategy:** `SettingsProvider` prefetches org + user settings on mount (after `AuthProvider` resolves). Hall settings load lazily on hall switch via `useEffect` on `activeHall?.id`. Once loaded, hall settings are not re-fetched (tracked via `loadedHallIds` set).
 
-**Dirty tracking (Phase 1):** Each section has its own dirty flag tracked via a module-level `dirtyMap` object. `updateSection` sets the flag and triggers `setDirty()`. `SettingsLayout` shows a red dot next to section nav items that have unsaved changes. No `beforeunload` guard yet (Phase 2+).
+**Dirty tracking (Phase 1):** Each section has its own dirty flag tracked via a module-level `dirtyMap` object. `updateSection` sets the flag and triggers `setDirty()`. `SettingsLayout` shows an `"unsaved"` `<Badge>` (amber-outline) next to section nav items that have unsaved edits — replaces the earlier red-dot design for better visibility. A separate "Unsaved changes" status badge appears in the floating save bar. No `beforeunload` guard yet (Phase 2+).
 
 **Optimistic updates (Phase 1):** `updateSection` mutates context state immediately by spreading the patch into the section's current data. On API error from `saveSection`, the error propagates but no automatic rollback — user refreshes or resets manually.
 
@@ -252,6 +257,109 @@ export const settingsService = {
 Conventions preserved: plain `fetch`, `credentials: 'include'`, `throw await response.json()` on error, `hallFetch` for hall-scoped calls.
 
 **Lazy loading:** Not yet implemented in Phase 1 — all settings pages are eagerly loaded. Deferred to Phase 2+ when more pages are added. The `SettingsLayout` shows a `<Loader/>` fallback for loading state within each page.
+
+### 2.8 Visual Design & Layout (Phase 1)
+
+#### 2.8.1 Sticky Sidebar Pattern
+
+The settings sidebar is `sticky top-0 h-[calc(100vh-4rem)]` — it stays in view while the main content scrolls. No nested overflow containers (the parent `<CinemaLayout>` provides the single scrollable area), preventing double scrollbars.
+
+Sidebar structure:
+```
+Settings (icon + header)
+├── Organization group
+│   ├── General        (Settings icon)
+│   └── Payment        (CreditCard icon)
+├── Cinema Branch group
+│   ├── Cinema Profile (Building2 icon)
+│   ├── Showtimes      (Calendar icon)
+│   └── Booking        (Ticket icon)
+└── Info box (tip about per-section saving)
+```
+
+Nav items show:
+- **Active state:** `bg-primary/10` background + primary color text + `shadow-[inset_2px_0_0_0]` left accent bar
+- **Dirty state:** `"unsaved"` `<Badge variant="outline">` with amber-500 border/tint
+- **Hover:** `bg-muted/60` background
+
+#### 2.8.2 Floating Save Bar
+
+A sticky save bar floats at the bottom-right of the content area:
+```
+┌─────────────────────────────────────┐
+│  [Unsaved changes]  [💾 Save Changes] │
+└─────────────────────────────────────┘
+```
+- Positioned via `sticky bottom-0 pointer-events-none` on the wrapper, `pointer-events-auto` on the inner bar
+- Glassmorphism: `bg-card/95 backdrop-blur-md`, `border border-border/60`, `shadow-2xl shadow-black/20`, `ring-1 ring-white/5`
+- Shows `"Unsaved changes"` `<Badge>` (amber) when the current section has edits
+- Button disabled state when no changes or while saving
+- The content area has `pb-28` spacing so content doesn't visually overlap the bar
+
+#### 2.8.3 Section Page Header (`SettingsPageHeader`)
+
+Reusable component at the top of every section page:
+```
+┌──────────────────────────────────────────────┐
+│  [🔧 icon]  General Settings     [ORGANIZATION] │
+│             Platform identity, timezone...    │
+└──────────────────────────────────────────────┘
+```
+- 48px icon in a gradient circle (`bg-gradient-to-br from-primary/20 to-primary/5`)
+- Title as `<h1 className="text-2xl font-bold">`
+- Scope badge with color coding:
+  - `org` → primary/red tint
+  - `hall` → emerald/green tint
+  - `user` → violet/purple tint
+- Description: max-w-2xl for readability
+
+#### 2.8.4 Settings Form Card (`SettingsCard`)
+
+Reusable card wrapper for form sections:
+```
+┌──────────────────────────────────────────────┐
+│  [🕐 icon]  Scheduling Defaults              │
+│             Controls how new shows...        │
+├──────────────────────────────────────────────┤
+│  Field 1  │  Field 2                          │
+│  Field 3                                     │
+│  ┌─────────────────────────────────────────┐  │
+│  │  Switch label                 [toggle]   │  │
+│  └─────────────────────────────────────────┘  │
+└──────────────────────────────────────────────┘
+```
+- `bg-card/80 backdrop-blur-sm` glassmorphism
+- `hover:shadow-md transition-shadow duration-300` for elevation feedback
+- Header: icon in a 32px rounded square, title, description
+- `border-b border-border/40` separating header from content
+- Content: `p-6` internal spacing
+- Switch toggles in rounded-xl `bg-muted/30 p-4` highlight containers
+
+#### 2.8.5 Form Field Conventions
+
+- Labels: `text-sm font-medium`
+- Inputs: `h-11` for comfortable tap targets
+- Helper text: `text-xs text-muted-foreground` below input
+- Grid: `grid grid-cols-1 sm:grid-cols-2 gap-5` for side-by-side fields
+- Icons: inline lucide icons next to labels (e.g., `<Globe className="h-4 w-4 text-muted-foreground" />`)
+- Loading state: `<Loader />` centered
+- Error state: `<Alert variant="destructive">`
+
+#### 2.8.6 Payment Preview
+
+The GST preview card uses a gradient background:
+```
+┌──────────────────────────────────────────────┐
+│  [🧮]  PER-TICKET PREVIEW                    │
+│  Convenience Fee            ₹15.00          │
+│  GST (18%)                  ₹2.70           │
+│  ──────────────────────────────────────────── │
+│  Total per ticket           ₹17.70           │
+└──────────────────────────────────────────────┘
+```
+- `bg-gradient-to-br from-primary/10 to-primary/5` with `border border-primary/20`
+- `shadow-lg shadow-primary/5` for subtle glow
+- The non-super-admin view shows a lock icon + read-only stat cards instead
 
 ---
 
@@ -1032,14 +1140,23 @@ Implemented via PostgreSQL **table partitioning** by `created_at` month (for `ad
 |---|---|---|
 | **Database** | `organizations`, `organization_settings`, `hall_settings`, `user_settings` tables + `migration_phase1_settings.sql`. Migrate existing 2 keys into `org_settings.payment`. Backward-compat query for legacy `GET /api/settings`. Auto-create org for existing admins on first settings access. | ✅ Deployed |
 | **Backend** | `settings.routes.js` (7 routes: GET/PATCH org/hall/user + legacy GET/PUT). `settings.Controller.js` — 6 new endpoint handlers + backward compat shim. `resolveOrgId` helper auto-creates org. Transaction-based save with BEGIN/COMMIT/ROLLBACK. Section filter validation. No service/repo layer yet — controller queries DB directly. `verifySuperAdmin` used for org endpoints (temporary — replaced in Phase 2). | ✅ Deployed |
-| **Frontend** | `SettingsContext` (org/hall/user cache, dirty tracking, optimistic update, save/reset). `SettingsLayout` (6-section sidebar with dirty-dot indicators, Save button). 5 section pages: General, Cinema Profile, Showtimes, Booking, Payment (each with loading spinner + error alert). `settingsService.js` (6 API methods). `settingsDefaults.js` (default JSONB per scope/section). `App.jsx` nested routes under `/settings`. `main.jsx` — added `SettingsProvider`. Removed old `SettingsPage.jsx`. | ✅ Deployed |
+| **Frontend** | `SettingsContext` (org/hall/user cache, dirty tracking, optimistic update, save/reset). `SettingsLayout` (sticky sidebar with grouped nav + `"unsaved"` `<Badge>` + floating save bar). `SettingsPageHeader` (icon + title + scope badge). `SettingsCard` (card with icon header + shadow hover). 5 redesigned section pages: General, Cinema Profile, Showtimes, Booking, Payment (each with loading spinner + error alert + max-w-3xl content width + inline lucide icons + glassmorphism cards). `settingsService.js` (6 API methods). `settingsDefaults.js`. `App.jsx` nested routes under `/settings`. `main.jsx` — added `SettingsProvider`. Removed old `SettingsPage.jsx`. | ✅ Deployed |
 | **Leanings vs Design** | | |
 | | No service/repo layer (direct DB queries in controller) | Deferred to Phase 2 |
 | | No zod server-side validation (basic type checks in controller) | Deferred to Phase 2 |
-| | No unsaved-changes `beforeunload` banner (dirty-dot sidebar only) | Deferred to Phase 2+ |
+| | No unsaved-changes `beforeunload` banner (dirty tracking via sidebar badges + floating save bar status) | Deferred to Phase 2+ |
 | | No `useSettingsPermission`/`PermissionContext` — `isSuperAdmin` gate remains | Deferred to Phase 2 |
 | | No audit logging on writes | Deferred to Phase 4 |
 | | No lazy-load (`React.lazy`) — pages eager-loaded | Deferred to Phase 2+ |
+| | **UI enhancements (beyond original design):** | |
+| | Sticky sidebar with grouped nav (Organization / Cinema Branch) | ✅ Phase 1 |
+| | `SettingsPageHeader` + `SettingsCard` shared components | ✅ Phase 1 |
+| | Floating save bar with glassmorphism + unsaved badge | ✅ Phase 1 |
+| | Scope badges (org/hall/user) with color coding per page | ✅ Phase 1 |
+| | Inline lucide icons next to form labels | ✅ Phase 1 |
+| | Glassmorphism cards (`bg-card/80 backdrop-blur-sm`) with hover elevation | ✅ Phase 1 |
+| | Double-scrollbar fix (no nested overflow containers) | ✅ Phase 1 |
+| | Non-super-admin payment view (read-only stat cards) | ✅ Phase 1 |
 
 ### Phase 2 — Team Management & RBAC
 
@@ -1113,26 +1230,33 @@ Implemented via PostgreSQL **table partitioning** by `created_at` month (for `ad
 
 ### Phase 1 Files (built)
 
-#### Frontend — new files (8 files)
+#### Frontend — new files (10 files)
 
 | Path | Purpose | Status |
 |---|---|---|
-| `src/pages/settings/SettingsLayout.jsx` | Sidebar (5 nav items with dirty-dot indicators) + `<Outlet/>` + Save button | ✅ |
-| `src/pages/settings/GeneralSettingsPage.jsx` | Org name, timezone, currency, language — loading/error states | ✅ |
-| `src/pages/settings/CinemaProfilePage.jsx` | Cinema name, address, phone, hours, description | ✅ |
-| `src/pages/settings/ShowtimesSettingsPage.jsx` | Buffer minutes, overlap toggle, advance booking | ✅ |
-| `src/pages/settings/BookingSettingsPage.jsx` | Hold duration, max seats, cancellation rules | ✅ |
-| `src/pages/settings/PaymentSettingsPage.jsx` | Fee model, amount, GST + preview — superAdmin edit | ✅ |
+| `src/pages/settings/SettingsLayout.jsx` | Sticky sidebar (grouped nav: Organization / Cinema Branch) + `<Outlet/>` + floating save bar with glassmorphism + `"unsaved"` Badge | ✅ |
+| `src/pages/settings/GeneralSettingsPage.jsx` | Org name, timezone, currency, language — use `SettingsPageHeader` + `SettingsCard` | ✅ |
+| `src/pages/settings/CinemaProfilePage.jsx` | Cinema name, address, phone, hours, description — inline lucide icons, grid layout | ✅ |
+| `src/pages/settings/ShowtimesSettingsPage.jsx` | Buffer minutes, overlap toggle, advance booking — switch in highlighted container | ✅ |
+| `src/pages/settings/BookingSettingsPage.jsx` | Hold duration, max seats, cancellation rules — conditional cancellation fields | ✅ |
+| `src/pages/settings/PaymentSettingsPage.jsx` | Fee model, amount, GST + gradient preview — side-by-side layout, read-only stat cards for non-admin | ✅ |
+| `src/components/settings/SettingsPageHeader.jsx` | Shared header: 48px icon + title + description + scope badge (org/hall/user color-coded) | ✅ |
+| `src/components/settings/SettingsCard.jsx` | Shared form card: icon header + border-b separator + glassmorphism + shadow hover | ✅ |
 | `src/lib/settings/settingsDefaults.js` | Default JSONB values per scope/section | ✅ |
 | `src/services/settings/settingsService.js` | API methods — getOrg/Hall/User, updateOrg/Hall/User | ✅ |
 
-#### Frontend — modified files (3 files)
+#### Frontend — modified files (8 files)
 
 | Path | Change |
 |---|---|
 | `src/context/SettingsContext.jsx` | **New file** — settings cache + dirty tracking + optimistic update + save/reset |
 | `src/main.jsx` | Added `SettingsProvider` after `HallProvider` |
 | `src/App.jsx` | Nested routes under `/settings` (general, cinema-profile, showtimes, booking, payment) |
+| `src/pages/settings/GeneralSettingsPage.jsx` | Rewritten: uses `SettingsPageHeader` + `SettingsCard` + inline `Globe`/`Coins`/`Languages` icons + `h-11` inputs + `max-w-3xl` centered layout |
+| `src/pages/settings/CinemaProfilePage.jsx` | Rewritten: inline `MapPin`/`Phone`/`Clock`/`FileText` icons + conditional "select a hall" empty state |
+| `src/pages/settings/ShowtimesSettingsPage.jsx` | Rewritten: `Timer`/`Languages`/`ShieldCheck`/`CalendarDays` icons + switch in `rounded-xl bg-muted/30 p-4` container |
+| `src/pages/settings/BookingSettingsPage.jsx` | Rewritten: `Timer`/`Users`/`CalendarDays`/`Ban`/`Percent` icons + conditional cancellation fields |
+| `src/pages/settings/PaymentSettingsPage.jsx` | Rewritten: `Receipt`/`Percent`/`Calculator` icons + side-by-side cards + gradient preview card + read-only stat cards for non-admin |
 
 #### Frontend — deleted files (1 file)
 
@@ -1155,7 +1279,7 @@ Implemented via PostgreSQL **table partitioning** by `created_at` month (for `ad
 
 ### Future files (deferred)
 
-#### Frontend — planned (~27 files)
+#### Frontend — planned (~25 files)
 
 | Path | Phase |
 |---|---|
