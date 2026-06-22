@@ -479,6 +479,164 @@ INSERT INTO settings (key, value) VALUES
 ON CONFLICT (key) DO NOTHING;
 
 
+-- ---------------------------------------------------------------------------
+-- 9. SETTINGS MODULE (Phase 1)
+-- ---------------------------------------------------------------------------
+
+-- ── Organizations (tenant layer) ──────────────────────────────────────
+CREATE TABLE IF NOT EXISTS organizations (
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name              TEXT NOT NULL,
+  slug              TEXT UNIQUE NOT NULL,
+  owner_id          UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
+  default_timezone  TEXT NOT NULL DEFAULT 'Asia/Kolkata',
+  default_currency  TEXT NOT NULL DEFAULT 'INR',
+  is_active         BOOLEAN NOT NULL DEFAULT TRUE,
+  plan              TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','pro','enterprise')),
+  created_at        TIMESTAMPTZ DEFAULT now(),
+  updated_at        TIMESTAMPTZ DEFAULT now()
+);
+
+-- Auto-create an org for every existing admin who does not have one
+INSERT INTO organizations (name, slug, owner_id)
+SELECT
+  COALESCE(cau.name, cau.email) || '''s Cinema',
+  LOWER(REPLACE(COALESCE(cau.name, cau.email), ' ', '-')) || '-' || LEFT(cau.id::text, 8),
+  cau.id
+FROM cinema_admin_user cau
+WHERE NOT EXISTS (
+  SELECT 1 FROM organizations o WHERE o.owner_id = cau.id
+);
+
+-- ── Organization-level settings (JSONB per section) ──────────────────
+-- Sections: general, payment, tickets, security, notifications, branding, integrations, advanced
+CREATE TABLE IF NOT EXISTS organization_settings (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  section         TEXT NOT NULL,
+  value           JSONB NOT NULL DEFAULT '{}',
+  schema_version  INT NOT NULL DEFAULT 1,
+  updated_by      UUID REFERENCES cinema_admin_user(id),
+  updated_at      TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (org_id, section)
+);
+CREATE INDEX IF NOT EXISTS idx_org_settings_org_section ON organization_settings(org_id, section);
+
+-- ── Hall-level settings (per-branch, JSONB per section) ──────────────
+-- Sections: cinema_profile, showtimes, booking, offers
+CREATE TABLE IF NOT EXISTS hall_settings (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  hall_id         UUID NOT NULL REFERENCES cinema_hall(id) ON DELETE CASCADE,
+  section         TEXT NOT NULL,
+  value           JSONB NOT NULL DEFAULT '{}',
+  schema_version  INT NOT NULL DEFAULT 1,
+  updated_by      UUID REFERENCES cinema_admin_user(id),
+  updated_at      TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (hall_id, section)
+);
+CREATE INDEX IF NOT EXISTS idx_hall_settings_hall_section ON hall_settings(hall_id, section);
+
+-- ── User-level settings (per-admin preferences, JSONB per section) ───
+-- Sections: notifications, analytics, appearance
+CREATE TABLE IF NOT EXISTS user_settings (
+  id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_id  UUID NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  section   TEXT NOT NULL,
+  value     JSONB NOT NULL DEFAULT '{}',
+  updated_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (admin_id, section)
+);
+CREATE INDEX IF NOT EXISTS idx_user_settings_admin ON user_settings(admin_id);
+
+-- ── Migrate legacy settings into organization_settings.payment ──────
+INSERT INTO organization_settings (org_id, section, value, updated_at)
+SELECT o.id, 'payment',
+  jsonb_build_object(
+    'convenience_fee', jsonb_build_object('model', 'per_ticket', 'amount', COALESCE((SELECT value::numeric FROM settings WHERE key='convenience_fee_per_ticket'), 15)),
+    'gst_percentage', COALESCE((SELECT value::numeric FROM settings WHERE key='gst_percentage'), 18),
+    'gst_applies_to', 'convenience_fee',
+    'state_taxes', '[]'::jsonb
+  ),
+  now()
+FROM organizations o
+WHERE NOT EXISTS (
+  SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'payment'
+);
+
+-- ── Seed default org-level sections for every org (if missing) ───────
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'general', '{"org_name":"","timezone":"Asia/Kolkata","currency":"INR","language":"en"}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'general');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'tickets', '{"booking_id_prefix":"CINE","qr_error_correction":"M","pdf_footer_text":""}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'tickets');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'security', '{"password_policy":{"min_length":8,"require_upper":true,"require_lower":true,"require_digit":true,"require_special":true,"prevent_reuse_count":5,"expiry_days":null},"lockout_policy":{"thresholds":[{"attempts":5,"minutes":15},{"attempts":10,"minutes":60},{"attempts":15,"minutes":1440}]},"session_timeout_minutes":null,"mfa_required":false,"invite_expiry_hours":72}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'security');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'notifications', '{"email":{"provider":"smtp","from":"","enabled":true},"sms":{"provider":"","from":"","enabled":false},"whatsapp":{"provider":"","enabled":false},"push":{"provider":"fcm","enabled":false}}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'notifications');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'branding', '{"logo_url":"","logo_dark_url":"","banner_url":"","primary_color":"","accent_color":"","font_family":"","app_name":"Cinemax","default_theme":"dark","white_label":false}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'branding');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'integrations', '{"razorpay":{"key":"","secret_encrypted":""},"tmdb":{"api_key":""},"cloudinary":{"cloud_name":"","api_key":"","api_secret_encrypted":""}}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'integrations');
+
+INSERT INTO organization_settings (org_id, section, value)
+SELECT o.id, 'advanced', '{"feature_flags":{},"retention_days":{"security_logs":90,"audit_logs":90,"sessions":30,"devices":365}}'::jsonb
+FROM organizations o
+WHERE NOT EXISTS (SELECT 1 FROM organization_settings os WHERE os.org_id = o.id AND os.section = 'advanced');
+
+-- ── Seed default hall-level sections for every hall (if missing) ─────
+INSERT INTO hall_settings (hall_id, section, value)
+SELECT h.id, 'cinema_profile', '{"name":"","address":"","district":"","state":"","phone":"","description":"","operating_hours":{}}'::jsonb
+FROM cinema_hall h
+WHERE NOT EXISTS (SELECT 1 FROM hall_settings hs WHERE hs.hall_id = h.id AND hs.section = 'cinema_profile');
+
+INSERT INTO hall_settings (hall_id, section, value)
+SELECT h.id, 'showtimes', '{"default_buffer_minutes":15,"prevent_overlap":true,"default_language_version":"Original","auto_status_transitions":true,"timezone":"Asia/Kolkata","advance_booking_days":7,"booking_open_offset_minutes":0}'::jsonb
+FROM cinema_hall h
+WHERE NOT EXISTS (SELECT 1 FROM hall_settings hs WHERE hs.hall_id = h.id AND hs.section = 'showtimes');
+
+INSERT INTO hall_settings (hall_id, section, value)
+SELECT h.id, 'booking', '{"max_seats_per_booking":10,"advance_booking_days":7,"hold_minutes":5,"cancellation":{"allowed":true,"window_minutes":120,"penalty_percentage":10}}'::jsonb
+FROM cinema_hall h
+WHERE NOT EXISTS (SELECT 1 FROM hall_settings hs WHERE hs.hall_id = h.id AND hs.section = 'booking');
+
+INSERT INTO hall_settings (hall_id, section, value)
+SELECT h.id, 'offers', '{"auto_apply_best":true,"max_redemptions_per_customer":1,"default_validity_days":30}'::jsonb
+FROM cinema_hall h
+WHERE NOT EXISTS (SELECT 1 FROM hall_settings hs WHERE hs.hall_id = h.id AND hs.section = 'offers');
+
+-- ── Seed default user-level sections for every admin (if missing) ────
+INSERT INTO user_settings (admin_id, section, value)
+SELECT cau.id, 'notifications', '{"email_toggle":true,"sms_toggle":false,"push_toggle":false,"events":{"booking_confirmed":["email"],"booking_cancelled":["email"],"daily_report":["email"]}}'::jsonb
+FROM cinema_admin_user cau
+WHERE NOT EXISTS (SELECT 1 FROM user_settings us WHERE us.admin_id = cau.id AND us.section = 'notifications');
+
+INSERT INTO user_settings (admin_id, section, value)
+SELECT cau.id, 'analytics', '{"dashboard_widgets":["revenue","occupancy","upcoming_shows"],"date_range":"last_30_days","report_schedule":"never"}'::jsonb
+FROM cinema_admin_user cau
+WHERE NOT EXISTS (SELECT 1 FROM user_settings us WHERE us.admin_id = cau.id AND us.section = 'analytics');
+
+INSERT INTO user_settings (admin_id, section, value)
+SELECT cau.id, 'appearance', '{"sidebar_collapsed":false,"theme":"system"}'::jsonb
+FROM cinema_admin_user cau
+WHERE NOT EXISTS (SELECT 1 FROM user_settings us WHERE us.admin_id = cau.id AND us.section = 'appearance');
+
+
 -- =============================================================================
 -- SUPER ADMIN SEED
 -- =============================================================================

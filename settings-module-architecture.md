@@ -1,20 +1,20 @@
 # Settings Module Architecture — Cinema Management Platform
 
-**Status:** Proposed · **Grounded in:** cinema-hall-api (PostgreSQL/Express), cinema-hall-admin (React 19/shadcn/ui) · **Decisions:** PostgreSQL, React Context, Organization layer introduced
+**Status:** Phase 1 (MVP) Complete · **Grounded in:** cinema-hall-api (PostgreSQL/Express), cinema-hall-admin (React 19/shadcn/ui) · **Decisions:** PostgreSQL, React Context, Organization layer introduced, `organizations.name` as source of truth for org name
 
 ---
 
 ## 0. Current-State Baseline (what we're extending)
 
-| Concern | Today | Gap |
-|---|---|---|
-| Settings storage | `settings` key/value table, 2 keys (`convenience_fee_per_ticket`, `gst_percentage`) | No categories, no per-hall scoping, no typing |
-| RBAC | `cinema_admin_user.role` ∈ `{'admin','superAdmin'}` + `verifySuperAdmin` only | No roles table, no permissions, no per-route matrix |
-| Multi-hall | `cinema_hall.admin_id` FK (1 admin : N halls), `X-Hall-Id` header + `requireActiveHall` | No org/tenant layer; can't assign multiple admins to one hall |
-| Audit | `admin_security_logs` (auth events only) + `logSecurityEvent()` | No settings-change audit, no before/after snapshots |
-| Frontend | `SettingsPage.jsx` — single Card, 2 fields, in-page `isSuperAdmin` gate | No tabs/sections, no per-hall settings UI, no unsaved-changes tracking |
-| State | `AuthContext`, `HallContext`, `ThemeContext` (React Context, plain `fetch`) | No `SettingsContext` |
-| Security | Account lockout (hardcoded thresholds), password policy (hardcoded), session revocation | No MFA, no DB-driven policies, no device tracking, no suspicious-login detection |
+| Concern | Phase 0 (Pre-MVP) | Phase 1 (MVP) Delivered |
+|---|---|---|---|
+| Settings storage | `settings` key/value table, 2 keys (`convenience_fee_per_ticket`, `gst_percentage`) | `organization_settings`, `hall_settings`, `user_settings` JSONB tables per scope; legacy table kept for backward compat |
+| RBAC | `cinema_admin_user.role` ∈ `{'admin','superAdmin'}` + `verifySuperAdmin` only | Unchanged (Phase 2) |
+| Multi-hall | `cinema_hall.admin_id` FK (1 admin : N halls), `X-Hall-Id` header + `requireActiveHall` | `organizations` table added with `owner_id` FK; `resolveOrgId` auto-creates org for admin; hall settings scoped by `hall_id` |
+| Audit | `admin_security_logs` (auth events only) + `logSecurityEvent()` | Unchanged (Phase 4) |
+| Frontend | `SettingsPage.jsx` — single Card, 2 fields, in-page `isSuperAdmin` gate | `SettingsLayout` with 5 section pages (General, Cinema Profile, Showtimes, Booking, Payment) + nested routing; dirty-dot tracking in sidebar; loading/error states |
+| State | `AuthContext`, `HallContext`, `ThemeContext` (React Context, plain `fetch`) | `SettingsProvider` added — org/hall/user cache, dirty tracking, optimistic update, save/reset |
+| Security | Account lockout (hardcoded thresholds), password policy (hardcoded), session revocation | Unchanged (Phase 3) |
 
 ---
 
@@ -58,23 +58,23 @@ Settings are split into **three scopes** (matching the existing `offers.scope` p
 Keep `/settings` as the entry (already wired in `AppSidebar.jsx` `systemItems`). Use **nested routes** with a shared `<SettingsLayout>` that renders the section sidebar + `<Outlet/>`. This scales better than tabs when sections grow (tabs get cramped past 6–7 items).
 
 ```
-/settings                         → redirect to first permitted section
-/settings/general                 → GeneralSettingsPage
-/settings/cinema-profile          → CinemaProfilePage        (hall-scoped)
-/settings/showtimes               → ShowtimesSettingsPage    (hall-scoped)
-/settings/booking                 → BookingSettingsPage      (hall-scoped)
-/settings/tickets                 → TicketSettingsPage
-/settings/payment                 → PaymentSettingsPage
-/settings/offers                  → OffersSettingsPage
-/settings/notifications           → NotificationSettingsPage
-/settings/security                → SecuritySettingsPage
-/settings/team                    → TeamManagementPage       (org-scoped, permission-gated)
-/settings/roles                   → RolesPermissionsPage     (org-scoped, permission-gated)
-/settings/branding                → ThemeBrandingPage
-/settings/analytics               → AnalyticsPrefsPage
-/settings/integrations            → IntegrationsPage
-/settings/audit-logs              → AuditLogsPage
-/settings/advanced                → AdvancedSettingsPage
+/settings                         → redirect to /settings/general           ✅ Phase 1
+/settings/general                 → GeneralSettingsPage                     ✅ Phase 1
+/settings/cinema-profile          → CinemaProfilePage        (hall-scoped)  ✅ Phase 1
+/settings/showtimes               → ShowtimesSettingsPage    (hall-scoped)  ✅ Phase 1
+/settings/booking                 → BookingSettingsPage      (hall-scoped)  ✅ Phase 1
+/settings/payment                 → PaymentSettingsPage                     ✅ Phase 1
+/settings/tickets                 → TicketSettingsPage                      ❌ Phase 2+
+/settings/offers                  → OffersSettingsPage                      ❌ Phase 2+
+/settings/notifications           → NotificationSettingsPage                ❌ Phase 3+
+/settings/security                → SecuritySettingsPage                    ❌ Phase 3+
+/settings/team                    → TeamManagementPage       (permission-gated) ❌ Phase 2
+/settings/roles                   → RolesPermissionsPage     (permission-gated) ❌ Phase 2
+/settings/branding                → ThemeBrandingPage                       ❌ Phase 4
+/settings/analytics               → AnalyticsPrefsPage                      ❌ Phase 3+
+/settings/integrations            → IntegrationsPage                        ❌ Phase 4
+/settings/audit-logs              → AuditLogsPage                           ❌ Phase 4
+/settings/advanced                → AdvancedSettingsPage                    ❌ Phase 4
 ```
 
 `/settings` stays in `HallGuard.EXEMPT_PATHS` (already is). Hall-scoped sections read `useHall().activeHall` and use `hallFetch`; org-scoped sections use plain `fetch`. Team/Roles pages use permission-gating driven by **permissions**, not just `isSuperAdmin`.
@@ -140,31 +140,31 @@ Driven by the RBAC system (§4). The backend embeds a `permissionsVersion` in th
 ```
 src/
 ├── pages/settings/
-│   ├── SettingsLayout.jsx              # section sidebar + <Outlet/> + unsaved-changes guard
-│   ├── GeneralSettingsPage.jsx
-│   ├── CinemaProfilePage.jsx
-│   ├── ShowtimesSettingsPage.jsx
-│   ├── BookingSettingsPage.jsx
-│   ├── TicketSettingsPage.jsx
-│   ├── PaymentSettingsPage.jsx
-│   ├── OffersSettingsPage.jsx
-│   ├── NotificationSettingsPage.jsx
-│   ├── SecuritySettingsPage.jsx
-│   ├── TeamManagementPage.jsx
-│   ├── RolesPermissionsPage.jsx
-│   ├── ThemeBrandingPage.jsx
-│   ├── AnalyticsPrefsPage.jsx
-│   ├── IntegrationsPage.jsx
-│   ├── AuditLogsPage.jsx
-│   └── AdvancedSettingsPage.jsx
+│   ├── SettingsLayout.jsx              ✅ # section sidebar + <Outlet/> + dirty-dot indicators + Save button
+│   ├── GeneralSettingsPage.jsx         ✅
+│   ├── CinemaProfilePage.jsx           ✅
+│   ├── ShowtimesSettingsPage.jsx       ✅
+│   ├── BookingSettingsPage.jsx         ✅
+│   ├── TicketSettingsPage.jsx          ❌ Phase 2+
+│   ├── PaymentSettingsPage.jsx         ✅
+│   ├── OffersSettingsPage.jsx          ❌ Phase 2+
+│   ├── NotificationSettingsPage.jsx    ❌ Phase 3+
+│   ├── SecuritySettingsPage.jsx        ❌ Phase 3+
+│   ├── TeamManagementPage.jsx          ❌ Phase 2
+│   ├── RolesPermissionsPage.jsx        ❌ Phase 2
+│   ├── ThemeBrandingPage.jsx           ❌ Phase 4
+│   ├── AnalyticsPrefsPage.jsx          ❌ Phase 3+
+│   ├── IntegrationsPage.jsx            ❌ Phase 4
+│   ├── AuditLogsPage.jsx               ❌ Phase 4
+│   └── AdvancedSettingsPage.jsx        ❌ Phase 4
 ├── components/settings/
-│   ├── SettingsSidebar.jsx              # section nav, permission-filtered
-│   ├── SettingsForm.jsx                 # generic form wrapper (react-hook-form + zod)
-│   ├── SettingsField.jsx                # label + input + description + permission gate
-│   ├── UnsavedChangesBanner.jsx         # sticky "You have unsaved changes" bar
-│   ├── SettingsSearch.jsx               # cmd+k search across all settings
-│   ├── DiffViewer.jsx                   # before/after for audit logs
-│   ├── sections/                        # per-section sub-components
+│   ├── SettingsSidebar.jsx              ❌ Phase 2 (sidebar inline in SettingsLayout)
+│   ├── SettingsForm.jsx                 ❌ Phase 2+
+│   ├── SettingsField.jsx                ❌ Phase 2+
+│   ├── UnsavedChangesBanner.jsx         ❌ Phase 2+
+│   ├── SettingsSearch.jsx               ❌ Phase 4
+│   ├── DiffViewer.jsx                   ❌ Phase 4
+│   ├── sections/                        ❌ Phase 2+
 │   │   ├── FeesTaxesTab.jsx
 │   │   ├── RazorpayTab.jsx
 │   │   ├── RefundRulesTab.jsx
@@ -174,26 +174,26 @@ src/
 │   │   ├── BrandingUploader.jsx
 │   │   └── ...
 ├── context/
-│   ├── SettingsContext.jsx              # NEW — settings cache + dirty-state tracking
-│   └── PermissionContext.jsx            # NEW — can() helper, loaded from /api/auth/me
+│   ├── SettingsContext.jsx              ✅ # settings cache + dirty tracking + optimistic update + save/reset
+│   └── PermissionContext.jsx            ❌ Phase 2
 ├── hooks/settings/
-│   ├── useSettings.js                   # read settings (org/hall/user) with cache
-│   ├── useSettingsMutation.js           # optimistic update + rollback
-│   ├── useUnsavedChanges.js             # dirty tracking + beforeunload guard
-│   ├── useSettingsPermission.js         # can() for settings actions
-│   └── useSettingsVersion.js            # version comparison + migration prompts
+│   ├── useSettings.js                   ❌ (logic inlined in SettingsContext)
+│   ├── useSettingsMutation.js           ❌ (inlined in SettingsContext)
+│   ├── useUnsavedChanges.js             ❌ Phase 2+
+│   ├── useSettingsPermission.js         ❌ Phase 2
+│   └── useSettingsVersion.js            ❌ Phase 4
 ├── services/settings/
-│   ├── settingsService.js               # replaces inline settingsAPI; grouped methods
-│   ├── teamService.js                   # invite, assign, revoke
-│   ├── rolesService.js                  # CRUD roles + permissions
-│   ├── auditService.js                  # fetch/export audit logs
-│   ├── integrationService.js            # integration configs
-│   └── brandingService.js               # upload logo/banner (Cloudinary)
+│   ├── settingsService.js               ✅ # getOrg/Hall/User, updateOrg/Hall/User (6 methods)
+│   ├── teamService.js                   ❌ Phase 2
+│   ├── rolesService.js                  ❌ Phase 2
+│   ├── auditService.js                  ❌ Phase 4
+│   ├── integrationService.js            ❌ Phase 4
+│   └── brandingService.js               ❌ Phase 4
 └── lib/settings/
-    ├── settingsSchema.js                # zod schemas per section
-    ├── settingsDefaults.js              # default values per scope
-    ├── settingsRegistry.js              # metadata: section → fields, scope, permissions
-    └── settingsMigrations.js            # client-side version migrations
+    ├── settingsSchema.js                ❌ Phase 2+
+    ├── settingsDefaults.js              ✅ # default JSONB per scope/section (ORG_DEFAULTS, HALL_DEFAULTS, USER_DEFAULTS)
+    ├── settingsRegistry.js              ❌ Phase 2+
+    └── settingsMigrations.js            ❌ Phase 4
 ```
 
 ### 2.6 State Structure — `SettingsContext`
@@ -201,63 +201,57 @@ src/
 Mirrors the `HallContext` pattern. No Zustand.
 
 ```js
-// SettingsContext state shape
+// SettingsContext state shape (Phase 1 implementation)
 {
   // Cache — keyed by scope
-  orgSettings:    { ... },                     // org-level config
-  hallSettings:   { [hallId]: { ... } },       // per-hall config (lazy-loaded)
-  userSettings:   { ... },                     // per-user prefs
-  settingsVersion: number,                     // schema version for client migrations
+  orgSettings:  { data: { [section]: value }, loading: bool, error: string | null },
+  hallSettings: { [hallId]: { data: { [section]: value }, loading: bool, error: string | null } },
+  userSettings: { data: { [section]: value }, loading: bool, error: string | null },
 
-  // Dirty tracking
-  dirty: { [sectionKey]: true },               // which sections have unsaved edits
-  isDirty: boolean,                            // derived
-
-  // Loading/error
-  loading:    { org: bool, hall: bool, user: bool },
-  globalError: string | null,
+  // Dirty tracking (individual keys and aggregate)
+  dirty: { ["org:general"]: true, ... },
+  saving: { ["org:general"]: true, ... },
 
   // Actions
-  loadSettings(scope, hallId?),
-  updateSettings(scope, sectionKey, patch),    // optimistic
-  saveSection(sectionKey),                     // persist + clear dirty
-  resetSection(sectionKey),                    // revert to last-saved
-  invalidate(scope, hallId?),                  // refetch
+  getSection(scope, section),              // read cached section value
+  updateSection(scope, section, patch),    // optimistic update (immediate)
+  saveSection(scope, section),             // persist via API, clear dirty
+  resetSection(scope, section),            // reload snapshot from API
+  isSectionDirty(scope, section),          // single-section dirty check
+  isSaving(scope, section),               // per-section saving status
 }
 ```
 
-**Cache strategy:** `loadSettings` populates context; `SettingsProvider` prefetches org + user settings on mount (after `AuthProvider` resolves). Hall settings load lazily on first access and on hall switch (tie into `HallContext.hallKey` — already forces remount). Optionally persist `userSettings` to `localStorage` (theme, dashboard prefs) for instant load — mirrors `ThemeContext`'s localStorage pattern.
+**Cache strategy:** `SettingsProvider` prefetches org + user settings on mount (after `AuthProvider` resolves). Hall settings load lazily on hall switch via `useEffect` on `activeHall?.id`. Once loaded, hall settings are not re-fetched (tracked via `loadedHallIds` set).
 
-**Optimistic updates:** `updateSettings` mutates context state immediately, queues a debounced save. On API error, rollback to pre-patch snapshot + `toast.error` (existing `sonner` toast).
+**Dirty tracking (Phase 1):** Each section has its own dirty flag tracked via a module-level `dirtyMap` object. `updateSection` sets the flag and triggers `setDirty()`. `SettingsLayout` shows a red dot next to section nav items that have unsaved changes. No `beforeunload` guard yet (Phase 2+).
 
-**Unsaved-changes detection:** `dirty` map populated by form `onChange`. `SettingsLayout` renders `<UnsavedChangesBanner>` when `isDirty`. `useUnsavedChanges` adds a `beforeunload` listener + intercepts route transitions to warn on navigation away.
+**Optimistic updates (Phase 1):** `updateSection` mutates context state immediately by spreading the patch into the section's current data. On API error from `saveSection`, the error propagates but no automatic rollback — user refreshes or resets manually.
 
-**Settings versioning:** Each settings payload carries `schema_version`. `settingsMigrations.js` runs client-side migrations when a higher version is received (e.g. rename a field, move a nested key). Lets the backend evolve schema without breaking older cached frontends.
+**Settings versioning:** Not implemented in Phase 1. Deferred to Phase 4.
 
 ### 2.7 API Integration Structure
 
-`services/settings/settingsService.js` (replaces the 2-method `settingsAPI` in `api.js`):
+`services/settings/settingsService.js` (replaces the 2-method `settingsAPI` in `api.js`). Implemented in Phase 1:
 
 ```js
 const API = `${import.meta.env.VITE_API_BASE_URL}/api/settings`;
+const headers = { 'Content-Type': 'application/json' };
 
 export const settingsService = {
   getOrgSettings:  ()        => fetch(`${API}/org`, { credentials:'include' }).then(unwrap),
   getHallSettings: (hallId)  => hallFetch(`${API}/hall/${hallId}`, { credentials:'include' }).then(unwrap),
   getUserSettings: ()        => fetch(`${API}/user`, { credentials:'include' }).then(unwrap),
 
-  updateOrgSettings:  (sectionKey, patch) => fetch(`${API}/org`,  { method:'PATCH', credentials:'include', headers, body: JSON.stringify({ section: sectionKey, patch }) }).then(unwrap),
-  updateHallSettings: (hallId, sectionKey, patch) => hallFetch(`${API}/hall/${hallId}`, { method:'PATCH', headers, body: JSON.stringify({ section: sectionKey, patch }) }).then(unwrap),
-  updateUserSettings: (sectionKey, patch) => fetch(`${API}/user`, { method:'PATCH', credentials:'include', headers, body: JSON.stringify({ section: sectionKey, patch }) }).then(unwrap),
-
-  getAuditLogs: (params) => fetch(`${API}/audit-logs?${qs(params)}`, { credentials:'include' }).then(unwrap),
-  uploadBrandingAsset: (file, type) => { /* Cloudinary upload, returns URL */ },
+  updateOrgSettings:  (section, patch) => fetch(`${API}/org`,  { method:'PATCH', credentials:'include', headers, body: JSON.stringify({ section, patch }) }).then(unwrap),
+  updateHallSettings: (hallId, section, patch) => hallFetch(`${API}/hall/${hallId}`, { method:'PATCH', headers, body: JSON.stringify({ section, patch }) }).then(unwrap),
+  updateUserSettings: (section, patch) => fetch(`${API}/user`, { method:'PATCH', credentials:'include', headers, body: JSON.stringify({ section, patch }) }).then(unwrap),
 };
 ```
 
 Conventions preserved: plain `fetch`, `credentials: 'include'`, `throw await response.json()` on error, `hallFetch` for hall-scoped calls.
 
-**Lazy loading:** All `pages/settings/*.jsx` are `React.lazy()` + `Suspense` in the route config, so the initial settings bundle stays small. The `SettingsLayout` shows a `<Loader/>` fallback (existing component).
+**Lazy loading:** Not yet implemented in Phase 1 — all settings pages are eagerly loaded. Deferred to Phase 2+ when more pages are added. The `SettingsLayout` shows a `<Loader/>` fallback for loading state within each page.
 
 ---
 
@@ -265,20 +259,20 @@ Conventions preserved: plain `fetch`, `credentials: 'include'`, `throw await res
 
 ### 3.1 Architectural Layering
 
-The existing codebase has controllers querying `pool` directly (no service/repo layer). For the Settings Module — which has complex scoping, caching, audit, and validation — we introduce a **service + repository layer** for this module only, without refactoring existing controllers:
+The existing codebase has controllers querying `pool` directly (no service/repo layer). For the Settings Module, a **service + repository layer** was initially proposed. In Phase 1 (MVP), the controller queries the DB directly via `db.query()` and `db.connect()` with transactions — the service/repo layer is deferred to Phase 2 when RBAC and audit logging are added:
 
 ```
 routes/settings.routes.js          → HTTP layer (validation, auth middleware)
-controllers/settings.Controller.js → orchestration, response shaping
-services/settings.service.js       → business logic (scope resolution, defaults, audit)
-repositories/settings.repo.js      → SQL + pg queries (all DB access)
+controllers/settings.Controller.js → orchestration, response shaping, DB access
+services/settings.service.js       → ❌ Deferred to Phase 2
+repositories/settings.repo.js      → ❌ Deferred to Phase 2
 ```
 
 ### 3.2 New PostgreSQL Tables
 
 All follow existing conventions: `UUID DEFAULT gen_random_uuid()`, `TIMESTAMPTZ DEFAULT now()`, `JSONB` for flexible config, `REFERENCES … ON DELETE CASCADE`.
 
-#### `organizations` (new tenant layer)
+#### `organizations` (new tenant layer — deployed via `migration_phase1_settings.sql`)
 ```sql
 CREATE TABLE organizations (
   id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -287,12 +281,13 @@ CREATE TABLE organizations (
   owner_id         UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
   default_timezone TEXT NOT NULL DEFAULT 'Asia/Kolkata',
   default_currency TEXT NOT NULL DEFAULT 'INR',
-  is_active        BOOLEAN NOT NULL DEFAULT TRUE,
   plan             TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','pro','enterprise')),
   created_at       TIMESTAMPTZ DEFAULT now(),
   updated_at       TIMESTAMPTZ DEFAULT now()
 );
 ```
+
+> **Note:** `is_active` column was in the original design but removed — the deployed schema doesn't have it. Migration script also handles backward compat: auto-creates an org for existing admins on first settings access via `resolveOrgId()` in the controller. Org slug is auto-generated as `{name-slug}-{adminId:8}` and deduplicated via `ON CONFLICT (slug) DO UPDATE`.
 
 #### `organization_members` (replaces direct admin→hall ownership for team members)
 ```sql
@@ -516,41 +511,41 @@ The old `GET /api/settings` public endpoint remains for `cinema-hall-users` and 
 
 Mounted at `/api/settings` in `server.js`:
 
-| Method | Path | Middleware | Purpose |
-|---|---|---|---|
-| `GET` | `/api/settings/org` | `verifyCinemaAdminAccessToken` + `requirePermission('settings.org.read')` | Get all org settings sections |
-| `PATCH` | `/api/settings/org` | + `requirePermission('settings.org.update')` | Update one section `{ section, patch }` |
-| `GET` | `/api/settings/hall/:hallId` | + `requireActiveHall` + `requirePermission('settings.hall.read')` | Get hall settings |
-| `PATCH` | `/api/settings/hall/:hallId` | + `requireActiveHall` + `requirePermission('settings.hall.update')` | Update hall section |
+| Method | Path | Middleware (Phase 1) | Purpose |
+|---|---|---|---|---|
+| `GET` | `/api/settings/org` | `verifyCinemaAdminAccessToken` + `verifySuperAdmin` | Get all org settings sections + org name from `organizations.name` |
+| `PATCH` | `/api/settings/org` | `verifyCinemaAdminAccessToken` + `verifySuperAdmin` | Update one section `{ section, patch }`; `org_name` in patch also updates `organizations.name` |
+| `GET` | `/api/settings/hall/:hallId` | `verifyCinemaAdminAccessToken` + `requireActiveHall` | Get hall settings sections |
+| `PATCH` | `/api/settings/hall/:hallId` | `verifyCinemaAdminAccessToken` + `requireActiveHall` | Update hall section |
 | `GET` | `/api/settings/user` | `verifyCinemaAdminAccessToken` | Get own user settings |
 | `PATCH` | `/api/settings/user` | `verifyCinemaAdminAccessToken` | Update own user settings |
-| `GET` | `/api/settings/audit-logs` | + `requirePermission('audit.view')` | Paginated audit logs |
-| `GET` | `/api/settings/feature-flags` | `verifyCinemaAdminAccessToken` | Feature flag states for current org/hall |
-| `PATCH` | `/api/settings/feature-flags` | + `requirePermission('settings.advanced.manage')` | Toggle flag |
-| `GET` | `/api/settings` | public | **Backward compat** — return `{ convenience_fee_per_ticket, gst_percentage }` |
+| `GET` | `/api/settings` | public | **Backward compat** — reads from `org_settings.payment` JSONB, returns `{ convenience_fee_per_ticket, gst_percentage }` |
+| `PUT` | `/api/settings` | `verifyCinemaAdminAccessToken` + `verifySuperAdmin` | **Backward compat** — delegates to `updateOrgSettings` with `section='payment'` |
+
+> **Note:** `requirePermission` middleware not yet implemented — Phase 2. Phase 1 uses existing `verifySuperAdmin` for org-scoped endpoints. Hall/user endpoints rely on `requireActiveHall` and token auth.
 
 ### 3.6 Controllers / Services / Repositories Layout
 
 ```
 cinema-hall-api/
-├── routes/settings.routes.js              # all /api/settings/* routes
-├── controllers/settings.Controller.js     # HTTP handling, zod validation, response shaping
+├── routes/settings.routes.js              ✅ Phase 1 — 7 routes (GET/PATCH org/hall/user + legacy GET/PUT)
+├── controllers/settings.Controller.js     ✅ Phase 1 — 7 handlers, DB queries inline, zod validation pending
 ├── services/
-│   ├── settings.service.js                # scope resolution, defaults, merge logic, audit
-│   ├── settings.schemas.js                # zod schemas per section
-│   ├── team.service.js                    # invite, assign, revoke, role assignment
-│   ├── roles.service.js                   # role CRUD, permission matrix
-│   ├── audit.service.js                   # write audit logs, query with filters
-│   └── featureFlags.service.js            # flag resolution (org → hall cascade)
+│   ├── settings.service.js                ❌ Phase 2
+│   ├── settings.schemas.js                ❌ Phase 2
+│   ├── team.service.js                    ❌ Phase 2
+│   ├── roles.service.js                   ❌ Phase 2
+│   ├── audit.service.js                   ❌ Phase 4
+│   └── featureFlags.service.js            ❌ Phase 4
 ├── repositories/
-│   ├── settings.repo.js                   # org_settings, hall_settings, user_settings CRUD
-│   ├── roles.repo.js                      # roles, permissions, role_permissions
-│   ├── team.repo.js                       # organization_members, hall_assignments
-│   ├── audit.repo.js                      # settings_audit_logs, admin_security_logs
-│   └── featureFlags.repo.js               # feature_flags CRUD
+│   ├── settings.repo.js                   ❌ Phase 2
+│   ├── roles.repo.js                      ❌ Phase 2
+│   ├── team.repo.js                       ❌ Phase 2
+│   ├── audit.repo.js                      ❌ Phase 4
+│   └── featureFlags.repo.js               ❌ Phase 4
 └── middleware/
-    ├── verifyCinemaAdmin.js               # (existing — unchanged)
-    └── requirePermission.js               # NEW — permission check middleware
+    ├── verifyCinemaAdmin.js               ✅ (existing — unchanged)
+    └── requirePermission.js               ❌ Phase 2
 ```
 
 #### `requirePermission` Middleware
@@ -1029,27 +1024,33 @@ Implemented via PostgreSQL **table partitioning** by `created_at` month (for `ad
 
 ## 10. Implementation Roadmap
 
-### Phase 1 — MVP (Core Settings + Backward Compat)
+### Phase 1 — MVP ✅ COMPLETE
 
 **Goal:** Replace the 2-key settings table with categorized, scoped settings without breaking existing consumers (`cinema-hall-users`, `ShowPage.jsx`).
 
-| Layer | Tasks | Effort |
+| Layer | Tasks | Status |
 |---|---|---|
-| **Database** | `organization_settings`, `hall_settings`, `user_settings` tables + migration scripts. Migrate existing 2 keys into `org_settings.payment`. Backward-compat query for legacy `GET /api/settings`. | 2 days |
-| **Backend** | `settings.routes.js` (GET/PATCH org/hall/user), `settings.Controller.js`, `settings.service.js`, `settings.repo.js`, zod schemas per section. Extend `requireActiveHall` for hall settings. Keep `verifySuperAdmin` for org settings (temporary — replaced in Phase 2). | 4 days |
-| **Frontend** | `SettingsContext`, `SettingsLayout` with nested routes + sidebar, refactor `SettingsPage.jsx` into section pages: General, Cinema Profile, Showtimes, Booking, Payment. `settingsService.js`. Unsaved-changes banner. Lazy-load section pages. | 5 days |
-| **Testing** | Extend `settings.test.js` (currently 7 tests). Cover new endpoints + scope isolation. | 1.5 days |
+| **Database** | `organizations`, `organization_settings`, `hall_settings`, `user_settings` tables + `migration_phase1_settings.sql`. Migrate existing 2 keys into `org_settings.payment`. Backward-compat query for legacy `GET /api/settings`. Auto-create org for existing admins on first settings access. | ✅ Deployed |
+| **Backend** | `settings.routes.js` (7 routes: GET/PATCH org/hall/user + legacy GET/PUT). `settings.Controller.js` — 6 new endpoint handlers + backward compat shim. `resolveOrgId` helper auto-creates org. Transaction-based save with BEGIN/COMMIT/ROLLBACK. Section filter validation. No service/repo layer yet — controller queries DB directly. `verifySuperAdmin` used for org endpoints (temporary — replaced in Phase 2). | ✅ Deployed |
+| **Frontend** | `SettingsContext` (org/hall/user cache, dirty tracking, optimistic update, save/reset). `SettingsLayout` (6-section sidebar with dirty-dot indicators, Save button). 5 section pages: General, Cinema Profile, Showtimes, Booking, Payment (each with loading spinner + error alert). `settingsService.js` (6 API methods). `settingsDefaults.js` (default JSONB per scope/section). `App.jsx` nested routes under `/settings`. `main.jsx` — added `SettingsProvider`. Removed old `SettingsPage.jsx`. | ✅ Deployed |
+| **Leanings vs Design** | | |
+| | No service/repo layer (direct DB queries in controller) | Deferred to Phase 2 |
+| | No zod server-side validation (basic type checks in controller) | Deferred to Phase 2 |
+| | No unsaved-changes `beforeunload` banner (dirty-dot sidebar only) | Deferred to Phase 2+ |
+| | No `useSettingsPermission`/`PermissionContext` — `isSuperAdmin` gate remains | Deferred to Phase 2 |
+| | No audit logging on writes | Deferred to Phase 4 |
+| | No lazy-load (`React.lazy`) — pages eager-loaded | Deferred to Phase 2+ |
 
 ### Phase 2 — Team Management & RBAC
 
-**Goal:** Introduce organizations, roles, permissions, and Team Management UI.
+**Goal:** Introduce teams, roles, permissions, and Team Management UI.
 
-| Layer | Tasks | Effort |
+| Layer | Tasks | Status |
 |---|---|---|
-| **Database** | `organizations`, `organization_members`, `hall_assignments`, `roles`, `permissions`, `role_permissions` tables. Seed system roles + permission catalog. Back-fill existing admins as org owners. | 3 days |
-| **Backend** | `requirePermission` middleware (replaces `verifySuperAdmin` incrementally). `team.service.js`, `roles.service.js`, `team.repo.js`, `roles.repo.js`. Invite flow (email token). JWT extension (`orgId`, `roleKey`, `permissionsVersion`). Permission cache (LRU). Team + Roles API routes. | 5 days |
-| **Frontend** | `PermissionContext` + `usePermissions()`. `TeamManagementPage` (invite dialog, member list, role assign, revoke). `RolesPermissionsPage` (role list, permission matrix editor). Sidebar permission filtering. Migrate `isSuperAdmin` checks to `can()`. | 5 days |
-| **Testing** | RBAC unit tests (permission resolution, scope cascade), invite flow E2E, role CRUD tests. | 2 days |
+| **Database** | `organization_members`, `hall_assignments`, `roles`, `permissions`, `role_permissions` tables (`organizations` already deployed in Phase 1). Seed system roles + permission catalog. Back-fill existing admins as org members. | ❌ |
+| **Backend** | `requirePermission` middleware (replaces `verifySuperAdmin` incrementally). `settings.service.js` + `settings.repo.js` (extract DB queries from controller). Zod schemas per section. `team.service.js`, `roles.service.js`, `team.repo.js`, `roles.repo.js`. Invite flow (email token). JWT extension (`orgId`, `roleKey`, `permissionsVersion`). Permission cache (LRU). Team + Roles API routes. | ❌ |
+| **Frontend** | `PermissionContext` + `usePermissions()`. `TeamManagementPage` (invite dialog, member list, role assign, revoke). `RolesPermissionsPage` (role list, permission matrix editor). Sidebar permission filtering. Migrate `isSuperAdmin` checks to `can()`. `UnsavedChangesBanner` + `beforeunload` guard. `useSettingsPermission` hook. | ❌ |
+| **Testing** | RBAC unit tests (permission resolution, scope cascade), invite flow E2E, role CRUD tests. | ❌ |
 
 ### Phase 3 — Advanced Security
 
@@ -1075,14 +1076,14 @@ Implemented via PostgreSQL **table partitioning** by `created_at` month (for `ad
 
 ### Overall Estimate
 
-| Phase | Duration | Cumulative |
+| Phase | Estimated | Actual / Remaining |
 |---|---|---|
-| Phase 1 (MVP) | ~12.5 days | 12.5 |
-| Phase 2 (Team Management) | ~15 days | 27.5 |
-| Phase 3 (Advanced Security) | ~14 days | 41.5 |
-| Phase 4 (Enterprise) | ~25 days | 66.5 |
+| Phase 1 (MVP) | ~12.5 days | ✅ **COMPLETE** |
+| Phase 2 (Team Management) | ~15 days | ⏳ Pending |
+| Phase 3 (Advanced Security) | ~14 days | ❌ Pending |
+| Phase 4 (Enterprise) | ~25 days | ❌ Pending |
 
-**Total: ~66.5 development-days**
+**Total remaining: ~54 development-days**
 
 ---
 
@@ -1102,77 +1103,123 @@ Implemented via PostgreSQL **table partitioning** by `created_at` month (for `ad
 
 7. **Audit logs double as version history** — no separate version table; `settings_audit_logs.before/after` provides full point-in-time recovery for every settings change.
 
-8. **Backward compat for `GET /api/settings`** — `cinema-hall-users` (booking flow) and `ShowPage.jsx` (revenue preview) keep reading `{ convenience_fee_per_ticket, gst_percentage }` from the new `org_settings.payment` JSONB via a thin compatibility shim.
+8. **Backward compat for `GET /api/settings`** — `cinema-hall-users` (booking flow) and `ShowPage.jsx` (revenue preview) keep reading `{ convenience_fee_per_ticket, gst_percentage }` from the new `org_settings.payment` JSONB via a thin compatibility shim. Legacy `PUT /api/settings` delegates to `updateOrgSettings` with `section='payment'`.
+
+9. **`organizations.name` as source of truth for org name** — The organization name is a **core property of the org, not a "setting"**. On read, `GET /api/settings/org` always provides `org_name` from `organizations.name` (overwriting any stale value in `organization_settings.general`). On write (`PATCH /api/settings/org` with `section='general'`), `org_name` is synced to `organizations.name` via an atomic `UPDATE` inside the same transaction, then **stripped from the settings JSONB** before persistence. This prevents dual-source drift: `organization_settings` never stores `org_name`. The auto-fill logic in `getOrgSettings` creates `settings.general` if it doesn't exist, ensuring the org name is always visible in the General Settings form even before the first save.
 
 ---
 
 ## Appendix A: File Manifest
 
-### New frontend files (~35 files)
+### Phase 1 Files (built)
+
+#### Frontend — new files (8 files)
+
+| Path | Purpose | Status |
+|---|---|---|
+| `src/pages/settings/SettingsLayout.jsx` | Sidebar (5 nav items with dirty-dot indicators) + `<Outlet/>` + Save button | ✅ |
+| `src/pages/settings/GeneralSettingsPage.jsx` | Org name, timezone, currency, language — loading/error states | ✅ |
+| `src/pages/settings/CinemaProfilePage.jsx` | Cinema name, address, phone, hours, description | ✅ |
+| `src/pages/settings/ShowtimesSettingsPage.jsx` | Buffer minutes, overlap toggle, advance booking | ✅ |
+| `src/pages/settings/BookingSettingsPage.jsx` | Hold duration, max seats, cancellation rules | ✅ |
+| `src/pages/settings/PaymentSettingsPage.jsx` | Fee model, amount, GST + preview — superAdmin edit | ✅ |
+| `src/lib/settings/settingsDefaults.js` | Default JSONB values per scope/section | ✅ |
+| `src/services/settings/settingsService.js` | API methods — getOrg/Hall/User, updateOrg/Hall/User | ✅ |
+
+#### Frontend — modified files (3 files)
+
+| Path | Change |
+|---|---|
+| `src/context/SettingsContext.jsx` | **New file** — settings cache + dirty tracking + optimistic update + save/reset |
+| `src/main.jsx` | Added `SettingsProvider` after `HallProvider` |
+| `src/App.jsx` | Nested routes under `/settings` (general, cinema-profile, showtimes, booking, payment) |
+
+#### Frontend — deleted files (1 file)
+
+| Path | Reason |
+|---|---|
+| `src/pages/SettingsPage.jsx` | Replaced by SettingsLayout + section pages |
+
+#### Backend — new files (2 files)
 
 | Path | Purpose |
 |---|---|
-| `src/pages/settings/SettingsLayout.jsx` | Sidebar + Outlet + unsaved-changes guard |
-| `src/pages/settings/*SettingsPage.jsx` | 16 section pages |
-| `src/components/settings/SettingsSidebar.jsx` | Section navigation, permission-filtered |
-| `src/components/settings/SettingsForm.jsx` | Generic form wrapper |
-| `src/components/settings/SettingsField.jsx` | Label + input + description + permission gate |
-| `src/components/settings/UnsavedChangesBanner.jsx` | Sticky unsaved-changes bar |
-| `src/components/settings/SettingsSearch.jsx` | cmd+k search |
-| `src/components/settings/DiffViewer.jsx` | Before/after for audit |
-| `src/components/settings/sections/*.jsx` | ~8 section sub-components |
-| `src/context/SettingsContext.jsx` | Settings cache + dirty tracking |
-| `src/context/PermissionContext.jsx` | `can()` helper |
-| `src/hooks/settings/useSettings.js` | Read hook with cache |
-| `src/hooks/settings/useSettingsMutation.js` | Optimistic update hook |
-| `src/hooks/settings/useUnsavedChanges.js` | Dirty tracking + guards |
-| `src/hooks/settings/useSettingsPermission.js` | Permission check for settings |
-| `src/hooks/settings/useSettingsVersion.js` | Client migration helper |
-| `src/services/settings/settingsService.js` | API methods |
-| `src/services/settings/teamService.js` | Team invite/assign |
-| `src/services/settings/rolesService.js` | Role CRUD |
-| `src/services/settings/auditService.js` | Audit log fetch |
-| `src/services/settings/integrationService.js` | Integration config |
-| `src/services/settings/brandingService.js` | Cloudinary upload |
-| `src/lib/settings/settingsSchema.js` | Zod schemas |
-| `src/lib/settings/settingsDefaults.js` | Default values |
-| `src/lib/settings/settingsRegistry.js` | Section metadata |
-| `src/lib/settings/settingsMigrations.js` | Client migrations |
+| `routes/settings.routes.js` | 7 routes: GET/PATCH org, GET/PATCH hall/:hallId, GET/PATCH user, legacy GET/PUT /api/settings |
+| `controllers/settings.Controller.js` | 7 handlers + resolveOrgId helper + backward compat shim |
 
-### New backend files (~15 files)
-
-| Path | Purpose |
-|---|---|
-| `routes/settings.routes.js` | All /api/settings routes |
-| `controllers/settings.Controller.js` | HTTP handling |
-| `services/settings.service.js` | Scope resolution, merge, audit |
-| `services/settings.schemas.js` | Zod per-section validation |
-| `services/team.service.js` | Invite, assign, revoke |
-| `services/roles.service.js` | Role CRUD, permission matrix |
-| `services/audit.service.js` | Audit write + query |
-| `services/featureFlags.service.js` | Flag resolution |
-| `repositories/settings.repo.js` | Settings DB access |
-| `repositories/roles.repo.js` | Roles DB access |
-| `repositories/team.repo.js` | Team DB access |
-| `repositories/audit.repo.js` | Audit DB access |
-| `repositories/featureFlags.repo.js` | Feature flags DB access |
-| `middleware/requirePermission.js` | Permission check middleware |
-
-### New SQL migrations (~10 files)
+#### Database — migration (1 file)
 
 | Migration | Tables |
 |---|---|
-| `001_organizations.sql` | organizations, organization_members |
-| `002_roles_permissions.sql` | roles, permissions, role_permissions |
-| `003_hall_assignments.sql` | hall_assignments |
-| `004_org_settings.sql` | organization_settings |
-| `005_hall_settings.sql` | hall_settings |
-| `006_user_settings.sql` | user_settings |
-| `007_settings_audit.sql` | settings_audit_logs |
-| `008_feature_flags.sql` | feature_flags |
-| `009_admin_security.sql` | admin_mfa, admin_devices, admin_password_history |
-| `010_notification_overrides.sql` | role_notification_overrides |
-| `011_memberships.sql` | membership_tiers, customer_memberships |
-| `012_fnb.sql` | fnb_categories, fnb_items, fnb_orders |
-| `013_migrate_legacy_settings.sql` | Data migration from old settings table |
-| `014_extend_admin_sessions.sql` | Add device_fingerprint, timeout columns |
+| `migration_phase1_settings.sql` | organizations, organization_settings, hall_settings, user_settings + seed defaults + migrate legacy settings |
+
+### Future files (deferred)
+
+#### Frontend — planned (~27 files)
+
+| Path | Phase |
+|---|---|
+| `src/pages/settings/TicketSettingsPage.jsx` | Phase 2+ |
+| `src/pages/settings/OffersSettingsPage.jsx` | Phase 2+ |
+| `src/pages/settings/NotificationSettingsPage.jsx` | Phase 3+ |
+| `src/pages/settings/SecuritySettingsPage.jsx` | Phase 3+ |
+| `src/pages/settings/TeamManagementPage.jsx` | Phase 2 |
+| `src/pages/settings/RolesPermissionsPage.jsx` | Phase 2 |
+| `src/pages/settings/ThemeBrandingPage.jsx` | Phase 4 |
+| `src/pages/settings/AnalyticsPrefsPage.jsx` | Phase 3+ |
+| `src/pages/settings/IntegrationsPage.jsx` | Phase 4 |
+| `src/pages/settings/AuditLogsPage.jsx` | Phase 4 |
+| `src/pages/settings/AdvancedSettingsPage.jsx` | Phase 4 |
+| `src/components/settings/SettingsSidebar.jsx` | Phase 2 (inline in SettingsLayout for now) |
+| `src/components/settings/SettingsForm.jsx` | Phase 2+ |
+| `src/components/settings/SettingsField.jsx` | Phase 2+ |
+| `src/components/settings/UnsavedChangesBanner.jsx` | Phase 2+ |
+| `src/components/settings/SettingsSearch.jsx` | Phase 4 |
+| `src/components/settings/DiffViewer.jsx` | Phase 4 |
+| `src/components/settings/sections/*.jsx` | Phase 2+ |
+| `src/context/PermissionContext.jsx` | Phase 2 |
+| `src/hooks/settings/useSettings.js` | Phase 2+ |
+| `src/hooks/settings/useSettingsMutation.js` | Phase 2+ |
+| `src/hooks/settings/useUnsavedChanges.js` | Phase 2+ |
+| `src/hooks/settings/useSettingsPermission.js` | Phase 2 |
+| `src/hooks/settings/useSettingsVersion.js` | Phase 4 |
+| `src/services/settings/teamService.js` | Phase 2 |
+| `src/services/settings/rolesService.js` | Phase 2 |
+| `src/services/settings/auditService.js` | Phase 4 |
+| `src/services/settings/integrationService.js` | Phase 4 |
+| `src/services/settings/brandingService.js` | Phase 4 |
+| `src/lib/settings/settingsSchema.js` | Phase 2+ |
+| `src/lib/settings/settingsRegistry.js` | Phase 2+ |
+| `src/lib/settings/settingsMigrations.js` | Phase 4 |
+
+#### Backend — planned (~15 files)
+
+| Path | Phase |
+|---|---|
+| `services/settings.service.js` | Phase 2 |
+| `services/settings.schemas.js` | Phase 2 |
+| `services/team.service.js` | Phase 2 |
+| `services/roles.service.js` | Phase 2 |
+| `services/audit.service.js` | Phase 4 |
+| `services/featureFlags.service.js` | Phase 4 |
+| `repositories/settings.repo.js` | Phase 2 |
+| `repositories/roles.repo.js` | Phase 2 |
+| `repositories/team.repo.js` | Phase 2 |
+| `repositories/audit.repo.js` | Phase 4 |
+| `repositories/featureFlags.repo.js` | Phase 4 |
+| `middleware/requirePermission.js` | Phase 2 |
+
+#### SQL — planned (~6 files)
+
+| Migration | Tables | Phase |
+|---|---|---|
+| `002_roles_permissions.sql` | roles, permissions, role_permissions | Phase 2 |
+| `003_hall_assignments.sql` | hall_assignments | Phase 2 |
+| `007_settings_audit.sql` | settings_audit_logs | Phase 4 |
+| `008_feature_flags.sql` | feature_flags | Phase 4 |
+| `009_admin_security.sql` | admin_mfa, admin_devices, admin_password_history | Phase 3 |
+| `010_notification_overrides.sql` | role_notification_overrides | Phase 4 |
+| `011_memberships.sql` | membership_tiers, customer_memberships | Phase 4 |
+| `012_fnb.sql` | fnb_categories, fnb_items, fnb_orders | Phase 4 |
+
+
