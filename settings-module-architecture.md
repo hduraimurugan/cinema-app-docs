@@ -389,13 +389,14 @@ CREATE TABLE organizations (
   owner_id         UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
   default_timezone TEXT NOT NULL DEFAULT 'Asia/Kolkata',
   default_currency TEXT NOT NULL DEFAULT 'INR',
+  is_active        BOOLEAN NOT NULL DEFAULT TRUE,
   plan             TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','pro','enterprise')),
   created_at       TIMESTAMPTZ DEFAULT now(),
   updated_at       TIMESTAMPTZ DEFAULT now()
 );
 ```
 
-> **Note:** `is_active` column was in the original design but removed — the deployed schema doesn't have it. Migration script also handles backward compat: auto-creates an org for existing admins on first settings access via `resolveOrgId()` in the controller. Org slug is auto-generated as `{name-slug}-{adminId:8}` and deduplicated via `ON CONFLICT (slug) DO UPDATE`.
+> **Note:** Migration script also handles backward compat: auto-creates an org for existing admins on first settings access via `resolveOrgId()` in the controller. Org slug is auto-generated as `{name-slug}-{adminId:8}` and deduplicated via `ON CONFLICT (slug) DO UPDATE`.
 
 #### `organization_members` (replaces direct admin→hall ownership for team members)
 ```sql
@@ -404,44 +405,44 @@ CREATE TABLE organization_members (
   org_id    UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   admin_id  UUID NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
   role_id   UUID NOT NULL REFERENCES roles(id),
-  status    TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('invited','active','suspended','removed')),
+  status    VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('invited','active','suspended','removed')),
   invited_by UUID REFERENCES cinema_admin_user(id),
-  invited_at TIMESTAMPTZ DEFAULT now(),
+  invited_at TIMESTAMPTZ,
   joined_at  TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT now(),
   UNIQUE (org_id, admin_id)
 );
 CREATE INDEX idx_org_members_org   ON organization_members(org_id);
 CREATE INDEX idx_org_members_admin ON organization_members(admin_id);
 ```
 
-#### `hall_assignments` (many-to-many: admins ↔ halls within an org)
+#### `hall_assignments` (many-to-many: org members ↔ halls within an org)
 ```sql
 CREATE TABLE hall_assignments (
-  id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  hall_id   UUID NOT NULL REFERENCES cinema_hall(id) ON DELETE CASCADE,
-  admin_id  UUID NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
-  org_id    UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
-  scope     TEXT NOT NULL DEFAULT 'full' CHECK (scope IN ('full','read_only','limited')),
-  created_at TIMESTAMPTZ DEFAULT now(),
-  UNIQUE (hall_id, admin_id)
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_member_id   UUID NOT NULL REFERENCES organization_members(id) ON DELETE CASCADE,
+  hall_id         UUID NOT NULL REFERENCES cinema_hall(id) ON DELETE CASCADE,
+  scope           VARCHAR(20) NOT NULL DEFAULT 'full' CHECK (scope IN ('full','read_only','limited')),
+  assigned_by     UUID REFERENCES cinema_admin_user(id),
+  created_at      TIMESTAMPTZ DEFAULT now(),
+  UNIQUE (org_member_id, hall_id)
 );
-CREATE INDEX idx_hall_assign_hall  ON hall_assignments(hall_id);
-CREATE INDEX idx_hall_assign_admin ON hall_assignments(admin_id);
 ```
 
-> **Backward compat:** `cinema_hall.admin_id` FK stays (the org owner is the hall creator). `hall_assignments` adds *additional* assigned admins. `requireActiveHall` is extended to check `hall_assignments` OR `cinema_hall.admin_id`.
+> **Backward compat:** `cinema_hall.admin_id` FK stays (the org owner is the hall creator). `hall_assignments` adds *additional* assigned members via `organization_members`. `requireActiveHall` is extended to check `hall_assignments` OR `cinema_hall.admin_id`.
 
 #### `roles` (RBAC roles per org; seeded system roles have `is_system=TRUE`)
 ```sql
 CREATE TABLE roles (
-  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  org_id      UUID REFERENCES organizations(id) ON DELETE CASCADE,
-  name        TEXT NOT NULL,
-  key         TEXT NOT NULL,
-  description TEXT,
-  is_system   BOOLEAN NOT NULL DEFAULT FALSE,
-  is_active   BOOLEAN NOT NULL DEFAULT TRUE,
-  created_at  TIMESTAMPTZ DEFAULT now(),
+  id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id              UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  key                 VARCHAR(50) NOT NULL,
+  label               VARCHAR(100) NOT NULL,
+  description         TEXT,
+  is_system           BOOLEAN NOT NULL DEFAULT FALSE,
+  permissions_version INTEGER NOT NULL DEFAULT 1,
+  created_at          TIMESTAMPTZ DEFAULT now(),
+  updated_at          TIMESTAMPTZ DEFAULT now(),
   UNIQUE (org_id, key)
 );
 ```
@@ -449,15 +450,11 @@ CREATE TABLE roles (
 #### `permissions` (catalog of all permission strings)
 ```sql
 CREATE TABLE permissions (
-  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  key         TEXT UNIQUE NOT NULL,   -- 'movies.create', 'settings.payment.update'
-  resource    TEXT NOT NULL,
-  action      TEXT NOT NULL,
-  description TEXT,
-  scope       TEXT NOT NULL DEFAULT 'hall' CHECK (scope IN ('org','hall','user')),
-  created_at  TIMESTAMPTZ DEFAULT now()
+  id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  key       VARCHAR(100) UNIQUE NOT NULL,
+  label     VARCHAR(200) NOT NULL,
+  resource  VARCHAR(50) NOT NULL
 );
-CREATE INDEX idx_perms_resource ON permissions(resource);
 ```
 
 #### `role_permissions` (many-to-many)

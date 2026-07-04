@@ -165,6 +165,7 @@ erDiagram
         uuid id PK
         uuid admin_id FK
         text token_hash UK
+        varchar purpose "email_verification | invite"
         timestamptz expires_at
         timestamptz created_at
     }
@@ -273,8 +274,10 @@ erDiagram
         text row_label
         int column_number
         text status
+        uuid held_by FK
+        timestamptz hold_expires_at
         timestamptz booked_at
-        timestamptz lock_expires_at
+        timestamptz created_at
     }
 
     offers {
@@ -309,7 +312,7 @@ erDiagram
         uuid id PK
         uuid customer_id FK
         uuid show_id FK
-        text[] seats
+        jsonb seats
         decimal total_amount
         decimal convenience_fee
         decimal gst_amount
