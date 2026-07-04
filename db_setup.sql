@@ -75,12 +75,15 @@ CREATE TABLE IF NOT EXISTS admin_verification_tokens (
   id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   admin_id   UUID        NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
   token_hash TEXT        NOT NULL UNIQUE,
+  purpose    VARCHAR(50) DEFAULT 'email_verification',
   expires_at TIMESTAMPTZ NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_admin_verification_tokens_admin_id
   ON admin_verification_tokens(admin_id);
+
+ALTER TABLE admin_verification_tokens ADD COLUMN IF NOT EXISTS purpose VARCHAR(50) DEFAULT 'email_verification';
 
 -- ── Admin password-reset tokens ─────────────────────────────────────────────
 -- Single-use; marked used = TRUE after redemption.
@@ -670,9 +673,21 @@ WHERE NOT EXISTS (
 UPDATE cinema_hall ch
 SET org_id = COALESCE(
   (SELECT id FROM organizations o WHERE o.owner_id = ch.admin_id LIMIT 1),
+  (SELECT org_id FROM organization_members om WHERE om.admin_id = ch.admin_id LIMIT 1),
   (SELECT id FROM organizations LIMIT 1)
 )
 WHERE org_id IS NULL;
+
+-- Ensure org_id is NOT NULL after backfill (idempotent)
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'cinema_hall' AND column_name = 'org_id' AND is_nullable = 'YES'
+  ) THEN
+    ALTER TABLE cinema_hall ALTER COLUMN org_id SET NOT NULL;
+  END IF;
+END $$;
 
 -- Seed System Roles for all organizations
 INSERT INTO roles (org_id, key, label, description, is_system)
