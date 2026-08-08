@@ -14,7 +14,10 @@
 | `created_at` | TIMESTAMPTZ | DEFAULT now() | |
 | `updated_at` | TIMESTAMPTZ | DEFAULT now() | |
 
-**Constraints:** `UNIQUE(org_id, key)`
+**Constraints:** `UNIQUE(org_id, key)`, `UNIQUE(id, org_id)` — the latter is not a
+business constraint, it's the anchor `organization_members.role_id` is validated
+against (see below) so a role from one org can never be assigned to a member of
+another.
 
 ## Table: `permissions`
 
@@ -42,23 +45,40 @@
 | `id` | UUID | PK | Primary key |
 | `org_id` | UUID | FK → organizations(id), NOT NULL | |
 | `admin_id` | UUID | FK → cinema_admin_user(id), NOT NULL | |
-| `role_id` | UUID | FK → roles(id), NOT NULL | |
-| `status` | VARCHAR | NOT NULL | `active`, `suspended`, or `invited` |
+| `role_id` | UUID | **Composite FK** → `roles(id, org_id)`, NOT NULL | Enforces that a member can only ever hold a role belonging to their own org (see `roles.UNIQUE(id, org_id)` above) |
+| `status` | VARCHAR | NOT NULL | `active`, `suspended`, `invited`, or `removed` |
 | `invited_by` | UUID | FK → cinema_admin_user(id) | Admin who invited this member |
 | `invited_at` | TIMESTAMPTZ | | When the invite was sent |
 | `joined_at` | TIMESTAMPTZ | | When the invite was accepted |
+| `removed_at` | TIMESTAMPTZ | | Set when `status` moves to `removed`; cleared if re-invited |
 | `created_at` | TIMESTAMPTZ | DEFAULT now() | |
 
-**Constraints:** `UNIQUE(org_id, admin_id)`
+**Constraints:**
+- `UNIQUE(id, org_id)` — composite anchor `hall_assignments` validates against
+- Partial unique index `uniq_active_org_member ON (org_id, admin_id) WHERE status <> 'removed'` — replaces a plain `UNIQUE(org_id, admin_id)`. A removed member's row is kept for history and no longer blocks a fresh invite for that same org+admin pair.
+- `role_id` FK is `ON DELETE RESTRICT` — a role with active members cannot be deleted (enforced additionally in `deleteRole`)
+
+**Owner identification:** there is no `is_owner` column. A member is the
+organization's owner when `organization_members.admin_id = organizations.owner_id`.
+API responses compute this (see [api.md](api.md)) and the UI locks role/status/hall
+access/removal for that member (see [workflows.md](workflows.md)).
 
 ## Table: `hall_assignments`
 
 | Column | Type | Constraints | Description |
 |---|---|---|---|
 | `id` | UUID | PK | Primary key |
-| `org_member_id` | UUID | FK → organization_members(id) | |
-| `hall_id` | UUID | FK → cinema_hall(id) | |
+| `org_member_id` | UUID | **Composite FK** → `organization_members(id, org_id)` | |
+| `org_id` | UUID | FK → organizations(id), NOT NULL | Denormalized from the member so both sides of the assignment can be validated against the same org |
+| `hall_id` | UUID | **Composite FK** → `cinema_hall(id, org_id)` | |
+| `scope` | VARCHAR | DEFAULT `'full'` | `full` or `read_only` |
+| `assigned_by` | UUID | FK → cinema_admin_user(id) | |
 | `created_at` | TIMESTAMPTZ | DEFAULT now() | |
+
+**Constraints:** `UNIQUE(org_member_id, hall_id)`. The two composite FKs
+(added by `migration_phase4_tenant_integrity.sql`) guarantee the member and
+the hall belong to the *same* organization — previously nothing stopped a
+member of org A from being granted access to a hall in org B.
 
 ## Table: `team_invites`
 

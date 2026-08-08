@@ -33,14 +33,40 @@ All routes are protected by `verifyCinemaAdminAccessToken` middleware:
 ### team.routes.js
 **Path:** `routes/team.routes.js`
 
-| Method | Path | Description |
+All routes require `verifyCinemaAdminAccessToken` + `requirePermission('team.manage')` (applied router-wide). See [api.md](api.md) for full request/response shapes and error codes.
+
+| Method | Path | Handler |
 |---|---|---|
-| GET | `/api/team/members` | List org members |
-| POST | `/api/team/invite` | Send team invite |
-| GET | `/api/team/invites` | List pending invites |
-| DELETE | `/api/team/members/:id` | Remove member |
-| PATCH | `/api/team/members/:id/role` | Change member role |
-| PATCH | `/api/team/members/:id/status` | Suspend/activate member |
+| GET | `/api/team` | listOrgMembers |
+| POST | `/api/team/invite` | inviteMember |
+| POST | `/api/team/members` | createMember |
+| GET | `/api/team/members/:id` | getMember |
+| PATCH | `/api/team/members/:id` | updateMember |
+| DELETE | `/api/team/members/:id` | removeMember |
+| GET | `/api/team/members/:id/halls` | getMemberHalls |
+| POST | `/api/team/members/:id/halls` | assignHalls |
+| DELETE | `/api/team/members/:id/halls/:hallId` | removeHallAssignment |
+
+### team.Controller.js
+**Path:** `controllers/team.Controller.js`
+
+Thin wrapper around `team.service.js` — resolves `orgId` via `resolveOrgId(req.admin.id)`, then delegates. Owns `ERROR_STATUS`, a lookup mapping service-layer error codes to HTTP status:
+
+```js
+const ERROR_STATUS = {
+  ROLE_NOT_IN_ORG: 400,
+  HALL_NOT_IN_ORG: 400,
+  INVALID_HALL: 400,
+  ALREADY_MEMBER: 409,
+  CANNOT_MODIFY_OWNER: 403,
+  CANNOT_REMOVE_OWNER: 403,
+}
+```
+
+`handleServiceError(err, res)` checks `err instanceof TeamServiceError` first, then
+falls back to mapping raw Postgres codes (`23505` → `409 ALREADY_MEMBER`, `23503` →
+`400 CROSS_ORG_REFERENCE`) as a backstop for anything that slips past the service
+layer's own validation.
 
 ## Middleware
 
@@ -63,7 +89,25 @@ router.get('/', requirePermission('roles.read'), listRoles)
 
 | Function | Description |
 |---|---|
-| `loadAdminPermissions(adminId, orgId)` | Returns a `Set` of resolved permission keys for the given admin within the org |
-| `getOrgRoles(orgId)` | Returns all roles for the org, each with its associated permissions |
+| `loadAdminPermissions(adminId, orgId)` | Returns a `Set` of resolved permission keys for the given admin within the org (re-exported from `middleware/requirePermission.js`) |
+| `getOrgMembers(orgId, { search, page, limit })` | Paginated, searchable member list. Includes `is_owner` and `hall_count` per row |
+| `createMember(orgId, createdBy, data)` | Creates the `cinema_admin_user` + `organization_members` rows in one transaction (password set immediately) |
+| `inviteMember(orgId, invitedBy, data)` | Creates or reuses a `cinema_admin_user`, inserts/revives an `organization_members` row with `status='invited'`, issues a verification token |
 | `validateInviteToken(token)` | Validates a team invite token. Returns `{ email, name, orgName, invitedBy, expired }` |
-| `acceptInvite(token, newPassword)` | Accepts a pending invite, creates the admin account, and activates the membership |
+| `acceptInvite(token, newPassword)` | Accepts a pending invite, sets the password, activates the membership |
+| `updateMember(memberId, orgId, updates)` | Changes `roleId` and/or `status`. **Guarded:** rejects with `CANNOT_MODIFY_OWNER` if the target member is `organizations.owner_id` |
+| `removeMember(memberId, orgId)` | Soft-deletes a member (`status='removed'`). **Guarded:** rejects with `CANNOT_REMOVE_OWNER` for the owner |
+| `getMemberHalls(memberId, orgId)` | Lists a member's `hall_assignments` |
+| `assignHalls(memberId, orgId, halls)` | Grants/updates hall access. **Guarded:** rejects with `CANNOT_MODIFY_OWNER` for the owner — owners already have implicit full access via `requireActiveHall`'s org-wide-role check |
+| `removeHallAssignment(memberId, orgId, hallId)` | Revokes one hall assignment. Same owner guard as above |
+| `getOrgRoles(orgId)` | Returns all roles for the org, each with its associated permissions and `member_count` |
+
+**`assertNotOrgOwner(orgId, memberId, code, action)`** — internal helper all four
+guarded functions call. Queries whether `organization_members.admin_id = organizations.owner_id`
+for the given member; if so, throws a `TeamServiceError` with the given `code`
+(`CANNOT_MODIFY_OWNER` or `CANNOT_REMOVE_OWNER`). This is enforced server-side —
+not just hidden in the UI — so the rule holds even if a client calls the API directly.
+
+**`TeamServiceError`** — a typed `Error` subclass carrying a machine-readable
+`code`, so `team.Controller.js` can map failures to the right HTTP status instead
+of every validation failure becoming a generic `500`.

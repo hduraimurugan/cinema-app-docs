@@ -127,112 +127,163 @@ Clone a role's permissions into a new role.
 
 ## Team Members
 
-### `GET /api/team/members`
+Base path for this section: `/api/team`. All routes additionally require the
+`team.manage` permission (`requirePermission('team.manage')`, applied router-wide
+in `team.routes.js`), on top of the module-wide `verifyCinemaAdminAccessToken`.
 
-List all members of the current organization.
+### `GET /api/team`
+
+List all members of the current organization. Supports `?search=`, `?page=`, `?limit=` query params.
 
 **Response `200`:**
 
 ```json
-[
-  {
-    "id": "uuid",
-    "admin_id": "uuid",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "role": { "id": "uuid", "key": "admin", "label": "Admin" },
-    "status": "active",
-    "halls": [{ "id": "uuid", "name": "Hall A" }],
-    "invited_by": "uuid",
-    "invited_at": "2025-01-01T00:00:00Z",
-    "joined_at": "2025-01-02T00:00:00Z"
-  }
-]
+{
+  "members": [
+    {
+      "id": "uuid",
+      "admin_id": "uuid",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "status": "active",
+      "role_id": "uuid",
+      "role_key": "admin",
+      "role_label": "Admin",
+      "is_owner": false,
+      "hall_count": 2,
+      "invited_by": "uuid",
+      "invited_at": "2025-01-01T00:00:00Z",
+      "joined_at": "2025-01-02T00:00:00Z"
+    }
+  ],
+  "total": 4
+}
 ```
+
+`is_owner` is computed by comparing `organization_members.admin_id` to
+`organizations.owner_id` — it is not a stored column. It gates the owner
+protections described in [workflows.md](workflows.md).
 
 ---
 
 ### `POST /api/team/invite`
 
-Send a team invitation.
+Send a team invitation to an email that may or may not already have an account.
 
 **Request Body:**
 
 ```json
 {
   "email": "newmember@example.com",
-  "name": "New Member",
-  "roleId": "uuid"
+  "roleId": "uuid",
+  "halls": [{ "hallId": "uuid", "scope": "full" }]
 }
 ```
 
-**Response `201`:** `{ "message": "Invitation sent", "invite": { ... } }`
+**Response `201`:** `{ "message": "Invite sent successfully", "token": "raw-token", "memberId": "uuid", "email": "..." }`
+
+**Errors:** `400 ROLE_NOT_IN_ORG` / `400 HALL_NOT_IN_ORG` if `roleId`/`halls` don't belong to this org; `409 ALREADY_MEMBER` if the invitee already has a live (non-removed) membership.
 
 ---
 
-### `GET /api/team/invites`
+### `POST /api/team/members`
 
-List pending invites.
+Create a member directly (sets a password immediately, skips the invite-email step).
 
-**Response `200`:** Array of invite objects with email, name, role, status, expires_at.
+**Request Body:** `{ "name", "email", "password", "phone"?, "roleId", "halls"? }`
+
+**Response `201`:** `{ "message": "Member created successfully", "member": { "memberId", "adminId", "name", "email" } }`
+
+**Errors:** same as `POST /api/team/invite`.
+
+---
+
+### `GET /api/team/members/:id`
+
+Fetch a single member's detail, including `is_owner`.
+
+**Response `200`:** `{ "member": { ...same shape as the list row, plus role_description... } }`
+
+---
+
+### `PATCH /api/team/members/:id`
+
+Change a member's role and/or status in one call.
+
+**Request Body:**
+
+```json
+{
+  "roleId": "uuid",
+  "status": "suspended"
+}
+```
+
+Either field is optional; send only what's changing. Valid `status` values: `active`, `suspended`, `removed`.
+
+**Response `200`:** `{ "message": "Member updated successfully", "member": { ... } }`
+
+**Errors:**
+- `400 ROLE_NOT_IN_ORG` — `roleId` belongs to a different organization
+- `403 CANNOT_MODIFY_OWNER` — the target member is the organization's owner (`organizations.owner_id`). Owners' role and status cannot be changed through this endpoint — transfer ownership first.
 
 ---
 
 ### `DELETE /api/team/members/:id`
 
-Remove a member from the organization.
+Remove a member from the organization (soft delete — sets `status = 'removed'`, `removed_at = now()`; the row is kept so the member can be re-invited later).
 
-**Response `200`:** `{ "message": "Member removed" }`
+**Response `200`:** `{ "message": "Member removed successfully" }`
 
----
-
-### `PATCH /api/team/members/:id/role`
-
-Change a member's role.
-
-**Request Body:**
-
-```json
-{
-  "roleId": "uuid"
-}
-```
-
-**Response `200`:** Updated member object.
+**Errors:** `403 CANNOT_REMOVE_OWNER` — the organization owner cannot be removed.
 
 ---
 
-### `PATCH /api/team/members/:id/status`
+### `GET /api/team/members/:id/halls`
 
-Suspend or activate a member.
+List a member's hall assignments (`{ id, hall_id, scope, hall_name, hall_location, created_at }[]`).
 
-**Request Body:**
+---
 
-```json
-{
-  "status": "suspended"
-}
-```
+### `POST /api/team/members/:id/halls`
 
-Valid values: `active`, `suspended`.
+Grant or update hall access for a member.
 
-**Response `200`:** Updated member object.
+**Request Body:** `{ "halls": [{ "hallId": "uuid", "scope": "full" | "read_only" }] }`
+
+**Response `200`:** `{ "message": "Halls assigned successfully", "halls": [...] }`
+
+**Errors:**
+- `400 HALL_NOT_IN_ORG` / `400 INVALID_HALL`
+- `403 CANNOT_MODIFY_OWNER` — owners already have implicit full access to every hall in their org via `requireActiveHall`'s org-wide-role check, so their individual `hall_assignments` rows cannot be edited here.
+
+---
+
+### `DELETE /api/team/members/:id/halls/:hallId`
+
+Revoke a specific hall assignment.
+
+**Response `200`:** `{ "message": "Hall assignment removed successfully" }`
+
+**Errors:** `403 CANNOT_MODIFY_OWNER` (same reason as above).
 
 ---
 
 ## Invite Accept (No Auth)
 
-### `POST /api/team/invite/accept`
+### `POST /api/auth/accept-invite`
 
-Accepts a team invite (no auth required — uses token).
+Accepts a team invite (public — no auth required, identified by token). Note this lives under `/api/auth`, not `/api/team` — it's handled by `auth.Controller.acceptInvite`, which delegates to `teamService.acceptInvite`.
 
 **Request Body:**
 
 ```json
 {
   "token": "invite-token-string",
-  "password": "secure-password"
+  "newPassword": "secure-password"
 }
 ```
 
-**Response `200`:** `{ "message": "Invite accepted", "user": { ... } }`
+**Response `200`:** `{ "message": "Invite accepted successfully. You can now log in." }`
+
+**Errors:** `400 { code: "INVALID_TOKEN" }`, `400 { code: "TOKEN_EXPIRED" }`.

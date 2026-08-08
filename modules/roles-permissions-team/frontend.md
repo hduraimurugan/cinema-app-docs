@@ -8,6 +8,7 @@
 Role CRUD with an interactive permission matrix. Displayed under Settings > Roles & Permissions.
 
 - Lists all organization roles with their permission sets.
+- Each role card shows the role's member count via the `member_count` field returned by `GET /api/roles` (falls back to `0` when absent).
 - Supports creating, editing, cloning, and deleting roles.
 - System roles (`is_system`) show a lock icon and cannot be deleted.
 - Permission matrix displays all resources as rows and actions as columns, with checkboxes to toggle.
