@@ -135,11 +135,14 @@ CREATE INDEX IF NOT EXISTS idx_admin_security_logs_created_at
   ON admin_security_logs(created_at DESC);
 
 -- ── Organizations (tenant layer) ───────────────────────────────────────────
+-- owner_id is ON DELETE RESTRICT: ownership must be transferred before the
+-- owning user can be deleted, otherwise the org is orphaned. It stays
+-- NULLABLE because test fixtures create orgs without an owner.
 CREATE TABLE IF NOT EXISTS organizations (
   id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name              TEXT NOT NULL,
   slug              TEXT UNIQUE NOT NULL,
-  owner_id          UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
+  owner_id          UUID REFERENCES cinema_admin_user(id) ON DELETE RESTRICT,
   default_timezone  TEXT NOT NULL DEFAULT 'Asia/Kolkata',
   default_currency  TEXT NOT NULL DEFAULT 'INR',
   is_active         BOOLEAN NOT NULL DEFAULT TRUE,
@@ -159,7 +162,10 @@ CREATE TABLE IF NOT EXISTS roles (
   permissions_version INTEGER NOT NULL DEFAULT 1,
   created_at        TIMESTAMPTZ DEFAULT now(),
   updated_at        TIMESTAMPTZ DEFAULT now(),
-  UNIQUE (org_id, key)
+  UNIQUE (org_id, key),
+  -- Anchor for the composite FK on organization_members: lets a member's
+  -- role_id be correlated with the member's own org_id.
+  UNIQUE (id, org_id)
 );
 
 CREATE TABLE IF NOT EXISTS permissions (
@@ -176,25 +182,42 @@ CREATE TABLE IF NOT EXISTS role_permissions (
 );
 
 -- ── Organization Members ───────────────────────────────────────────────────
+-- role_id uses a COMPOSITE FK so a member can only ever hold a role from
+-- their own organization. A plain FK to roles(id) allowed org A to be
+-- assigned org B's role and inherit its permissions.
 CREATE TABLE IF NOT EXISTS organization_members (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_id      UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   admin_id    UUID NOT NULL REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
-  role_id     UUID NOT NULL REFERENCES roles(id),
+  role_id     UUID NOT NULL,
   status      VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('invited','active','suspended','removed')),
   invited_by  UUID REFERENCES cinema_admin_user(id),
   invited_at  TIMESTAMPTZ,
   joined_at   TIMESTAMPTZ,
+  removed_at  TIMESTAMPTZ,
   created_at  TIMESTAMPTZ DEFAULT now(),
-  UNIQUE (org_id, admin_id)
+  CONSTRAINT organization_members_id_org_key UNIQUE (id, org_id),
+  CONSTRAINT organization_members_role_same_org_fkey
+    FOREIGN KEY (role_id, org_id) REFERENCES roles(id, org_id) ON DELETE RESTRICT
 );
 CREATE INDEX IF NOT EXISTS idx_org_members_admin ON organization_members(admin_id);
 CREATE INDEX IF NOT EXISTS idx_org_members_org ON organization_members(org_id);
 
+-- One LIVE membership per (org, admin). Removed members keep their row as
+-- history and can be re-invited; an unconditional UNIQUE made re-inviting
+-- a removed member fail permanently.
+CREATE UNIQUE INDEX IF NOT EXISTS uniq_active_org_member
+  ON organization_members(org_id, admin_id)
+  WHERE status <> 'removed';
+
 -- ── Cinema Halls & Hall Assignments ────────────────────────────────────────
+-- The ORGANIZATION owns the hall (org_id). admin_id only records who created
+-- it, so it is nullable and ON DELETE SET NULL — it was ON DELETE CASCADE,
+-- which meant deleting one admin user destroyed that org's halls, screens,
+-- shows and bookings.
 CREATE TABLE IF NOT EXISTS cinema_hall (
   id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
-  admin_id     UUID         REFERENCES cinema_admin_user(id) ON DELETE CASCADE,
+  admin_id     UUID         REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
   org_id       UUID         NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
   name         TEXT         NOT NULL,
   location     TEXT         NOT NULL,
@@ -205,21 +228,31 @@ CREATE TABLE IF NOT EXISTS cinema_hall (
   phone        TEXT,
   description  TEXT,
   is_active    BOOLEAN      NOT NULL DEFAULT TRUE,
-  created_at   TIMESTAMPTZ  DEFAULT now()
+  created_at   TIMESTAMPTZ  DEFAULT now(),
+  -- Anchor for hall_assignments' composite FK.
+  CONSTRAINT cinema_hall_id_org_key UNIQUE (id, org_id)
 );
 
 -- Add org_id to existing cinema_hall table (idempotent)
 ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS org_id UUID REFERENCES organizations(id) ON DELETE CASCADE;
 
+-- org_id is carried here purely so BOTH sides can be correlated: the member
+-- and the hall must belong to the same organization.
 CREATE TABLE IF NOT EXISTS hall_assignments (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  org_member_id   UUID NOT NULL REFERENCES organization_members(id) ON DELETE CASCADE,
-  hall_id         UUID NOT NULL REFERENCES cinema_hall(id) ON DELETE CASCADE,
+  org_member_id   UUID NOT NULL,
+  org_id          UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  hall_id         UUID NOT NULL,
   scope           VARCHAR(20) NOT NULL DEFAULT 'full' CHECK (scope IN ('full','read_only','limited')),
   assigned_by     UUID REFERENCES cinema_admin_user(id),
   created_at      TIMESTAMPTZ DEFAULT now(),
-  UNIQUE (org_member_id, hall_id)
+  UNIQUE (org_member_id, hall_id),
+  CONSTRAINT hall_assignments_member_same_org_fkey
+    FOREIGN KEY (org_member_id, org_id) REFERENCES organization_members(id, org_id) ON DELETE CASCADE,
+  CONSTRAINT hall_assignments_hall_same_org_fkey
+    FOREIGN KEY (hall_id, org_id) REFERENCES cinema_hall(id, org_id) ON DELETE CASCADE
 );
+CREATE INDEX IF NOT EXISTS idx_hall_assignments_org ON hall_assignments(org_id);
 
 -- Add columns to existing cinema_hall tables (idempotent)
 ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS latitude    NUMERIC(10,7);
@@ -257,6 +290,12 @@ $$ LANGUAGE plpgsql;
 DROP TRIGGER IF EXISTS update_customers_updated_at ON customers;
 CREATE TRIGGER update_customers_updated_at
   BEFORE UPDATE ON customers
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- organizations.updated_at existed from the start but nothing ever set it.
+DROP TRIGGER IF EXISTS update_organizations_updated_at ON organizations;
+CREATE TRIGGER update_organizations_updated_at
+  BEFORE UPDATE ON organizations
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TABLE IF NOT EXISTS otp_verifications (
