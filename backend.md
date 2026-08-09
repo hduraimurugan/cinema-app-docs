@@ -543,6 +543,8 @@ sequenceDiagram
 | Customer Access  | `cusAccessToken`  | 1 day   | API authentication                   |
 | Customer Refresh | `cusRefreshToken` | 30 days | Token renewal (hash stored in DB)    |
 
+**Non-cookie clients (mobile app):** `verifyCustomer` and `verifyCustomerRefreshToken` also accept a `Bearer <token>` in the `Authorization` header as a fallback when `cusAccessToken`/`cusRefreshToken` cookies aren't present (httpOnly cookies aren't usable from React Native). `verifyCustomerRefreshToken` additionally accepts the refresh token via `req.body.refreshToken`. To support this, `POST /api/customer/login`, `POST /api/customer/google-login`, and `POST /api/customer/refresh` now also return `accessToken` (and `refreshToken`, for login/google-login) in the JSON body alongside the httpOnly cookies — the cookie remains the source of truth for the web app.
+
 **Security Features:**
 
 - HttpOnly cookies (prevents XSS)
@@ -1067,10 +1069,10 @@ Deletes a specific cinema hall. The admin must own the hall. This action cascade
 | ------ | ------------------- | -------------- | ---------------------------------------------------------------- |
 | POST   | `/signup`           | None           | Register customer (enforces password policy, bcrypt cost 12)     |
 | POST   | `/login`            | None           | Login (lockout enforced; hint for remaining attempts)            |
-| POST   | `/logout`           | None           | Clear auth cookies + revoke session in DB                        |
+| POST   | `/logout`           | None           | Clear auth cookies + revoke session in DB (accepts refresh token via cookie or `req.body.refreshToken`) |
 | GET    | `/me`               | Customer Token | Get logged-in customer info                                      |
 | PUT    | `/update`           | Customer Token | Update customer profile (name, phone, location)                  |
-| POST   | `/refresh`          | Refresh Token  | Refresh access token (revocation-checked against customer_sessions) |
+| POST   | `/refresh`          | Refresh Token  | Refresh access token (revocation-checked against customer_sessions); also returns `accessToken` in the body |
 | POST   | `/forgot-password`  | None           | Send password-reset OTP (generic response, no enumeration)       |
 | POST   | `/reset-password`   | None           | Verify OTP + set new password (revokes ALL sessions)             |
 | POST   | `/change-password`  | Customer Token | Change password while logged in (revokes other sessions)         |
@@ -1118,6 +1120,8 @@ Returns `423` with `code: 'ACCOUNT_LOCKED'` and `lockedUntil` timestamp when acc
 
 **Request Body:** `{ "email": "jane@example.com", "password": "MyPass@1" }`
 
+**Response (200):** Sets `cusAccessToken` + `cusRefreshToken` httpOnly cookies, and also returns `accessToken` and `refreshToken` in the body (for non-cookie clients such as the mobile app) alongside `message` and `customer`.
+
 #### POST `/api/customer/forgot-password`
 
 Looks up the customer by email. If found, sends a `password_reset` type OTP via email. Always returns the same generic message regardless of whether the email exists (prevents enumeration).
@@ -1155,9 +1159,13 @@ Authenticates a customer using a Google OAuth access token (or ID token). If the
 ```json
 {
   "message": "Login successful",
-  "customer": { "id": "uuid", "name": "...", "email": "...", "auth_providers": ["google"], "avatar": "https://..." }
+  "customer": { "id": "uuid", "name": "...", "email": "...", "auth_providers": ["google"], "avatar": "https://..." },
+  "accessToken": "jwt-access-token",
+  "refreshToken": "jwt-refresh-token"
 }
 ```
+
+Sets `cusAccessToken` + `cusRefreshToken` httpOnly cookies as well; `accessToken`/`refreshToken` in the body are for non-cookie clients (mobile app).
 
 #### POST `/api/customer/link-provider`
 
@@ -1785,11 +1793,15 @@ Runs every 30 seconds via the server's background job. Automatically transitions
       "genre": ["Action", "Sci-Fi"],
       "language": ["English", "Hindi"],
       "poster_url": "...",
-      "status": "now_showing"
+      "status": "now_showing",
+      "vote_average": "8.40",
+      "vote_count": 35820
     }
   ]
 }
 ```
+
+`GET /api/user/movies/state/movies` returns the same shape (movies filtered by `state` only, no `district`).
 
 #### GET `/api/user/movies/:movieId/showtimes`
 
@@ -1929,6 +1941,11 @@ Fetches a confirmed booking with full details using the Razorpay `payment_id`. U
     "movie_title": "Paranthu Po",
     "show_date": "2026-03-06",
     "start_time": "11:00:00",
+    "screen_name": "Screen 1",
+    "cinema_hall_name": "Grand Cinema",
+    "cinema_hall_location": "Downtown Plaza",
+    "cinema_hall_latitude": 19.07609,
+    "cinema_hall_longitude": 72.877426,
     "seat_labels": ["A1", "B2"]
   }
 }
@@ -1936,6 +1953,7 @@ Fetches a confirmed booking with full details using the Razorpay `payment_id`. U
 
 **Notes:**
 - `seat_labels` are derived from `screens.layout` (e.g. row `"A"` + column `1` → `"A1"`)
+- `screen_name` / `cinema_hall_name` / `cinema_hall_location` / `cinema_hall_latitude` / `cinema_hall_longitude` are joined in from `screens` and `cinema_hall`
 - Returns `404` if payment_id not found or belongs to another customer
 
 ---
@@ -2713,8 +2731,8 @@ flowchart TD
 | `verifySuperAdmin`              | Verify SuperAdmin role        | Movie CRUD, Ads, Offers, Customers, Admins list |
 | `verifyCinemaHall`              | Verify admin owns cinema hall | Shows management |
 | `verifyScreenOwnership`         | Verify admin owns screen      | Show creation    |
-| `verifyCustomer`                | Verify customer access token  | Customer routes  |
-| `verifyCustomerRefreshToken`    | Verify customer refresh token | Token refresh    |
+| `verifyCustomer`                | Verify customer access token (cookie `cusAccessToken`, falls back to `Authorization: Bearer <token>`) | Customer routes  |
+| `verifyCustomerRefreshToken`    | Verify customer refresh token (cookie `cusRefreshToken`, falls back to `req.body.refreshToken` or `Authorization: Bearer <token>`) | Token refresh    |
 
 ---
 

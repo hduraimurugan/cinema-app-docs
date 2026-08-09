@@ -297,7 +297,7 @@ flowchart TD
 A full-width auto-rotating carousel at the top of the page showcasing the top 5 highest-rated "Now Showing" movies.
 
 **Behavior:**
-- Fetches `GET /api/user/movies?status=now_showing&limit=8`, sorted by rating descending, capped at 5
+- Fetches `GET /api/user/movies?status=now_showing&limit=8`, sorted by `vote_average` (parsed as float) descending, capped at 5
 - Autoplay at 5-second intervals; pauses on `mouseEnter` / `focus`, resumes on `mouseLeave` / `blur`
 - Fade crossfade between slides: `duration-400` with `opacity` + `scale` (only transform/opacity animated — no layout triggers)
 - Dot indicators at the bottom center — active dot is wider pill (`w-7 sm:w-9 h-2`), inactive dots are `w-2 h-2` with `hover:scale-125`
@@ -384,14 +384,14 @@ graph TD
 **Card Information:**
 
 - **Poster**: `rounded-2xl` overflow-hidden container with `shadow-md` and `border border-border/40` base. Adds `card-glow-border` class — on hover, border transitions to `primary/25` with a `20px` primary glow shadow (`box-shadow: 0 0 20px oklch(from var(--primary) l c h / 0.12), var(--shadow-xl)`), 400ms cubic-bezier. `LazyLoadImage` with blur effect. `aspect-[2/3]` with `object-cover` and `group-hover:scale-105` (500ms transition)
-- **Rating badge**: `bg-black/65 backdrop-blur-md shadow-lg shadow-black/20` pill at `top-3 left-3` with `pl-1.5 pr-2.5 py-1`. Uses `fill-rating text-rating` (golden `--rating` token) with `tabular-nums` font variant. Always visible when `rating` is present
+- **Rating badge**: `bg-black/65 backdrop-blur-md shadow-lg shadow-black/20` pill at `top-3 left-3` with `pl-1.5 pr-2.5 py-1`. Uses `fill-rating text-rating` (golden `--rating` token) with `tabular-nums` font variant. Rating is derived from `movie.vote_average` (`parseFloat`, `.toFixed(1)`) and only shown when it's a finite number `> 0`
 - **Genre tags**: Always visible at `bottom-3 left-3`. `bg-black/55 backdrop-blur-sm text-white/90` with `gap-1.5`. Max 2 genres shown. Constrained to `max-w-[70%]` of poster width
 - **Bottom gradient**: `from-black/65 via-black/20 to-transparent h-28` (taller, with mid-stop) — ensures genre tags are readable. Present on all cards regardless of hover state
 - **Hover**: `card-hover` class: 400ms cubic-bezier transition on `transform` and `box-shadow`. On hover: `translateY(-4px) scale(1.02)` + `shadow-xl`. A `bg-gradient-to-t from-black/40 via-black/10 to-transparent` overlay fades in with a "Book Now" button centered. Button uses `custom-hover` class with `hover:scale-105 active:scale-95` and larger padding (`py-2.5 px-5`). Button navigates to `/movie/shows/:id` with `e.stopPropagation()`
 - **Title**: Font-semibold, `text-sm md:text-[15px]`, `line-clamp-1`. Color transitions to `text-primary` on group hover
 - **Metadata row**: Genres (first 2, joined by ` / `) with `font-medium max-w-[55%]` + `|` separator (`text-border/60`) + Clock icon + formatted duration (`Xh Ym`). All `text-xs text-muted-foreground` with `mt-1.5`
 - **Language**: `text-[11px] text-muted-foreground/60` below metadata, `line-clamp-1`
-- **Keyboard accessibility**: `role="button"`, `tabIndex={0}`, `aria-label` = "movie title, rated X.X", `onKeyDown` for Enter/Space. `focus-ring` class for visible focus outline
+- **Keyboard accessibility**: `role="button"`, `tabIndex={0}`, `aria-label` = "movie title, rated X.X" (omitted when the derived rating is `null`), `onKeyDown` for Enter/Space. `focus-ring` class for visible focus outline
 
 #### Scroll Navigation
 
