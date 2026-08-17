@@ -675,6 +675,8 @@ INSERT INTO permissions (key, label, resource) VALUES
   ('payment.read',    'Read Payment',           'payment'),
   ('payment.manage',  'Manage Payment',         'payment'),
   ('payment.settle',  'Settle Payment',         'payment'),
+  ('halls.read',      'Read Halls',             'halls'),
+  ('halls.manage',    'Manage Halls',           'halls'),
   ('settings.org.read',   'Read Org Settings',     'settings'),
   ('settings.org.update', 'Update Org Settings',   'settings'),
   ('settings.hall.read',  'Read Hall Settings',    'settings'),
@@ -698,15 +700,27 @@ INSERT INTO permissions (key, label, resource) VALUES
 ON CONFLICT (key) DO NOTHING;
 
 -- Seed default orgs for any cinema admin who doesn't have one yet (backfill)
+--
+-- Only for admins who belong to NO organization at all. Testing ownership
+-- alone minted a hall-less shell org for every staff member who had been
+-- invited into someone else's org, and because that shell made them its
+-- 'owner' it then outranked their real membership at sign-in — they landed in
+-- an empty tenant with full owner permissions. Platform 'staff' never get an
+-- org of their own; they exist only as members of one.
 INSERT INTO organizations (name, slug, owner_id)
 SELECT
   COALESCE(cau.name, cau.email) || '''s Cinema',
   LOWER(REPLACE(COALESCE(cau.name, cau.email), ' ', '-')) || '-' || LEFT(cau.id::text, 8),
   cau.id
 FROM cinema_admin_user cau
-WHERE NOT EXISTS (
-  SELECT 1 FROM organizations o WHERE o.owner_id = cau.id
-);
+WHERE cau.role <> 'staff'
+  AND NOT EXISTS (
+    SELECT 1 FROM organizations o WHERE o.owner_id = cau.id
+  )
+  AND NOT EXISTS (
+    SELECT 1 FROM organization_members om
+    WHERE om.admin_id = cau.id AND om.status IN ('active', 'invited', 'suspended')
+  );
 
 -- Associate halls with organization if missing (backfill org_id column)
 UPDATE cinema_hall ch
@@ -781,7 +795,8 @@ WHERE r.key = 'manager'
     'refunds.create', 'refunds.read', 'refunds.settle',
     'movies.read', 'movies.update',
     'settings.hall.read', 'settings.hall.update',
-    'customers.read', 'dashboard.view'
+    'customers.read', 'dashboard.view',
+    'halls.read', 'halls.manage'
   )
   AND NOT EXISTS (
     SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
@@ -793,7 +808,7 @@ SELECT r.id, p.id
 FROM roles r
 CROSS JOIN permissions p
 WHERE r.key = 'sales'
-  AND p.key IN ('bookings.read', 'bookings.cancel', 'refunds.create', 'refunds.read', 'dashboard.view', 'customers.read')
+  AND p.key IN ('bookings.read', 'bookings.cancel', 'refunds.create', 'refunds.read', 'dashboard.view', 'customers.read', 'halls.read')
   AND NOT EXISTS (
     SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
   );
@@ -804,7 +819,7 @@ SELECT r.id, p.id
 FROM roles r
 CROSS JOIN permissions p
 WHERE r.key = 'finance'
-  AND p.key IN ('bookings.read', 'payment.read', 'refunds.create', 'refunds.read', 'refunds.settle', 'analytics.view', 'dashboard.view', 'customers.read')
+  AND p.key IN ('bookings.read', 'payment.read', 'refunds.create', 'refunds.read', 'refunds.settle', 'analytics.view', 'dashboard.view', 'customers.read', 'halls.read')
   AND NOT EXISTS (
     SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
   );
@@ -815,7 +830,7 @@ SELECT r.id, p.id
 FROM roles r
 CROSS JOIN permissions p
 WHERE r.key = 'marketing'
-  AND p.key IN ('offers.create', 'offers.read', 'offers.update', 'offers.delete', 'ads.create', 'ads.read', 'ads.update', 'ads.delete', 'movies.read', 'customers.read', 'analytics.view', 'dashboard.view')
+  AND p.key IN ('offers.create', 'offers.read', 'offers.update', 'offers.delete', 'ads.create', 'ads.read', 'ads.update', 'ads.delete', 'movies.read', 'customers.read', 'analytics.view', 'dashboard.view', 'halls.read')
   AND NOT EXISTS (
     SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
   );
@@ -826,7 +841,7 @@ SELECT r.id, p.id
 FROM roles r
 CROSS JOIN permissions p
 WHERE r.key = 'ticket_operator'
-  AND p.key IN ('shows.read', 'bookings.read', 'bookings.verify', 'verify-ticket.use', 'customers.read', 'dashboard.view')
+  AND p.key IN ('shows.read', 'bookings.read', 'bookings.verify', 'verify-ticket.use', 'customers.read', 'dashboard.view', 'halls.read')
   AND NOT EXISTS (
     SELECT 1 FROM role_permissions rp WHERE rp.role_id = r.id AND rp.permission_id = p.id
   );
