@@ -7,6 +7,19 @@
 - Customer access and refresh tokens accept an `Authorization: Bearer` header as a cookie alternative.
 - When a role permission version changes, protected requests return `401 TOKEN_STALE`; the admin frontend refreshes the token and retries once.
 
+## Organization Onboarding Rules
+
+`POST /api/auth/onboarding` performs these checks before opening its database transaction:
+
+| Caller state | Result |
+|---|---|
+| Platform `staff` account | `403`; staff must be invited into an existing organization |
+| Active member of another owner's organization | `403`; a second organization cannot be created |
+| Admin with no organization | Organization and initial hall are created |
+| Existing organization owner | Existing organization is reused; no duplicate organization is created |
+
+The owner membership insert uses the partial unique-index predicate from phase 4 (`WHERE status <> 'removed'`). This keeps onboarding compatible with the removed-member re-invite model.
+
 ## Routes
 
 ### `auth.routes.js`

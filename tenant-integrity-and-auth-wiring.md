@@ -71,6 +71,33 @@ show showtimes and cinema halls filtered by the user's location.
 
 ---
 
+## `cinema-hall-api` - `36a7e4e`
+
+**feat: enforce organization creation restrictions for staff accounts and add onboarding checks**
+
+The onboarding endpoint is now protected at the controller boundary, not only by the admin frontend:
+
+- Platform `staff` accounts receive `403` and cannot create an organization or become its owner.
+- An admin who is already an active member of an organization owned by another user receives `403` instead of creating a second tenant.
+- An existing owner may retry onboarding without creating another organization.
+- The owner membership upsert includes the phase 4 partial-index predicate, avoiding the PostgreSQL `ON CONFLICT` mismatch that previously caused onboarding to fail after phase 4.
+- Unit coverage verifies staff rejection, existing-member rejection, first-time onboarding, and idempotent owner retry.
+
+### Phantom Organization Cleanup
+
+`database/audit_org_ownership.sql` is a read-only preflight report. Run it before `database/migration_phase6_remove_phantom_orgs.sql` and review section A against the cleanup script's `RETURNING` output.
+
+Phase 6 deletes only organizations that are all of the following:
+
+- Owned by a platform `staff` account
+- Hall-less, so the organization cascade cannot destroy cinema data
+- Free of other members
+- Owned by a staff account that has another active organization membership
+
+The cleanup intentionally leaves real staff-owned tenants with halls, other members, or no alternate membership for manual review. It also reports, but never automatically deletes, hall-less organizations owned by `admin` or `superAdmin` accounts and organizations with no owner.
+
+---
+
 ## Follow-up fixes surfaced by smoke-testing
 
 Testing the above against the real app surfaced three more issues, all

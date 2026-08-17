@@ -1,11 +1,11 @@
 # Graph Report - cinema-hall  (2026-08-17)
 
 ## Corpus Check
-- 512 files · ~405,969 words
+- 514 files · ~408,172 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 4066 nodes · 5115 edges · 409 communities (386 shown, 23 thin omitted)
+- 4071 nodes · 5125 edges · 411 communities (388 shown, 23 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 21 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -335,15 +335,17 @@
 - [[_COMMUNITY_Community 406|Community 406]]
 - [[_COMMUNITY_Community 407|Community 407]]
 - [[_COMMUNITY_Community 408|Community 408]]
+- [[_COMMUNITY_Community 409|Community 409]]
+- [[_COMMUNITY_Community 410|Community 410]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useAuth()` - 36 edges
 2. `query()` - 29 edges
 3. `getPool()` - 28 edges
-4. `useCustomerAuth()` - 25 edges
-5. `createAdmin()` - 24 edges
-6. `Admin Authentication` - 24 edges
-7. `resolveOrgId()` - 23 edges
+4. `resolveOrgId()` - 25 edges
+5. `useCustomerAuth()` - 25 edges
+6. `createAdmin()` - 24 edges
+7. `Admin Authentication` - 24 edges
 8. `hashToken()` - 23 edges
 9. `createHall()` - 22 edges
 10. `useHall()` - 21 edges
@@ -363,7 +365,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (409 total, 23 thin omitted)
+## Communities (411 total, 23 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.13
@@ -422,7 +424,7 @@ Cohesion: 0.08
 Nodes (25): Adding New Tests, Cinema Hall API — Test Suite Guide, Cleanup Rules, Concurrency Test Pattern, Configuration (`vitest.config.js`), Controller Test (Real DB), Coverage Report, Database (+17 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.15
+Cohesion: 0.16
 Nodes (35): acceptInvite(), changePassword(), completeOnboarding(), forgotPassword(), getAdminSecurity(), getAdminSecurityLogs(), getAllAdmins(), getCinemaAdminMe() (+27 more)
 
 ### Community 16 - "Community 16"
@@ -478,8 +480,8 @@ Cohesion: 0.11
 Nodes (17): aliases, components, hooks, lib, ui, utils, iconLibrary, rsc (+9 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.17
-Nodes (12): ProfilePage(), ProtectedRoute(), allCities, LocationModal(), POPULAR_CITIES, popularCitiesWithState, stateMap, CustomerAuthContext (+4 more)
+Cohesion: 0.20
+Nodes (11): ProtectedRoute(), allCities, LocationModal(), POPULAR_CITIES, popularCitiesWithState, stateMap, CustomerAuthContext, CustomerAuthProvider() (+3 more)
 
 ### Community 30 - "Community 30"
 Cohesion: 0.11
@@ -534,8 +536,8 @@ Cohesion: 0.17
 Nodes (12): devDependencies, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, tw-animate-css, @types/node (+4 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.08
-Nodes (23): Admin Features, Backend, Backend Features, Cinema Hall Ticket Booking App - Documentation, Code Examples, 🤝 Contributing, 📊 Documentation Stats, 📖 Documentation Structure (+15 more)
+Cohesion: 0.06
+Nodes (31): 1. [Backend API Documentation](./backend.md), 2. [Admin Panel Documentation](./admin.md), 3. [Database Setup Script](./db_setup.sql), 4. [User Application Documentation](./users.md), 5. [Graphify Knowledge Graph](./graphify-out/), 5. [Test Suite Documentation](./backend_tests.md), 6. [Graphify Knowledge Graph](./graphify-out/), Admin Features (+23 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.25
@@ -646,8 +648,8 @@ Cohesion: 0.09
 Nodes (22): bin, cinemax-mcp, dependencies, axios, cross-env, dotenv, @modelcontextprotocol/sdk, pg (+14 more)
 
 ### Community 93 - "Community 93"
-Cohesion: 0.15
-Nodes (6): PASSWORD_POLICY_CHECKS, LoginModal(), SeatCountModal(), SeatSelectionPage(), customerAuthAPI, findBestAdjacentSeats()
+Cohesion: 0.29
+Nodes (4): LoginModal(), SeatCountModal(), SeatSelectionPage(), findBestAdjacentSeats()
 
 ### Community 94 - "Community 94"
 Cohesion: 0.07
@@ -774,8 +776,8 @@ Cohesion: 0.13
 Nodes (15): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+7 more)
 
 ### Community 139 - "Community 139"
-Cohesion: 0.14
-Nodes (13): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Custom Components, Environment Variables, Future Enhancements, Image Upload (+5 more)
+Cohesion: 0.18
+Nodes (10): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Environment Variables, Future Enhancements, Image Upload, Overview (+2 more)
 
 ### Community 140 - "Community 140"
 Cohesion: 0.22
@@ -858,8 +860,8 @@ Cohesion: 0.36
 Nodes (9): getAllMovies(), getCinemaHallsByLocation(), getCinemaHallsWithShows(), getDistrictsInState(), getMovieById(), getMovieDetailsWithShowtimes(), getMoviesByLocation(), getMoviesByState() (+1 more)
 
 ### Community 221 - "Community 221"
-Cohesion: 0.06
-Nodes (21): Bookings(), adsAPI, bookingAPI, offersAPI, paymentAPI, settingsAPI, showsAPI, avatarColors (+13 more)
+Cohesion: 0.07
+Nodes (17): Bookings(), adsAPI, bookingAPI, offersAPI, paymentAPI, settingsAPI, showsAPI, avatarColors (+9 more)
 
 ### Community 222 - "Community 222"
 Cohesion: 0.08
@@ -951,7 +953,7 @@ Nodes (16): CinemaLayout(), ProtectedRoute(), AppSidebar(), managementItems, nav
 
 ### Community 248 - "Community 248"
 Cohesion: 0.09
-Nodes (21): `auth.Controller.js` (1661 lines), `auth.routes.js`, Authentication - Backend, Controllers, Current Token and Scope Behavior, `customerAuth.Controller.js` (707 lines), `customerAuth.routes.js`, `emails.js` (+13 more)
+Nodes (22): `auth.Controller.js` (1661 lines), `auth.routes.js`, Authentication - Backend, Controllers, Current Token and Scope Behavior, `customerAuth.Controller.js` (707 lines), `customerAuth.routes.js`, `emails.js` (+14 more)
 
 ### Community 249 - "Community 249"
 Cohesion: 0.22
@@ -1078,8 +1080,8 @@ Cohesion: 0.13
 Nodes (14): Backend Files, `cinema-hall-api/controllers/screens.Controller.js`, `cinema-hall-api/routes/screens.routes.js`, Database Files, File Reference — Screen Management, Frontend Files, Middleware / Config Files, Middleware: `requireActiveHall` (+6 more)
 
 ### Community 284 - "Community 284"
-Cohesion: 0.13
-Nodes (14): `cinema-hall-admin` — `2b54a38`, `cinema-hall-admin` — `fa801d3`, `cinema-hall-api` — `50b1feb`, `cinema-hall-api` — `c35886b`, `cinema-hall-admin` — `2f9bbeb`, `cinema-hall-api` — `server.js` (folded into `50b1feb`), `cinema-hall-users` — `548e50f`, Context, Deployment (+6 more)
+Cohesion: 0.12
+Nodes (16): `cinema-hall-admin` — `2b54a38`, `cinema-hall-admin` — `fa801d3`, `cinema-hall-api` - `36a7e4e`, `cinema-hall-api` — `50b1feb`, `cinema-hall-api` — `c35886b`, `cinema-hall-admin` — `2f9bbeb`, `cinema-hall-api` — `server.js` (folded into `50b1feb`), `cinema-hall-users` — `548e50f`, Context (+8 more)
 
 ### Community 285 - "Community 285"
 Cohesion: 0.14
@@ -1314,8 +1316,8 @@ Cohesion: 0.25
 Nodes (7): Ads Management Module, Business Objective, Dependencies, Features, Module Purpose, Related Modules, User Roles Involved
 
 ### Community 343 - "Community 343"
-Cohesion: 0.25
-Nodes (7): Authentication Module, Business Objective, Dependencies, Features, Module Purpose, Related Modules, User Roles Involved
+Cohesion: 0.22
+Nodes (8): Authentication Module, Business Objective, Dependencies, Features, Module Purpose, Onboarding Eligibility, Related Modules, User Roles Involved
 
 ### Community 344 - "Community 344"
 Cohesion: 0.25
@@ -1390,8 +1392,8 @@ Cohesion: 0.25
 Nodes (7): Workflow 1: Admin Searches Customers, Workflow 2: Admin Views Customer Details, Workflow 3: Admin Manages Other Admins, Workflow 4: Customer Edits Profile, Workflow 5: Customer Views Account, Workflow 6: Customer Manages Settings, Workflows — User Management & Customers
 
 ### Community 362 - "Community 362"
-Cohesion: 0.25
-Nodes (8): 1. [Backend API Documentation](./backend.md), 2. [Admin Panel Documentation](./admin.md), 3. [Database Setup Script](./db_setup.sql), 4. [User Application Documentation](./users.md), 5. [Graphify Knowledge Graph](./graphify-out/), 5. [Test Suite Documentation](./backend_tests.md), 6. [Graphify Knowledge Graph](./graphify-out/), 📚 Documentation Files
+Cohesion: 0.22
+Nodes (3): ProfilePage(), PASSWORD_POLICY_CHECKS, customerAuthAPI
 
 ### Community 363 - "Community 363"
 Cohesion: 0.29
@@ -1410,8 +1412,8 @@ Cohesion: 0.29
 Nodes (6): Cinema Hall - Documentation Progress, Legend, Module Directory Structure, Module Documentation Status, Platform Architecture, Repository Overview
 
 ### Community 367 - "Community 367"
-Cohesion: 0.29
-Nodes (6): Admin App, API, Latest Changes, Related Documentation, Source Commits, User App
+Cohesion: 0.25
+Nodes (7): Admin App, API, Latest Changes, Organization Onboarding Hardening, Related Documentation, Source Commits, User App
 
 ### Community 368 - "Community 368"
 Cohesion: 0.29
@@ -1573,8 +1575,16 @@ Nodes (4): 8.1 Channels, 8.2 Provider Config (org-level, stored in `organization
 Cohesion: 0.67
 Nodes (3): Navigation Structure, Route Protection, Routing & Navigation
 
+### Community 409 - "Community 409"
+Cohesion: 0.33
+Nodes (4): avatarColors, debounce(), PaymentOrders(), statusConfig
+
+### Community 410 - "Community 410"
+Cohesion: 0.67
+Nodes (3): Custom Components, shadcn/ui Components Used, UI Components
+
 ## Knowledge Gaps
-- **2114 isolated node(s):** `start-all-services.sh script`, `$schema`, `plugin`, `@opencode-ai/plugin`, `$schema` (+2109 more)
+- **2116 isolated node(s):** `start-all-services.sh script`, `$schema`, `plugin`, `@opencode-ai/plugin`, `$schema` (+2111 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -1583,14 +1593,14 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `User Application Documentation` connect `Community 142` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 89`?**
   _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 105`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 408`, `Community 89`, `Community 410`, `Community 158`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
 - **Why does `getNextDates()` connect `Community 41` to `Community 29`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 105`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 408`, `Community 89`, `Community 158`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `useAuth()` (e.g. with `PaymentSettingsPage()` and `SettingsIndexRedirect()`) actually correct?**
   _`useAuth()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `start-all-services.sh script`, `$schema`, `plugin` to the rest of the system?**
-  _2114 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _2116 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

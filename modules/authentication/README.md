@@ -16,6 +16,13 @@ Provide a secure, multi-provider authentication system supporting email/password
 - **Invite System**: Validate and accept team invite tokens
 - **Onboarding**: Complete organization, cinema hall, and role setup for new admins
 
+### Onboarding Eligibility
+
+- Only an account holder without an active organization membership may create a new organization.
+- Platform `staff` accounts cannot create organizations; they must be invited by an organization owner.
+- An admin already belonging to another owner's organization cannot create a second organization.
+- An existing owner may retry onboarding idempotently. The server-side check is authoritative; the frontend redirect is only a convenience.
+
 ## User Roles Involved
 - **Super Admin**: Platform-level admin who can view all admins and security logs
 - **Cinema Admin**: Cinema hall operator who manages their hall, team, and settings
@@ -33,5 +40,4 @@ Provide a secure, multi-provider authentication system supporting email/password
 ## Related Modules
 - [Roles, Permissions & Team Management](../roles-permissions-team/README.md) - Role-based access after authentication
 - [Settings](../settings/README.md) - Password policy and lockout configuration
-- [OTP](../otp/README.md) - OTP generation and verification for customer flows
-- [Notifications](../notifications/README.md) - Email notifications for auth events
+- [Notifications & OTP](../notifications-otp/README.md) - OTP generation and email notifications for auth events

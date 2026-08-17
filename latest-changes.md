@@ -17,6 +17,15 @@ This page records the latest committed behavior across the three applications.
 
 ## API
 
+### Organization Onboarding Hardening
+
+- `POST /api/auth/onboarding` now rejects platform `staff` accounts with `403` before any organization or hall is created.
+- An authenticated admin who is already an active member of an organization owned by someone else cannot create a second organization.
+- An existing organization owner may safely retry onboarding without creating a duplicate organization.
+- The onboarding owner-membership upsert now targets the phase 4 partial unique index, preventing a transaction failure during fresh onboarding.
+- `database/audit_org_ownership.sql` provides read-only checks for staff-owned organizations, membership-role inconsistencies, hall-less organizations, and orphaned organizations.
+- `database/migration_phase6_remove_phantom_orgs.sql` safely removes eligible hall-less organizations owned by staff while protecting organizations with halls, other members, or no alternate membership.
+
 - `requireActiveOrg` verifies active organization membership from `X-Org-Id` or the organization in the JWT.
 - `requireActiveHall` resolves organization membership, org-wide roles, creator access, explicit hall assignments, and read-only hall scope.
 - Customer access and refresh tokens accept `Authorization: Bearer <token>` in addition to cookies.
@@ -41,7 +50,7 @@ This page records the latest committed behavior across the three applications.
 | App | Latest commits |
 |---|---|
 | Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564` |
-| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4` |
+| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e` |
 | Users | `548e50f`, `74049d1` |
 
 ## Related Documentation
