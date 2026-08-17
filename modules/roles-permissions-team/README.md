@@ -24,7 +24,7 @@ This module provides role-based access control (RBAC) and team management for th
 │              PostgreSQL Database                      │
 │  roles | permissions | role_permissions              │
 │  organization_members | hall_assignments             │
-│  team_invites                                        │
+│  admin_verification_tokens (purpose='team_invite')   │
 └─────────────────────────────────────────────────────┘
 ```
 

@@ -2,6 +2,7 @@
 
 ## Current Enforcement Notes
 
+- `requirePermission()` is wired across **all** admin route files — shows, screens, movies, bookings, refunds, payment, dashboard, halls, offers, settings, roles and team. It was previously present only on `roles` and `team`, which made the sidebar's permission filtering cosmetic: a restricted member could call any other endpoint directly. `ads` and `customers` remain `verifySuperAdmin` because those tables are platform-global, with no `org_id`.
 - `requirePermission()` resolves the active organization from membership and checks the role's `permissions_version` before loading permissions.
 - A stale token returns `401` with `code: "TOKEN_STALE"`; the admin client refreshes and retries the request.
 - `requireActiveOrg` validates `X-Org-Id` membership. `requireActiveHall` validates organization membership plus org-wide, creator, or explicit hall access and sets `req.hallScope`.
@@ -17,12 +18,23 @@
 
 | Function | Endpoint | Permission | Description |
 |---|---|---|---|
-| `listRoles` | `GET /api/roles` | `roles.read` | Returns all roles for the admin's org, each with its permissions array |
-| `createRole` | `POST /api/roles` | `roles.manage` | Creates a role. Accepts `label`, `description`, and optional `permissionKeys` array or `cloneFrom` role ID |
-| `getRole` | `GET /api/roles/:id` | `roles.read` | Returns a single role with its permissions |
-| `updateRole` | `PATCH /api/roles/:id` | `roles.manage` | Updates label, description, and replaces the entire permission set. Increments `permissions_version` |
+| `listRoles` | `GET /api/roles` | `roles.read` | Returns all roles for the admin's org with `member_count` and `permission_count` |
+| `listPermissions` | `GET /api/roles/permissions` | `roles.read` | The full global permission catalog (`id`, `key`, `label`, `resource`). The admin UI renders only what this returns, so the editor's options cannot drift from the schema. **Registered before `/:id`** or Express matches it as a role id |
+| `createRole` | `POST /api/roles` | `roles.manage` | Creates a role. Accepts `label`, `description`, and optional `permissionKeys` array or `cloneFrom` — which accepts **either a role id or a role key** |
+| `getRole` | `GET /api/roles/:id` | `roles.read` | Returns a single role. `permissions` is an array of **objects** (`{ id, key, label, resource }`), not strings |
+| `updateRole` | `PATCH /api/roles/:id` | `roles.manage` | Updates label/description and replaces the entire permission set. See guards below |
 | `deleteRole` | `DELETE /api/roles/:id` | `roles.manage` | Deletes a role. Blocks deletion if `is_system` is true or if members are currently assigned |
-| `cloneRole` | `POST /api/roles/:id/clone` | `roles.manage` | Copies permissions from the source role into a newly created role |
+| `cloneRole` | `POST /api/roles/:id/clone` | `roles.manage` | Copies permissions from the source role into a newly created role, subject to the same escalation guard |
+
+### Write guards on `createRole` / `updateRole` / `cloneRole`
+
+| Guard | Behaviour |
+|---|---|
+| Owner role is immutable | `updateRole` rejects with `403` if `role.key === 'owner'` and `permissionKeys` is supplied. Renaming is still allowed. The owner role is the org's recovery path — editable, it lets an owner strip `roles.manage` from themselves and lock the organization out permanently |
+| No privilege escalation | Any key the **caller** does not already hold is rejected with `403`. Applies to explicit grants and to cloning, so copying the owner role is not a free escalation. `superAdmin` bypasses |
+| Unknown keys rejected | Keys absent from the catalog return `400` listing them, rather than being silently dropped — a drifted client used to wipe permissions it could not render |
+| Version bump | `permissions_version` is incremented whenever the **permission set** changes, not only when the label changes. This is what invalidates the 1-day access tokens of everyone holding the role |
+| Cache invalidation | `clearOrgPermissionCache(orgId)` runs after every role write, clearing the 5-minute per-`adminId:orgId` cache for **all** members of the org |
 
 ## Routes
 
@@ -34,6 +46,7 @@ All routes are protected by `verifyCinemaAdminAccessToken` middleware:
 | Method | Path | Permission | Handler |
 |---|---|---|---|
 | GET | `/api/roles` | `roles.read` | listRoles |
+| GET | `/api/roles/permissions` | `roles.read` | listPermissions |
 | GET | `/api/roles/:id` | `roles.read` | getRole |
 | POST | `/api/roles` | `roles.manage` | createRole |
 | PATCH | `/api/roles/:id` | `roles.manage` | updateRole |
@@ -88,9 +101,10 @@ router.get('/', requirePermission('roles.read'), listRoles)
 ```
 
 - `requirePermission(permissionKey)` — Factory that returns Express middleware.
-- Calls `teamService.loadAdminPermissions(adminId, orgId)` to resolve the admin's effective permission set.
-- Returns `403` if the permission key is not present.
-- `resolveOrgId(adminId)` — Helper that resolves the org ID from the admin's active membership.
+- Calls `teamService.loadAdminPermissions(adminId, orgId)` to resolve the admin's effective permission set (5-minute cache keyed `adminId:orgId`).
+- Returns `403 { error: 'Permission denied', required: <key> }` if the permission key is not present.
+- `resolveOrgId(adminId)` — Resolves the org from the admin's active membership. Ordering: **an org with halls outranks a hall-less one**, then ownership, then oldest membership. Must stay in step with `resolveOrgContext` in `utils/generateTokenAndSetCookie.js`, which backs login, refresh and `/me` — otherwise the token and `/me` disagree about which org the caller is in.
+- `clearPermissionCache(adminId, orgId)` / `clearOrgPermissionCache(orgId)` — invalidate one member, or every member of an org after a role write.
 
 ## Service Layer
 
@@ -110,7 +124,7 @@ router.get('/', requirePermission('roles.read'), listRoles)
 | `getMemberHalls(memberId, orgId)` | Lists a member's `hall_assignments` |
 | `assignHalls(memberId, orgId, halls)` | Grants/updates hall access. **Guarded:** rejects with `CANNOT_MODIFY_OWNER` for the owner — owners already have implicit full access via `requireActiveHall`'s org-wide-role check |
 | `removeHallAssignment(memberId, orgId, hallId)` | Revokes one hall assignment. Same owner guard as above |
-| `getOrgRoles(orgId)` | Returns all roles for the org, each with its associated permissions and `member_count` |
+| `getOrgRoles(orgId)` | Returns all roles for the org with `member_count` and `permission_count` |
 
 **`assertNotOrgOwner(orgId, memberId, code, action)`** — internal helper all four
 guarded functions call. Queries whether `organization_members.admin_id = organizations.owner_id`

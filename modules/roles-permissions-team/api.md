@@ -47,16 +47,47 @@ Create a new role.
 
 ```json
 {
+  "key": "support_agent",
   "label": "Support Agent",
   "description": "Handles customer inquiries",
   "permissionKeys": ["bookings.read", "customers.read"],
-  "cloneFrom": "uuid"  // optional; copies permissions from an existing role
+  "cloneFrom": "uuid-or-role-key"  // optional; copies permissions from an existing role
 }
 ```
 
+`key` and `label` are both required. `cloneFrom` accepts either the source role's **id or
+its key**.
+
 **Response `201`:** Created role object with permissions.
 
-**Errors:** `409` if a role with the same key already exists in this org.
+**Errors:**
+- `409` if a role with the same key already exists in this org
+- `400` if `permissionKeys` contains a key absent from the catalog (the response lists them)
+- `403` if it contains a permission the caller does not hold
+
+---
+
+### `GET /api/roles/permissions`
+
+The global permission catalog — every key the system knows about. The admin UI renders its
+matrix from this response, so its options can never drift from the schema.
+
+**Permission:** `roles.read`
+
+> Declared **before** `/api/roles/:id` in `roles.routes.js`; otherwise Express matches
+> `permissions` as a role id.
+
+**Response `200`:**
+
+```json
+{
+  "permissions": [
+    { "id": "uuid", "key": "bookings.read", "label": "Read Bookings", "resource": "bookings" }
+  ]
+}
+```
+
+55 rows as of `migration_phase5_page_permissions.sql`.
 
 ---
 
@@ -82,13 +113,24 @@ Update a role's label, description, and permissions.
 {
   "label": "Senior Support Agent",
   "description": "Handles escalated inquiries",
-  "permissionKeys": ["bookings.read", "bookings.write", "customers.read"]
+  "permissionKeys": ["bookings.read", "bookings.modify", "customers.read"]
 }
 ```
 
-**Note:** The `permissionKeys` array **replaces** the entire existing permission set. Increments `permissions_version`.
+**Note:** The `permissionKeys` array **replaces** the entire existing permission set, and
+increments `permissions_version` — which invalidates the access tokens of everyone holding
+the role. Send `permissionKeys`, not `permissions`; the latter is ignored.
 
 **Response `200`:** Updated role object.
+
+**Errors:**
+
+| Status | When |
+|---|---|
+| `403` | Editing permissions on the `owner` role — it always has full access. Renaming it is still allowed |
+| `403` | `permissionKeys` contains a permission the caller does not hold (message lists them). `superAdmin` bypasses |
+| `400` | `permissionKeys` contains a key absent from the catalog (message lists them) — keys are never silently dropped |
+| `404` | Role not found in the caller's org |
 
 ---
 

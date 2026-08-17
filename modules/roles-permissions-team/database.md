@@ -80,20 +80,24 @@ access/removal for that member (see [workflows.md](workflows.md)).
 the hall belong to the *same* organization — previously nothing stopped a
 member of org A from being granted access to a hall in org B.
 
-## Table: `team_invites`
+## Team invites — there is no `team_invites` table
 
-| Column | Type | Constraints | Description |
-|---|---|---|---|
-| `id` | UUID | PK | |
-| `org_id` | UUID | NOT NULL | |
-| `email` | VARCHAR | NOT NULL | Invited email address |
-| `name` | VARCHAR | NOT NULL | Invited person's name |
-| `role_id` | UUID | | Target role |
-| `invited_by` | UUID | | Admin who created the invite |
-| `token_hash` | VARCHAR | NOT NULL | Hashed invite token |
-| `status` | VARCHAR | NOT NULL | `pending`, `accepted`, `expired` |
-| `expires_at` | TIMESTAMPTZ | NOT NULL | Default: now + 72 hours |
-| `created_at` | TIMESTAMPTZ | DEFAULT now() | |
+Invites reuse two existing tables rather than adding one:
+
+| Concern | Where it lives |
+|---|---|
+| Who was invited, to which role, by whom | `organization_members` with `status = 'invited'`, `invited_by`, `invited_at` |
+| The invite token | `admin_verification_tokens` with `purpose = 'team_invite'` |
+
+`inviteMember` (`services/team.service.js`) stores only the **SHA-256 hash** of the
+token, with a **7-day** expiry, and emails the raw value. `acceptInvite` sets the password,
+flips the membership to `status = 'active'`, stamps `joined_at`, and deletes the token rows.
+
+Because membership and invite state are the same row, an invite to someone previously
+removed **revives** their `status = 'removed'` row instead of inserting a duplicate — which
+is exactly why `uniq_active_org_member` is a partial index excluding removed rows.
+
+There is no `INVITE_EXPIRY_HOURS` environment variable; the 7-day window is set in code.
 
 ## System Roles (Seeded Data)
 
@@ -115,5 +119,18 @@ organizations 1──N roles
                    1──N role_permissions N──1 permissions
 organizations 1──N organization_members N──1 cinema_admin_user
                    1──N hall_assignments N──1 cinema_hall
-organizations 1──N team_invites
+cinema_admin_user 1──N admin_verification_tokens   (purpose = 'team_invite')
 ```
+
+`permissions` is a **global** catalog keyed by `key`, not per-organization — 55 rows after
+`migration_phase5_page_permissions.sql` added `halls.read` and `halls.manage`. Only
+`role_permissions` is org-scoped, through `roles`.
+
+### Delete rules that matter
+
+`roles`, `organization_members`, `organization_settings` and `cinema_hall` are all
+`ON DELETE CASCADE` from `organizations`, and `cinema_hall` cascades onward into screens,
+shows and bookings. Never delete an organization without first confirming it has no halls —
+see `database/migration_phase6_remove_phantom_orgs.sql` for the guarded pattern, and
+[`../../registration-and-onboarding-flow.md`](../../registration-and-onboarding-flow.md#7-table-map)
+for the full cascade map.

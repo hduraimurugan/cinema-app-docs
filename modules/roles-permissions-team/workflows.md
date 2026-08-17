@@ -29,10 +29,14 @@
    3b. Selects role (e.g. "Support Agent")
    3c. Clicks "Send Invite"
 4. POST /api/team/invite → team service
-   4a. Generates unique invite token
-   4b. Hashes token, stores in team_invites table
-   4c. Creates organization_members row with status = "invited"
-   4d. Sends invitation email with accept link containing token
+   4a. Creates (or reuses) the cinema_admin_user row — platform role 'staff',
+       email_verified = FALSE, no password yet
+   4b. Inserts organization_members with status = "invited", invited_by, invited_at
+       — or REVIVES an existing status = "removed" row for that person
+   4c. Generates a token, stores only its SHA-256 hash in
+       admin_verification_tokens with purpose = 'team_invite', 7-day expiry
+   4d. Optionally writes hall_assignments rows for the selected halls
+   4e. Sends invitation email containing the raw token
 5. UI shows success toast; pending invite appears in member list
 ```
 
@@ -41,13 +45,16 @@
 ```
 1. Recipient clicks link in invitation email
 2. Opens accept-invite page (no auth required)
+   2a. GET /api/auth/accept-invite?token=xxx → validateInviteToken
+       returns { email, name, orgName, invitedBy, expired } to pre-fill the form
 3. Recipient sets password
-4. POST /api/team/invite/accept?token=xxx
-   4a. Server validates token via team.service.validateInviteToken
-   4b. Checks expiry (default 72 hours)
-   4c. Creates cinema_admin_user account if needed
-   4d. Updates organization_members: status → "active", joined_at = now()
-   4e. Marks team_invite status → "accepted"
+4. POST /api/auth/accept-invite
+   4a. Server hashes the raw token and matches it against
+       admin_verification_tokens where purpose = 'team_invite'
+   4b. Checks expiry (7 days from issue)
+   4c. UPDATE cinema_admin_user: sets password, email_verified = TRUE
+   4d. UPDATE organization_members: status → "active", joined_at = now()
+   4e. DELETE the team_invite token rows — invites are single-use
 5. Recipient is redirected to login
 6. Can now access the org with assigned role's permissions
 ```
@@ -137,10 +144,13 @@
 4. Modifies label/description as needed
 5. Permission matrix pre-fills with source role's permissions
 6. Admin adjusts permissions, clicks "Save"
-7. POST /api/roles with cloneFrom field
-   7a. Server creates new role
-   7b. Copies all permission associations from source role
-   7c. Custom label/description applied to new role
+7. POST /api/roles with permissionKeys (the adjusted set), or cloneFrom
+   7a. cloneFrom accepts either the source role's id or its key
+   7b. Server creates the new role, then resolves the permission set
+   7c. The set is validated: unknown keys are rejected (400), and the caller
+       cannot grant a permission they do not themselves hold (403) — cloning
+       the owner role is therefore not a free escalation
+   7d. Custom label/description applied to new role
 8. New cloned role appears in list
 ```
 

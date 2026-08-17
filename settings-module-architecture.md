@@ -6,6 +6,19 @@
 
 ## 0. Current-State Baseline (what we're extending)
 
+> **Historical record — two rows below have since been superseded.**
+>
+> - **RBAC** is no longer "`verifySuperAdmin` only". `requirePermission()` is now wired across
+>   every admin route, and settings writes are gated on `settings.org.update` /
+>   `settings.hall.update` rather than platform superAdmin — an org owner could not previously
+>   save their own General or Payment settings.
+> - **`resolveOrgId` no longer auto-creates an organization.** It is a pure lookup; a plain
+>   `GET` silently provisioning a tenant is what produced hall-less "phantom" orgs. Org
+>   creation belongs solely to `completeOnboarding`.
+>
+> See [`registration-and-onboarding-flow.md`](./registration-and-onboarding-flow.md) for the
+> current model.
+
 | Concern | Phase 0 (Pre-MVP) | Phase 1 (MVP) Delivered |
 |---|---|---|---|
 | Settings storage | `settings` key/value table, 2 keys (`convenience_fee_per_ticket`, `gst_percentage`) | `organization_settings`, `hall_settings`, `user_settings` JSONB tables per scope; legacy table kept for backward compat |
