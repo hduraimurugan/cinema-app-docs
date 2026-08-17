@@ -40,6 +40,11 @@ CREATE TABLE IF NOT EXISTS cinema_admin_user (
   account_locked_until    TIMESTAMPTZ,
   password_changed_at     TIMESTAMPTZ,
   last_login_at           TIMESTAMPTZ,
+  -- OAuth identity. `password` stays NULL for accounts created via Google or
+  -- GitHub — those inserts write password = NULL and rely on these columns.
+  auth_providers          TEXT[]      NOT NULL DEFAULT ARRAY['local'],
+  provider_ids            JSONB       NOT NULL DEFAULT '{}'::jsonb,
+  avatar                  TEXT,
   created_at              TIMESTAMPTZ DEFAULT now()
 );
 
@@ -50,6 +55,18 @@ ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS failed_login_attempts INT
 ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS account_locked_until  TIMESTAMPTZ;
 ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS password_changed_at   TIMESTAMPTZ;
 ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS last_login_at         TIMESTAMPTZ;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS auth_providers        TEXT[]      NOT NULL DEFAULT ARRAY['local'];
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS provider_ids          JSONB       NOT NULL DEFAULT '{}'::jsonb;
+ALTER TABLE cinema_admin_user ADD COLUMN IF NOT EXISTS avatar                TEXT;
+
+-- One account per external identity. Partial so local-only accounts, which
+-- have no provider id, do not all collide on NULL.
+CREATE UNIQUE INDEX IF NOT EXISTS idx_admin_google_provider_id
+  ON cinema_admin_user ((provider_ids->>'google'))
+  WHERE provider_ids->>'google' IS NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_admin_github_provider_id
+  ON cinema_admin_user ((provider_ids->>'github'))
+  WHERE provider_ids->>'github' IS NOT NULL;
 
 -- Mark all pre-existing admins as email-verified on fresh install
 -- (They registered before this feature existed and have no verification token)
@@ -165,7 +182,7 @@ CREATE TABLE IF NOT EXISTS roles (
   UNIQUE (org_id, key),
   -- Anchor for the composite FK on organization_members: lets a member's
   -- role_id be correlated with the member's own org_id.
-  UNIQUE (id, org_id)
+  CONSTRAINT roles_id_org_key UNIQUE (id, org_id)
 );
 
 CREATE TABLE IF NOT EXISTS permissions (
@@ -241,7 +258,9 @@ ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS org_id UUID REFERENCES organiza
 CREATE TABLE IF NOT EXISTS hall_assignments (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   org_member_id   UUID NOT NULL,
-  org_id          UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  -- org_id is constrained through the two composite FKs below, not directly
+  -- to organizations — matching the live schema after phase 4.
+  org_id          UUID NOT NULL,
   hall_id         UUID NOT NULL,
   scope           VARCHAR(20) NOT NULL DEFAULT 'full' CHECK (scope IN ('full','read_only','limited')),
   assigned_by     UUID REFERENCES cinema_admin_user(id),
@@ -264,8 +283,10 @@ ALTER TABLE cinema_hall ADD COLUMN IF NOT EXISTS is_active   BOOLEAN NOT NULL DE
 CREATE TABLE IF NOT EXISTS customers (
   id                      UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
   email                   TEXT    UNIQUE NOT NULL,
-  password                TEXT    NOT NULL,
-  name                    TEXT    NOT NULL,
+  -- password and name are NULLABLE on purpose. Google sign-up inserts
+  -- password = NULL, so a NOT NULL here rejects every OAuth customer.
+  password                TEXT,
+  name                    TEXT,
   phone                   TEXT,
   is_verified             BOOLEAN NOT NULL DEFAULT FALSE,
   district                TEXT    NOT NULL DEFAULT '',
@@ -274,9 +295,23 @@ CREATE TABLE IF NOT EXISTS customers (
   account_locked_until    TIMESTAMPTZ,
   last_login_at           TIMESTAMPTZ,
   password_changed_at     TIMESTAMPTZ,
+  auth_providers          TEXT[]  NOT NULL DEFAULT ARRAY['local'],
+  provider_ids            JSONB   NOT NULL DEFAULT '{}'::jsonb,
+  avatar                  TEXT,
   created_at              TIMESTAMPTZ DEFAULT now(),
   updated_at              TIMESTAMPTZ DEFAULT now()
 );
+
+-- Idempotent for databases created before OAuth support
+ALTER TABLE customers ADD COLUMN IF NOT EXISTS auth_providers TEXT[] NOT NULL DEFAULT ARRAY['local'];
+ALTER TABLE customers ADD COLUMN IF NOT EXISTS provider_ids   JSONB  NOT NULL DEFAULT '{}'::jsonb;
+ALTER TABLE customers ADD COLUMN IF NOT EXISTS avatar         TEXT;
+ALTER TABLE customers ALTER COLUMN password DROP NOT NULL;
+ALTER TABLE customers ALTER COLUMN name     DROP NOT NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_customers_google_provider_id
+  ON customers ((provider_ids->>'google'))
+  WHERE provider_ids->>'google' IS NOT NULL;
 
 -- Auto-update customers.updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -458,7 +493,7 @@ CREATE TABLE IF NOT EXISTS payment_orders (
   seats             JSONB        NOT NULL,
   amount            DECIMAL(10,2) NOT NULL,
   status            VARCHAR(20)  DEFAULT 'created'
-                      CHECK (status IN ('created', 'paid', 'failed', 'expired', 'refunded')),
+                      CHECK (status IN ('created', 'paid', 'failed', 'expired')),
   payment_id        VARCHAR(255),
   payment_signature VARCHAR(500),
   convenience_fee   DECIMAL(10,2) NOT NULL DEFAULT 0,
@@ -480,7 +515,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   seats           JSONB        NOT NULL,
   total_amount    DECIMAL(10,2) NOT NULL,
   payment_status  VARCHAR(20)  DEFAULT 'pending',
-  payment_id      VARCHAR(255) UNIQUE,                    -- UNIQUE constraint for idempotency
+  payment_id      VARCHAR(255),                           -- UNIQUE via uq_bookings_payment_id (idempotency)
   booking_status  VARCHAR(20)  DEFAULT 'confirmed'
                     CHECK (booking_status IN ('confirmed', 'cancelled', 'completed')),
   convenience_fee DECIMAL(10,2) NOT NULL DEFAULT 0,
@@ -494,10 +529,12 @@ CREATE TABLE IF NOT EXISTS bookings (
 -- Deduplication table for Razorpay webhooks
 CREATE TABLE IF NOT EXISTS webhook_events (
   id           UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
-  event_id     VARCHAR(255) UNIQUE NOT NULL,      -- X-Razorpay-Event-Id
-  event_type   VARCHAR(50)  NOT NULL,            -- e.g. payment.captured
-  payload_hash VARCHAR(64)  NOT NULL,          -- SHA-256 of raw body
-  processed_at TIMESTAMPTZ  DEFAULT now()
+  event_id     TEXT        UNIQUE NOT NULL,       -- X-Razorpay-Event-Id
+  event_type   TEXT        NOT NULL,              -- e.g. payment.captured
+  -- Nullable to match the live schema. The webhook handler always computes it,
+  -- so it could be tightened — see the note at the end of this file.
+  payload_hash TEXT,                              -- SHA-256 of raw body
+  processed_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
@@ -572,8 +609,7 @@ CREATE TABLE IF NOT EXISTS ads (
   title      VARCHAR(255) NOT NULL,
   image_url  TEXT         NOT NULL,
   click_url  TEXT,
-  placement  VARCHAR(20)  NOT NULL DEFAULT 'banner'
-               CHECK (placement IN ('banner', 'side')),
+  placement  VARCHAR(20)  NOT NULL DEFAULT 'banner',
   start_date DATE         NOT NULL,
   end_date   DATE         NOT NULL,
   is_active  BOOLEAN      DEFAULT true,
@@ -944,6 +980,41 @@ INSERT INTO user_settings (admin_id, section, value)
 SELECT cau.id, 'appearance', '{"sidebar_collapsed":false,"theme":"system"}'::jsonb
 FROM cinema_admin_user cau
 WHERE NOT EXISTS (SELECT 1 FROM user_settings us WHERE us.admin_id = cau.id AND us.section = 'appearance');
+
+
+-- ---------------------------------------------------------------------------
+-- 10. FOREIGN-KEY INDEXES & NAMED CONSTRAINTS
+-- ---------------------------------------------------------------------------
+-- Postgres does NOT auto-index the referencing side of a foreign key, so every
+-- join and every ON DELETE CASCADE below would otherwise sequential-scan.
+
+CREATE INDEX IF NOT EXISTS idx_bookings_show_id            ON bookings(show_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_payment_id         ON bookings(payment_id);
+CREATE INDEX IF NOT EXISTS idx_screens_cinema_hall_id      ON screens(cinema_hall_id);
+CREATE INDEX IF NOT EXISTS idx_shows_screen_id             ON shows(screen_id);
+CREATE INDEX IF NOT EXISTS idx_cinema_hall_admin_id        ON cinema_hall(admin_id);
+CREATE INDEX IF NOT EXISTS idx_payment_orders_customer_show ON payment_orders(customer_id, show_id, status);
+CREATE INDEX IF NOT EXISTS idx_webhook_events_event_id     ON webhook_events(event_id);
+
+-- bookings.payment_id is UNIQUE for payment idempotency. Named explicitly so a
+-- database created before this script and one created by it agree.
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'uq_bookings_payment_id')
+     AND NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'bookings_payment_id_key') THEN
+    ALTER TABLE bookings ADD CONSTRAINT uq_bookings_payment_id UNIQUE (payment_id);
+  END IF;
+END $$;
+
+-- Columns the live schema has as NOT NULL
+ALTER TABLE customer_sessions ALTER COLUMN created_at   SET NOT NULL;
+ALTER TABLE customer_sessions ALTER COLUMN last_used_at SET NOT NULL;
+ALTER TABLE webhook_events    ALTER COLUMN processed_at SET NOT NULL;
+
+-- Optional hardening, NOT applied because it diverges from the live schema.
+-- The Razorpay webhook handler always computes payload_hash, so this is safe
+-- to run on both databases if you want the constraint:
+--   ALTER TABLE webhook_events ALTER COLUMN payload_hash SET NOT NULL;
 
 
 -- =============================================================================
