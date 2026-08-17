@@ -2,6 +2,8 @@
 
 Quick reference for all documentation files in this folder.
 
+See [latest-changes.md](./latest-changes.md) for the current cross-application behavior and source commits.
+
 | File                                                                                | Description                            | Key Topics                                                                                          |
 | ----------------------------------------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | [README.md](./README.md)                                                               | Project overview and navigation guide  | Tech stack, quick start, doc structure                                                              |

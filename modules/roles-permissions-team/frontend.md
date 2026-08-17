@@ -1,5 +1,13 @@
 # Frontend — Roles, Permissions & Team Management
 
+## Current Permission UI
+
+- `src/config/pagePermissions.js` is the single page-to-permission catalog used by routes, sidebar navigation, settings navigation, and the permission editor.
+- `RolesPermissionsPage` shows `member_count` and `permission_count`, scrolls to the selected role editor, and renders the Owner role as read-only.
+- `PermissionMatrixTable` supports page-level View/Create/Edit/Delete actions, extra actions, advanced permissions, reset, dirty state, and save callbacks.
+- `SettingsLayout` filters every settings section by its read permission and redirects `/settings` to the first accessible section.
+- Unsaved settings changes are represented by an amber dot and an `unsaved` label on hover.
+
 ## Pages
 
 ### RolesPermissionsPage

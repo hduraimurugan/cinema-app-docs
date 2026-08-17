@@ -1,5 +1,15 @@
 # Backend — Roles, Permissions & Team Management
 
+## Current Enforcement Notes
+
+- `requirePermission()` resolves the active organization from membership and checks the role's `permissions_version` before loading permissions.
+- A stale token returns `401` with `code: "TOKEN_STALE"`; the admin client refreshes and retries the request.
+- `requireActiveOrg` validates `X-Org-Id` membership. `requireActiveHall` validates organization membership plus org-wide, creator, or explicit hall access and sets `req.hallScope`.
+- Read-only hall assignments may read but cannot use mutation permission keys.
+- Role and hall references are checked against the current organization before team writes.
+- The organization owner cannot be modified, removed, or assigned individual hall overrides. This is enforced in the service layer, not only in React.
+- Removed memberships are timestamped with `removed_at` and may be revived by a later invite.
+
 ## Controllers
 
 ### roles.Controller.js

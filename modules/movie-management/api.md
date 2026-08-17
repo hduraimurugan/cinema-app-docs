@@ -1,5 +1,11 @@
 # Movie Management - API
 
+## Current Authorization Note
+
+Admin movie list and mutation routes now use permission middleware (`movies.read`, `movies.create`, `movies.update`, and `movies.delete`) after admin authentication. Super admins continue to pass through the permission middleware.
+
+Customer-facing movie responses expose the numeric `vote_average` field used by the user app for normalized one-decimal ratings.
+
 ## Admin Movie Endpoints
 
 ### GET `/api/movies`

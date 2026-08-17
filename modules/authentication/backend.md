@@ -1,5 +1,12 @@
 # Authentication - Backend
 
+## Current Token and Scope Behavior
+
+- Admin access tokens include organization and permission-version context used by permission middleware.
+- Admin requests may carry `X-Org-Id` and `X-Hall-Id` to select the active tenant and hall scope.
+- Customer access and refresh tokens accept an `Authorization: Bearer` header as a cookie alternative.
+- When a role permission version changes, protected requests return `401 TOKEN_STALE`; the admin frontend refreshes the token and retries once.
+
 ## Routes
 
 ### `auth.routes.js`

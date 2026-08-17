@@ -1,5 +1,12 @@
 # Frontend — User App Experience
 
+## Current Experience Updates
+
+- Movie cards and hero slides normalize `vote_average` and display a one-decimal rating only when it is a positive number.
+- `MovieDetailsPage` uses a location-first empty state, sticky date selector, responsive hall cards, available/fast-filling indicators, theatre favorites, and Google Maps directions.
+- Favorite theatre IDs are persisted in local storage as `favourite_theatres`.
+- Directions use hall latitude/longitude when available and otherwise fall back to a Google Maps address search.
+
 ## Pages
 
 | Page | Path | Description |

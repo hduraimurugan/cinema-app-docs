@@ -1,5 +1,11 @@
 # Frontend: Settings Module
 
+## Permission-aware Navigation
+
+Settings navigation is generated from the shared admin page-permission catalog. Organization, cinema-branch, and management sections are shown only when the active admin can read them. The index route selects the first accessible section instead of always redirecting to General.
+
+`SettingsLayout` keeps the existing per-section save behavior. A dirty section shows an amber dot; hovering the item reveals the full `unsaved` label. The active item uses an animated highlighted background.
+
 ## Pages
 
 All settings pages live in `src/pages/settings/`.
