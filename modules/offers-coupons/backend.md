@@ -35,16 +35,16 @@ cap:       discountAmount = min(discountAmount, total_amount)  // never exceed b
 
 ## Controller Functions
 
-### Admin (SuperAdmin)
+### Admin (RBAC + creator/org-scoped since `6e0705a` — `controllers/offers.Controller.js:1` imports `resolveOrgId`)
 
 | Function | Route | Description |
 |---|---|---|
-| `getAllCinemaHalls` | `GET /cinema-halls` | Returns `{ id, name }` for all halls |
-| `getAllOffers` | `GET /` | Paginated list with filters (scope, is_active, search) |
-| `createOffer` | `POST /create` | Inserts with code uppercased; returns full offer row |
-| `getOfferById` | `GET /:id` | Single offer with `cinema_hall_name` join |
-| `updateOffer` | `PUT /update/:id` | Full update; 404 if missing; 409 on code conflict |
-| `deleteOffer` | `DELETE /delete/:id` | Hard delete; 404 if missing |
+| `getAllCinemaHalls` | `GET /cinema-halls` | `requirePermission('offers.create')`. SuperAdmin → all `{id,name}`; org member → `resolveOrgId` then `WHERE org_id=$1`; `403 No organization found` if none |
+| `getAllOffers` | `GET /` | `requirePermission('offers.read')`. Paginated filters + `AND created_by=$4` for non-SuperAdmin; joins `cinema_admin_user` + `LATERAL creator_role` for `created_by_name/email/role` (`Super Admin` fallback); `LIMIT 50 OFFSET $5` |
+| `createOffer` | `POST /create` | `requirePermission('offers.create')`. Global requires SuperAdmin (`403`); hall for non-SuperAdmin validates `cinema_hall_id` belongs to `resolveOrgId` org (`403 You can only create offers for your own cinema hall.`) |
+| `getOfferById` | `GET /:id` | `requirePermission('offers.read')`. Joins `cinema_hall_name` + `created_by_name`; creator ownership `403 You can only view offers you created.` |
+| `updateOffer` | `PUT /update/:id` | `requirePermission('offers.update')`. Fetch existing `created_by`; ownership + global/hall scope checks mirror create; `404`/`403`/`409` |
+| `deleteOffer` | `DELETE /delete/:id` | `requirePermission('offers.delete')`. Ownership check `403 You can only delete offers you created.`; `404` if missing |
 
 ### Customer
 
@@ -53,20 +53,20 @@ cap:       discountAmount = min(discountAmount, total_amount)  // never exceed b
 | `getActiveOffers` | `GET /active` | Active offers filtered by customer eligibility, sorted unredeemed-first |
 | `validateOffer` | `POST /validate` | Validates offer against customer + show, returns discount preview |
 
-## Routes — `offers.routes.js`
+## Routes — `offers.routes.js` (`routes/offers.routes.js:27`, `6e0705a`)
 
 ```js
 // Customer (must precede /:id to avoid param capture)
 GET    /api/offers/active       → verifyCustomer → getActiveOffers
 POST   /api/offers/validate     → verifyCustomer → validateOffer
 
-// Admin
-GET    /api/offers/cinema-halls → verifySuperAdmin → getAllCinemaHalls
-GET    /api/offers              → verifySuperAdmin → getAllOffers
-GET    /api/offers/:id          → verifySuperAdmin → getOfferById
-POST   /api/offers/create       → verifySuperAdmin → createOffer
-PUT    /api/offers/update/:id   → verifySuperAdmin → updateOffer
-DELETE /api/offers/delete/:id   → verifySuperAdmin → deleteOffer
+// Admin — hall-scoped permission, not platform superAdmin (comment at line 25)
+GET    /api/offers/cinema-halls → verifyCinemaAdminAccessToken + requirePermission('offers.create') → getAllCinemaHalls
+GET    /api/offers              → verifyCinemaAdminAccessToken + requirePermission('offers.read')   → getAllOffers
+GET    /api/offers/:id          → verifyCinemaAdminAccessToken + requirePermission('offers.read')   → getOfferById
+POST   /api/offers/create       → verifyCinemaAdminAccessToken + requirePermission('offers.create') → createOffer
+PUT    /api/offers/update/:id   → verifyCinemaAdminAccessToken + requirePermission('offers.update') → updateOffer
+DELETE /api/offers/delete/:id   → verifyCinemaAdminAccessToken + requirePermission('offers.delete') → deleteOffer
 ```
 
 ## Integration — `payment.Controller.js`

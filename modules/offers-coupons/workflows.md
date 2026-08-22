@@ -1,19 +1,22 @@
 # Workflows
 
-## 1. SuperAdmin Creates an Offer
+## 1. Admin Creates an Offer (RBAC since `6e0705a` / `a79e555`)
 
 ```
-Admin fills OfferFormPage [/offers/new]
+Admin (offers.create) fills OfferFormPage [/offers/new]
+  — non-SuperAdmin sees scope default `hall` and Global hidden (useAuth at OfferFormPage.jsx:40)
   ↓
 Client-side validation (required fields, hall dependency, joined_after dependency)
   ↓
-POST /api/offers/create
+POST /api/offers/create (verifyCinemaAdminAccessToken + requirePermission('offers.create'))
   ↓
-Controller validates:
+Controller validates (6e0705a, controllers/offers.Controller.js:221):
   - code, title, discount_type, discount_value, valid_until required
   - discount_type must be 'percentage' or 'fixed'
+  - scope=global requires superAdmin else 403
+  - scope=hall for non-SuperAdmin: cinema_hall_id required and must be WHERE org_id = resolveOrgId(admin.id) else 403
   ↓
-INSERT INTO offers (code uppercased, scope defaults to 'global', is_active defaults to true)
+INSERT INTO offers (code uppercased, scope defaults to 'global', is_active defaults to true, created_by = req.admin.id)
   ↓
 Return created offer with 201
   ↓
@@ -87,40 +90,42 @@ handlePaymentCaptured() webhook handler:
   - Records offer_redemption (same INSERT ... ON CONFLICT DO NOTHING)
 ```
 
-## 5. Admin Edits an Offer
+## 5. Admin Edits an Offer (creator-scoped since `6e0705a`)
 
 ```
-Admin navigates to /offers/:id/edit
+Admin (offers.read) navigates to /offers/:id/edit
   ↓
-GET /api/offers/:id fetches current offer data
+GET /api/offers/:id (creator ownership for non-SuperAdmin at controllers/offers.Controller.js:280 → 403 if not owner)
   ↓
 OfferFormPage pre-fills all fields (code disabled on edit)
   ↓
 Admin modifies fields, clicks "Save Changes"
   ↓
-Client-side validation (same as create)
+Client-side validation (same as create; global hidden for non-SuperAdmin)
   ↓
-PUT /api/offers/update/:id
+PUT /api/offers/update/:id (same global/hall ownership checks as create at line 308)
   ↓
 Full UPDATE of all columns; code stored uppercased
   ↓
-404 if offer missing; 409 on code conflict
+404 if offer missing; 403 if not owner or global not allowed; 409 on code conflict
   ↓
 Toast "Offer updated." → Navigate to /offers
 ```
 
-## 6. Admin Deletes an Offer
+## 6. Admin Deletes an Offer (creator-scoped since `6e0705a`)
 
 ```
+Admin sees delete only if isSuperAdmin || created_by===user.id (OffersManagement.jsx:384, a79e555)
+  ↓
 Admin clicks trash icon on offer row
   ↓
 Confirmation dialog shows: "Are you sure you want to delete {code}?"
   ↓
-Admin confirms → DELETE /api/offers/delete/:id
+Admin confirms → DELETE /api/offers/delete/:id (requirePermission offers.delete, ownership check at line 395 → 403 if not owner)
   ↓
 Hard delete from offers table
   ↓
-404 if already deleted; 200 with message otherwise
+404 if already deleted; 403 if not owner; 200 with message otherwise
   ↓
 Toast "Offer deleted." → List refreshes
 ```

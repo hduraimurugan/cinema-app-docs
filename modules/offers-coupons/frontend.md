@@ -2,36 +2,41 @@
 
 ## Admin App — `cinema-hall-admin`
 
-### `OffersManagement.jsx` (src/pages/OffersManagement.jsx)
+### `OffersManagement.jsx` (src/pages/OffersManagement.jsx, updated `a79e555`)
 
-Offer list page accessible at `/offers`.
+Offer list page accessible at `/offers` (permission `offers.read`; write via `offers.create/update/delete`; see `PagePermissions`).
 
 **Features:**
-- Search by code or title (debounced 400ms)
+- Search by code or title (debounced 400ms via `debounce` at line 17)
 - Filter by scope (all / global / hall) and status (all / active / inactive)
 - Paginated table (50 per page) with Prev/Next controls
-- Each row shows: code, title, discount (formatted), scope badge, eligibility, valid until, status badge
-- Row actions: edit pencil (navigates to `/offers/:id/edit`) and delete trash (confirmation dialog)
-- Export button: downloads visible offers as CSV with columns Code, Title, Discount, Scope, etc.
+- Each row shows: code, title, discount (formatted via `formatDiscount`), scope badge, eligibility, valid until, status badge, **Created By** (since `a79e555`: avatar `w-7 h-7 rounded-full` with initials via `initials(name)` at line 48, email `text-xs truncate max-w-[160px]`, role pill `text-[10px] capitalize` with `roleBadgeClass` at line 40 — `Super Admin` amber, `owner` violet, `admin` sky, default zinc)
+- Row actions: edit pencil (`/offers/:id/edit`) and delete trash gated to `isSuperAdmin || offer.created_by === user.id` from `useAuth` (lines 46, 384); otherwise `—` muted text. Confirmation via delete dialog.
+- Export button: downloads visible offers as CSV/Excel with columns Code, Title, Discount, Scope, Cinema Hall, **Creator Email**, **Creator Role**, Eligibility, Valid Until, Status (lines 168-173, `a79e555` adds the two creator fields)
 - Refresh button, create button (navigates to `/offers/new`)
-- Total offer count badge
-- Loading skeleton, empty states, error states
+- Total offer count badge + `roleBadgeClass` / `defaultRoleBadgeClass` styling
+- Loading skeleton (extra `Created By` column added at lines 262/282), empty states, error states
 
-**State management:** `useState` for offers list, pagination, filters, delete target. `useEffect` refetches on filter/page changes.
+**State management:** `useState` for offers list, pagination, filters, delete target. `useEffect` refetches on filter/page changes. Auth via `useAuth` at line 46.
 
-### `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx)
+### `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx, updated `a79e555`)
 
-Create/edit form accessible at `/offers/new` and `/offers/:id/edit`.
+Create/edit form at `/offers/new` and `/offers/:id/edit` (requires `offers.create` / `offers.update`).
+
+**Role-aware behavior (`a79e555`, lines 18/40/294):**
+- Imports `useAuth` (`isSuperAdmin`) at line 18.
+- Initial state defaults non-SuperAdmin scope to `hall`: `useState(() => isSuperAdmin ? EMPTY_FORM : { ...EMPTY_FORM, scope: "hall" })` (line 40).
+- Scope `<Select>` hides `Global (all halls)` for non-SuperAdmin (`{isSuperAdmin && <SelectItem value="global">...}` at line 298) and shows helper `text-xs text-muted-foreground` "Only Super Admin can create offers valid across all halls." when `!isSuperAdmin`.
 
 **Fields:**
 | Section | Fields |
 |---|---|
 | Offer Details | Code (uppercase, disabled on edit), Active toggle, Title, Description, Discount Type (percentage/fixed), Discount Value, Max Discount Cap (percentage only), Min Booking Amount |
-| Schedule & Targeting | Valid Until (date picker), Scope (global/hall), Cinema Hall (hall scope only, loaded from API), User Eligibility (all/joined_after), Joined After date (joined_after only) |
+| Schedule & Targeting | Valid Until (date picker), Scope (global/hall with role gate), Cinema Hall (hall scope only, `GET /cinema-halls` filtered by `resolveOrgId` for org members), User Eligibility (all/joined_after), Joined After date (joined_after only) |
 
-**On create:** Sends uppercased code, numeric conversions, conditional nulls for optional fields.
-**On edit:** Loads existing offer via `offersAPI.getById(id)`, pre-fills form, updates via `offersAPI.update(id, payload)`.
-**Validation:** Client-side checks for required fields, hall selection, joined_after date.
+**On create:** Sends uppercased code, numeric conversions, conditional nulls for optional fields. Server enforces global-only-SuperAdmin and hall-org match (`6e0705a`).
+**On edit:** Loads existing offer via `offersAPI.getById(id)` (creator owned for non-SuperAdmin else `403`), pre-fills form, updates via `offersAPI.update(id, payload)`.
+**Validation:** Client-side checks for required fields, hall selection, joined_after date. Server re-validates scope/hall ownership.
 
 ### `services/api.js` — `offersAPI`
 

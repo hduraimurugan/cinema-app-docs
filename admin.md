@@ -356,15 +356,15 @@ Last 5 bookings across the cinema hall, ordered by `created_at DESC`. Each row s
 
 ---
 
-### 1. Offers Management (SuperAdmin Only)
+### 1. Offers Management (RBAC — `offers.*`, creator-scoped since `6e0705a` / `a79e555`)
 
 **Routes**:
 - `/offers` — `OffersManagement.jsx` (list, filters, delete)
 - `/offers/new` — `OfferFormPage.jsx` (create form)
 - `/offers/:id/edit` — `OfferFormPage.jsx` (edit form, fetches offer by ID)
 
-**Access**: SuperAdmin role required
-**API**: `offersAPI` in `src/services/api.js`
+**Access**: Any admin with `offers.read` / `offers.create` / `offers.update` / `offers.delete` (see `src/config/pagePermissions.js`). SuperAdmin sees all offers and all halls; org members see only `WHERE created_by = req.admin.id` and `WHERE org_id = resolveOrgId` halls (`cinema-hall-api/controllers/offers.Controller.js:110`, `6e0705a`). Global offers are SuperAdmin-only (`a79e555` hides Global in the form).
+**API**: `offersAPI` in `src/services/api.js` (`GET /cinema-halls` now `requirePermission('offers.create')`, not `verifySuperAdmin`, `routes/offers.routes.js:27`)
 
 #### Feature Overview
 
@@ -410,9 +410,10 @@ flowchart TD
 | **Eligibility** | `All users` or `Joined after DD MMM YYYY` |
 | **Valid Until** | Date in red if already expired |
 | **Status** | `Active` (emerald) or `Inactive` (zinc) badge |
-| **Actions** | Edit (pencil) → navigates to `/offers/:id/edit` / Delete (trash) → AlertDialog |
+| **Created By** | Avatar initials `w-7 h-7` + email + role pill (`Super Admin` amber / `owner` violet / `admin` sky / default zinc via `roleBadgeClass` in `src/pages/OffersManagement.jsx:40`, `a79e555`) |
+| **Actions** | Edit (pencil) / Delete (trash) gated to `isSuperAdmin \|\| offer.created_by === user.id` (`src/pages/OffersManagement.jsx:384`, `a79e555`); otherwise `—` muted |
 
-**Loading skeleton** — table-shaped skeleton: a `<thead>` with skeleton header cells + 6 `<tbody>` rows mirroring actual column shapes (monospace badge width, two-line title cell, rounded-full badge pills for Scope/Status, icon-button pair for Actions).
+**Loading skeleton** — table-shaped skeleton (`src/pages/OffersManagement.jsx:259`): a `<thead>` with skeleton header cells (extra `Created By` column added in `a79e555`) + 6 `<tbody>` rows mirroring actual column shapes (monospace badge width, two-line title cell, rounded-full badge pills for Scope/Status, initials circle + email + pill for Created By, icon-button pair for Actions).
 
 **Error state** — shows an `AlertCircle` icon, error message, and a **"Try Again"** button (`RefreshCw` icon) that re-runs the current fetch with active filters. The header area also always shows a standalone **Refresh** button regardless of error state.
 
@@ -422,7 +423,7 @@ An **Export** dropdown button sits in the header action row between **Refresh** 
 
 | Filename | Columns exported |
 |----------|------------------|
-| `offers.csv/.xlsx` | Code, Title, Discount, Scope, Cinema Hall, Eligibility, Valid Until, Status |
+| `offers.csv/.xlsx` | Code, Title, Discount, Scope, Cinema Hall, **Creator Email**, **Creator Role**, Eligibility, Valid Until, Status (`src/pages/OffersManagement.jsx:170`, `a79e555` adds the two creator fields from `created_by_email`/`created_by_role`) |
 
 #### Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`)
 
@@ -431,7 +432,7 @@ Full-width page (no `max-w-2xl` constraint). The form is split into a **two-colu
 | Column | Card | Fields |
 |--------|------|--------|
 | Left | **Offer Details** | Code, Active toggle, Title, Description, Discount Type, Discount Value, Max Cap (% only), Min Booking Amount |
-| Right | **Schedule & Targeting** | Valid Until, Scope, Cinema Hall (hall scope only), Applicable To, Joined After (joined_after only) |
+| Right | **Schedule & Targeting** | Valid Until, Scope (`Global` shown only when `isSuperAdmin` from `useAuth` in `src/pages/OfferFormPage.jsx:40`, `a79e555`; helper "Only Super Admin can create offers valid across all halls." for others), Cinema Hall (hall scope only, `GET /cinema-halls` now org-filtered via `resolveOrgId`, `6e0705a`), Applicable To, Joined After (joined_after only) |
 
 Action buttons (**Cancel** / **Create Offer / Save Changes**) sit below the two-column grid, right-aligned (`justify-end`) with `min-w-[100px]`.
 

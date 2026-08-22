@@ -15,6 +15,7 @@ This page records the latest committed behavior across the three applications.
 - Hall-dependent pages wait for hall context before their first request. Staff still bypass onboarding after hall loading completes.
 - Settings navigation is a sticky horizontal tab bar (`SettingsTabBar` in `src/pages/settings/SettingsLayout.jsx:140`, `f7952e5`), replacing the previous 64-unit sticky sidebar. Tabs are grouped with vertical dividers, overflow as a hidden-scrollbar strip, and underline the active tab via `layoutId="settings-tab-underline"` with a spring transition. Dirty sections show a single amber dot (`isSectionDirty`) without the previous `Badge` hover expansion.
 - Sections `cinema-profile`, `showtimes`, `booking` are temporarily disabled (`DISABLED_PATHS` set in `src/pages/settings/SettingsLayout.jsx:12`, `f7952e5`): they render as `Soon` badges, are `aria-disabled`, excluded from `SettingsIndexRedirect`, and do not show dirty state.
+- Offers admin UI is now permission-aware (`a79e555`): `OfferFormPage.jsx:15` defaults non-SuperAdmin scope to `hall`, hides the Global option and shows "Only Super Admin can create offers valid across all halls." helper. `OffersManagement.jsx:17` shows a new **Created By** column (avatar initials + email + role pill `Super Admin`/`owner`/`admin` with amber/violet/sky tints) and gates edit/delete buttons to `isSuperAdmin || offer.created_by === user.id`. Export now includes `Creator Email` / `Creator Role` columns.
 
 ## API
 
@@ -36,6 +37,7 @@ This page records the latest committed behavior across the three applications.
 - Organization owners cannot be demoted, suspended, removed, or assigned individual hall overrides.
 - Removed members retain history and can be re-invited by reviving their membership.
 - Hall CRUD, movies, shows, bookings, refunds, payments, offers, dashboard, settings, and roles now use explicit permission keys.
+- Offers access control is now creator-scoped (`6e0705a` in `cinema-hall-api/controllers/offers.Controller.js:1` / `routes/offers.routes.js:27`): `GET /cinema-halls` uses `requirePermission('offers.create')` (was `verifySuperAdmin`) — SuperAdmin sees all halls, org members see only `WHERE org_id = resolveOrgId(req.admin.id)` via `middleware/requirePermission.js:resolveOrgId`. `GET /` lists only `WHERE created_by = req.admin.id` for non-SuperAdmin and joins `cinema_admin_user` + `LATERAL` `creator_role` to return `created_by_name/email/role` (`Super Admin` fallback). `GET /:id`, `PUT /:id`, `DELETE /:id` enforce creator ownership for non-SuperAdmin. `POST /create` and `PUT /update` reject `scope=global` for non-SuperAdmin (`403 Only Super Admin can create global offers.`) and validate `scope=hall` has `cinema_hall_id` belonging to the caller's `org_id`.
 - Phase 4 hardens tenant foreign keys and ownership deletion behavior. Phase 5 adds `halls.read` and `halls.manage`.
 
 ## User App
@@ -50,8 +52,8 @@ This page records the latest committed behavior across the three applications.
 
 | App | Latest commits |
 |---|---|
-| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5` |
-| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e` |
+| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555` |
+| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a` |
 | Users | `548e50f`, `74049d1` |
 
 ## Related Documentation

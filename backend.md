@@ -2324,16 +2324,16 @@ Records a click-through. If a valid `cusAccessToken` cookie is present, attaches
 
 ---
 
-### Offers (`/api/offers`)
+### Offers (`/api/offers`) — RBAC + creator/org-scoped since `6e0705a` (`controllers/offers.Controller.js:1`, `routes/offers.routes.js:27`)
 
 | Method | Endpoint             | Auth          | Description                                              |
 | ------ | -------------------- | ------------- | -------------------------------------------------------- |
-| GET    | `/cinema-halls`      | SuperAdmin    | List all cinema halls (for hall-selector in admin form)  |
-| GET    | `/`                  | SuperAdmin    | List all offers (paginated, filters: scope/is_active/search) |
-| GET    | `/:id`               | SuperAdmin    | Fetch a single offer by ID (used by edit page)           |
-| POST   | `/create`            | SuperAdmin    | Create a new offer                                       |
-| PUT    | `/update/:id`        | SuperAdmin    | Update an existing offer                                 |
-| DELETE | `/delete/:id`        | SuperAdmin    | Delete an offer (cascades redemptions)                   |
+| GET    | `/cinema-halls`      | `offers.create` (any admin with permission; `verifyCinemaAdminAccessToken` + `requirePermission`) | List halls the caller may assign: SuperAdmin → all halls, org member → `WHERE org_id = resolveOrgId(req.admin.id)` (`403 No organization found` if no org) (`controllers/offers.Controller.js:110`) |
+| GET    | `/`                  | `offers.read` | List offers (paginated, filters: scope/is_active/search, `page` limit 50). SuperAdmin sees all; others `AND created_by = req.admin.id`. Joins `cinema_hall_name` + `created_by_name/email/role` via `LATERAL creator_role` (`Super Admin` for `superAdmin` users) (`controllers/offers.Controller.js:134`) |
+| GET    | `/:id`               | `offers.read` | Fetch single offer by ID with `cinema_hall_name` + `created_by_name`; creator ownership enforced for non-SuperAdmin (`403 You can only view offers you created.`) (`controllers/offers.Controller.js:280`) |
+| POST   | `/create`            | `offers.create` | Create offer. `scope=global` requires SuperAdmin (`403 Only Super Admin can create global offers.`); `scope=hall` for non-SuperAdmin requires `cinema_hall_id` belonging to `resolveOrgId` org (`403 You can only create offers for your own cinema hall.`) (`controllers/offers.Controller.js:221`) |
+| PUT    | `/update/:id`        | `offers.update` | Update offer (same body as create). Ownership + scope/hall checks mirror create (`403 You can only edit offers you created.`) (`controllers/offers.Controller.js:308`) |
+| DELETE | `/delete/:id`        | `offers.delete` | Delete offer (`403 You can only delete offers you created.` for non-owners) (`controllers/offers.Controller.js:395`) |
 | GET    | `/active`            | Customer      | List active, eligible, non-expired offers for the logged-in user — includes redeemed offers with `is_redeemed: true` (sorted: available first) |
 | POST   | `/validate`          | Customer      | Validate an offer code and calculate the discount preview |
 
