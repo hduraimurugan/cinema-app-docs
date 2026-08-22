@@ -1,19 +1,20 @@
 # Latest Changes
 
-Updated: 2026-08-17
+Updated: 2026-08-22
 
 This page records the latest committed behavior across the three applications.
 
 ## Admin App
 
 - Admin page access is driven by `src/config/pagePermissions.js` and shared by navigation, route guards, settings navigation, and the role editor.
-- Settings sections hide when the active admin lacks the corresponding read permission. `/settings` redirects to the first accessible section.
+- Settings sections hide when the active admin lacks the corresponding read permission. `/settings` redirects to the first accessible section, skipping disabled sections (`f7952e5`).
 - Role cards expose member and permission counts. The Owner role is read-only in the UI and API.
 - Permission editing supports page actions, extra actions, advanced permissions, reset, dirty state, and save callbacks.
 - Admin requests attach `X-Org-Id` and `X-Hall-Id` from the active context.
 - A stale permission token is refreshed once and the original request is replayed; refreshed permissions update navigation.
 - Hall-dependent pages wait for hall context before their first request. Staff still bypass onboarding after hall loading completes.
-- Settings navigation shows a compact unsaved-change dot and expands the indicator on hover.
+- Settings navigation is a sticky horizontal tab bar (`SettingsTabBar` in `src/pages/settings/SettingsLayout.jsx:140`, `f7952e5`), replacing the previous 64-unit sticky sidebar. Tabs are grouped with vertical dividers, overflow as a hidden-scrollbar strip, and underline the active tab via `layoutId="settings-tab-underline"` with a spring transition. Dirty sections show a single amber dot (`isSectionDirty`) without the previous `Badge` hover expansion.
+- Sections `cinema-profile`, `showtimes`, `booking` are temporarily disabled (`DISABLED_PATHS` set in `src/pages/settings/SettingsLayout.jsx:12`, `f7952e5`): they render as `Soon` badges, are `aria-disabled`, excluded from `SettingsIndexRedirect`, and do not show dirty state.
 
 ## API
 
@@ -49,7 +50,7 @@ This page records the latest committed behavior across the three applications.
 
 | App | Latest commits |
 |---|---|
-| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564` |
+| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5` |
 | API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e` |
 | Users | `548e50f`, `74049d1` |
 

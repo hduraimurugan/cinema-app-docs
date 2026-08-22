@@ -1660,25 +1660,25 @@ Three sections on one page:
 #### Settings Layout
 
 **Route**: `/settings`  
-**Component**: `SettingsLayout.jsx` (Sidebar navigation wrapper with nested routes)  
-**Access**: Gated by organization permissions or platform superAdmin status.
+**Component**: `SettingsLayout.jsx` (`src/pages/settings/SettingsLayout.jsx:82`, updated `f7952e5`) — sticky **horizontal tab bar** (`SettingsTabBar` at line 140) with nested routes  
+**Access**: Gated by organization permissions or platform superAdmin status. `SettingsIndexRedirect` (line 38) skips disabled sections.
 
-The settings panel has been refactored from a single global card into a comprehensive, multi-scope configuration layout containing separate sub-pages:
+The settings panel has been refactored from a single global card into a comprehensive, multi-scope configuration layout containing separate sub-pages. Navigation changed in `f7952e5` from a `w-64` sticky sidebar to a `sticky top-0 z-10 border-b bg-card/50 backdrop-blur-sm` horizontal tab strip (`overflow-x-auto`, hidden scrollbar, dividers `w-px bg-border/50` between groups). Active tab uses an animated underline (`Motion.div layoutId="settings-tab-underline"` spring 500/40); dirty tabs show a single amber dot (`h-1.5 w-1.5 bg-amber-500`) instead of the previous `Badge` hover pattern. Three hall-scoped sections are temporarily disabled (`DISABLED_PATHS` at line 12):
 
 1. **General Settings** (`/settings/general`):
    - **Scope**: Organization level.
    - **Fields**: Organization name, timezone, default currency, default language.
    - **Actions**: Syncs organization name directly to the `organizations` table (source of truth).
 
-2. **Cinema Profile** (`/settings/cinema-profile`):
+2. **Cinema Profile** (`/settings/cinema-profile`) — **temporarily disabled** (`Soon` badge, `aria-disabled`, excluded from index redirect):
    - **Scope**: Cinema Hall level.
    - **Fields**: Cinema name, address, district, state, phone, description, and operating hours.
 
-3. **Showtimes Settings** (`/settings/showtimes`):
+3. **Showtimes Settings** (`/settings/showtimes`) — **temporarily disabled** (`Soon`):
    - **Scope**: Cinema Hall level.
    - **Fields**: Default buffer minutes, overlap prevention toggle, default language version, auto-status-transitions.
 
-4. **Booking Settings** (`/settings/booking`):
+4. **Booking Settings** (`/settings/booking`) — **temporarily disabled** (`Soon`):
    - **Scope**: Cinema Hall level.
    - **Fields**: Max seats per booking (1–10 slider), seat hold duration (minutes), cancellation policy rules.
 

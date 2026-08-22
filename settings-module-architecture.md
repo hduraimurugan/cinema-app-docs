@@ -25,7 +25,7 @@
 | RBAC | `cinema_admin_user.role` ∈ `{'admin','superAdmin'}` + `verifySuperAdmin` only | Unchanged (Phase 2) |
 | Multi-hall | `cinema_hall.admin_id` FK (1 admin : N halls), `X-Hall-Id` header + `requireActiveHall` | `organizations` table added with `owner_id` FK; `resolveOrgId` auto-creates org for admin; hall settings scoped by `hall_id` |
 | Audit | `admin_security_logs` (auth events only) + `logSecurityEvent()` | Unchanged (Phase 4) |
-| Frontend | `SettingsPage.jsx` — single Card, 2 fields, in-page `isSuperAdmin` gate | `SettingsLayout` with 5 section pages (General, Cinema Profile, Showtimes, Booking, Payment) + nested routing; dirty-dot tracking in sidebar; loading/error states |
+| Frontend | `SettingsPage.jsx` — single Card, 2 fields, in-page `isSuperAdmin` gate | `SettingsLayout` (`src/pages/settings/SettingsLayout.jsx:82`) with 5 section pages (General, Cinema Profile, Showtimes, Booking, Payment) + nested routing; horizontal tab bar (`SettingsTabBar` at line 140) with amber dirty dot (`isSectionDirty`) and disabled `Soon` state; loading/error states |
 | State | `AuthContext`, `HallContext`, `ThemeContext` (React Context, plain `fetch`) | `SettingsProvider` added — org/hall/user cache, dirty tracking, optimistic update, save/reset |
 | Security | Account lockout (hardcoded thresholds), password policy (hardcoded), session revocation | Unchanged (Phase 3) |
 
@@ -92,7 +92,7 @@ Keep `/settings` as the entry (already wired in `AppSidebar.jsx` `systemItems`).
 
 `/settings` stays in `HallGuard.EXEMPT_PATHS` (already is). Hall-scoped sections read `useHall().activeHall` and use `hallFetch`; org-scoped sections use plain `fetch`. Team/Roles pages use permission-gating driven by **permissions**, not just `isSuperAdmin`.
 
-**Layout pattern (Phase 1):** The `<SettingsLayout>` renders a 64-unit-wide sticky sidebar with grouped nav items ("Organization" / "Cinema Branch") and a floating save bar at the bottom-right of the content area. The sidebar is `sticky top-0 h-[calc(100vh-4rem)]` — it stays fixed while the page scrolls. No nested scroll containers: the parent `<CinemaLayout>` provides the single page-level scroll container, avoiding double scrollbars.
+**Layout pattern (Phase 1 → updated `f7952e5`):** The `<SettingsLayout>` (`src/pages/settings/SettingsLayout.jsx:82`) now renders a **sticky horizontal tab bar** (`SettingsTabBar` at line 140) instead of the original 64-unit-wide sticky sidebar. The bar is `sticky top-0 z-10 border-b bg-card/50 backdrop-blur-sm` with grouped tabs separated by `w-px bg-border/50` dividers, `overflow-x-auto` with hidden scrollbar (`[&::-webkit-scrollbar]:hidden` / `scrollbarWidth: none`), and an animated active-tab underline (`Motion.div layoutId="settings-tab-underline"` spring 500/40). Three sections are temporarily disabled (`DISABLED_PATHS` at line 12: `cinema-profile`, `showtimes`, `booking`) — rendered as `aria-disabled` with a `Soon` badge and excluded from `SettingsIndexRedirect` (line 41). The content area still has no nested scroll container — `<CinemaLayout>` provides the single page-level scroll. A floating save bar remains at the bottom-right of the content area.
 
 ### 2.2 Sidebar Structure
 
@@ -155,7 +155,7 @@ Driven by the RBAC system (§4). The backend embeds a `permissionsVersion` in th
 ```
 src/
 ├── pages/settings/
-│   ├── SettingsLayout.jsx              ✅ # sticky sidebar (grouped nav) + <Outlet/> + floating save bar
+│   ├── SettingsLayout.jsx              ✅ # sticky tab bar (SettingsTabBar, f7952e5) + <Outlet/> + floating save bar + DISABLED_PATHS (Soon)
 │   ├── GeneralSettingsPage.jsx         ✅
 │   ├── CinemaProfilePage.jsx           ✅
 │   ├── ShowtimesSettingsPage.jsx       ✅
@@ -242,7 +242,7 @@ Mirrors the `HallContext` pattern. No Zustand.
 
 **Cache strategy:** `SettingsProvider` prefetches org + user settings on mount (after `AuthProvider` resolves). Hall settings load lazily on hall switch via `useEffect` on `activeHall?.id`. Once loaded, hall settings are not re-fetched (tracked via `loadedHallIds` set).
 
-**Dirty tracking (Phase 1):** Each section has its own dirty flag tracked via a module-level `dirtyMap` object. `updateSection` sets the flag and triggers `setDirty()`. `SettingsLayout` shows an `"unsaved"` `<Badge>` (amber-outline) next to section nav items that have unsaved edits — replaces the earlier red-dot design for better visibility. A separate "Unsaved changes" status badge appears in the floating save bar. No `beforeunload` guard yet (Phase 2+).
+**Dirty tracking (Phase 1 → updated `f7952e5`):** Each section has its own dirty flag tracked via a module-level `dirtyMap` object. `updateSection` sets the flag and triggers `setDirty()`. Since `f7952e5`, `SettingsTabBar` (`src/pages/settings/SettingsLayout.jsx:140`) shows a single `h-1.5 w-1.5 rounded-full bg-amber-500` dot next to the tab label when `!disabled && isSectionDirty(scope, sectionKey)` — the previous `Badge` (`unsaved` amber-outline with `group-hover` reveal) was removed. Disabled tabs (`cinema-profile`, `showtimes`, `booking`) never show dirty state. A separate "Unsaved changes" status badge still appears in the floating save bar. No `beforeunload` guard yet (Phase 2+).
 
 **Optimistic updates (Phase 1):** `updateSection` mutates context state immediately by spreading the patch into the section's current data. On API error from `saveSection`, the error propagates but no automatic rollback — user refreshes or resets manually.
 
@@ -273,27 +273,31 @@ Conventions preserved: plain `fetch`, `credentials: 'include'`, `throw await res
 
 ### 2.8 Visual Design & Layout (Phase 1)
 
-#### 2.8.1 Sticky Sidebar Pattern
+#### 2.8.1 Sticky Tab Bar Pattern (replaced Sidebar in `f7952e5`)
 
-The settings sidebar is `sticky top-0 h-[calc(100vh-4rem)]` — it stays in view while the main content scrolls. No nested overflow containers (the parent `<CinemaLayout>` provides the single scrollable area), preventing double scrollbars.
+The settings navigation was a `sticky top-0 h-[calc(100vh-4rem)]` 64-unit sidebar; since `f7952e5` (`src/pages/settings/SettingsLayout.jsx:82`) it is a **sticky horizontal tab bar** (`sticky top-0 z-10 border-b bg-card/50 backdrop-blur-sm`). No nested overflow containers — the parent `<CinemaLayout>` still provides the single scrollable area, preventing double scrollbars.
 
-Sidebar structure:
+Tab bar structure (`SettingsTabBar` at line 140):
 ```
-Settings (icon + header)
-├── Organization group
+Settings ▸ Configure your cinema ℹ (Changes are saved per section…)
+├── Organization group          ─┤  dividers (w-px bg-border/50)
 │   ├── General        (Settings icon)
 │   └── Payment        (CreditCard icon)
-├── Cinema Branch group
-│   ├── Cinema Profile (Building2 icon)
-│   ├── Showtimes      (Calendar icon)
-│   └── Booking        (Ticket icon)
-└── Info box (tip about per-section saving)
+├── Cinema Branch group        ─┤
+│   ├── Cinema Profile (Building2)  — Soon (disabled, aria-disabled)
+│   ├── Showtimes      (Calendar)   — Soon (disabled)
+│   └── Booking        (Ticket)     — Soon (disabled)
+└── Management group           ─┤
+    ├── Team           (Users icon)
+    └── Roles          (ShieldCheck icon)
 ```
 
-Nav items show:
-- **Active state:** `bg-primary/10` background + primary color text + `shadow-[inset_2px_0_0_0]` left accent bar
-- **Dirty state:** `"unsaved"` `<Badge variant="outline">` with amber-500 border/tint
-- **Hover:** `bg-muted/60` background
+Tab items show:
+- **Active state:** `text-primary` + animated underline (`Motion.div layoutId="settings-tab-underline"` — `type: "spring", stiffness: 500, damping: 40`, `h-[2px] bg-primary`, `left-2 right-2 -bottom-px`)
+- **Dirty state:** `h-1.5 w-1.5 rounded-full bg-amber-500` dot next to label (only when `!disabled && isSectionDirty`); previous `Badge` (`unsaved` amber-outline with `group-hover` reveal) and `layoutId="settings-nav-active"` background were removed
+- **Disabled state:** `text-muted-foreground/40 cursor-not-allowed` + `Soon` `<Badge variant="outline">` (`border-border/50 text-muted-foreground/60`), `title="Coming soon"`, excluded from `SettingsIndexRedirect` (`src/pages/settings/SettingsLayout.jsx:41`)
+- **Hover:** `hover:text-foreground` (tabs) — no background fill
+- **Overflow:** `flex items-center gap-1 overflow-x-auto [&::-webkit-scrollbar]:hidden` + `scrollbarWidth: "none"`
 
 #### 2.8.2 Floating Save Bar
 

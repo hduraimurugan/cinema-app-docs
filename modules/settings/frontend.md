@@ -2,9 +2,9 @@
 
 ## Permission-aware Navigation
 
-Settings navigation is generated from the shared admin page-permission catalog. Organization, cinema-branch, and management sections are shown only when the active admin can read them. The index route selects the first accessible section instead of always redirecting to General.
+Settings navigation is generated from the shared admin page-permission catalog (`src/config/pagePermissions.js`). Organization, cinema-branch, and management sections are shown only when the active admin can read them. The index route selects the first accessible **non-disabled** section instead of always redirecting to General (`SettingsIndexRedirect` at `src/pages/settings/SettingsLayout.jsx:38`, updated `f7952e5` to skip `DISABLED_PATHS`).
 
-`SettingsLayout` keeps the existing per-section save behavior. A dirty section shows an amber dot; hovering the item reveals the full `unsaved` label. The active item uses an animated highlighted background.
+`SettingsLayout` (`src/pages/settings/SettingsLayout.jsx:82`) now renders a sticky horizontal tab bar (`SettingsTabBar` at line 140, `f7952e5`) instead of the previous `w-64` sticky sidebar. Groups are separated by vertical dividers (`w-px bg-border/50`), the strip is `overflow-x-auto` with hidden scrollbar, and the active tab is underlined via `Motion.div layoutId="settings-tab-underline"` (spring 500/40). A dirty section shows a single `h-1.5 w-1.5 bg-amber-500` dot next to the label when `!disabled && isSectionDirty(scope, sectionKey)` — the previous `Badge` (`unsaved` with `group-hover` reveal) and `layoutId="settings-nav-active"` background were removed. Three sections are temporarily disabled (`DISABLED_PATHS` at line 12: `cinema-profile`, `showtimes`, `booking`): rendered as `aria-disabled` with a `Soon` badge, `title="Coming soon"`, `cursor-not-allowed`, and never show dirty state.
 
 ## Pages
 
@@ -12,7 +12,7 @@ All settings pages live in `src/pages/settings/`.
 
 | Page | Path | Purpose |
 |------|------|---------|
-| `SettingsLayout.jsx` | `/admin/settings` | Container with navigation tabs for all settings sub-pages. Renders an outlet for nested routes. |
+| `SettingsLayout.jsx` | `/admin/settings` (`src/pages/settings/SettingsLayout.jsx:82`) | Sticky horizontal tab bar + outlet for nested routes. `f7952e5`: `DISABLED_PATHS` (`cinema-profile`, `showtimes`, `booking` → `Soon`), dirty dot (`isSectionDirty`), active underline (`settings-tab-underline`). |
 | `GeneralSettingsPage.jsx` | `/admin/settings/general` | Organization name, timezone, currency, language. |
 | `BookingSettingsPage.jsx` | `/admin/settings/booking` | Max seats per booking, advance booking days, hold minutes, cancellation policy. |
 | `PaymentSettingsPage.jsx` | `/admin/settings/payment` | Convenience fee model/amount, GST percentage, applicable states/taxes. |
@@ -21,17 +21,19 @@ All settings pages live in `src/pages/settings/`.
 | `RolesPermissionsPage.jsx` | `/admin/settings/roles` | Role management (delegated to Roles module). |
 | `TeamManagementPage.jsx` | `/admin/settings/team` | Team member management (delegated to Team module). |
 
-### SettingsLayout Tabs
+### SettingsLayout Tabs (`f7952e5`)
 
-| Tab | Page | Scope |
-|-----|------|-------|
-| General | GeneralSettingsPage | Organization |
-| Cinema Profile | CinemaProfilePage | Hall |
-| Showtimes | ShowtimesSettingsPage | Hall |
-| Booking | BookingSettingsPage | Hall |
-| Payment | PaymentSettingsPage | Organization |
-| Roles & Permissions | RolesPermissionsPage | Organization (cross-module) |
-| Team | TeamManagementPage | Organization (cross-module) |
+| Tab | Page | Scope | State |
+|-----|------|-------|-------|
+| General | GeneralSettingsPage | Organization | enabled |
+| Cinema Profile | CinemaProfilePage | Hall | **disabled** — `Soon` badge, `aria-disabled` |
+| Showtimes | ShowtimesSettingsPage | Hall | **disabled** — `Soon` |
+| Booking | BookingSettingsPage | Hall | **disabled** — `Soon` |
+| Payment | PaymentSettingsPage | Organization | enabled |
+| Roles & Permissions | RolesPermissionsPage | Organization (cross-module) | enabled |
+| Team | TeamManagementPage | Organization (cross-module) | enabled |
+
+Disabled tabs are in `DISABLED_PATHS` (`src/pages/settings/SettingsLayout.jsx:12`) and are skipped by `SettingsIndexRedirect` (line 41).
 
 ## Services
 

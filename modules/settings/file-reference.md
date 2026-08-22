@@ -11,7 +11,7 @@
 
 | # | File | Type | Purpose |
 |---|------|------|---------|
-| 3 | `src/pages/settings/SettingsLayout.jsx` | Page | Settings page container with tab navigation |
+| 3 | `src/pages/settings/SettingsLayout.jsx` | Page | Settings container — sticky horizontal tab bar (`SettingsTabBar` `f7952e5`, `DISABLED_PATHS` Soon, active underline), outlet for nested routes; redirects via `SettingsIndexRedirect` skipping disabled |
 | 4 | `src/pages/settings/GeneralSettingsPage.jsx` | Page | Org name, timezone, currency, language form |
 | 5 | `src/pages/settings/BookingSettingsPage.jsx` | Page | Max seats, advance booking, hold, cancellation form |
 | 6 | `src/pages/settings/PaymentSettingsPage.jsx` | Page | Convenience fee, GST, state taxes form |
