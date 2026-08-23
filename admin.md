@@ -43,6 +43,7 @@ graph TD
 
     G --> H[Exempt Routes]
     H --> H1[/profile - ProfilePage]
+    H --> H4[/notifications - Notifications]
     H --> H2[/settings - SettingsLayout]
     H2 --> S1[/settings/general - GeneralSettingsPage]
     H2 --> S2[/settings/cinema-profile - CinemaProfilePage]
@@ -1912,10 +1913,15 @@ try {
 - Debounced search
 - Autocomplete dropdown
 
-**CinemaLayout** - Main layout wrapper
+**CinemaLayout** (`src/components/CinemaLayout.jsx:1`, updated `8e4d69f`)
 
-- Sidebar + content area
-- Responsive design
+- Sidebar + content area + responsive design + notification bell.
+- **Bell:** replaces `mockNotifications` with live `notificationAPI` (`services/api.js:1056` → `/api/notifications`). `NOTIFICATION_POLL_MS=25000` (`CinemaLayout.jsx:38`): `refreshNotifications` (`useCallback`) fetches `list(1,5)` + `getUnreadCount` in parallel on `user` mount and every 25s when `document.visibilityState==="visible"` (clears interval on unmount / `!user`). State `notifications` (up to 5) + `unreadCount`; dropdown `DropdownMenuTrigger` `Bell` shows `animate-pulse` + `animate-ping` badge only when `unreadCount>0` (`CinemaLayout.jsx:226`), label `"You have ${unreadCount} unread"` else `"You're all caught up"`, list `DropdownMenuItem` with `!read_at ? font-medium : text-muted-foreground`, `formatDistanceToNow(created_at, addSuffix:true)` (`date-fns`), optimistic `handleNotificationClick` (`setNotifications` `read_at=now`, `setUnreadCount-1`, `notificationAPI.markAsRead` fire-and-forget).
+
+**Notifications** (`src/pages/Notifications.jsx:1`, `8e4d69f`)
+
+- Route `/notifications` (`App.jsx:46`, `ProtectedRoute`) — paginated in-app feed `PAGE_SIZE=20` (`Notifications.jsx:7`): `load(targetPage)` → `notificationAPI.list(targetPage,PAGE_SIZE)` merging `setNotifications(prev=>page===1?list:[...prev,list])`, `hasMore = list.length===PAGE_SIZE`, `loading`; `useEffect load(1)` on mount; optimistic `handleItemClick` (`read_at=now` + `markAsRead`) and `handleMarkAllRead` (`all read_at || now` + `markAllRead`); header `CheckCheck Mark all read` when `unreadCount>0`; empty `Bell No notifications yet`; list `button read_at? bg-primary dot` with `title` (`!read_at font-medium`) + `body` + `formatDistanceToNow`; `Load more` `Button` `loading? Loading…`.
+- Service `notificationAPI` (`src/services/api.js:1056`): `list(page,limit)` `GET /api/notifications?page&limit`, `getUnreadCount` `GET /unread-count`, `markAsRead(id)` `PATCH /:id/read`, `markAllRead` `PATCH /read-all`, `getPreferences` `GET /preferences`, `updatePreferences(patch)` `PATCH /preferences {patch}` — all `credentials:"include"` and `throw await response.json()`.
 
 ---
 

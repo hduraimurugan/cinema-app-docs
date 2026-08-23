@@ -621,14 +621,11 @@ When a user is redirected from a protected route (e.g. `/bookings` while logged 
 
 **Auto-open:** If no location is cached on first load (`!district && !state`), `LocationModal` opens automatically.
 
-#### Notifications
+#### Notifications (`src/components/TopBar.jsx:1`, `8cbaa06`)
 
-A `Bell` icon button is always visible. When there are unread notifications, a **numeric badge** (e.g. `2`) appears at the top-right of the bell instead of a pulsing dot — more informative and less distracting.
+Replaces `mockNotifications` with live `notificationAPI` (`services/api.js:490` → `/api/notifications`). `NOTIFICATION_POLL_MS=25000` (`TopBar.jsx:22`): `refreshNotifications` (`useCallback`) fetches `list(1,5)` + `getUnreadCount` on `customer` mount and every 25s when `document.visibilityState==="visible"`; clears interval on `!customer`. State `notifications` (up to 5) + `unreadCount`; `DropdownMenuTrigger` `Bell` shows pulsing dot only when `unreadCount>0`, dropdown header shows unread count, list `DropdownMenuItem` with `!read_at ? bg-primary : bg-transparent` dot, `title` (`!read_at font-medium`), `formatDistanceToNow(created_at, addSuffix:true)` (`date-fns`), optimistic `handleNotificationClick` (`read_at=now`, `unreadCount-1`, `markAsRead`). The dropdown (`w-80`) also shows `No notifications yet` when empty. `NotificationAPI` methods: `list(page,limit)` `GET /api/notifications?page&limit`, `getUnreadCount` `GET /unread-count`, `markAsRead(id)` `PATCH /:id/read` — all `credentials:"include"` (mirrors admin `CinemaLayout.jsx:54`, `8e4d69f`).
 
-The dropdown (`w-80`) shows:
-- Header: "Notifications" label + unread count
-- Each notification: coloured dot (primary = unread, transparent = read) + title + timestamp
-- "View all notifications" footer link → `/notifications`
+**Notifications page** (`src/pages/Notifications.jsx:1` / `src/App.jsx:21`, `8cbaa06`, route `/notifications`, `ProtectedRoute`): paginated feed `PAGE_SIZE=20` — `load(targetPage)` → `notificationAPI.list(targetPage,PAGE_SIZE)` merging (`page===1?list:[...prev,list]`), `hasMore = list.length===PAGE_SIZE`, `loading`, `useEffect load(1)`; optimistic `handleItemClick` (`read_at=now` + `markAsRead`) and `handleMarkAllRead` (`all read_at || now` + `markAllRead`); header `Mark all read` (`CheckCheck`) when `unreadCount>0`; empty `Bell No notifications yet`; list `button read_at? bg-primary dot` with `title`/`body`/`formatDistanceToNow`; `Load more` (`loading? Loading…`).
 
 #### User Menu
 

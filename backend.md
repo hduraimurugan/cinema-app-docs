@@ -58,6 +58,14 @@ erDiagram
     organizations ||--o{ audit_logs : "has audit trail"
     cinema_admin_user ||--o{ audit_logs : "actor in"
     cinema_hall ||--o{ audit_logs : "hall context"
+    organizations ||--o{ notifications : "has in-app"
+    customers ||--o{ notifications : "receives"
+    cinema_admin_user ||--o{ notifications : "receives"
+    notifications ||--o{ notification_dispatch_log : "dispatch attempts"
+    organizations ||--o{ notification_dispatch_log : "scoped"
+    customers ||--o{ device_tokens : "device"
+    cinema_admin_user ||--o{ device_tokens : "device"
+    customers ||--o{ customer_settings : "has"
 
     organizations {
         uuid id PK
@@ -309,6 +317,56 @@ erDiagram
         uuid booking_id FK
         numeric discount_applied
         timestamptz created_at
+    }
+
+    notifications {
+        uuid id PK
+        uuid org_id FK
+        uuid customer_id FK "one of customer_id/admin_id NOT NULL"
+        uuid admin_id FK
+        text event "booking_confirmed, refund_initiated, show_reminder…"
+        text title
+        text body
+        jsonb data "event payload, default {}"
+        uuid booking_id FK
+        uuid show_id FK
+        uuid refund_id FK
+        timestamptz read_at
+        timestamptz created_at
+    }
+
+    notification_dispatch_log {
+        uuid id PK
+        uuid notification_id FK
+        uuid org_id FK
+        uuid customer_id FK
+        uuid admin_id FK
+        text event
+        text channel "email|push|in_app|sms|whatsapp"
+        text status "queued|sent|delivered|failed|skipped, default queued"
+        text qstash_message_id
+        text target "email/token used"
+        text error
+        timestamptz attempted_at
+        timestamptz created_at
+    }
+
+    device_tokens {
+        uuid id PK
+        uuid customer_id FK
+        uuid admin_id FK
+        text token "UNIQUE"
+        text platform "web|android|ios"
+        timestamptz last_seen_at
+        timestamptz created_at
+    }
+
+    customer_settings {
+        uuid id PK
+        uuid customer_id FK "NOT NULL"
+        text section
+        jsonb value "default {}"
+        timestamptz updated_at
     }
 
     audit_logs {
@@ -2471,6 +2529,30 @@ recordAuditLog(req, {action, resourceType, resourceId=null, resourceLabel=null, 
 Fire-and-forget: never throws (logs its own failure via `logger.error`), resolves `orgId` via `req.orgId || admin.orgId || await resolveOrgId(admin.id)`, skips if no `admin.id`/`orgId`, inserts `(org_id, admin_id, actor_name, actor_role_key, action, resource_type, resource_id, resource_label, hall_id, metadata, ip_address, user_agent)` with `req.ip` and `user-agent` header. Wrapped around all mutations in `edec38f`: `halls.create/update/delete` (`halls.Controller.js:142`), `offers.create/update/delete`, `refunds.settle` (`refund.Controller.js:159`), `roles.create/update/delete/clone` (`roles.Controller.js:161`), `screens.create/update/delete` (`screens.Controller.js:67`), `settings.org.update` (`settings.Controller.js:139`) + `settings.hall.update:216`, `shows.create/bulk/update/delete/bulk/cancel/booking_status/bulk/restore/bulk` (`shows.Controller.js:35`), `team.member.invite/create/update/remove/assign_halls/remove_hall` (`team.Controller.js:62`).
 
 **`server.js:34`** mounts `auditLogsRoutes` at `/api/audit-logs`.
+
+---
+
+### Notifications (`/api/notifications`) — added `7658007` (`migrations/migration_notifications.sql:1` / `services/notification/*` / `routes/notifications.routes.js:1` / `middleware/identifyRecipient.js:1` / `controllers/notifications.Controller.js:1` / `mail/emailTemplate.js:1` / `mail/emails.js:236` / `server.js:35`)
+
+Unified in-app + email notification center backed by `notifications`/`notification_dispatch_log`/`device_tokens`/`customer_settings` (`docs/db_setup.sql` — same migration as `migrations/migration_notifications.sql:1`, idempotent). Events: `booking_confirmed`, `booking_cancelled`, `refund_initiated`, `refund_settled`, `show_cancelled`, `show_reminder`, `daily_report`, `security_alert` — title/body via `buildNotificationContent(event,data)` (`services/notification/templates.js:5`).
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| POST   | `/dispatch` | QStash `Upstash-Signature` (`express.raw`) | Webhook target for `@upstash/qstash` (`qstashClient.js:6`, `QSTASH_TOKEN/URL/SIGNING_KEYS`, local `qstash-cli dev`, `API_BASE_URL`); re-fetches `notifications` + recipient `customers`/`cinema_admin_user` fresh, `sendEmailForNotification` (`channels/email.js:4`), marks `notification_dispatch_log` `sent`/`failed` (retry via QStash `retries:3`) |
+| GET    | `/`      | `identifyRecipient` (customer `cusAccessToken`/`Bearer` or admin `accessToken`, `localhost` dual-cookie via `Origin===ADMIN_FRONTEND_URL`) | `listNotifications` (`controllers/notifications.Controller.js:7`): `page`/`limit` 1-100 default 20, `WHERE customer_id|admin_id`, `ORDER BY created_at DESC` → `{notifications:[{id,event,title,body,data,booking_id,show_id,refund_id,read_at,created_at}]}`, `page`, `limit` |
+| GET    | `/unread-count` | `identifyRecipient` | `getUnreadCount` (`:32`): `COUNT(*) WHERE … read_at IS NULL` → `{count}` |
+| PATCH  | `/:id/read` | `identifyRecipient` | `markAsRead` (`:47`): `UPDATE … SET read_at=now() WHERE id AND recipient AND read_at IS NULL` → `{updated:bool}` |
+| PATCH  | `/read-all` | `identifyRecipient` | `markAllRead` (`:66`): `UPDATE … WHERE recipient AND read_at IS NULL` → `{updated:count}` |
+| GET    | `/preferences` | `identifyRecipient` | `getPreferences` (`:81`): reads `customer_settings`/`user_settings` `section='notifications'`, merges with `DEFAULT_EVENT_PREFERENCES` (`defaultPreferences.js:6`, `show_reminder push:true`) → `{preferences:{event:{email,sms,whatsapp,push}}}` |
+| PATCH  | `/preferences` | `identifyRecipient` | `updatePreferences` (`:102`): body `{patch:{event:{email,…}}}`, `INSERT … ON CONFLICT (idCol,section) DO UPDATE` in `customer_settings`/`user_settings` → merged preferences |
+
+**Dispatch pipeline (`services/notification/index.js:19` `notify(event,recipient,data)`, `scheduleShowReminder`, `cancelShowReminder`):** called *after* triggering transaction `COMMIT` (so notify failure never 500s): `insertInAppNotification` (`channels/inApp.js:13` — `INSERT INTO notifications (org_id,customer_id,admin_id,event,title,body,data,booking_id,show_id,refund_id) VALUES … RETURNING *` with `buildNotificationContent`), `resolveEnabledChannels` (`preferences.js:12`: intersects org `organization_settings` `notifications` master switches + recipient per-event `customer_settings`/`user_settings` with `DEFAULT_EVENT_PREFERENCES` defaults), per-channel `INSERT notification_dispatch_log … queued` + `publishDispatch` (`qstashClient.js:30` `publishJSON {url: API_BASE_URL/api/notifications/dispatch, body:{notificationId,event,recipientType,recipientId,channel}, notBefore?, retries:3}` → stored `qstash_message_id`). `show_reminder` scheduled at `showDateTime -60m` (`notBefore` epoch), skipped if in past; cancellation queries `d.queued` reminders for `booking_id` and `cancelScheduledMessage` (`qstashClient.messages.delete`) → `skipped`.
+
+**Server (`server.js:35`):** adds `RAW_BODY_PATHS=['/api/payment/webhook','/api/notifications/dispatch']` to skip `express.json`/`urlencoded` for both webhooks (raw `Buffer` for `Upstash-Signature`/`HMAC`).
+
+**Email channels (`mail/emails.js:236`, `mail/emailTemplate.js:1`):** `sendBookingConfirmationEmail` (`BOOKING_CONFIRMATION_TEMPLATE`), `sendRefundInitiatedEmail`, `sendRefundSettledEmail`, `sendShowCancelledEmail`, `sendShowReminderEmail` — all dark `CineMax` HTML (`#0f0f14`/`#16161e`, `rgba(244,63,94,0.15)` badge) via `transporter.sendMail` (`MAIL_ID`).
+
+**DB (`migrations/migration_notifications.sql:1`):** `notifications` (`customer_id`/`admin_id` `CHECK one_recipient`, indexes `customer`, `admin`, `unread WHERE read_at IS NULL`), `notification_dispatch_log` (`channel CHECK email|push|in_app|sms|whatsapp`, `status queued|sent|delivered|failed|skipped`, indexes `notification`, `qstash_message_id`, `status`), `device_tokens` (`token UNIQUE`, `platform web|android|ios`, one-recipient CHECK), `customer_settings` (`customer_id,section UNIQUE`). Note: `user_settings` already existed for admin prefs.
 
 ---
 
