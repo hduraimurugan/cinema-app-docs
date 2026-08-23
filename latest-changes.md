@@ -1,6 +1,6 @@
 # Latest Changes
 
-Updated: 2026-08-22
+Updated: 2026-08-23
 
 This page records the latest committed behavior across the three applications.
 
@@ -16,6 +16,7 @@ This page records the latest committed behavior across the three applications.
 - Settings navigation is a sticky horizontal tab bar (`SettingsTabBar` in `src/pages/settings/SettingsLayout.jsx:140`, `f7952e5`), replacing the previous 64-unit sticky sidebar. Tabs are grouped with vertical dividers, overflow as a hidden-scrollbar strip, and underline the active tab via `layoutId="settings-tab-underline"` with a spring transition. Dirty sections show a single amber dot (`isSectionDirty`) without the previous `Badge` hover expansion.
 - Sections `cinema-profile`, `showtimes`, `booking` are temporarily disabled (`DISABLED_PATHS` set in `src/pages/settings/SettingsLayout.jsx:12`, `f7952e5`): they render as `Soon` badges, are `aria-disabled`, excluded from `SettingsIndexRedirect`, and do not show dirty state.
 - Offers admin UI is now permission-aware (`a79e555`): `OfferFormPage.jsx:15` defaults non-SuperAdmin scope to `hall`, hides the Global option and shows "Only Super Admin can create offers valid across all halls." helper. `OffersManagement.jsx:17` shows a new **Created By** column (avatar initials + email + role pill `Super Admin`/`owner`/`admin` with amber/violet/sky tints) and gates edit/delete buttons to `isSuperAdmin || offer.created_by === user.id`. Export now includes `Creator Email` / `Creator Role` columns.
+- Sidebar active state now uses path-prefix matching (`cd66dd9` in `src/components/AppSidebar.jsx:40`): `isActive` is `url === "/" ? location.pathname === "/" : location.pathname.startsWith(url)` so nav items like **Offers** (`/offers`) stay highlighted on nested routes `/offers/new` and `/offers/:id/edit` (previously `location.pathname === url` exact match only).
 
 ## API
 
@@ -52,7 +53,7 @@ This page records the latest committed behavior across the three applications.
 
 | App | Latest commits |
 |---|---|
-| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555` |
+| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555`, `cd66dd9` |
 | API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a` |
 | Users | `548e50f`, `74049d1` |
 

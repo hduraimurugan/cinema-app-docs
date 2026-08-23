@@ -1844,7 +1844,7 @@ try {
 - Expanded mode width: `w-64` (256 px) set in `CinemaLayout.jsx`
 - Footer: `<Separator />` + user avatar card (`bg-muted/40 rounded-lg px-3 py-2.5`) with name, role, and ghost logout button; collapsed footer shows icon-only logout with tooltip
 - Role filtering: items with `roles: ["superAdmin"]` are hidden when `user.role !== "superAdmin"`
-- Active route detection via `useLocation()` — exact path match
+- Active route detection via `useLocation()` — `isActive` at `src/components/AppSidebar.jsx:40` (`cd66dd9`): `url === "/" ? location.pathname === "/" : location.pathname.startsWith(url)` so parent items stay active for nested routes (e.g. `/offers` remains active on `/offers/new` and `/offers/:id/edit`)
 
 **ExportButton** (`src/components/ExportButton.jsx`) — Reusable CSV / Excel export dropdown
 
