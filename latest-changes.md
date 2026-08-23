@@ -18,6 +18,7 @@ This page records the latest committed behavior across the three applications.
 - Offers admin UI is now permission-aware (`a79e555`): `OfferFormPage.jsx:15` defaults non-SuperAdmin scope to `hall`, hides the Global option and shows "Only Super Admin can create offers valid across all halls." helper. `OffersManagement.jsx:17` shows a new **Created By** column (avatar initials + email + role pill `Super Admin`/`owner`/`admin` with amber/violet/sky tints) and gates edit/delete buttons to `isSuperAdmin || offer.created_by === user.id`. Export now includes `Creator Email` / `Creator Role` columns.
 - Sidebar active state now uses path-prefix matching (`cd66dd9` in `src/components/AppSidebar.jsx:40`): `isActive` is `url === "/" ? location.pathname === "/" : location.pathname.startsWith(url)` so nav items like **Offers** (`/offers`) stay highlighted on nested routes `/offers/new` and `/offers/:id/edit` (previously `location.pathname === url` exact match only).
 - Activity Log page added (`1e94937` in `src/pages/settings/AuditLogPage.jsx:1` / `src/services/settings/auditService.js:1` / `src/config/pagePermissions.js:19` / `src/App.jsx:15`): new `/settings/audit-log` route gated by `audit.view` (moved from `ADVANCED_PERMISSIONS` into `PAGE_PERMISSIONS` as `Settings / Activity Log` with `History` icon, `scope: org`), grouped under *Management* in `SettingsLayout.jsx:25`. UI has collapsible filters (team member via `teamService.getMembers`, resource type, `from_date`/`to_date` with `Popover`+`Calendar`), paginated table (20/limit 100) with actor avatar initials + role, action/resource/hall/when columns, row-click `Sheet` with metadata JSON, IP, timestamp, and `Pagination` component.
+- Add Show presets (`fbad9d0` in `src/pages/AddShowPage.jsx:22`): `TIME_PRESETS` (`Morning 09:00-11:15`, `Matinee 11:45-14:15`, `Afternoon 14:30-17:15`, `Evening 18:30-21:45`, `Night 22:30-01:15`) rendered as pill buttons under *Quick add* (`Label` + `flex flex-wrap gap-2`) before start/end time inputs (`AddShowPage.jsx:180`). Active preset matches `formData.start_time/end_time` (`border-primary bg-primary/10 text-primary` + dot), otherwise `border-border text-muted-foreground hover:border-primary/50`; clicking sets `setFormData(prev=>({...prev,start_time:preset.start_time,end_time:preset.end_time}))` via `cn`.
 
 ## API
 
@@ -55,7 +56,7 @@ This page records the latest committed behavior across the three applications.
 
 | App | Latest commits |
 |---|---|
-| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555`, `cd66dd9`, `1e94937` |
+| Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555`, `cd66dd9`, `1e94937`, `fbad9d0` |
 | API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a`, `edec38f` |
 | Users | `548e50f`, `74049d1` |
 

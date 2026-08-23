@@ -1200,6 +1200,20 @@ All destructive and state-changing actions (single and bulk) use a shared `Alert
 
 Full-width page form (no `max-w-2xl` constraint — fills the available content area). Action buttons (**Cancel** / **Add Show**) are right-aligned (`justify-end`) with `min-w-[120px]` and sit at the bottom of the form. On success → navigates back to `/shows`.
 
+**Quick add presets** (`fbad9d0` in `src/pages/AddShowPage.jsx:22`):
+
+```js
+const TIME_PRESETS = [
+  { label: "Morning",   start_time: "09:00", end_time: "11:15" },
+  { label: "Matinee",   start_time: "11:45", end_time: "14:15" },
+  { label: "Afternoon", start_time: "14:30", end_time: "17:15" },
+  { label: "Evening",   start_time: "18:30", end_time: "21:45" },
+  { label: "Night",     start_time: "22:30", end_time: "01:15" },
+]
+```
+
+Rendered at `src/pages/AddShowPage.jsx:180` as a `Quick add` section (`Label text-xs text-muted-foreground` + `flex flex-wrap gap-2` pills) placed **before** the Start & End Time grid. Each preset is a `button type="button" rounded-full border px-3 py-1 text-xs font-medium` with `active = formData.start_time === preset.start_time && formData.end_time === preset.end_time`. Active: `border-primary bg-primary/10 text-primary` + `h-1.5 w-1.5 rounded-full bg-primary` dot; inactive: `border-border bg-transparent text-muted-foreground hover:border-primary/50 hover:text-foreground`. Click calls `setFormData(prev=>({...prev, start_time: preset.start_time, end_time: preset.end_time}))`. Label shows preset name + `opacity-60` `start–end` time range. Uses `cn` for conditional classes.
+
 **Auto-fill behaviour:**
 - **Select movie** → `language_version` auto-filled smartly:
   - 1 language → auto-set, plain text input shown
@@ -2082,7 +2096,7 @@ sequenceDiagram
     Note over AddShowPage: 1 language → auto-set; multiple → language dropdown shown
     Admin->>AddShowPage: Select screen
     Note over AddShowPage: price_override auto-filled from screen.premium/gold/silver_price
-    Admin->>AddShowPage: Set date, start/end time
+    Admin->>AddShowPage: Set date, start/end time (or tap Quick add preset: Morning/Matinee/Afternoon/Evening/Night at AddShowPage.jsx:180 — fbad9d0)
     Admin->>AddShowPage: Pick language (if dropdown) / review prices
     Admin->>AddShowPage: Click "Add Show"
 

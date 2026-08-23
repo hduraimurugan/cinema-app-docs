@@ -22,16 +22,17 @@ Detailed view of a single show.
 - Cancel / edit / delete actions
 
 ### `AddShowPage.jsx`
-Form to create a single show.
+Form to create a single show (`src/pages/AddShowPage.jsx:22`, `fbad9d0`).
 
 **Features:**
 - `MovieSearchDropdown` for movie selection
 - Screen selector (dropdown of hall's screens)
-- Date picker
-- Start time / end time inputs
-- Language version text input
-- Price override (optional number input)
-- Submit button
+- Date picker (`Popover` + `Calendar` at `AddShowPage.jsx:180` context, stored as `YYYY-MM-DD`)
+- **Quick add presets** (`TIME_PRESETS` at line 22): `Morning 09:00-11:15`, `Matinee 11:45-14:15`, `Afternoon 14:30-17:15`, `Evening 18:30-21:45`, `Night 22:30-01:15` — pill buttons (`rounded-full border px-3 py-1 text-xs`) in `Quick add` (`Label` + `flex flex-wrap gap-2` at line 180) before start/end inputs; active when `formData.start_time/end_time` matches preset (`border-primary bg-primary/10` + dot), click sets `setFormData(prev=>({...prev,start_time,end_time}))` via `cn`
+- Start time / end time inputs (grid `grid-cols-2 gap-4`)
+- Language version text input (or `Select` for multi-language movies)
+- Price override (optional number input, auto-filled from `screen.premium_price/gold_price/silver_price`)
+- Submit button (`POST /api/shows/create`)
 
 ### `AddMultipleShowsPage.jsx`
 Form for bulk show creation.
