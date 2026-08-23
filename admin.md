@@ -43,7 +43,15 @@ graph TD
 
     G --> H[Exempt Routes]
     H --> H1[/profile - ProfilePage]
-    H --> H2[/settings - SettingsPage]
+    H --> H2[/settings - SettingsLayout]
+    H2 --> S1[/settings/general - GeneralSettingsPage]
+    H2 --> S2[/settings/cinema-profile - CinemaProfilePage]
+    H2 --> S3[/settings/showtimes - ShowtimesSettingsPage]
+    H2 --> S4[/settings/booking - BookingSettingsPage]
+    H2 --> S5[/settings/payment - PaymentSettingsPage]
+    H2 --> S6[/settings/team - TeamManagementPage]
+    H2 --> S7[/settings/roles - RolesPermissionsPage]
+    H2 --> S8[/settings/audit-log - AuditLogPage<br/>audit.view]
     H --> H3[/halls - HallsManagement]
 
     G --> I[Hall-Gated Routes]
@@ -1695,6 +1703,15 @@ The settings panel has been refactored from a single global card into a comprehe
    - **Scope**: Organization level.
    - **Features**: Visual permissions grid matrix demonstrating mapped permissions for system-defined roles (Owner, Admin, Manager, Sales, Finance, Marketing, Ticket Operator, Auditor).
 
+8. **Activity Log** (`/settings/audit-log`, `1e94937` — `src/pages/settings/AuditLogPage.jsx:1`, `src/services/settings/auditService.js:1`, `src/config/pagePermissions.js:54`, `src/App.jsx:115`):
+   - **Scope**: Organization level, gated by `audit.view` (moved from `ADVANCED_PERMISSIONS` to `PAGE_PERMISSIONS` as `Settings / Activity Log` with `History` icon; grouped under *Management* via `SettingsLayout.jsx:25`).
+   - **Data source**: `GET /api/audit-logs` (`utils/auditLog.js:7`, `edec38f` — org-scoped, `audit.view` permission, platform superAdmin must pass `?orgId=`).
+   - **Header**: `History` icon + "Activity Log" title + total events badge + `Refresh` (`RefreshCw`) button.
+   - **Filters** (`Card` collapsible with `SlidersHorizontal`/`ChevronDown`): Team Member (`adminId`, `all` + `teamService.getMembers` `limit=200`), Resource (`resourceType`, `all` + `screen/show/offer/hall/refund/org_settings/hall_settings/team_member/role`), From/To Date (`from_date`/`to_date` via `Popover`+`Calendar` + `dayjs YYYY-MM-DD`), active count badge, `Clear` (`X`) button; filters collapse/expand via `filtersOpen` state.
+   - **Table** (`Card` with `ScrollText` header + `Pagination`): columns Actor (avatar `w-8 h-8` `getInitials` + `avatarColor` `violet/sky/rose/amber/teal/pink` + `actor_name`/`actor_role_key`), Action (`ACTION_LABELS` e.g. `shows.create` → "Created showtime", incl. `.bulk` variants), Resource (`Badge outline` `RESOURCE_TYPE_LABELS` + `resource_label` truncate `max-w-[160px]`), Hall (`hall_name` or `—`), When (`dayjs DD MMM, h:mm A`); rows `cursor-pointer hover:bg-muted/40` open detail `Sheet`; loading skeleton 6 rows with `Skeleton`; empty `History` icon + "No activity recorded yet".
+   - **Details Sheet** (`Sheet` `sm:max-w-md overflow-y-auto`): Actor, Action, Resource, Hall (or "Organization-wide"), Timestamp (`DD MMM YYYY, h:mm:ss A`), IP Address, Metadata `pre` `bg-muted/50` JSON.
+   - **Service**: `auditService.getLogs(params)` (`services/settings/auditService.js:10`) → `apiFetch(${API_BASE_URL}/api/audit-logs?${params}, {credentials:"include"})`.
+
 Both organization-level and hall-level settings are transactionally saved, and values are validated against the organization's or active hall's JSONB schemas.
 
 
@@ -1718,6 +1735,7 @@ graph LR
     A --> G4[adminsAPI]
     A --> G5[paymentAPI]
     A --> G6[refundAPI]
+    A --> G7[auditService<br/>getLogs]
 
     B --> G[register, login, logout, logoutAll, getMe, refresh, verifyEmail, resendVerification, forgotPassword, resetPassword, changePassword, getSecurityInfo, googleLogin, githubLogin, linkProvider, unlinkProvider, setPassword]
     C --> H[createScreen, getMyScreens, updateScreen, deleteScreen]
@@ -1729,13 +1747,14 @@ graph LR
     G4 --> N[getAll - search/page/limit, getLogs - id]
     G5 --> O[getOrders - filters/page/limit, createOrder, verifyPayment]
     G6 --> P[getRefunds - filters/page/limit, settleRefund]
+    G7 --> Q[getLogs - adminId/resourceType/from_date/to_date/page/limit - GET /api/audit-logs]
 ```
 
 ### Pagination — Shared Component
 
 **Location**: `src/components/ui/Pagination.jsx`
 
-All five paginated admin list pages (Bookings, Refunds, Payment Orders, Customers, Hall Admins) use the same shared `Pagination` component.
+All six paginated admin list pages (Bookings, Refunds, Payment Orders, Customers, Hall Admins, **Activity Log** `AuditLogPage.jsx:274` `page/limit/total` with `Pagination`) use the same shared `Pagination` component.
 
 ### Export — Shared Utility
 

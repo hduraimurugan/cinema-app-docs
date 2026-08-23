@@ -55,6 +55,9 @@ erDiagram
     bookings ||--o| offer_redemptions : "linked to"
     cinema_hall ||--o{ offers : "scoped to (optional)"
     cinema_admin_user ||--o{ offers : "created by"
+    organizations ||--o{ audit_logs : "has audit trail"
+    cinema_admin_user ||--o{ audit_logs : "actor in"
+    cinema_hall ||--o{ audit_logs : "hall context"
 
     organizations {
         uuid id PK
@@ -305,6 +308,23 @@ erDiagram
         uuid customer_id FK
         uuid booking_id FK
         numeric discount_applied
+        timestamptz created_at
+    }
+
+    audit_logs {
+        uuid id PK
+        uuid org_id FK "NOT NULL, ON DELETE CASCADE"
+        uuid admin_id FK "ON DELETE SET NULL"
+        text actor_name "denormalized snapshot"
+        text actor_role_key "denormalized snapshot"
+        text action "e.g. offers.create, shows.cancel.bulk"
+        text resource_type "e.g. offer, show, hall"
+        uuid resource_id "optional"
+        text resource_label "human-readable label"
+        uuid hall_id FK "ON DELETE SET NULL"
+        jsonb metadata "extra fields, default {}"
+        text ip_address
+        text user_agent
         timestamptz created_at
     }
 
@@ -2415,6 +2435,42 @@ sequenceDiagram
 ```
 
 > **Security note:** The offer is always re-validated server-side in `createOrder` — the frontend discount preview is never trusted for the final charge.
+
+#### Audit trail for Offers
+
+`POST /create`, `PUT /update/:id`, `DELETE /delete/:id` now call `recordAuditLog(req, {action: 'offers.create'|'offers.update'|'offers.delete', resourceType:'offer', resourceId: id, resourceLabel: code, hallId: cinema_hall_id})` via `utils/auditLog.js:7` (`edec38f`).
+
+---
+
+### Audit Logs (`/api/audit-logs`) — added `edec38f` (`database/migration_phase7_audit_logs.sql:1` / `controllers/auditLogs.Controller.js:1` / `routes/auditLogs.routes.js:1` / `utils/auditLog.js:1` / `server.js:34`)
+
+Business-action audit trail (who did what to which resource), stored in `audit_logs` (`docs/db_setup.sql:276`, idempotent, also `database/migration_phase7_audit_logs.sql:1`). Distinct from `admin_security_logs` which only covers auth/login events — `actor_name`/`actor_role_key` are denormalized snapshots so rows stay legible after rename/removal.
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| GET    | `/`      | `audit.view` (`verifyCinemaAdminAccessToken` + `requirePermission`) | List paginated audit events for the caller's `org_id` with filters `adminId`, `resourceType`, `action`, `hallId`, `from_date`, `to_date`, `page`/`limit` (default `20`, max `100`), joined `hall_name` via `cinema_hall` |
+
+**Org scoping:** `orgId = req.query.orgId || await resolveOrgId(req.admin.id)` (`controllers/auditLogs.Controller.js:9`). A platform-only `superAdmin` with no org membership must pass `?orgId=` explicitly (else `400 orgId query parameter is required`); org members get `404 Organization not found` if none.
+
+**Response (200):**
+```json
+{
+  "logs": [{ "id": "uuid", "action": "shows.create", "resource_type": "show", "resource_id": "uuid", "resource_label": "2026-08-23 14:00", "admin_id": "uuid", "actor_name": "Alice", "actor_role_key": "owner", "hall_id": "uuid", "hall_name": "PVR", "metadata": {"fields":["name"]}, "ip_address": "1.2.3.4", "created_at": "2026-08-23T13:00:00Z" }],
+  "total": 42,
+  "page": 1,
+  "limit": 20
+}
+```
+
+**Indexes:** `idx_audit_logs_org_created ON (org_id, created_at DESC)`, `idx_audit_logs_admin ON (admin_id)`, `idx_audit_logs_resource ON (org_id, resource_type, resource_id)`, `idx_audit_logs_hall ON (hall_id)`, `idx_audit_logs_action ON (org_id, action)`.
+
+**`recordAuditLog` utility (`utils/auditLog.js:7`, `edec38f`):**
+```js
+recordAuditLog(req, {action, resourceType, resourceId=null, resourceLabel=null, hallId=null, metadata={}})
+```
+Fire-and-forget: never throws (logs its own failure via `logger.error`), resolves `orgId` via `req.orgId || admin.orgId || await resolveOrgId(admin.id)`, skips if no `admin.id`/`orgId`, inserts `(org_id, admin_id, actor_name, actor_role_key, action, resource_type, resource_id, resource_label, hall_id, metadata, ip_address, user_agent)` with `req.ip` and `user-agent` header. Wrapped around all mutations in `edec38f`: `halls.create/update/delete` (`halls.Controller.js:142`), `offers.create/update/delete`, `refunds.settle` (`refund.Controller.js:159`), `roles.create/update/delete/clone` (`roles.Controller.js:161`), `screens.create/update/delete` (`screens.Controller.js:67`), `settings.org.update` (`settings.Controller.js:139`) + `settings.hall.update:216`, `shows.create/bulk/update/delete/bulk/cancel/booking_status/bulk/restore/bulk` (`shows.Controller.js:35`), `team.member.invite/create/update/remove/assign_halls/remove_hall` (`team.Controller.js:62`).
+
+**`server.js:34`** mounts `auditLogsRoutes` at `/api/audit-logs`.
 
 ---
 
