@@ -2985,6 +2985,8 @@ Because this is an ESM project, static `import` statements are hoisted before an
 | `server.js` | `import "./instrument.js"` (ensures file is included in Vercel's bundle via nft tracing) + `Sentry.setupExpressErrorHandler(app)` after all routes |
 | `nodemon.json` | `execArgs: ["--import=@sentry/node/preload"]` — registers hooks before Express in local dev |
 | `package.json` `start` | `node --import=@sentry/node/preload server.js` |
+| `package.json` `dev` | `npx nodemon server.js` — API only (`578985c` still available) |
+| `package.json` `dev:all` | `concurrently -n API,QSTASH -c blue,green "npx nodemon server.js" "npx @upstash/qstash-cli@latest dev"` — parallel API + QStash simulator (`578985c`, `concurrently@^10.0.5`, requires `node>=22`); prints `QSTASH_URL/TOKEN/SIGNING_KEYS` into `.env` via simulator, used by `qstashClient.js:6` (`QSTASH_TOKEN/URL`) and `Receiver` (`QSTASH_CURRENT/NEXT_SIGNING_KEY`); colour `API=blue`, `QSTASH=green`; replaces two-terminal workflow |
 
 > **Why not `NODE_OPTIONS` in `vercel.json`?**  
 > `@vercel/node` uses file tracing (`nft`) to bundle only imported files. `NODE_OPTIONS` is an env var — `nft` cannot trace it, so `@sentry/node/preload` would not be included in the deployment bundle and the function would crash at startup.

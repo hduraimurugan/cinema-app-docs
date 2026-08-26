@@ -57,13 +57,14 @@ This page records the latest committed behavior across the three applications.
 - Movie, theatre, seat selection, order summary, and booking result pages received responsive layout and interaction refinements without changing the booking API contract.
 - Notifications center (`8cbaa06` in `cinema-hall-users/src/components/TopBar.jsx:1` / `src/pages/Notifications.jsx:1` / `src/services/api.js:490` / `src/App.jsx:21`): mirrors admin `8e4d69f` — `TopBar.jsx:52` polls `notificationAPI.list(1,5)` + `getUnreadCount` on mount/every `25s` via `NOTIFICATION_POLL_MS`, dropdown with `formatDistanceToNow` and `!read_at ? bg-primary` dot, optimistic `markAsRead` on click; `Notifications.jsx:10` paginated `PAGE_SIZE=20` with `load(page)` merging, `hasMore`, `Mark all read` (`CheckCheck`), `Load more`, shared `notificationAPI` (`list`/`getUnreadCount`/`markAsRead`/`markAllRead`/`getPreferences`/`updatePreferences` → `/api/notifications` with `credentials:"include"`).
 - Push notifications via FCM — users (`2ab168b` in `cinema-hall-users/src/lib/firebase.js:1` / `public/firebase-messaging-sw.js:1` / `src/pages/Notifications.jsx:13` / `src/services/api.js:490`): identical to admin `35908f4` — `firebase` `initializeApp` `VITE_FIREBASE_*`, `requestPushToken` `isSupported`/`Notification.requestPermission`/`serviceWorker register`/`getToken` with `VITE_FIREBASE_VAPID_KEY`, `onForegroundMessage`; `firebase-messaging-sw.js:1` compat `onBackgroundMessage` `CineMax` icon `cinemax_logo.png`; `Notifications.jsx:13` `pushEnabled`/`pushBusy`/`handleEnablePush` `requestPushToken→registerDeviceToken(token,"web")`, `Enable push` `BellRing`.
+- Local dev concurrency (`578985c` in `cinema-hall-api/package.json:8` / `package-lock.json:2108`): adds `concurrently@^10.0.5` to `devDependencies` (requires `node>=22`) and new script `dev:all` (`cinema-hall-api/package.json:8`): `concurrently -n API,QSTASH -c blue,green "npx nodemon server.js" "npx @upstash/qstash-cli@latest dev"` — runs API (`blue`) and QStash local simulator (`green`, `QSTASH_URL/TOKEN/SIGNING_KEYS` via `qstash-cli dev`, see `qstashClient.js:6`) in parallel, replacing two-terminal workflow; keeps `dev` as `npx nodemon server.js` alone.
 
 ## Source Commits
 
 | App | Latest commits |
 |---|---|
 | Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555`, `cd66dd9`, `1e94937`, `fbad9d0`, `8e4d69f`, `35908f4` |
-| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a`, `edec38f`, `7658007`, `e121b87` |
+| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a`, `edec38f`, `7658007`, `e121b87`, `578985c` |
 | Users | `548e50f`, `74049d1`, `8cbaa06`, `2ab168b` |
 
 ## Related Documentation
