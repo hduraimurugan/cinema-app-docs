@@ -63,6 +63,9 @@ erDiagram
     cinema_admin_user ||--o{ notifications : "receives"
     notifications ||--o{ notification_dispatch_log : "dispatch attempts"
     organizations ||--o{ notification_dispatch_log : "scoped"
+    admin_broadcasts ||--o{ notifications : "broadcast source"
+    admin_broadcasts ||--o{ notification_dispatch_log : "broadcast dispatch"
+    cinema_admin_user ||--o{ admin_broadcasts : "creates"
     customers ||--o{ device_tokens : "device"
     cinema_admin_user ||--o{ device_tokens : "device"
     customers ||--o{ customer_settings : "has"
@@ -334,11 +337,31 @@ erDiagram
         timestamptz read_at
         timestamptz created_at
         timestamptz scheduled_for "NULL=immediate, else hidden until (b434bee)"
+        uuid broadcast_id FK "REFERENCES admin_broadcasts ON DELETE SET NULL (622af22)"
+    }
+
+    admin_broadcasts {
+        uuid id PK
+        uuid created_by FK "REFERENCES cinema_admin_user ON DELETE SET NULL"
+        text title "NOT NULL"
+        text body
+        text image_url
+        text audience_type "all_customers|all_admins|custom CHECK"
+        uuid[] recipient_customer_ids "DEFAULT '{}'"
+        uuid[] recipient_admin_ids "DEFAULT '{}'"
+        int target_count
+        int sent_count
+        int failed_count
+        text status "scheduled|sent|cancelled CHECK"
+        timestamptz scheduled_for
+        timestamptz sent_at
+        timestamptz created_at
     }
 
     notification_dispatch_log {
         uuid id PK
         uuid notification_id FK
+        uuid broadcast_id FK "REFERENCES admin_broadcasts ON DELETE SET NULL (622af22)"
         uuid org_id FK
         uuid customer_id FK
         uuid admin_id FK
@@ -2562,6 +2585,26 @@ Unified in-app + email notification center backed by `notifications`/`notificati
 **DB (`migrations/migration_notifications.sql:1`):** `notifications` (`customer_id`/`admin_id` `CHECK one_recipient`, indexes `customer`, `admin`, `unread WHERE read_at IS NULL`), `notification_dispatch_log` (`channel CHECK email|push|in_app|sms|whatsapp`, `status queued|sent|delivered|failed|skipped`, indexes `notification`, `qstash_message_id`, `status`), `device_tokens` (`token UNIQUE`, `platform web|android|ios`, one-recipient CHECK), `customer_settings` (`customer_id,section UNIQUE`). Note: `user_settings` already existed for admin prefs.
 
 ---
+
+### Broadcast Notifications (`/api/notifications/broadcast`) — Super Admin manual push (`622af22` `migrations/migration_admin_broadcasts.sql:1` / `controllers/broadcast.Controller.js:1` / `services/notification/broadcast.js:1` / `routes/notifications.routes.js:14`)
+
+Super Admin composes a push (title/body/imageUrl) to a chosen audience; one `admin_broadcasts` row fans out to many per-recipient `notifications` + `notification_dispatch_log` rows via `broadcast_id`, auditable as one action.
+
+| Method | Endpoint | Auth | Description |
+| ------ | -------- | ---- | ----------- |
+| POST   | `/broadcast` | `verifySuperAdmin` | `createBroadcast` (`broadcast.Controller.js:8`): body `{title*, body, imageUrl, audienceType: all_customers|all_admins|custom*, customerIds?, adminIds?, scheduledFor?}` validates title, audienceType in `AUDIENCE_TYPES`, custom needs `customerIds||adminIds`, parses `scheduledFor` `Date`, `isFutureSend=scheduledDate>Date.now()`, `resolveAudience` → recipients, `INSERT INTO admin_broadcasts (created_by,title,body,image_url,audience_type,recipient_customer_ids,recipient_admin_ids,target_count=recipients.length,scheduled_for=isFutureSend?date:null) RETURNING *`; if `isFutureSend` → `scheduleBroadcastFor(broadcast,recipients,scheduledDate)` → `201 {broadcast:{...status:'scheduled'}}` else `sendBroadcastNow` → `201 {broadcast:{...status:'sent',sent_count,failed_count}}`; errors `400` title/audience/custom/scheduledFor invalid, `500` |
+| GET    | `/broadcast` | `verifySuperAdmin` | `listBroadcasts` (`:64`): `SELECT b.*, a.name AS created_by_name FROM admin_broadcasts LEFT JOIN cinema_admin_user ORDER BY created_at DESC LIMIT 100` → `{broadcasts:[{id,created_by,created_by_name,title,body,image_url,audience_type,recipient_customer_ids,recipient_admin_ids,target_count,sent_count,failed_count,status,scheduled_for,sent_at,created_at}]}` |
+| GET    | `/broadcast/:id` | `verifySuperAdmin` | `getBroadcast` (`:76`): `Promise.all` `SELECT b.*, a.name` where `b.id` + `SELECT d.*, COALESCE(c.name,ad.name) AS recipient_name, COALESCE(c.email,ad.email) AS recipient_email FROM notification_dispatch_log d LEFT JOIN customers c LEFT JOIN cinema_admin_user ad WHERE d.broadcast_id=$1 ORDER BY created_at DESC` → `{broadcast, recipients:[{id,channel,status,target,error,attempted_at,created_at,customer_id,admin_id,recipient_name,email}]}`; `404 Broadcast not found` |
+
+**Migration (`migration_admin_broadcasts.sql:1`):** `CREATE TABLE admin_broadcasts` (above) index `idx_admin_broadcasts_created ON created_at DESC`; `ALTER TABLE notifications ADD COLUMN IF NOT EXISTS broadcast_id UUID REFERENCES admin_broadcasts ON DELETE SET NULL` + `ALTER TABLE notification_dispatch_log ADD COLUMN IF NOT EXISTS broadcast_id`; `CREATE INDEX idx_notifications_broadcast ON notifications(broadcast_id) WHERE broadcast_id IS NOT NULL`.
+
+**Service `services/notification/broadcast.js:1` (`622af22`):** `resolveAudience({audienceType,customerIds,adminIds})` → `all_customers` `SELECT id FROM customers` / `all_admins` `SELECT id FROM cinema_admin_user WHERE role='admin'` / `custom` flat `{type,id}`; `insertDispatchLogRow({notificationId,broadcastId,recipient,channel,status,target,error})` inserts `notification_dispatch_log (notification_id,broadcast_id,customer_id,admin_id,event='admin_broadcast',channel,status,target,error,attempted_at=now())`; `sendBroadcastNow(broadcast,recipients)` synchronous (no QStash, works localhost) — for each recipient `insertInAppNotification(event='admin_broadcast', data:{title,body,imageUrl})` → `UPDATE notifications SET broadcast_id`, `resolveEnabledChannels(recipient,'admin_broadcast')` check `push` else `failed++`, `sendPushForNotification` → `sent++` else `failed` via `insertDispatchLogRow`, final `UPDATE admin_broadcasts SET status='sent', sent_count, failed_count, sent_at=now()`; `scheduleBroadcastFor(broadcast,recipients,scheduledFor)` computes `notBefore=epochSeconds`, per recipient `insertInAppNotification(..., scheduledFor)` + per-channel `INSERT dispatch_log queued` → `publishDispatch({notificationId,event='admin_broadcast',recipientType,recipientId,channel,notBefore})` → `UPDATE qstash_message_id` else `failed`, final `UPDATE admin_broadcasts SET status='scheduled'`.
+
+**Push channel (`channels/push.js:28` `622af22`):** adds `...(notification.data?.imageUrl ? {imageUrl} : {})` to FCM `notification` so broadcast image renders.
+
+**Defaults/templates (`defaultPreferences.js:18` / `templates.js:69` `622af22`):** `DEFAULT_EVENT_PREFERENCES` adds `admin_broadcast: {email:false push:true}`; `templates.js:69` `admin_broadcast` returns `{title: data.title||'Notification', body: data.body||''}` (super admin-composed, not templated).
+
+**Routes (`routes/notifications.routes.js:14` `622af22`):** before QStash `router.get('/broadcast',verifySuperAdmin,listBroadcasts)`, `get('/broadcast/:id',verifySuperAdmin,getBroadcast)`, `post('/broadcast',verifySuperAdmin,createBroadcast)`; QStash dispatch keeps `express.raw` with `Upstash-Signature`.
 
 ### Customers (`/api/customers`)
 

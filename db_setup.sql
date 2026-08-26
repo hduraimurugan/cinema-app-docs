@@ -1122,6 +1122,36 @@ CREATE TABLE IF NOT EXISTS device_tokens (
 CREATE INDEX IF NOT EXISTS idx_device_tokens_customer ON device_tokens(customer_id) WHERE customer_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_device_tokens_admin    ON device_tokens(admin_id) WHERE admin_id IS NOT NULL;
 
+-- Super Admin manual broadcast notifications — one row per compose-and-send
+-- action, fanning out to many per-recipient notifications/dispatch_log rows
+-- via broadcast_id below.
+CREATE TABLE IF NOT EXISTS admin_broadcasts (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_by    UUID REFERENCES cinema_admin_user(id) ON DELETE SET NULL,
+  title         TEXT NOT NULL,
+  body          TEXT,
+  image_url     TEXT,
+  audience_type TEXT NOT NULL CHECK (audience_type IN ('all_customers','all_admins','custom')),
+  recipient_customer_ids UUID[] NOT NULL DEFAULT '{}',
+  recipient_admin_ids    UUID[] NOT NULL DEFAULT '{}',
+  target_count  INT NOT NULL DEFAULT 0,
+  sent_count    INT NOT NULL DEFAULT 0,
+  failed_count  INT NOT NULL DEFAULT 0,
+  status        TEXT NOT NULL DEFAULT 'scheduled' CHECK (status IN ('scheduled','sent','cancelled')),
+  scheduled_for TIMESTAMPTZ,
+  sent_at       TIMESTAMPTZ,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_admin_broadcasts_created ON admin_broadcasts(created_at DESC);
+
+-- Per-recipient device/token narrowing for a "custom" broadcast — see
+-- migration_admin_broadcasts_device_filter.sql for the shape.
+ALTER TABLE admin_broadcasts ADD COLUMN IF NOT EXISTS device_token_filter JSONB NOT NULL DEFAULT '{}';
+
+ALTER TABLE notifications ADD COLUMN IF NOT EXISTS broadcast_id UUID REFERENCES admin_broadcasts(id) ON DELETE SET NULL;
+ALTER TABLE notification_dispatch_log ADD COLUMN IF NOT EXISTS broadcast_id UUID REFERENCES admin_broadcasts(id) ON DELETE SET NULL;
+CREATE INDEX IF NOT EXISTS idx_notifications_broadcast ON notifications(broadcast_id) WHERE broadcast_id IS NOT NULL;
+
 -- Mirrors user_settings (per-admin preferences) but for customers. Currently
 -- only used for the 'notifications' section (per-event channel toggles, same
 -- shape as USER_DEFAULTS.notifications in cinema-hall-admin's settingsDefaults.js).
