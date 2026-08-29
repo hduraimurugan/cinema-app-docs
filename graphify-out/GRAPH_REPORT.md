@@ -1,11 +1,11 @@
 # Graph Report - cinema-hall  (2026-08-29)
 
 ## Corpus Check
-- 546 files · ~449,773 words
+- 546 files · ~450,349 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 4263 nodes · 5543 edges · 416 communities (391 shown, 25 thin omitted)
+- 4263 nodes · 5543 edges · 415 communities (390 shown, 25 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 21 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -338,7 +338,6 @@
 - [[_COMMUNITY_Community 407|Community 407]]
 - [[_COMMUNITY_Community 408|Community 408]]
 - [[_COMMUNITY_Community 409|Community 409]]
-- [[_COMMUNITY_Community 410|Community 410]]
 - [[_COMMUNITY_Community 411|Community 411]]
 - [[_COMMUNITY_Community 412|Community 412]]
 - [[_COMMUNITY_Community 413|Community 413]]
@@ -372,7 +371,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (416 total, 25 thin omitted)
+## Communities (415 total, 25 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.13
@@ -447,8 +446,8 @@ Cohesion: 0.09
 Nodes (38): createHeldSeat(), confirmBooking(), getBookingByPaymentId(), getBookingDetails(), getCinemaHallBookings(), getMyBookings(), holdSeats(), releaseSeats() (+30 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.10
-Nodes (18): debounce(), SearchMovies(), LANG_OPTIONS, SECTIONS, TMDB_GENRE_MAP, TMDBBrowser(), MovieForm(), genreIcons (+10 more)
+Cohesion: 0.08
+Nodes (21): debounce(), SearchMovies(), LANG_OPTIONS, SECTIONS, TMDB_GENRE_MAP, TMDBBrowser(), MovieForm(), genreIcons (+13 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.09
@@ -587,8 +586,8 @@ Cohesion: 0.29
 Nodes (7): FormControl(), FormDescription(), FormFieldContext, FormItemContext, FormLabel(), FormMessage(), useFormField()
 
 ### Community 67 - "Community 67"
-Cohesion: 0.31
-Nodes (9): UsersPage(), avatarColor(), avatarColors, CustomerDetailSheet(), debounce(), fmtDate(), fmtDateTime(), getInitials() (+1 more)
+Cohesion: 0.15
+Nodes (16): UsersPage(), AUDIENCE_CHOICES, audienceLabel(), BroadcastNotifications(), debounce(), EMPTY_FORM, statusBadge(), avatarColor() (+8 more)
 
 ### Community 68 - "Community 68"
 Cohesion: 0.29
@@ -1597,10 +1596,6 @@ Nodes (3): Navigation Structure, Route Protection, Routing & Navigation
 ### Community 409 - "Community 409"
 Cohesion: 0.33
 Nodes (4): avatarColors, debounce(), PaymentOrders(), statusConfig
-
-### Community 410 - "Community 410"
-Cohesion: 0.20
-Nodes (10): AUDIENCE_CHOICES, audienceLabel(), BroadcastNotifications(), debounce(), EMPTY_FORM, statusBadge(), MovieManagement(), broadcastAPI (+2 more)
 
 ### Community 411 - "Community 411"
 Cohesion: 0.50

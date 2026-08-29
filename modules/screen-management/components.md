@@ -45,6 +45,7 @@ A visual seat layout designer with drag-and-drop capabilities.
 | `selectedSeat` | Object   | Currently selected seat or null        |
 | `seatCounts`   | Object   | Computed `{ premium, gold, silver }`   |
 | `gridSize`     | Object   | `{ rows, columns }` for the canvas     |
+| `isPanMode`    | Boolean  | Pan tool toggle (`H` / toolbar button); drags canvas instead of editing |
 
 **Sub-components:**
 
@@ -53,7 +54,7 @@ A visual seat layout designer with drag-and-drop capabilities.
 | `Canvas`              | The main grid where seats are rendered     |
 | `SeatCell`            | Individual seat or passage on the grid     |
 | `PropertiesPanel`     | Edit properties of the selected seat       |
-| `Toolbar`             | Tools: add seat, add passage, block/delete |
+| `Toolbar`             | Tools: add seat, add passage, block/delete, plus zoom + pan (`Hand`) |
 | `SaveBar`             | Save/Cancel actions at the bottom          |
 | `CategoryLegend`      | Color legend for premium/gold/silver using the seat tier tokens (`bg-seat-premium`, `bg-seat-gold`, `bg-seat-silver`) |
 
@@ -61,6 +62,7 @@ A visual seat layout designer with drag-and-drop capabilities.
 - **Click seat** → select it, show properties panel
 - **Click empty cell** → add seat (if in "add" mode) or passage (if in "passage" mode)
 - **Drag seat** → reposition (row/column swap)
+- **Pan tool** (`H` or toolbar `Hand` button) → drag anywhere on the canvas to scroll it; seat/row/column clicks are suppressed while active
 - **Properties panel** → change row letter, column number, type, price category, blocked state
 - **Toolbar** → switch between add/passage/select/delete modes
 - **Save** → navigates back to `CinemaScreens` with updated layout

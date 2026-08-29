@@ -4049,7 +4049,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_pages_broadcastnotifications_jsx",
-      "community": 410,
+      "community": 67,
       "norm_label": "broadcastnotifications.jsx"
     },
     {
@@ -4058,7 +4058,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L12",
       "id": "pages_broadcastnotifications_debounce",
-      "community": 410,
+      "community": 67,
       "norm_label": "debounce()"
     },
     {
@@ -4067,7 +4067,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L20",
       "id": "pages_broadcastnotifications_empty_form",
-      "community": 410,
+      "community": 67,
       "norm_label": "empty_form"
     },
     {
@@ -4076,7 +4076,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L30",
       "id": "pages_broadcastnotifications_audience_choices",
-      "community": 410,
+      "community": 67,
       "norm_label": "audience_choices"
     },
     {
@@ -4085,7 +4085,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L36",
       "id": "pages_broadcastnotifications_audiencelabel",
-      "community": 410,
+      "community": 67,
       "norm_label": "audiencelabel()"
     },
     {
@@ -4094,7 +4094,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L43",
       "id": "pages_broadcastnotifications_statusbadge",
-      "community": 410,
+      "community": 67,
       "norm_label": "statusbadge()"
     },
     {
@@ -4103,7 +4103,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L49",
       "id": "pages_broadcastnotifications_formatdatetime",
-      "community": 410,
+      "community": 67,
       "norm_label": "formatdatetime()"
     },
     {
@@ -4112,7 +4112,7 @@
       "source_file": "cinema-hall-admin/src/pages/BroadcastNotifications.jsx",
       "source_location": "L57",
       "id": "pages_broadcastnotifications_broadcastnotifications",
-      "community": 410,
+      "community": 67,
       "norm_label": "broadcastnotifications()"
     },
     {
@@ -4418,7 +4418,7 @@
       "source_file": "cinema-hall-admin/src/pages/MovieManagement.jsx",
       "source_location": "L400",
       "id": "pages_moviemanagement_moviemanagement",
-      "community": 410,
+      "community": 19,
       "norm_label": "moviemanagement()"
     },
     {
@@ -5750,7 +5750,7 @@
       "source_file": "cinema-hall-admin/src/services/api.js",
       "source_location": "L1136",
       "id": "services_api_broadcastapi",
-      "community": 410,
+      "community": 67,
       "norm_label": "broadcastapi"
     },
     {
@@ -5759,7 +5759,7 @@
       "source_file": "cinema-hall-admin/src/services/cloudinary.js",
       "source_location": "L1",
       "id": "cinema_hall_admin_src_services_cloudinary_js",
-      "community": 410,
+      "community": 19,
       "norm_label": "cloudinary.js"
     },
     {
@@ -5768,7 +5768,7 @@
       "source_file": "cinema-hall-admin/src/services/cloudinary.js",
       "source_location": "L8",
       "id": "services_cloudinary_uploadimagetocloudinary",
-      "community": 410,
+      "community": 19,
       "norm_label": "uploadimagetocloudinary()"
     },
     {
@@ -5777,7 +5777,7 @@
       "source_file": "cinema-hall-admin/src/services/cloudinary.js",
       "source_location": "L37",
       "id": "services_cloudinary_replaceimage",
-      "community": 410,
+      "community": 19,
       "norm_label": "replaceimage()"
     },
     {
@@ -5786,7 +5786,7 @@
       "source_file": "cinema-hall-admin/src/services/cloudinary.js",
       "source_location": "L45",
       "id": "services_cloudinary_getimageinfo",
-      "community": 410,
+      "community": 19,
       "norm_label": "getimageinfo()"
     },
     {
@@ -20385,7 +20385,7 @@
       "label": "API",
       "file_type": "document",
       "source_file": "docs/latest-changes.md",
-      "source_location": "L31",
+      "source_location": "L33",
       "id": "docs_latest_changes_api",
       "community": 367,
       "norm_label": "api"
@@ -20394,7 +20394,7 @@
       "label": "Organization Onboarding Hardening",
       "file_type": "document",
       "source_file": "docs/latest-changes.md",
-      "source_location": "L33",
+      "source_location": "L35",
       "id": "docs_latest_changes_organization_onboarding_hardening",
       "community": 367,
       "norm_label": "organization onboarding hardening"
@@ -20403,7 +20403,7 @@
       "label": "User App",
       "file_type": "document",
       "source_file": "docs/latest-changes.md",
-      "source_location": "L62",
+      "source_location": "L64",
       "id": "docs_latest_changes_user_app",
       "community": 367,
       "norm_label": "user app"
@@ -20412,7 +20412,7 @@
       "label": "Source Commits",
       "file_type": "document",
       "source_file": "docs/latest-changes.md",
-      "source_location": "L73",
+      "source_location": "L75",
       "id": "docs_latest_changes_source_commits",
       "community": 367,
       "norm_label": "source commits"
@@ -20421,7 +20421,7 @@
       "label": "Related Documentation",
       "file_type": "document",
       "source_file": "docs/latest-changes.md",
-      "source_location": "L81",
+      "source_location": "L83",
       "id": "docs_latest_changes_related_documentation",
       "community": 367,
       "norm_label": "related documentation"
@@ -33327,7 +33327,7 @@
       "label": "Backend \"Components\"",
       "file_type": "document",
       "source_file": "docs/modules/screen-management/components.md",
-      "source_location": "L70",
+      "source_location": "L72",
       "id": "screen_management_components_backend_components",
       "community": 374,
       "norm_label": "backend \"components\""
@@ -33336,7 +33336,7 @@
       "label": "Middleware Components",
       "file_type": "document",
       "source_file": "docs/modules/screen-management/components.md",
-      "source_location": "L87",
+      "source_location": "L89",
       "id": "screen_management_components_middleware_components",
       "community": 374,
       "norm_label": "middleware components"
@@ -33597,7 +33597,7 @@
       "label": "API Service Layer",
       "file_type": "document",
       "source_file": "docs/modules/screen-management/frontend.md",
-      "source_location": "L53",
+      "source_location": "L54",
       "id": "screen_management_frontend_api_service_layer",
       "community": 375,
       "norm_label": "api service layer"
@@ -33606,7 +33606,7 @@
       "label": "Component Tree",
       "file_type": "document",
       "source_file": "docs/modules/screen-management/frontend.md",
-      "source_location": "L69",
+      "source_location": "L70",
       "id": "screen_management_frontend_component_tree",
       "community": 375,
       "norm_label": "component tree"

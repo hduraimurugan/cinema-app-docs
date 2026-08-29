@@ -13,7 +13,7 @@ The main list page for managing all screens in the currently active cinema hall.
 - "Add Screen" button opens a create form (inline or modal)
 - Each row has Edit and Delete actions
 - "Designer" button navigates to the visual layout designer
-- Screen "View" dialog renders the seat map with 3D-styled seats (rounded top corners, thicker bottom border) and a curved screen indicator with a primary-colored glow; screen position top/bottom is honored, with aisle spacers drawn between blocks
+- Screen "View" dialog (`24047bb`) renders the seat map inside an auditorium `<Card>` — the screen indicator and the seating grid share one solid, guaranteed-opaque surface (`p-6 sm:p-8 gap-0`); the grid scrolls independently (`overflow-x-auto`, `min-w-max mx-auto`) so the screen indicator and legend never get pushed off-center. Dialog is sized `w-[95vw] sm:max-w-[1600px] max-h-[90vh] overflow-y-auto` with a thin scrollbar. Seats are 3D-styled (rounded top corners, thicker bottom border) with the seat tier tokens; screen position top/bottom is honored with a primary-colored glow cone; row labels use `text-foreground` and column numbers `text-muted-foreground`, with aisle spacers between blocks
 
 **State:**
 - `screens[]` — fetched from `getMyScreens()` on mount
@@ -38,6 +38,7 @@ A drag-and-drop visual seat layout editor.
 - Properties panel for selected seat: row letter, column number, type, price category, blocked state
 - Generates the `layout` JSON object submitted with screen create/update
 - Screen preview (live and print) shows a curved screen panel with a primary-colored glow; the tools palette and seat summary counts are token-colored (`text-seat-premium`, `text-seat-gold`, `text-seat-silver`, `text-destructive`, `text-primary`)
+- Pan tool (`24047bb`): a `Hand` toolbar button (and an `H` keyboard shortcut, guarded against inputs) toggles `isPanMode`. Dragging the canvas then pans the scroll container via pointer events (`handlePanPointerDown/Move/Up` with pointer capture, adjusting `gridContainerRef.scrollLeft/scrollTop`), showing `cursor-grab active:cursor-grabbing select-none`. While active, seat/row/column clicks are suppressed and the keyboard-shortcuts legend lists `Pan tool → H`. Canvas centering was refined in `8f97915`: the container drops `flex justify-center` and the scaled canvas becomes `block w-max mx-auto` so the whole grid stays centered and pans without edge clipping
 
 **State:**
 - `layout` — the JSONB seat map being edited
