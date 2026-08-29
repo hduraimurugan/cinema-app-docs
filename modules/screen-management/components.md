@@ -55,7 +55,7 @@ A visual seat layout designer with drag-and-drop capabilities.
 | `PropertiesPanel`     | Edit properties of the selected seat       |
 | `Toolbar`             | Tools: add seat, add passage, block/delete |
 | `SaveBar`             | Save/Cancel actions at the bottom          |
-| `CategoryLegend`      | Color legend for premium/gold/silver       |
+| `CategoryLegend`      | Color legend for premium/gold/silver using the seat tier tokens (`bg-seat-premium`, `bg-seat-gold`, `bg-seat-silver`) |
 
 **Interactions:**
 - **Click seat** → select it, show properties panel

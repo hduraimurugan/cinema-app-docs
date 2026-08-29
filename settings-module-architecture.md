@@ -1019,7 +1019,7 @@ CREATE TABLE customer_memberships (
   "banner_url": "...",
   "primary_color": "#E50914",
   "accent_color": "#FFD700",
-  "font_family": "JetBrains Mono Variable",
+  "font_family": "Public Sans Variable",
   "app_name": "Cinemax",
   "default_theme": "dark",
   "white_label": false

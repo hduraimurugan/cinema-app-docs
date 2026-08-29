@@ -1,11 +1,11 @@
-# Graph Report - cinema-hall  (2026-08-17)
+# Graph Report - cinema-hall  (2026-08-29)
 
 ## Corpus Check
-- 514 files · ~408,172 words
+- 546 files · ~449,773 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 4071 nodes · 5125 edges · 411 communities (388 shown, 23 thin omitted)
+- 4263 nodes · 5543 edges · 416 communities (391 shown, 25 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 21 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -145,7 +145,9 @@
 - [[_COMMUNITY_Community 176|Community 176]]
 - [[_COMMUNITY_Community 177|Community 177]]
 - [[_COMMUNITY_Community 178|Community 178]]
+- [[_COMMUNITY_Community 190|Community 190]]
 - [[_COMMUNITY_Community 191|Community 191]]
+- [[_COMMUNITY_Community 202|Community 202]]
 - [[_COMMUNITY_Community 205|Community 205]]
 - [[_COMMUNITY_Community 206|Community 206]]
 - [[_COMMUNITY_Community 219|Community 219]]
@@ -337,35 +339,40 @@
 - [[_COMMUNITY_Community 408|Community 408]]
 - [[_COMMUNITY_Community 409|Community 409]]
 - [[_COMMUNITY_Community 410|Community 410]]
+- [[_COMMUNITY_Community 411|Community 411]]
+- [[_COMMUNITY_Community 412|Community 412]]
+- [[_COMMUNITY_Community 413|Community 413]]
+- [[_COMMUNITY_Community 414|Community 414]]
+- [[_COMMUNITY_Community 415|Community 415]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `useAuth()` - 36 edges
-2. `query()` - 29 edges
-3. `getPool()` - 28 edges
-4. `resolveOrgId()` - 25 edges
-5. `useCustomerAuth()` - 25 edges
-6. `createAdmin()` - 24 edges
-7. `Admin Authentication` - 24 edges
-8. `hashToken()` - 23 edges
-9. `createHall()` - 22 edges
-10. `useHall()` - 21 edges
+1. `recordAuditLog()` - 42 edges
+2. `useAuth()` - 40 edges
+3. `resolveOrgId()` - 36 edges
+4. `query()` - 29 edges
+5. `getPool()` - 28 edges
+6. `useCustomerAuth()` - 25 edges
+7. `createAdmin()` - 24 edges
+8. `Admin Authentication` - 24 edges
+9. `hashToken()` - 23 edges
+10. `notify()` - 22 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `MoviePage()` --calls--> `getYouTubeEmbedUrl()`  [INFERRED]
   cinema-hall-admin/src/pages/MoviePage.jsx → cinema-hall-users/src/pages/MovieInfoPage.jsx
-- `TheatresPage()` --calls--> `getNextDates()`  [INFERRED]
-  cinema-hall-users/src/pages/TheatresPage.jsx → cinema-hall-admin/src/pages/ShowsManagement.jsx
 - `MoviePage()` --calls--> `formatDate()`  [INFERRED]
   cinema-hall-admin/src/pages/MoviePage.jsx → cinema-hall-admin/src/pages/AdsManagement.jsx
 - `MovieDetailsPage()` --calls--> `getNextDates()`  [INFERRED]
   cinema-hall-users/src/pages/MovieDetailsPage.jsx → cinema-hall-admin/src/pages/ShowsManagement.jsx
-- `AddMemberDialog()` --calls--> `useHall()`  [INFERRED]
-  cinema-hall-admin/src/components/settings/AddMemberDialog.jsx → cinema-hall-admin/src/context/HallContext.jsx
+- `TheatresPage()` --calls--> `getNextDates()`  [INFERRED]
+  cinema-hall-users/src/pages/TheatresPage.jsx → cinema-hall-admin/src/pages/ShowsManagement.jsx
+- `AppSidebar()` --calls--> `usePermissions()`  [INFERRED]
+  cinema-hall-admin/src/components/AppSidebar.jsx → cinema-hall-admin/src/context/PermissionContext.jsx
 
 ## Import Cycles
 - None detected.
 
-## Communities (411 total, 23 thin omitted)
+## Communities (416 total, 25 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.13
@@ -396,8 +403,8 @@ Cohesion: 0.50
 Nodes (4): API Error Handling, Empty States, Error Handling, Loading States
 
 ### Community 7 - "Community 7"
-Cohesion: 0.50
-Nodes (4): Build & Deployment, Deployment, Development, Production Build
+Cohesion: 0.06
+Nodes (53): sendEmailForNotification(), insertInAppNotification(), recipientColumn(), sendPushForNotification(), pool, AUDIENCE_TYPES, createBroadcast(), deleteBroadcast() (+45 more)
 
 ### Community 8 - "Community 8"
 Cohesion: 0.50
@@ -424,40 +431,40 @@ Cohesion: 0.08
 Nodes (25): Adding New Tests, Cinema Hall API — Test Suite Guide, Cleanup Rules, Concurrency Test Pattern, Configuration (`vitest.config.js`), Controller Test (Real DB), Coverage Report, Database (+17 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.16
-Nodes (35): acceptInvite(), changePassword(), completeOnboarding(), forgotPassword(), getAdminSecurity(), getAdminSecurityLogs(), getAllAdmins(), getCinemaAdminMe() (+27 more)
+Cohesion: 0.13
+Nodes (38): acceptInvite(), changePassword(), completeOnboarding(), forgotPassword(), getAdminSecurity(), getAdminSecurityLogs(), getAllAdmins(), getCinemaAdminMe() (+30 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.04
-Nodes (52): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, dayjs, @fontsource-variable/jetbrains-mono (+44 more)
+Nodes (54): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, dayjs, firebase (+46 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.04
-Nodes (48): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, dayjs, embla-carousel-autoplay (+40 more)
+Nodes (49): dependencies, class-variance-authority, clsx, cmdk, country-state-city, date-fns, dayjs, embla-carousel-autoplay (+41 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.13
-Nodes (22): createHeldSeat(), createHeldSeat(), seedOffer(), { sendOtpEmailMock }, cleanupAll(), cleanupTable(), closePool(), getClient() (+14 more)
+Cohesion: 0.09
+Nodes (38): createHeldSeat(), confirmBooking(), getBookingByPaymentId(), getBookingDetails(), getCinemaHallBookings(), getMyBookings(), holdSeats(), releaseSeats() (+30 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.08
-Nodes (21): debounce(), SearchMovies(), LANG_OPTIONS, SECTIONS, TMDB_GENRE_MAP, TMDBBrowser(), MovieForm(), genreIcons (+13 more)
+Cohesion: 0.10
+Nodes (18): debounce(), SearchMovies(), LANG_OPTIONS, SECTIONS, TMDB_GENRE_MAP, TMDBBrowser(), MovieForm(), genreIcons (+10 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.10
-Nodes (24): allowedOrigins, app, appStartTime, cleanupExpiredHolds(), getRefundByBooking(), getRefunds(), manuallySettleRefund(), updateShowStatuses() (+16 more)
+Cohesion: 0.09
+Nodes (28): allowedOrigins, app, appStartTime, RAW_BODY_PATHS, getAuditLogs(), cleanupExpiredHolds(), getDashboardStats(), getRefundByBooking() (+20 more)
 
 ### Community 21 - "Community 21"
 Cohesion: 0.05
-Nodes (36): author, dependencies, bcrypt, chalk, cookie-parser, cors, dayjs, dotenv (+28 more)
+Nodes (40): author, dependencies, bcrypt, chalk, cookie-parser, cors, dayjs, dotenv (+32 more)
 
 ### Community 22 - "Community 22"
 Cohesion: 0.05
 Nodes (65): apiClient(), apiClientForHall(), baseHeaders(), makeClient(), requirePermission(), resolveScope(), scopeMap, __dirname (+57 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.07
-Nodes (26): App(), ThemeContext, ProfilePage(), HallSwitcher(), AuthContext, AuthProvider(), HallContext, HallProvider() (+18 more)
+Cohesion: 0.06
+Nodes (36): GitHubCallback(), App(), CinemaLayout(), ThemeContext, ProfilePage(), ProtectedRoute(), AppSidebar(), managementItems (+28 more)
 
 ### Community 24 - "Community 24"
 Cohesion: 0.20
@@ -468,7 +475,7 @@ Cohesion: 0.32
 Nodes (11): createAd(), deleteAd(), getActiveAds(), getAdClicks(), getAllAds(), recordClick(), updateAd(), createTestAd() (+3 more)
 
 ### Community 26 - "Community 26"
-Cohesion: 0.35
+Cohesion: 0.30
 Nodes (11): getHallSettings(), getOrgSettings(), getSectionRow(), getSettings(), getUserSettings(), resolveOrgId(), updateHallSettings(), updateOrgSettings() (+3 more)
 
 ### Community 27 - "Community 27"
@@ -480,8 +487,8 @@ Cohesion: 0.11
 Nodes (17): aliases, components, hooks, lib, ui, utils, iconLibrary, rsc (+9 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.20
-Nodes (11): ProtectedRoute(), allCities, LocationModal(), POPULAR_CITIES, popularCitiesWithState, stateMap, CustomerAuthContext, CustomerAuthProvider() (+3 more)
+Cohesion: 0.16
+Nodes (10): ProfilePage(), ProtectedRoute(), TopBar(), leftNavItems, rightNavItems, TopNavbar(), CustomerAuthContext, CustomerAuthProvider() (+2 more)
 
 ### Community 30 - "Community 30"
 Cohesion: 0.11
@@ -496,12 +503,12 @@ Cohesion: 0.27
 Nodes (11): getTMDBInTheatres(), getTMDBMovieDetails(), getTMDBNowPlaying(), getTMDBPopular(), getTMDBTopRated(), getTMDBUpcoming(), searchTMDB(), tmdbFetch() (+3 more)
 
 ### Community 34 - "Community 34"
-Cohesion: 0.19
-Nodes (11): debounce(), SearchMovies(), adsAPI, bookingAPI, offersAPI, paymentAPI, settingsAPI, showsAPI (+3 more)
+Cohesion: 0.17
+Nodes (12): debounce(), SearchMovies(), adsAPI, bookingAPI, notificationAPI, offersAPI, paymentAPI, settingsAPI (+4 more)
 
 ### Community 35 - "Community 35"
-Cohesion: 0.16
-Nodes (6): ThemeContext, mockNotifications, TopBar(), leftNavItems, rightNavItems, TopNavbar()
+Cohesion: 0.08
+Nodes (24): 10. Related documents, 1. The single most important distinction, 2. Two ways an account is born, 3.1 Register — `POST /api/auth/register`, 3.2 Verify email — `GET /api/auth/verify-email?token=…`, 3.3 Login — `POST /api/auth/login`, 3. Path A — self-service registration, 4.1 Guards (before the transaction opens) (+16 more)
 
 ### Community 37 - "Community 37"
 Cohesion: 0.06
@@ -520,8 +527,8 @@ Cohesion: 0.08
 Nodes (23): Cinema Hall API — Bug Report, CRIT-1: `ANY(b.seats)` Fails on JSONB Arrays, CRIT-2: JS Array Passed as JSONB Without Serialization, CRIT-3: Missing `payment_signature` Column in Schema, CRIT-4: Non-Unique Index on `bookings(payment_id)` Prevents `ON CONFLICT`, 🔴 Critical (Data Integrity), FACTORY-1: `createScreen` Wrong Column Name, FACTORY-2: `createMovie` Type Mismatch (JSONB → text[]) (+15 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.25
-Nodes (5): ShowsManagement(), MovieDetailsPage(), getNextDates(), SHOW_BORDER_COLOR, STATUS_CONFIG
+Cohesion: 0.14
+Nodes (11): ShowsManagement(), allCities, LocationModal(), POPULAR_CITIES, popularCitiesWithState, stateMap, MovieDetailsPage(), getNextDates() (+3 more)
 
 ### Community 42 - "Community 42"
 Cohesion: 0.07
@@ -536,8 +543,8 @@ Cohesion: 0.17
 Nodes (12): devDependencies, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, tw-animate-css, @types/node (+4 more)
 
 ### Community 45 - "Community 45"
-Cohesion: 0.06
-Nodes (31): 1. [Backend API Documentation](./backend.md), 2. [Admin Panel Documentation](./admin.md), 3. [Database Setup Script](./db_setup.sql), 4. [User Application Documentation](./users.md), 5. [Graphify Knowledge Graph](./graphify-out/), 5. [Test Suite Documentation](./backend_tests.md), 6. [Graphify Knowledge Graph](./graphify-out/), Admin Features (+23 more)
+Cohesion: 0.08
+Nodes (23): Admin Features, Backend, Backend Features, Cinema Hall Ticket Booking App - Documentation, Code Examples, 🤝 Contributing, 📊 Documentation Stats, 📖 Documentation Structure (+15 more)
 
 ### Community 46 - "Community 46"
 Cohesion: 0.25
@@ -556,8 +563,12 @@ Cohesion: 0.17
 Nodes (12): devDependencies, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, tw-animate-css, @types/node (+4 more)
 
 ### Community 51 - "Community 51"
-Cohesion: 0.14
-Nodes (4): BookingSuccessPage(), fmt(), statusConfig, SettingsPage()
+Cohesion: 0.12
+Nodes (3): refundBadgeConfig, statusColors, SettingsPage()
+
+### Community 57 - "Community 57"
+Cohesion: 0.17
+Nodes (11): auth_provider_x509_cert_url, auth_uri, client_email, client_id, client_x509_cert_url, private_key, private_key_id, project_id (+3 more)
 
 ### Community 58 - "Community 58"
 Cohesion: 0.25
@@ -601,7 +612,7 @@ Nodes (27): Admin App (`cinema-hall-admin`), `AdminProtectedRoutes.jsx`, `api.js
 
 ### Community 75 - "Community 75"
 Cohesion: 0.06
-Nodes (31): 1. Brand Accents, 1. General Transition, 1. Glassmorphism (`.glass-effect`), 1. Header Navigation & Details Stacking, 2. Global Button Hover Separation (`index.css`), 2. Physical 3D Seat Styling, 2. Seating Grid Action Bars & Mode Toggles, 2. Theme Token Values (+23 more)
+Nodes (32): 1. Brand Accents, 1. General Transition, 1. Glassmorphism (`.glass-effect`), 1. Header Navigation & Details Stacking, 2. Global Button Hover Separation (`index.css`), 2. Physical 3D Seat Styling, 2. Seating Grid Action Bars & Mode Toggles, 2. Theme Token Values (+24 more)
 
 ### Community 77 - "Community 77"
 Cohesion: 0.33
@@ -628,8 +639,8 @@ Cohesion: 0.22
 Nodes (8): Cinemax MCP Server, Configuration, Database Setup, Overview, Phase Roadmap, Project Structure, Table of Contents, Technology Stack
 
 ### Community 88 - "Community 88"
-Cohesion: 0.25
-Nodes (8): 1. Offers Management (SuperAdmin Only), Date Picker Implementation Note, Export — Offers Management, Feature Overview, Offer Form Fields, Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`), Sidebar Navigation, Table Columns
+Cohesion: 0.36
+Nodes (10): 1. Offers Management (RBAC — `offers.*`, creator-scoped since `6e0705a` / `a79e555`), 1. Offers Management (SuperAdmin Only), Date Picker Implementation Note, Export — Offers Management, Feature Overview, Features Documentation, Offer Form Fields, Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`) (+2 more)
 
 ### Community 89 - "Community 89"
 Cohesion: 0.32
@@ -648,8 +659,8 @@ Cohesion: 0.09
 Nodes (22): bin, cinemax-mcp, dependencies, axios, cross-env, dotenv, @modelcontextprotocol/sdk, pg (+14 more)
 
 ### Community 93 - "Community 93"
-Cohesion: 0.29
-Nodes (4): LoginModal(), SeatCountModal(), SeatSelectionPage(), findBestAdjacentSeats()
+Cohesion: 0.43
+Nodes (3): SeatCountModal(), SeatSelectionPage(), findBestAdjacentSeats()
 
 ### Community 94 - "Community 94"
 Cohesion: 0.07
@@ -692,8 +703,8 @@ Cohesion: 0.33
 Nodes (3): mockRazorpayInstance, mockRazorpayOrders, mockRazorpayPayments
 
 ### Community 105 - "Community 105"
-Cohesion: 0.33
-Nodes (6): 0. Dashboard (All Admins), Features Documentation, KPI Cards, Recent Bookings, Revenue Trend Chart, Today's Shows
+Cohesion: 0.40
+Nodes (5): 0. Dashboard (All Admins), KPI Cards, Recent Bookings, Revenue Trend Chart, Today's Shows
 
 ### Community 106 - "Community 106"
 Cohesion: 0.53
@@ -733,11 +744,11 @@ Nodes (4): __dirname, runMigrations(), setup(), SETUP_DIR
 
 ### Community 126 - "Community 126"
 Cohesion: 0.11
-Nodes (18): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Feature Overview (+10 more)
+Nodes (19): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Feature Overview (+11 more)
 
 ### Community 127 - "Community 127"
 Cohesion: 0.11
-Nodes (18): 2. Screen Designer, Aisle System, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview (+10 more)
+Nodes (19): 2. Screen Designer, Aisle System, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview (+11 more)
 
 ### Community 128 - "Community 128"
 Cohesion: 0.14
@@ -768,32 +779,32 @@ Cohesion: 0.40
 Nodes (4): compilerOptions, baseUrl, paths, @/*
 
 ### Community 137 - "Community 137"
-Cohesion: 0.14
-Nodes (14): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+6 more)
+Cohesion: 0.13
+Nodes (15): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+7 more)
 
 ### Community 138 - "Community 138"
-Cohesion: 0.13
-Nodes (15): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+7 more)
+Cohesion: 0.12
+Nodes (16): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+8 more)
 
 ### Community 139 - "Community 139"
-Cohesion: 0.18
-Nodes (10): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Environment Variables, Future Enhancements, Image Upload, Overview (+2 more)
+Cohesion: 0.14
+Nodes (13): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Custom Components, Environment Variables, Future Enhancements, Image Upload (+5 more)
 
 ### Community 140 - "Community 140"
 Cohesion: 0.22
 Nodes (9): AuthContext State Management, Authentication Flow, Authentication System, ForgotPasswordPage, Protected Routes, RegisterPage, RegisterPage, ResetPasswordPage (+1 more)
 
 ### Community 142 - "Community 142"
-Cohesion: 0.20
-Nodes (9): Accessibility, Best Practices Implemented, Context Providers, Environment Variables, Future Enhancements, Implemented Features, Overview, State Management (+1 more)
+Cohesion: 0.14
+Nodes (13): Accessibility, Best Practices Implemented, Build & Deployment, Context Providers, Deployment, Development, Environment Variables, Future Enhancements (+5 more)
 
 ### Community 150 - "Community 150"
 Cohesion: 0.67
 Nodes (3): getPageNumbers(), PAGE_SIZE_OPTIONS, Pagination()
 
 ### Community 151 - "Community 151"
-Cohesion: 0.17
-Nodes (22): changePasswordCustomer(), forgotPasswordCustomer(), _generateAndSendOtp(), getCustomerMe(), getLockDuration(), googleLoginCustomer(), linkProviderCustomer(), LOCKOUT_THRESHOLDS (+14 more)
+Cohesion: 0.18
+Nodes (21): changePasswordCustomer(), forgotPasswordCustomer(), _generateAndSendOtp(), getCustomerMe(), getLockDuration(), googleLoginCustomer(), linkProviderCustomer(), LOCKOUT_THRESHOLDS (+13 more)
 
 ### Community 152 - "Community 152"
 Cohesion: 0.50
@@ -852,16 +863,16 @@ Cohesion: 0.25
 Nodes (7): bookingStatus, cinemaHallId, dateRange, dateStr, movieStatus, pagination, uuid
 
 ### Community 219 - "Community 219"
-Cohesion: 0.21
-Nodes (16): bookShow(), bulkCancelShows(), bulkOpenBooking(), bulkRestoreShows(), cancelShow(), createMultipleShows(), createShow(), deleteMultipleShows() (+8 more)
+Cohesion: 0.22
+Nodes (18): bookShow(), bulkCancelShows(), bulkOpenBooking(), bulkRestoreShows(), cancelShow(), createMultipleShows(), createShow(), deleteMultipleShows() (+10 more)
 
 ### Community 220 - "Community 220"
 Cohesion: 0.36
 Nodes (9): getAllMovies(), getCinemaHallsByLocation(), getCinemaHallsWithShows(), getDistrictsInState(), getMovieById(), getMovieDetailsWithShowtimes(), getMoviesByLocation(), getMoviesByState() (+1 more)
 
 ### Community 221 - "Community 221"
-Cohesion: 0.07
-Nodes (17): Bookings(), adsAPI, bookingAPI, offersAPI, paymentAPI, settingsAPI, showsAPI, avatarColors (+9 more)
+Cohesion: 0.05
+Nodes (22): Bookings(), adsAPI, bookingAPI, notificationAPI, offersAPI, paymentAPI, settingsAPI, showsAPI (+14 more)
 
 ### Community 222 - "Community 222"
 Cohesion: 0.08
@@ -872,8 +883,8 @@ Cohesion: 0.25
 Nodes (4): formatDuration(), HeroSlide(), MoviesPage(), tabs
 
 ### Community 224 - "Community 224"
-Cohesion: 0.19
-Nodes (15): clearPermissionCache(), acceptInvite(), assertHallsInOrg(), assertNotOrgOwner(), assertRoleInOrg(), assignHalls(), createMember(), getMemberHalls() (+7 more)
+Cohesion: 0.22
+Nodes (14): clearPermissionCache(), acceptInvite(), assertHallsInOrg(), assertNotOrgOwner(), assertRoleInOrg(), assignHalls(), createMember(), getMemberHalls() (+6 more)
 
 ### Community 225 - "Community 225"
 Cohesion: 0.29
@@ -904,40 +915,40 @@ Cohesion: 0.33
 Nodes (6): 9. Client Configuration, ChatGPT / OpenAI Agents (HTTP Mode), Claude Desktop (`claude_desktop_config.json`), Cline / Roo Code, Cursor / Windsurf, OpenCode (`~/.opencode/config.json` or MCP config)
 
 ### Community 236 - "Community 236"
-Cohesion: 0.12
-Nodes (22): createOffer(), deleteOffer(), getActiveOffers(), getAllCinemaHalls(), getAllOffers(), getOfferById(), updateOffer(), validateOffer() (+14 more)
+Cohesion: 0.33
+Nodes (9): createOffer(), deleteOffer(), getActiveOffers(), getAllCinemaHalls(), getAllOffers(), getOfferById(), updateOffer(), validateOffer() (+1 more)
 
 ### Community 237 - "Community 237"
-Cohesion: 0.08
-Nodes (18): GitHubCallback(), useSettings(), TIME_PRESETS, BookingSettingsPage(), CinemaProfilePage(), GeneralSettingsPage(), PaymentSettingsPage(), RolesPermissionsPage() (+10 more)
+Cohesion: 0.06
+Nodes (25): Loader(), MUTATION_ACTIONS, PermissionContext, PermissionProvider(), usePermissions(), useSettings(), TIME_PRESETS, TIME_PRESETS (+17 more)
 
 ### Community 238 - "Community 238"
 Cohesion: 0.67
 Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
 
 ### Community 239 - "Community 239"
-Cohesion: 0.13
-Nodes (27): cloneRole(), createRole(), deleteRole(), getRole(), listPermissions(), listRoles(), resolvePermissionIds(), updateRole() (+19 more)
+Cohesion: 0.12
+Nodes (28): cloneRole(), createRole(), deleteRole(), getRole(), listPermissions(), listRoles(), resolvePermissionIds(), updateRole() (+20 more)
 
 ### Community 240 - "Community 240"
 Cohesion: 0.08
 Nodes (25): Ads, API — User App Experience, Booking, GET /api/ads/active?placement=homepage, GET /api/booking/:booking_id, GET /api/booking/my-bookings, GET /api/offers/active, GET /api/settings (+17 more)
 
 ### Community 241 - "Community 241"
-Cohesion: 0.31
-Nodes (10): confirmBooking(), getBookingByPaymentId(), getBookingDetails(), getCinemaHallBookings(), getMyBookings(), holdSeats(), releaseSeats(), verifyBookingById() (+2 more)
+Cohesion: 0.28
+Nodes (6): ACTION_LABELS, actionLabel(), AuditLogPage(), avatarColors, RESOURCE_TYPE_LABELS, resourceTypeLabel()
 
 ### Community 242 - "Community 242"
-Cohesion: 0.18
-Nodes (10): 0. Current-State Baseline (what we're extending), 1. Information Architecture, 7.1 Light / Dark Mode (exists), 7.2 Custom Branding (stored in `organization_settings.branding`), 7.3 Theme Colors → oklch Tokens, 7.4 White-Label Support (SaaS-ready), 7. Theme & Branding, Categories & Subcategories (+2 more)
+Cohesion: 0.20
+Nodes (9): 0. Current-State Baseline (what we're extending), 1. Information Architecture, 8.1 Channels, 8.2 Provider Config (org-level, stored in `organization_settings.notifications`), 8.3 Notification Preference Hierarchy (org → role → user), 8. Notifications, Categories & Subcategories, Key Design Decisions & Trade-offs (+1 more)
 
 ### Community 243 - "Community 243"
 Cohesion: 0.12
 Nodes (16): 3.2 New PostgreSQL Tables, `admin_devices` (device tracking), `admin_mfa` (MFA secrets), `admin_password_history` (password reuse prevention), `feature_flags` (toggle features per org/hall), `hall_assignments` (many-to-many: admins ↔ halls within an org), `hall_assignments` (many-to-many: org members ↔ halls within an org), `hall_settings` (per-branch config) (+8 more)
 
 ### Community 244 - "Community 244"
-Cohesion: 0.16
-Nodes (9): generateOtp(), hashOtp(), sendOtp(), verifyOtp(), sendAdminAccountLockedEmail(), sendAdminPasswordResetEmail(), sendCustomerOtpEmail(), transporter (+1 more)
+Cohesion: 0.17
+Nodes (8): EMAIL_SENDERS, sendAdminAccountLockedEmail(), sendBookingConfirmationEmail(), sendRefundInitiatedEmail(), sendRefundSettledEmail(), sendShowCancelledEmail(), sendShowReminderEmail(), transporter
 
 ### Community 245 - "Community 245"
 Cohesion: 0.18
@@ -948,8 +959,8 @@ Cohesion: 0.18
 Nodes (11): Appendix A: File Manifest, Backend — new files (2 files), Backend — planned (~15 files), Database — migration (1 file), Frontend — deleted files (1 file), Frontend — modified files (8 files), Frontend — new files (10 files), Frontend — planned (~25 files) (+3 more)
 
 ### Community 247 - "Community 247"
-Cohesion: 0.14
-Nodes (16): CinemaLayout(), ProtectedRoute(), AppSidebar(), managementItems, navigationItems, promotionItems, systemItems, mockNotifications (+8 more)
+Cohesion: 0.39
+Nodes (4): getAllCustomers(), getCustomerDetails(), customers, router
 
 ### Community 248 - "Community 248"
 Cohesion: 0.09
@@ -960,8 +971,8 @@ Cohesion: 0.22
 Nodes (9): 5.1 MFA Support (TOTP + Backup Codes), 5.2 Device Tracking, 5.3 Session Management, 5.4 Login History, 5.5 Password Policies (DB-driven), 5.6 Account Lock Policies (DB-driven), 5.7 Suspicious Login Detection, 5.8 Audit Logging Strategy (+1 more)
 
 ### Community 250 - "Community 250"
-Cohesion: 0.09
-Nodes (15): pool, getAllCustomers(), getCustomerDetails(), customers, getDashboardStats(), createScreen(), deleteScreen(), editScreen() (+7 more)
+Cohesion: 0.38
+Nodes (6): createScreen(), deleteScreen(), editScreen(), getMyScreens(), validScreen, router
 
 ### Community 251 - "Community 251"
 Cohesion: 0.22
@@ -975,13 +986,17 @@ Nodes (9): Analytics Tools (8), Booking Tools (4), Cinema Tools (4), Movie Tools
 Cohesion: 0.25
 Nodes (8): 2.1 Route Structure, 2.2 Sidebar Structure, 2.3 Tab Structure (within section pages), 2.4 Permission-Based Visibility, 2.5 React Component Hierarchy & Folder Structure, 2.6 State Structure — `SettingsContext`, 2.7 API Integration Structure, 2. Frontend Architecture
 
+### Community 254 - "Community 254"
+Cohesion: 0.46
+Nodes (6): generateOtp(), hashOtp(), sendOtp(), verifyOtp(), sendCustomerOtpEmail(), router
+
 ### Community 255 - "Community 255"
 Cohesion: 0.29
 Nodes (7): 3. Troubleshooting, 4. Architecture Summary, API Returns "X-Hall-Id header is required", Database Error Code 28000, Deployment Guide, Hall Not Found or Access Denied (API tools), RLS Returns Empty Results
 
 ### Community 256 - "Community 256"
-Cohesion: 0.29
-Nodes (7): 2.8.1 Sticky Sidebar Pattern, 2.8.2 Floating Save Bar, 2.8.3 Section Page Header (`SettingsPageHeader`), 2.8.4 Settings Form Card (`SettingsCard`), 2.8.5 Form Field Conventions, 2.8.6 Payment Preview, 2.8 Visual Design & Layout (Phase 1)
+Cohesion: 0.25
+Nodes (8): 2.8.1 Sticky Sidebar Pattern, 2.8.1 Sticky Tab Bar Pattern (replaced Sidebar in `f7952e5`), 2.8.2 Floating Save Bar, 2.8.3 Section Page Header (`SettingsPageHeader`), 2.8.4 Settings Form Card (`SettingsCard`), 2.8.5 Form Field Conventions, 2.8.6 Payment Preview, 2.8 Visual Design & Layout (Phase 1)
 
 ### Community 257 - "Community 257"
 Cohesion: 0.29
@@ -1008,12 +1023,12 @@ Cohesion: 0.33
 Nodes (6): 9.1 Audit Log Schema, 9.2 Change Tracking & Before/After Snapshots, 9.3 User Activity Logs, 9.4 Settings History (Versioning), 9.5 Retention Strategy, 9. Audit & Compliance
 
 ### Community 263 - "Community 263"
-Cohesion: 0.50
-Nodes (4): activeConfig, debounce(), OffersManagement(), scopeConfig
+Cohesion: 0.33
+Nodes (5): activeConfig, debounce(), OffersManagement(), roleBadgeClass, scopeConfig
 
 ### Community 264 - "Community 264"
-Cohesion: 0.17
-Nodes (8): apiFetch(), refreshOnce(), setPermissionsChangedHandler(), withScopeHeaders(), headers, settingsService, headers, teamService
+Cohesion: 0.14
+Nodes (9): apiFetch(), refreshOnce(), setPermissionsChangedHandler(), withScopeHeaders(), auditService, headers, settingsService, headers (+1 more)
 
 ### Community 265 - "Community 265"
 Cohesion: 0.09
@@ -1028,8 +1043,8 @@ Cohesion: 0.50
 Nodes (3): HALL_DEFAULTS, ORG_DEFAULTS, USER_DEFAULTS
 
 ### Community 268 - "Community 268"
-Cohesion: 0.10
-Nodes (20): API Reference — Roles, Permissions & Team Management, `DELETE /api/roles/:id`, `DELETE /api/team/members/:id`, `DELETE /api/team/members/:id/halls/:hallId`, `GET /api/roles`, `GET /api/roles/:id`, `GET /api/team`, `GET /api/team/members/:id` (+12 more)
+Cohesion: 0.09
+Nodes (21): API Reference — Roles, Permissions & Team Management, `DELETE /api/roles/:id`, `DELETE /api/team/members/:id`, `DELETE /api/team/members/:id/halls/:hallId`, `GET /api/roles`, `GET /api/roles/:id`, `GET /api/roles/permissions`, `GET /api/team` (+13 more)
 
 ### Community 270 - "Community 270"
 Cohesion: 0.50
@@ -1088,8 +1103,8 @@ Cohesion: 0.14
 Nodes (13): `admin_password_reset_tokens`, `admin_security_logs`, `admin_sessions`, `admin_verification_tokens`, Authentication - Database, `cinema_admin_user`, `cinema_hall`, Collections/Tables (+5 more)
 
 ### Community 286 - "Community 286"
-Cohesion: 0.15
-Nodes (12): Backend — Roles, Permissions & Team Management, Controllers, Current Enforcement Notes, Middleware, requirePermission.js, roles.Controller.js, roles.routes.js, Routes (+4 more)
+Cohesion: 0.14
+Nodes (13): Backend — Roles, Permissions & Team Management, Controllers, Current Enforcement Notes, Middleware, requirePermission.js, roles.Controller.js, roles.routes.js, Routes (+5 more)
 
 ### Community 287 - "Community 287"
 Cohesion: 0.15
@@ -1112,12 +1127,12 @@ Cohesion: 0.17
 Nodes (11): Admin App (`cinema-hall-admin`), `api.js` (hallsAPI section), Components, Context, Hall Management - Frontend, `HallContext.jsx`, `HallGuard.jsx`, `HallManagement.jsx` (+3 more)
 
 ### Community 292 - "Community 292"
-Cohesion: 0.17
-Nodes (11): Admin Endpoints (SuperAdmin), API Reference, Customer Endpoints, DELETE /api/offers/delete/:id, GET /api/offers, GET /api/offers/active, GET /api/offers/cinema-halls, GET /api/offers/:id (+3 more)
+Cohesion: 0.11
+Nodes (18): Admin Endpoints (RBAC — `offers.*`, creator-scoped since `6e0705a`), Admin Endpoints (SuperAdmin), API Reference, Customer Endpoints, DELETE /api/offers/delete/:id, DELETE /api/offers/delete/:id — `requirePermission('offers.delete')` (`controllers/offers.Controller.js:395`, `6e0705a`), GET /api/offers, GET /api/offers/active (+10 more)
 
 ### Community 293 - "Community 293"
-Cohesion: 0.17
-Nodes (11): Admin (SuperAdmin), Backend — `offers.Controller.js`, Controller Functions, `createOrder` (line ~137-153), Customer, Error Handling, `handlePaymentCaptured` webhook (line ~550-562), Integration — `payment.Controller.js` (+3 more)
+Cohesion: 0.14
+Nodes (13): Admin (RBAC + creator/org-scoped since `6e0705a` — `controllers/offers.Controller.js:1` imports `resolveOrgId`), Admin (SuperAdmin), Backend — `offers.Controller.js`, Controller Functions, `createOrder` (line ~137-153), Customer, Error Handling, `handlePaymentCaptured` webhook (line ~550-562) (+5 more)
 
 ### Community 294 - "Community 294"
 Cohesion: 0.17
@@ -1152,8 +1167,8 @@ Cohesion: 0.18
 Nodes (10): Component Tree, Components: Settings Module, Props, Props, SettingsCard, SettingsPageHeader, States, Styling (+2 more)
 
 ### Community 302 - "Community 302"
-Cohesion: 0.18
-Nodes (10): Context, Data Flow, Frontend: Settings Module, Legacy API in services/api.js, Pages, Permission-aware Navigation, Services, SettingsContext.jsx (+2 more)
+Cohesion: 0.17
+Nodes (11): Context, Data Flow, Frontend: Settings Module, Legacy API in services/api.js, Pages, Permission-aware Navigation, Services, SettingsContext.jsx (+3 more)
 
 ### Community 303 - "Community 303"
 Cohesion: 0.20
@@ -1204,8 +1219,8 @@ Cohesion: 0.20
 Nodes (9): Components, Dependencies, ExportButton.jsx, `exportToCSV(data, filename)`, `exportToExcel(data, filename)`, exportUtils.js, Frontend — Reports & Export, Guard clause (+1 more)
 
 ### Community 315 - "Community 315"
-Cohesion: 0.20
-Nodes (9): Database — Roles, Permissions & Team Management, Key Relationships, System Roles (Seeded Data), Table: `hall_assignments`, Table: `organization_members`, Table: `permissions`, Table: `role_permissions`, Table: `roles` (+1 more)
+Cohesion: 0.17
+Nodes (11): Database — Roles, Permissions & Team Management, Delete rules that matter, Key Relationships, System Roles (Seeded Data), Table: `hall_assignments`, Table: `organization_members`, Table: `permissions`, Table: `role_permissions` (+3 more)
 
 ### Community 316 - "Community 316"
 Cohesion: 0.20
@@ -1264,8 +1279,8 @@ Cohesion: 0.22
 Nodes (8): 1. Send OTP (Signup), 2. Send OTP (Password Reset — Enumeration Protection), 3. Verify OTP (Signup — Account Activation), 4. Verify OTP — Wrong Attempts, 5. OTP Expired Flow, 6. Admin Account Locked Email, 7. Admin Password Changed Notification, Notifications & OTP - Workflows
 
 ### Community 330 - "Community 330"
-Cohesion: 0.22
-Nodes (8): Admin App — `cinema-hall-admin`, Frontend, `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx), `OffersManagement.jsx` (src/pages/OffersManagement.jsx), `OffersPage.jsx` (src/pages/OffersPage.jsx), `services/api.js` — `offersAPI`, `services/api.js` — `offersAPI`, User App — `cinema-hall-users`
+Cohesion: 0.17
+Nodes (11): Admin App — `cinema-hall-admin`, Frontend, `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx), `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx, updated `a79e555`), `OffersManagement.jsx` (src/pages/OffersManagement.jsx), `OffersManagement.jsx` (src/pages/OffersManagement.jsx, updated `a79e555`), `OffersPage.jsx` (src/pages/OffersPage.jsx), `services/api.js` — `offersAPI` (+3 more)
 
 ### Community 331 - "Community 331"
 Cohesion: 0.22
@@ -1304,8 +1319,8 @@ Cohesion: 0.22
 Nodes (8): Active Sessions for a Customer, Database — User Management & Customers, Indexes, Queries Used, Recent Bookings for a Customer, Search Customers (ILIKE), Table: `customers`, Verified Count
 
 ### Community 340 - "Community 340"
-Cohesion: 0.22
-Nodes (9): 3. Top Navigation Bar, Auto-Open Login Modal (Protected Route Redirect), Location Selector, Mobile Dropdown Menu, Navigation Structure, Notifications, Search Functionality, Theme Toggle (+1 more)
+Cohesion: 0.20
+Nodes (10): 3. Top Navigation Bar, Auto-Open Login Modal (Protected Route Redirect), Location Selector, Mobile Dropdown Menu, Navigation Structure, Notifications, Notifications (`src/components/TopBar.jsx:1`, `8cbaa06` → `2ab168b` for FCM), Search Functionality (+2 more)
 
 ### Community 341 - "Community 341"
 Cohesion: 0.25
@@ -1348,8 +1363,8 @@ Cohesion: 0.25
 Nodes (7): Admin Components, Components & UI, OfferFormPage, OffersManagement, OffersPage, Shared UI Patterns, User Components
 
 ### Community 351 - "Community 351"
-Cohesion: 0.25
-Nodes (7): 1. SuperAdmin Creates an Offer, 2. Customer Applies Offer at Checkout, 3. Payment with Offer — Full Flow, 4. Webhook Fallback — Payment Captured, 5. Admin Edits an Offer, 6. Admin Deletes an Offer, Workflows
+Cohesion: 0.18
+Nodes (10): 1. Admin Creates an Offer (RBAC since `6e0705a` / `a79e555`), 1. SuperAdmin Creates an Offer, 2. Customer Applies Offer at Checkout, 3. Payment with Offer — Full Flow, 4. Webhook Fallback — Payment Captured, 5. Admin Edits an Offer, 5. Admin Edits an Offer (creator-scoped since `6e0705a`), 6. Admin Deletes an Offer (+2 more)
 
 ### Community 352 - "Community 352"
 Cohesion: 0.25
@@ -1392,8 +1407,8 @@ Cohesion: 0.25
 Nodes (7): Workflow 1: Admin Searches Customers, Workflow 2: Admin Views Customer Details, Workflow 3: Admin Manages Other Admins, Workflow 4: Customer Edits Profile, Workflow 5: Customer Views Account, Workflow 6: Customer Manages Settings, Workflows — User Management & Customers
 
 ### Community 362 - "Community 362"
-Cohesion: 0.22
-Nodes (3): ProfilePage(), PASSWORD_POLICY_CHECKS, customerAuthAPI
+Cohesion: 0.14
+Nodes (5): ThemeContext, PASSWORD_POLICY_CHECKS, LoginModal(), mockNotifications, customerAuthAPI
 
 ### Community 363 - "Community 363"
 Cohesion: 0.29
@@ -1559,6 +1574,10 @@ Nodes (4): Error Flow, Primary Flow: Verify a Ticket, Retry Flow, Workflows – 
 Cohesion: 0.40
 Nodes (5): 2. Authentication Modal, Login Form, Modal States, OTP Verification, Signup Form
 
+### Community 404 - "Community 404"
+Cohesion: 0.29
+Nodes (5): devFormat, logger, prodFormat, attempts, checkOAuthRateLimit()
+
 ### Community 405 - "Community 405"
 Cohesion: 0.50
 Nodes (3): Admin App Component Hierarchy, Component Catalog, Hall Management - Components
@@ -1568,8 +1587,8 @@ Cohesion: 0.50
 Nodes (3): Admin App Component Hierarchy, Component Catalog, Movie Management - Components
 
 ### Community 407 - "Community 407"
-Cohesion: 0.50
-Nodes (4): 8.1 Channels, 8.2 Provider Config (org-level, stored in `organization_settings.notifications`), 8.3 Notification Preference Hierarchy (org → role → user), 8. Notifications
+Cohesion: 0.25
+Nodes (8): 1. [Backend API Documentation](./backend.md), 2. [Admin Panel Documentation](./admin.md), 3. [Database Setup Script](./db_setup.sql), 4. [User Application Documentation](./users.md), 5. [Graphify Knowledge Graph](./graphify-out/), 5. [Test Suite Documentation](./backend_tests.md), 6. [Graphify Knowledge Graph](./graphify-out/), 📚 Documentation Files
 
 ### Community 408 - "Community 408"
 Cohesion: 0.67
@@ -1580,27 +1599,35 @@ Cohesion: 0.33
 Nodes (4): avatarColors, debounce(), PaymentOrders(), statusConfig
 
 ### Community 410 - "Community 410"
-Cohesion: 0.67
-Nodes (3): Custom Components, shadcn/ui Components Used, UI Components
+Cohesion: 0.20
+Nodes (10): AUDIENCE_CHOICES, audienceLabel(), BroadcastNotifications(), debounce(), EMPTY_FORM, statusBadge(), MovieManagement(), broadcastAPI (+2 more)
+
+### Community 411 - "Community 411"
+Cohesion: 0.50
+Nodes (3): BookingSuccessPage(), fmt(), statusConfig
+
+### Community 412 - "Community 412"
+Cohesion: 0.40
+Nodes (5): 7.1 Light / Dark Mode (exists), 7.2 Custom Branding (stored in `organization_settings.branding`), 7.3 Theme Colors → oklch Tokens, 7.4 White-Label Support (SaaS-ready), 7. Theme & Branding
 
 ## Knowledge Gaps
-- **2116 isolated node(s):** `start-all-services.sh script`, `$schema`, `plugin`, `@opencode-ai/plugin`, `$schema` (+2111 more)
+- **2194 isolated node(s):** `start-all-services.sh script`, `allow`, `$schema`, `plugin`, `@opencode-ai/plugin` (+2189 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User Application Documentation` connect `Community 142` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 89`?**
+- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 408`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 88`, `Community 89`, `Community 158`?**
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `User Application Documentation` connect `Community 142` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 89`?**
   _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 105`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 408`, `Community 89`, `Community 410`, `Community 158`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **Why does `getNextDates()` connect `Community 41` to `Community 29`?**
+- **Why does `Backend API Documentation` connect `Community 78` to `Community 90`, `Community 46`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `useAuth()` (e.g. with `PaymentSettingsPage()` and `SettingsIndexRedirect()`) actually correct?**
   _`useAuth()` has 3 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `start-all-services.sh script`, `$schema`, `plugin` to the rest of the system?**
-  _2116 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `start-all-services.sh script`, `allow`, `$schema` to the rest of the system?**
+  _2194 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

@@ -55,6 +55,12 @@ Used for prominent highlight elements, active badges, and core visual action but
 | `--destructive` | `oklch(0.6 0.23 27)` | `oklch(0.7 0.21 27)` |
 | `--rating` | `oklch(0.78 0.18 75)` *(Golden star)* | `oklch(0.7 0.18 75)` *(Dimmed gold)* |
 | `--rating-foreground` | `oklch(0.12 0.02 75)` | `oklch(0.98 0.02 75)` |
+| `--seat-premium` | `oklch(0.58 0.19 300)` *(Violet — premium tier)* | `oklch(0.68 0.18 300)` |
+| `--seat-premium-foreground` | `oklch(0.98 0.01 300)` | `oklch(0.16 0.03 300)` |
+| `--seat-gold` | `oklch(0.72 0.15 85)` *(Amber/gold — gold tier)* | `oklch(0.78 0.15 85)` |
+| `--seat-gold-foreground` | `oklch(0.22 0.05 85)` | `oklch(0.2 0.04 85)` |
+| `--seat-silver` | `oklch(0.82 0.015 250)` *(Cool light gray — silver tier)* | `oklch(0.45 0.015 250)` |
+| `--seat-silver-foreground` | `oklch(0.28 0.02 250)` | `oklch(0.95 0.01 250)` |
 | `--shadow-sm` | `0 1px 2px 0 oklch(0 0 0 / 0.05)` | `0 1px 2px 0 oklch(0 0 0 / 0.3)` |
 | `--shadow-md` | `0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1)` | `0 4px 6px -1px oklch(0 0 0 / 0.4), 0 2px 4px -2px oklch(0 0 0 / 0.3)` |
 | `--shadow-lg` | `0 10px 15px -3px oklch(0 0 0 / 0.1), 0 4px 6px -4px oklch(0 0 0 / 0.1)` | `0 10px 15px -3px oklch(0 0 0 / 0.4), 0 4px 6px -4px oklch(0 0 0 / 0.3)` |
@@ -68,11 +74,17 @@ Used for prominent highlight elements, active badges, and core visual action but
 *   **Selected Seat**: High-contrast success green (`bg-success`) with active border-b and glowing success outer shadow (`shadow-success/20`).
 *   **Sold/Held Seat**: Muted gray base with 45% opacity using `--secondary/45`. Non-interactive.
 
+### 3a. Seat Tier Color Coding (Admin — Screen Management)
+The three seating tiers are theme tokens (`--seat-premium`, `--seat-gold`, `--seat-silver`, each with a matching `-foreground`) defined in both light and dark themes (`a63f978` in `cinema-hall-admin/src/index.css:104`). They are exposed as Tailwind utilities (`bg-seat-premium`, `text-seat-gold`, `border-seat-silver`, …) via the `--color-seat-*` mappings in `@theme inline` (`index.css:51`), and are used by the screen list seat-stat cards, the seat legend, the screen designer canvas, and the seat-map viewer.
+*   **Premium** — Violet (`--seat-premium`), luxury tier.
+*   **Gold** — Amber/gold (`--seat-gold`).
+*   **Silver** — Cool light gray (`--seat-silver`).
+
 ---
 
 ## 🔤 Typography
 
-*   **Primary Font Family**: `'JetBrains Mono Variable', monospace` (imported via `@fontsource-variable/jetbrains-mono`)
+*   **Primary Font Family**: `'Public Sans Variable', ui-sans-serif, system-ui, sans-serif` (imported via `@fontsource-variable/public-sans`, `14f8815` in `cinema-hall-admin/package.json:13` / `cinema-hall-admin/src/index.css:19`). The admin app switched from JetBrains Mono to Public Sans; the **user app** still uses `'JetBrains Mono Variable', monospace`.
 *   **Heading Styles**: Bold tracking, line-height 1.2, weight 600+.
     *   `h1`: `font-size: clamp(2rem, 5vw, 3.5rem);`
     *   `h2`: `font-size: clamp(1.5rem, 4vw, 2.5rem);`
