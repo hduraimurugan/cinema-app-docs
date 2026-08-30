@@ -14,9 +14,10 @@
 #### `LoginForm.jsx`
 - **Path**: `src/pages/Auth/LoginForm.jsx`
 - **Purpose**: Admin login with email/password, Google OAuth, and GitHub OAuth
-- **State**: email, password, loading, error, oauthLoading
+- **State**: email, password, showPassword, loading, error, oauthLoading
 - **API Usage**: `authAPI.login()`, `authAPI.googleLogin()`, `authAPI.githubLogin()`
 - **Data Flow**: Calls `useAuth().login()` context method, handles ACCOUNT_LOCKED, EMAIL_NOT_VERIFIED errors
+- **Password visibility toggle** (`3e043c5d`): `showPassword` state flips the input between `type="text"` and `type="password"`; a trailing `Eye`/`EyeOff` button (`pr-11`, `tabIndex={-1}`) toggles it
 
 #### `RegisterForm.jsx`
 - **Path**: `src/pages/Auth/RegisterForm.jsx`

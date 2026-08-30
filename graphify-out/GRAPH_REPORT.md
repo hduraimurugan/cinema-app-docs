@@ -1,16 +1,16 @@
 # Graph Report - docs  (2026-08-30)
 
 ## Corpus Check
-- 145 files · ~164,347 words
+- 145 files · ~164,647 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2562 nodes · 2437 edges · 235 communities (232 shown, 3 thin omitted)
+- 2570 nodes · 2447 edges · 235 communities (232 shown, 3 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `21b63d50`
+- Built from commit: `d51c9469`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -29,6 +29,7 @@
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
 - [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Community 24|Community 24]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 35|Community 35]]
@@ -98,7 +99,6 @@
 - [[_COMMUNITY_Community 233|Community 233]]
 - [[_COMMUNITY_Community 234|Community 234]]
 - [[_COMMUNITY_Community 235|Community 235]]
-- [[_COMMUNITY_Community 238|Community 238]]
 - [[_COMMUNITY_Community 240|Community 240]]
 - [[_COMMUNITY_Community 242|Community 242]]
 - [[_COMMUNITY_Community 243|Community 243]]
@@ -246,15 +246,15 @@
 
 ## God Nodes (most connected - your core abstractions)
 1. `Admin Authentication` - 24 edges
-2. `Admin Panel Documentation` - 19 edges
-3. `2. Screen Designer` - 19 edges
+2. `2. Screen Designer` - 20 edges
+3. `Admin Panel Documentation` - 19 edges
 4. `8. Initial Implementation` - 19 edges
 5. `Page Components` - 19 edges
-6. `Concurrency-Safe Seat Booking - Implementation Plan` - 18 edges
-7. `User Application Documentation` - 18 edges
-8. `2. Movie Management` - 17 edges
-9. `3. Shows Management` - 16 edges
-10. `3.2 New PostgreSQL Tables` - 16 edges
+6. `2. Movie Management` - 18 edges
+7. `Concurrency-Safe Seat Booking - Implementation Plan` - 18 edges
+8. `User Application Documentation` - 18 edges
+9. `3. Shows Management` - 17 edges
+10. `2. Ads Management (SuperAdmin Only)` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -320,6 +320,10 @@ Nodes (4): Custom Components, shadcn/ui Components Used, UI Components, Utility 
 Cohesion: 0.08
 Nodes (25): Adding New Tests, Cinema Hall API — Test Suite Guide, Cleanup Rules, Concurrency Test Pattern, Configuration (`vitest.config.js`), Controller Test (Real DB), Coverage Report, Database (+17 more)
 
+### Community 15 - "Community 15"
+Cohesion: 0.67
+Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
+
 ### Community 24 - "Community 24"
 Cohesion: 0.05
 Nodes (44): 4.1 Cinema Tools (1–4), 4.2 Movie Tools (5–9), 4.3 Show Tools (10–13), 4.4 Booking Tools (14–17), 4.5 User Tools (18–20) — SuperAdmin only, 4.6 Analytics Tools (21–28), 4.7 Platform Tools (29–36), 4. Phase 1 Tool Catalog (+36 more)
@@ -369,8 +373,8 @@ Cohesion: 0.13
 Nodes (15): Automated Testing, Complete Payment Flow, Concurrency Handling, Concurrency-Safe Seat Booking - Implementation Plan, Core Principle, Implementation Order, Manual Verification, Problem Statement (+7 more)
 
 ### Community 73 - "Community 73"
-Cohesion: 0.07
-Nodes (27): Admin App (`cinema-hall-admin`), `AdminProtectedRoutes.jsx`, `api.js` (authAPI section), `api.js` (customerAuthAPI section), `AuthContext.jsx`, Authentication - Frontend, `AuthPage.jsx`, Components (+19 more)
+Cohesion: 0.06
+Nodes (31): Admin App (`cinema-hall-admin`), `AdminProtectedRoutes.jsx`, `api.js` (authAPI section), `api.js` (customerAuthAPI section), `AuthContext.jsx`, Authentication - Frontend, `AuthPage.jsx`, Components (+23 more)
 
 ### Community 75 - "Community 75"
 Cohesion: 0.06
@@ -461,12 +465,12 @@ Cohesion: 0.40
 Nodes (5): `booking-concurrency.test.js` (3 tests), `booking-edge.test.js` (7 tests), `payment-edge.test.js` (5 tests), Phase 6 — Edge Case & Concurrency (29 tests), `shows-edge.test.js` (14 tests)
 
 ### Community 126 - "Community 126"
-Cohesion: 0.11
-Nodes (19): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Feature Overview (+11 more)
+Cohesion: 0.10
+Nodes (20): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Feature Overview (+12 more)
 
 ### Community 127 - "Community 127"
-Cohesion: 0.11
-Nodes (19): 2. Screen Designer, Aisle System, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview (+11 more)
+Cohesion: 0.10
+Nodes (20): 2. Screen Designer, Aisle System, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview (+12 more)
 
 ### Community 128 - "Community 128"
 Cohesion: 0.14
@@ -489,12 +493,12 @@ Cohesion: 0.18
 Nodes (10): 1. Install Dependencies, 2. Start Development Server, 3. Build for Production, 4. Preview Production Build Locally, 📘 Admin Documentation, ⚙️ Cinema Hall Management - Admin Panel, 🔑 Environment Setup, 🚀 Execution Instructions (+2 more)
 
 ### Community 137 - "Community 137"
-Cohesion: 0.13
-Nodes (15): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+7 more)
+Cohesion: 0.12
+Nodes (16): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+8 more)
 
 ### Community 138 - "Community 138"
 Cohesion: 0.12
-Nodes (16): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+8 more)
+Nodes (17): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+9 more)
 
 ### Community 139 - "Community 139"
 Cohesion: 0.14
@@ -583,10 +587,6 @@ Nodes (6): 6.1 Authentication Layers, 6.2 API Key Model, 6.3 Permission Model, 6
 ### Community 235 - "Community 235"
 Cohesion: 0.33
 Nodes (6): 9. Client Configuration, ChatGPT / OpenAI Agents (HTTP Mode), Claude Desktop (`claude_desktop_config.json`), Cline / Roo Code, Cursor / Windsurf, OpenCode (`~/.opencode/config.json` or MCP config)
-
-### Community 238 - "Community 238"
-Cohesion: 0.67
-Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
 
 ### Community 240 - "Community 240"
 Cohesion: 0.07
@@ -1165,7 +1165,7 @@ Cohesion: 0.40
 Nodes (5): 7.1 Light / Dark Mode (exists), 7.2 Custom Branding (stored in `organization_settings.branding`), 7.3 Theme Colors → oklch Tokens, 7.4 White-Label Support (SaaS-ready), 7. Theme & Branding
 
 ## Knowledge Gaps
-- **1722 isolated node(s):** `Overview`, `Route Structure`, `Component Hierarchy`, `Authentication Flow`, `AuthContext State Management` (+1717 more)
+- **1725 isolated node(s):** `Overview`, `Route Structure`, `Component Hierarchy`, `Authentication Flow`, `AuthContext State Management` (+1720 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -1173,13 +1173,13 @@ Nodes (5): 7.1 Light / Dark Mode (exists), 7.2 Custom Branding (stored in `organ
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 408`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 88`, `Community 89`, `Community 158`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **Why does `User Application Documentation` connect `Community 142` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 89`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
 - **Why does `Features Documentation` connect `Community 88` to `Community 131`, `Community 105`, `Community 137`, `Community 139`, `Community 138`, `Community 126`, `Community 127`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+  _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **What connects `Overview`, `Route Structure`, `Component Hierarchy` to the rest of the system?**
-  _1722 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1725 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

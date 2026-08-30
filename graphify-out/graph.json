@@ -151,7 +151,7 @@
       "label": "2. RegisterForm (`RegisterForm.jsx`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L254",
+      "source_location": "L256",
       "id": "docs_admin_2_registerform_registerform_jsx",
       "community": 100,
       "norm_label": "2. registerform (`registerform.jsx`)"
@@ -160,7 +160,7 @@
       "label": "3. ForgotPasswordForm (`ForgotPasswordForm.jsx`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L259",
+      "source_location": "L261",
       "id": "docs_admin_3_forgotpasswordform_forgotpasswordform_jsx",
       "community": 100,
       "norm_label": "3. forgotpasswordform (`forgotpasswordform.jsx`)"
@@ -169,7 +169,7 @@
       "label": "4. VerifyEmailForm (`VerifyEmailForm.jsx`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L262",
+      "source_location": "L264",
       "id": "docs_admin_4_verifyemailform_verifyemailform_jsx",
       "community": 100,
       "norm_label": "4. verifyemailform (`verifyemailform.jsx`)"
@@ -178,7 +178,7 @@
       "label": "5. ResetPasswordForm (`ResetPasswordForm.jsx`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L268",
+      "source_location": "L270",
       "id": "docs_admin_5_resetpasswordform_resetpasswordform_jsx",
       "community": 100,
       "norm_label": "5. resetpasswordform (`resetpasswordform.jsx`)"
@@ -187,7 +187,7 @@
       "label": "6. GitHubCallback (`/auth/github/callback`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L271",
+      "source_location": "L273",
       "id": "docs_admin_6_githubcallback_auth_github_callback",
       "community": 100,
       "norm_label": "6. githubcallback (`/auth/github/callback`)"
@@ -196,7 +196,7 @@
       "label": "Multi-Hall Support & Onboarding Flow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L277",
+      "source_location": "L279",
       "id": "docs_admin_multi_hall_support_onboarding_flow",
       "community": 106,
       "norm_label": "multi-hall support & onboarding flow"
@@ -205,7 +205,7 @@
       "label": "1. Onboarding Page (`/onboarding`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L281",
+      "source_location": "L283",
       "id": "docs_admin_1_onboarding_page_onboarding",
       "community": 106,
       "norm_label": "1. onboarding page (`/onboarding`)"
@@ -214,7 +214,7 @@
       "label": "2. Hall Guard (`HallGuard.jsx`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L301",
+      "source_location": "L303",
       "id": "docs_admin_2_hall_guard_hallguard_jsx",
       "community": 106,
       "norm_label": "2. hall guard (`hallguard.jsx`)"
@@ -223,7 +223,7 @@
       "label": "3. Hall Switcher (`HallSwitcher.jsx`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L307",
+      "source_location": "L309",
       "id": "docs_admin_3_hall_switcher_hallswitcher_jsx",
       "community": 106,
       "norm_label": "3. hall switcher (`hallswitcher.jsx`)"
@@ -232,7 +232,7 @@
       "label": "4. Halls Management (`/halls`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L314",
+      "source_location": "L316",
       "id": "docs_admin_4_halls_management_halls",
       "community": 106,
       "norm_label": "4. halls management (`/halls`)"
@@ -241,7 +241,7 @@
       "label": "Features Documentation",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L325",
+      "source_location": "L327",
       "id": "docs_admin_features_documentation",
       "community": 88,
       "norm_label": "features documentation"
@@ -250,7 +250,7 @@
       "label": "0. Dashboard (All Admins)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L327",
+      "source_location": "L329",
       "id": "docs_admin_0_dashboard_all_admins",
       "community": 105,
       "norm_label": "0. dashboard (all admins)"
@@ -259,7 +259,7 @@
       "label": "KPI Cards",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L336",
+      "source_location": "L338",
       "id": "docs_admin_kpi_cards",
       "community": 105,
       "norm_label": "kpi cards"
@@ -268,7 +268,7 @@
       "label": "Revenue Trend Chart",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L345",
+      "source_location": "L347",
       "id": "docs_admin_revenue_trend_chart",
       "community": 105,
       "norm_label": "revenue trend chart"
@@ -277,7 +277,7 @@
       "label": "Today's Shows",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L353",
+      "source_location": "L355",
       "id": "docs_admin_today_s_shows",
       "community": 105,
       "norm_label": "today's shows"
@@ -286,7 +286,7 @@
       "label": "Recent Bookings",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L362",
+      "source_location": "L364",
       "id": "docs_admin_recent_bookings",
       "community": 105,
       "norm_label": "recent bookings"
@@ -295,7 +295,7 @@
       "label": "1. Offers Management (RBAC \u2014 `offers.*`, creator-scoped since `6e0705a` / `a79e555`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L368",
+      "source_location": "L370",
       "id": "docs_admin_1_offers_management_rbac_offers_creator_scoped_since_6e0705a_a79e555",
       "community": 88,
       "norm_label": "1. offers management (rbac \u2014 `offers.*`, creator-scoped since `6e0705a` / `a79e555`)"
@@ -304,7 +304,7 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L378",
+      "source_location": "L380",
       "id": "docs_admin_feature_overview",
       "community": 88,
       "norm_label": "feature overview"
@@ -313,7 +313,7 @@
       "label": "Table Columns",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L411",
+      "source_location": "L413",
       "id": "docs_admin_table_columns",
       "community": 88,
       "norm_label": "table columns"
@@ -322,7 +322,7 @@
       "label": "Export \u2014 Offers Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L429",
+      "source_location": "L431",
       "id": "docs_admin_export_offers_management",
       "community": 88,
       "norm_label": "export \u2014 offers management"
@@ -331,7 +331,7 @@
       "label": "Offer Form Page Layout (`/offers/new`, `/offers/:id/edit`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L437",
+      "source_location": "L439",
       "id": "docs_admin_offer_form_page_layout_offers_new_offers_id_edit",
       "community": 88,
       "norm_label": "offer form page layout (`/offers/new`, `/offers/:id/edit`)"
@@ -340,7 +340,7 @@
       "label": "Offer Form Fields",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L450",
+      "source_location": "L452",
       "id": "docs_admin_offer_form_fields",
       "community": 88,
       "norm_label": "offer form fields"
@@ -349,7 +349,7 @@
       "label": "Date Picker Implementation Note",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L468",
+      "source_location": "L470",
       "id": "docs_admin_date_picker_implementation_note",
       "community": 88,
       "norm_label": "date picker implementation note"
@@ -358,7 +358,7 @@
       "label": "Sidebar Navigation",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L491",
+      "source_location": "L493",
       "id": "docs_admin_sidebar_navigation",
       "community": 88,
       "norm_label": "sidebar navigation"
@@ -367,7 +367,7 @@
       "label": "2. Ads Management (SuperAdmin Only)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L501",
+      "source_location": "L503",
       "id": "docs_admin_2_ads_management_superadmin_only",
       "community": 137,
       "norm_label": "2. ads management (superadmin only)"
@@ -376,8 +376,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L508",
-      "id": "docs_admin_feature_overview_508",
+      "source_location": "L510",
+      "id": "docs_admin_feature_overview_510",
       "community": 137,
       "norm_label": "feature overview"
     },
@@ -385,7 +385,7 @@
       "label": "Tabs",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L533",
+      "source_location": "L535",
       "id": "docs_admin_tabs",
       "community": 137,
       "norm_label": "tabs"
@@ -394,7 +394,7 @@
       "label": "Ad Placements",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L544",
+      "source_location": "L546",
       "id": "docs_admin_ad_placements",
       "community": 137,
       "norm_label": "ad placements"
@@ -403,7 +403,7 @@
       "label": "Ads Tab (Card Grid)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L551",
+      "source_location": "L553",
       "id": "docs_admin_ads_tab_card_grid",
       "community": 137,
       "norm_label": "ads tab (card grid)"
@@ -412,7 +412,7 @@
       "label": "Analytics Tab (Table)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L563",
+      "source_location": "L565",
       "id": "docs_admin_analytics_tab_table",
       "community": 137,
       "norm_label": "analytics tab (table)"
@@ -421,7 +421,7 @@
       "label": "Create / Edit Ad \u2014 Right-Side Sheet",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L581",
+      "source_location": "L583",
       "id": "docs_admin_create_edit_ad_right_side_sheet",
       "community": 137,
       "norm_label": "create / edit ad \u2014 right-side sheet"
@@ -430,7 +430,7 @@
       "label": "Create/Edit Form Fields",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L595",
+      "source_location": "L597",
       "id": "docs_admin_create_edit_form_fields",
       "community": 137,
       "norm_label": "create/edit form fields"
@@ -439,7 +439,7 @@
       "label": "Click-through Details Modal",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L607",
+      "source_location": "L609",
       "id": "docs_admin_click_through_details_modal",
       "community": 137,
       "norm_label": "click-through details modal"
@@ -448,7 +448,7 @@
       "label": "Export \u2014 Ads Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L620",
+      "source_location": "L622",
       "id": "docs_admin_export_ads_management",
       "community": 137,
       "norm_label": "export \u2014 ads management"
@@ -457,7 +457,7 @@
       "label": "2. Movie Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L633",
+      "source_location": "L635",
       "id": "docs_admin_2_movie_management",
       "community": 126,
       "norm_label": "2. movie management"
@@ -466,8 +466,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L639",
-      "id": "docs_admin_feature_overview_639",
+      "source_location": "L641",
+      "id": "docs_admin_feature_overview_641",
       "community": 126,
       "norm_label": "feature overview"
     },
@@ -475,7 +475,7 @@
       "label": "Layout Behavior",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L668",
+      "source_location": "L670",
       "id": "docs_admin_layout_behavior",
       "community": 126,
       "norm_label": "layout behavior"
@@ -484,7 +484,7 @@
       "label": "Add / Edit Movie \u2014 Right-Side Sheet",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L678",
+      "source_location": "L680",
       "id": "docs_admin_add_edit_movie_right_side_sheet",
       "community": 126,
       "norm_label": "add / edit movie \u2014 right-side sheet"
@@ -493,7 +493,7 @@
       "label": "Movie Form Fields",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L696",
+      "source_location": "L698",
       "id": "docs_admin_movie_form_fields",
       "community": 126,
       "norm_label": "movie form fields"
@@ -502,7 +502,7 @@
       "label": "Cast Management UI",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L714",
+      "source_location": "L716",
       "id": "docs_admin_cast_management_ui",
       "community": 126,
       "norm_label": "cast management ui"
@@ -511,7 +511,7 @@
       "label": "Available Genres",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L723",
+      "source_location": "L725",
       "id": "docs_admin_available_genres",
       "community": 126,
       "norm_label": "available genres"
@@ -520,7 +520,7 @@
       "label": "Available Languages",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L727",
+      "source_location": "L729",
       "id": "docs_admin_available_languages",
       "community": 126,
       "norm_label": "available languages"
@@ -529,7 +529,7 @@
       "label": "Movie Card Display",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L731",
+      "source_location": "L733",
       "id": "docs_admin_movie_card_display",
       "community": 126,
       "norm_label": "movie card display"
@@ -538,7 +538,7 @@
       "label": "TMDB Integration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L745",
+      "source_location": "L747",
       "id": "docs_admin_tmdb_integration",
       "community": 126,
       "norm_label": "tmdb integration"
@@ -547,7 +547,7 @@
       "label": "Browse Movies Tab",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L747",
+      "source_location": "L749",
       "id": "docs_admin_browse_movies_tab",
       "community": 126,
       "norm_label": "browse movies tab"
@@ -556,7 +556,7 @@
       "label": "Sync from TMDB (Edit Mode)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L776",
+      "source_location": "L778",
       "id": "docs_admin_sync_from_tmdb_edit_mode",
       "community": 126,
       "norm_label": "sync from tmdb (edit mode)"
@@ -565,7 +565,7 @@
       "label": "Movie Detail Page",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L794",
+      "source_location": "L796",
       "id": "docs_admin_movie_detail_page",
       "community": 126,
       "norm_label": "movie detail page"
@@ -574,7 +574,7 @@
       "label": "Filtering System",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L822",
+      "source_location": "L824",
       "id": "docs_admin_filtering_system",
       "community": 126,
       "norm_label": "filtering system"
@@ -583,7 +583,7 @@
       "label": "2. Screen Designer",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L843",
+      "source_location": "L845",
       "id": "docs_admin_2_screen_designer",
       "community": 127,
       "norm_label": "2. screen designer"
@@ -592,8 +592,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L853",
-      "id": "docs_admin_feature_overview_853",
+      "source_location": "L855",
+      "id": "docs_admin_feature_overview_855",
       "community": 127,
       "norm_label": "feature overview"
     },
@@ -601,7 +601,7 @@
       "label": "Navigation Pattern",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L878",
+      "source_location": "L880",
       "id": "docs_admin_navigation_pattern",
       "community": 127,
       "norm_label": "navigation pattern"
@@ -610,7 +610,7 @@
       "label": "Screen Configuration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L885",
+      "source_location": "L887",
       "id": "docs_admin_screen_configuration",
       "community": 127,
       "norm_label": "screen configuration"
@@ -619,7 +619,7 @@
       "label": "Seat Layout Structure",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L906",
+      "source_location": "L908",
       "id": "docs_admin_seat_layout_structure",
       "community": 127,
       "norm_label": "seat layout structure"
@@ -628,7 +628,7 @@
       "label": "Aisle System",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L922",
+      "source_location": "L924",
       "id": "docs_admin_aisle_system",
       "community": 127,
       "norm_label": "aisle system"
@@ -637,7 +637,7 @@
       "label": "Rows/Columns Resize Behaviour",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L936",
+      "source_location": "L938",
       "id": "docs_admin_rows_columns_resize_behaviour",
       "community": 127,
       "norm_label": "rows/columns resize behaviour"
@@ -646,7 +646,7 @@
       "label": "UI Layout",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L942",
+      "source_location": "L944",
       "id": "docs_admin_ui_layout",
       "community": 127,
       "norm_label": "ui layout"
@@ -655,7 +655,7 @@
       "label": "Seat Summary",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L953",
+      "source_location": "L955",
       "id": "docs_admin_seat_summary",
       "community": 127,
       "norm_label": "seat summary"
@@ -664,7 +664,7 @@
       "label": "Zoom Controls",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L964",
+      "source_location": "L966",
       "id": "docs_admin_zoom_controls",
       "community": 127,
       "norm_label": "zoom controls"
@@ -673,7 +673,7 @@
       "label": "Undo / Redo",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L974",
+      "source_location": "L976",
       "id": "docs_admin_undo_redo",
       "community": 127,
       "norm_label": "undo / redo"
@@ -682,7 +682,7 @@
       "label": "Interactive Features",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L981",
+      "source_location": "L983",
       "id": "docs_admin_interactive_features",
       "community": 127,
       "norm_label": "interactive features"
@@ -691,7 +691,7 @@
       "label": "Layout Designer Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1040",
+      "source_location": "L1042",
       "id": "docs_admin_layout_designer_workflow",
       "community": 127,
       "norm_label": "layout designer workflow"
@@ -700,7 +700,7 @@
       "label": "3. Shows Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1069",
+      "source_location": "L1071",
       "id": "docs_admin_3_shows_management",
       "community": 138,
       "norm_label": "3. shows management"
@@ -709,8 +709,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1081",
-      "id": "docs_admin_feature_overview_1081",
+      "source_location": "L1083",
+      "id": "docs_admin_feature_overview_1083",
       "community": 138,
       "norm_label": "feature overview"
     },
@@ -718,7 +718,7 @@
       "label": "UI Layout \u2014 Shows List (`/shows`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1127",
+      "source_location": "L1129",
       "id": "docs_admin_ui_layout_shows_list_shows",
       "community": 138,
       "norm_label": "ui layout \u2014 shows list (`/shows`)"
@@ -727,7 +727,7 @@
       "label": "Multi-Select Mode & Bulk Actions",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1180",
+      "source_location": "L1182",
       "id": "docs_admin_multi_select_mode_bulk_actions",
       "community": 138,
       "norm_label": "multi-select mode & bulk actions"
@@ -736,7 +736,7 @@
       "label": "Confirm Dialog (`AlertDialog`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1196",
+      "source_location": "L1198",
       "id": "docs_admin_confirm_dialog_alertdialog",
       "community": 138,
       "norm_label": "confirm dialog (`alertdialog`)"
@@ -745,7 +745,7 @@
       "label": "Add Show Page (`/shows/new`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1200",
+      "source_location": "L1202",
       "id": "docs_admin_add_show_page_shows_new",
       "community": 138,
       "norm_label": "add show page (`/shows/new`)"
@@ -754,7 +754,7 @@
       "label": "Edit Show Page (`/shows/:id/edit`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1245",
+      "source_location": "L1247",
       "id": "docs_admin_edit_show_page_shows_id_edit",
       "community": 138,
       "norm_label": "edit show page (`/shows/:id/edit`)"
@@ -763,7 +763,7 @@
       "label": "Add Multiple Shows Page (`/shows/bulk`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1270",
+      "source_location": "L1272",
       "id": "docs_admin_add_multiple_shows_page_shows_bulk",
       "community": 138,
       "norm_label": "add multiple shows page (`/shows/bulk`)"
@@ -772,7 +772,7 @@
       "label": "Show Detail Page (`/show/:id`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1306",
+      "source_location": "L1308",
       "id": "docs_admin_show_detail_page_show_id",
       "community": 138,
       "norm_label": "show detail page (`/show/:id`)"
@@ -781,7 +781,7 @@
       "label": "Movie Search Component",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1400",
+      "source_location": "L1402",
       "id": "docs_admin_movie_search_component",
       "community": 138,
       "norm_label": "movie search component"
@@ -790,7 +790,7 @@
       "label": "4. Additional Features",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1413",
+      "source_location": "L1415",
       "id": "docs_admin_4_additional_features",
       "community": 131,
       "norm_label": "4. additional features"
@@ -799,7 +799,7 @@
       "label": "HomePage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1415",
+      "source_location": "L1417",
       "id": "docs_admin_homepage",
       "community": 131,
       "norm_label": "homepage"
@@ -808,7 +808,7 @@
       "label": "Bookings",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1420",
+      "source_location": "L1422",
       "id": "docs_admin_bookings",
       "community": 131,
       "norm_label": "bookings"
@@ -817,7 +817,7 @@
       "label": "BookingDetailPage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1446",
+      "source_location": "L1448",
       "id": "docs_admin_bookingdetailpage",
       "community": 131,
       "norm_label": "bookingdetailpage"
@@ -826,7 +826,7 @@
       "label": "VerifyTicket",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1496",
+      "source_location": "L1498",
       "id": "docs_admin_verifyticket",
       "community": 131,
       "norm_label": "verifyticket"
@@ -835,7 +835,7 @@
       "label": "RefundsPage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1517",
+      "source_location": "L1519",
       "id": "docs_admin_refundspage",
       "community": 131,
       "norm_label": "refundspage"
@@ -844,7 +844,7 @@
       "label": "PaymentOrders",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1546",
+      "source_location": "L1548",
       "id": "docs_admin_paymentorders",
       "community": 131,
       "norm_label": "paymentorders"
@@ -853,7 +853,7 @@
       "label": "Customers",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1576",
+      "source_location": "L1578",
       "id": "docs_admin_customers",
       "community": 131,
       "norm_label": "customers"
@@ -862,7 +862,7 @@
       "label": "Hall Admins",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1615",
+      "source_location": "L1617",
       "id": "docs_admin_hall_admins",
       "community": 131,
       "norm_label": "hall admins"
@@ -871,7 +871,7 @@
       "label": "ProfilePage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1654",
+      "source_location": "L1656",
       "id": "docs_admin_profilepage",
       "community": 131,
       "norm_label": "profilepage"
@@ -880,7 +880,7 @@
       "label": "Settings Layout",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1684",
+      "source_location": "L1686",
       "id": "docs_admin_settings_layout",
       "community": 131,
       "norm_label": "settings layout"
@@ -889,7 +889,7 @@
       "label": "API Service Layer",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1735",
+      "source_location": "L1737",
       "id": "docs_admin_api_service_layer",
       "community": 107,
       "norm_label": "api service layer"
@@ -898,7 +898,7 @@
       "label": "Service Modules",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1739",
+      "source_location": "L1741",
       "id": "docs_admin_service_modules",
       "community": 107,
       "norm_label": "service modules"
@@ -907,7 +907,7 @@
       "label": "Pagination \u2014 Shared Component",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1768",
+      "source_location": "L1770",
       "id": "docs_admin_pagination_shared_component",
       "community": 107,
       "norm_label": "pagination \u2014 shared component"
@@ -916,7 +916,7 @@
       "label": "Export \u2014 Shared Utility",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1774",
+      "source_location": "L1776",
       "id": "docs_admin_export_shared_utility",
       "community": 107,
       "norm_label": "export \u2014 shared utility"
@@ -925,7 +925,7 @@
       "label": "API Configuration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1823",
+      "source_location": "L1825",
       "id": "docs_admin_api_configuration",
       "community": 107,
       "norm_label": "api configuration"
@@ -934,7 +934,7 @@
       "label": "Error Handling",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1833",
+      "source_location": "L1835",
       "id": "docs_admin_error_handling",
       "community": 107,
       "norm_label": "error handling"
@@ -943,7 +943,7 @@
       "label": "UI Components",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1851",
+      "source_location": "L1853",
       "id": "docs_admin_ui_components",
       "community": 139,
       "norm_label": "ui components"
@@ -952,7 +952,7 @@
       "label": "shadcn/ui Components Used",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1853",
+      "source_location": "L1855",
       "id": "docs_admin_shadcn_ui_components_used",
       "community": 139,
       "norm_label": "shadcn/ui components used"
@@ -961,7 +961,7 @@
       "label": "Custom Components",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1870",
+      "source_location": "L1872",
       "id": "docs_admin_custom_components",
       "community": 139,
       "norm_label": "custom components"
@@ -970,7 +970,7 @@
       "label": "State Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1936",
+      "source_location": "L1939",
       "id": "docs_admin_state_management",
       "community": 139,
       "norm_label": "state management"
@@ -979,7 +979,7 @@
       "label": "Context Providers",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1938",
+      "source_location": "L1941",
       "id": "docs_admin_context_providers",
       "community": 139,
       "norm_label": "context providers"
@@ -988,7 +988,7 @@
       "label": "Routing & Navigation",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1968",
+      "source_location": "L1971",
       "id": "docs_admin_routing_navigation",
       "community": 408,
       "norm_label": "routing & navigation"
@@ -997,7 +997,7 @@
       "label": "Route Protection",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1970",
+      "source_location": "L1973",
       "id": "docs_admin_route_protection",
       "community": 408,
       "norm_label": "route protection"
@@ -1006,7 +1006,7 @@
       "label": "Navigation Structure",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1983",
+      "source_location": "L1986",
       "id": "docs_admin_navigation_structure",
       "community": 408,
       "norm_label": "navigation structure"
@@ -1015,7 +1015,7 @@
       "label": "Image Upload",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2011",
+      "source_location": "L2014",
       "id": "docs_admin_image_upload",
       "community": 139,
       "norm_label": "image upload"
@@ -1024,7 +1024,7 @@
       "label": "Cloudinary Integration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2013",
+      "source_location": "L2016",
       "id": "docs_admin_cloudinary_integration",
       "community": 139,
       "norm_label": "cloudinary integration"
@@ -1033,7 +1033,7 @@
       "label": "Styling & Theming",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2042",
+      "source_location": "L2045",
       "id": "docs_admin_styling_theming",
       "community": 175,
       "norm_label": "styling & theming"
@@ -1042,7 +1042,7 @@
       "label": "Tailwind Configuration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2044",
+      "source_location": "L2047",
       "id": "docs_admin_tailwind_configuration",
       "community": 175,
       "norm_label": "tailwind configuration"
@@ -1051,7 +1051,7 @@
       "label": "Dark Mode Support",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2054",
+      "source_location": "L2057",
       "id": "docs_admin_dark_mode_support",
       "community": 175,
       "norm_label": "dark mode support"
@@ -1060,7 +1060,7 @@
       "label": "Performance Optimizations",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2064",
+      "source_location": "L2067",
       "id": "docs_admin_performance_optimizations",
       "community": 176,
       "norm_label": "performance optimizations"
@@ -1069,7 +1069,7 @@
       "label": "Lazy Loading",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2066",
+      "source_location": "L2069",
       "id": "docs_admin_lazy_loading",
       "community": 176,
       "norm_label": "lazy loading"
@@ -1078,7 +1078,7 @@
       "label": "Debouncing",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2079",
+      "source_location": "L2082",
       "id": "docs_admin_debouncing",
       "community": 176,
       "norm_label": "debouncing"
@@ -1087,7 +1087,7 @@
       "label": "User Workflows",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2095",
+      "source_location": "L2098",
       "id": "docs_admin_user_workflows",
       "community": 158,
       "norm_label": "user workflows"
@@ -1096,7 +1096,7 @@
       "label": "Complete Show Creation Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2097",
+      "source_location": "L2100",
       "id": "docs_admin_complete_show_creation_workflow",
       "community": 158,
       "norm_label": "complete show creation workflow"
@@ -1105,7 +1105,7 @@
       "label": "Add Multiple Shows Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2123",
+      "source_location": "L2126",
       "id": "docs_admin_add_multiple_shows_workflow",
       "community": 158,
       "norm_label": "add multiple shows workflow"
@@ -1114,7 +1114,7 @@
       "label": "Screen Designer Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2148",
+      "source_location": "L2151",
       "id": "docs_admin_screen_designer_workflow",
       "community": 158,
       "norm_label": "screen designer workflow"
@@ -1123,7 +1123,7 @@
       "label": "Environment Variables",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2186",
+      "source_location": "L2189",
       "id": "docs_admin_environment_variables",
       "community": 139,
       "norm_label": "environment variables"
@@ -1132,7 +1132,7 @@
       "label": "Build & Deployment",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2199",
+      "source_location": "L2202",
       "id": "docs_admin_build_deployment",
       "community": 160,
       "norm_label": "build & deployment"
@@ -1141,7 +1141,7 @@
       "label": "Development",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2201",
+      "source_location": "L2204",
       "id": "docs_admin_development",
       "community": 160,
       "norm_label": "development"
@@ -1150,7 +1150,7 @@
       "label": "Production Build",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2208",
+      "source_location": "L2211",
       "id": "docs_admin_production_build",
       "community": 160,
       "norm_label": "production build"
@@ -1159,7 +1159,7 @@
       "label": "Deployment",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2215",
+      "source_location": "L2218",
       "id": "docs_admin_deployment",
       "community": 160,
       "norm_label": "deployment"
@@ -1168,7 +1168,7 @@
       "label": "Recently Implemented",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2225",
+      "source_location": "L2228",
       "id": "docs_admin_recently_implemented",
       "community": 139,
       "norm_label": "recently implemented"
@@ -1177,7 +1177,7 @@
       "label": "Best Practices Implemented",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2351",
+      "source_location": "L2354",
       "id": "docs_admin_best_practices_implemented",
       "community": 139,
       "norm_label": "best practices implemented"
@@ -1186,7 +1186,7 @@
       "label": "Future Enhancements",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2384",
+      "source_location": "L2387",
       "id": "docs_admin_future_enhancements",
       "community": 139,
       "norm_label": "future enhancements"
@@ -2221,7 +2221,7 @@
       "label": "API",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L33",
+      "source_location": "L36",
       "id": "docs_latest_changes_api",
       "community": 367,
       "norm_label": "api"
@@ -2230,7 +2230,7 @@
       "label": "Organization Onboarding Hardening",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L35",
+      "source_location": "L38",
       "id": "docs_latest_changes_organization_onboarding_hardening",
       "community": 367,
       "norm_label": "organization onboarding hardening"
@@ -2239,7 +2239,7 @@
       "label": "User App",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L64",
+      "source_location": "L67",
       "id": "docs_latest_changes_user_app",
       "community": 367,
       "norm_label": "user app"
@@ -2248,7 +2248,7 @@
       "label": "Source Commits",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L75",
+      "source_location": "L78",
       "id": "docs_latest_changes_source_commits",
       "community": 367,
       "norm_label": "source commits"
@@ -2257,7 +2257,7 @@
       "label": "Related Documentation",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L83",
+      "source_location": "L86",
       "id": "docs_latest_changes_related_documentation",
       "community": 367,
       "norm_label": "related documentation"
@@ -4068,7 +4068,7 @@
       "source_file": "payment and booking implementation.md",
       "source_location": "L1246",
       "id": "docs_payment_and_booking_implementation_webhook_configuration",
-      "community": 238,
+      "community": 15,
       "norm_label": "webhook configuration"
     },
     {
@@ -4077,7 +4077,7 @@
       "source_file": "payment and booking implementation.md",
       "source_location": "L1248",
       "id": "docs_payment_and_booking_implementation_razorpay_dashboard_setup",
-      "community": 238,
+      "community": 15,
       "norm_label": "razorpay dashboard setup"
     },
     {
@@ -4086,7 +4086,7 @@
       "source_file": "payment and booking implementation.md",
       "source_location": "L1258",
       "id": "docs_payment_and_booking_implementation_testing_webhooks_locally",
-      "community": 238,
+      "community": 15,
       "norm_label": "testing webhooks locally"
     },
     {
@@ -8548,7 +8548,7 @@
       "label": "`RegisterForm.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "authentication_frontend_registerform_jsx",
       "community": 73,
       "norm_label": "`registerform.jsx`"
@@ -8557,7 +8557,7 @@
       "label": "`ForgotPasswordForm.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "authentication_frontend_forgotpasswordform_jsx",
       "community": 73,
       "norm_label": "`forgotpasswordform.jsx`"
@@ -8566,7 +8566,7 @@
       "label": "`ResetPasswordForm.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L34",
+      "source_location": "L35",
       "id": "authentication_frontend_resetpasswordform_jsx",
       "community": 73,
       "norm_label": "`resetpasswordform.jsx`"
@@ -8575,7 +8575,7 @@
       "label": "`VerifyEmailForm.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L40",
+      "source_location": "L41",
       "id": "authentication_frontend_verifyemailform_jsx",
       "community": 73,
       "norm_label": "`verifyemailform.jsx`"
@@ -8584,7 +8584,7 @@
       "label": "`GitHubCallback.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L46",
+      "source_location": "L47",
       "id": "authentication_frontend_githubcallback_jsx",
       "community": 73,
       "norm_label": "`githubcallback.jsx`"
@@ -8593,7 +8593,7 @@
       "label": "Context",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L52",
+      "source_location": "L53",
       "id": "authentication_frontend_context",
       "community": 73,
       "norm_label": "context"
@@ -8602,7 +8602,7 @@
       "label": "`AuthContext.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L54",
+      "source_location": "L55",
       "id": "authentication_frontend_authcontext_jsx",
       "community": 73,
       "norm_label": "`authcontext.jsx`"
@@ -8611,7 +8611,7 @@
       "label": "Routes/Guards",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L63",
+      "source_location": "L64",
       "id": "authentication_frontend_routes_guards",
       "community": 73,
       "norm_label": "routes/guards"
@@ -8620,7 +8620,7 @@
       "label": "`ProtectedRoutes.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L65",
+      "source_location": "L66",
       "id": "authentication_frontend_protectedroutes_jsx",
       "community": 73,
       "norm_label": "`protectedroutes.jsx`"
@@ -8629,7 +8629,7 @@
       "label": "`AdminProtectedRoutes.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L70",
+      "source_location": "L71",
       "id": "authentication_frontend_adminprotectedroutes_jsx",
       "community": 73,
       "norm_label": "`adminprotectedroutes.jsx`"
@@ -8638,7 +8638,7 @@
       "label": "`HallGuard.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L76",
+      "source_location": "L77",
       "id": "authentication_frontend_hallguard_jsx",
       "community": 73,
       "norm_label": "`hallguard.jsx`"
@@ -8647,7 +8647,7 @@
       "label": "Services",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L81",
+      "source_location": "L82",
       "id": "authentication_frontend_services",
       "community": 73,
       "norm_label": "services"
@@ -8656,7 +8656,7 @@
       "label": "`api.js` (authAPI section)",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "id": "authentication_frontend_api_js_authapi_section",
       "community": 73,
       "norm_label": "`api.js` (authapi section)"
@@ -8665,7 +8665,7 @@
       "label": "User App (`cinema-hall-users`)",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L91",
+      "source_location": "L92",
       "id": "authentication_frontend_user_app_cinema_hall_users",
       "community": 73,
       "norm_label": "user app (`cinema-hall-users`)"
@@ -8674,7 +8674,7 @@
       "label": "Components",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L93",
+      "source_location": "L94",
       "id": "authentication_frontend_components",
       "community": 73,
       "norm_label": "components"
@@ -8683,7 +8683,7 @@
       "label": "`LoginModal.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L95",
+      "source_location": "L96",
       "id": "authentication_frontend_loginmodal_jsx",
       "community": 73,
       "norm_label": "`loginmodal.jsx`"
@@ -8692,8 +8692,8 @@
       "label": "Context",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L103",
-      "id": "authentication_frontend_context_103",
+      "source_location": "L104",
+      "id": "authentication_frontend_context_104",
       "community": 73,
       "norm_label": "context"
     },
@@ -8701,7 +8701,7 @@
       "label": "`CustomerAuthContext.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L105",
+      "source_location": "L106",
       "id": "authentication_frontend_customerauthcontext_jsx",
       "community": 73,
       "norm_label": "`customerauthcontext.jsx`"
@@ -8710,8 +8710,8 @@
       "label": "Services",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L114",
-      "id": "authentication_frontend_services_114",
+      "source_location": "L115",
+      "id": "authentication_frontend_services_115",
       "community": 73,
       "norm_label": "services"
     },
@@ -8719,7 +8719,7 @@
       "label": "`api.js` (customerAuthAPI section)",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L116",
+      "source_location": "L117",
       "id": "authentication_frontend_api_js_customerauthapi_section",
       "community": 73,
       "norm_label": "`api.js` (customerauthapi section)"
@@ -8728,8 +8728,8 @@
       "label": "Routes/Guards",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L121",
-      "id": "authentication_frontend_routes_guards_121",
+      "source_location": "L122",
+      "id": "authentication_frontend_routes_guards_122",
       "community": 73,
       "norm_label": "routes/guards"
     },
@@ -8737,8 +8737,8 @@
       "label": "`ProtectedRoutes.jsx`",
       "file_type": "document",
       "source_file": "modules/authentication/frontend.md",
-      "source_location": "L123",
-      "id": "authentication_frontend_protectedroutes_jsx_123",
+      "source_location": "L124",
+      "id": "authentication_frontend_protectedroutes_jsx_124",
       "community": 73,
       "norm_label": "`protectedroutes.jsx`"
     },
@@ -19381,6 +19381,78 @@
       "norm_label": "workflow 6: customer manages settings"
     },
     {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L508",
+      "community": 137,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_508"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L639",
+      "community": 126,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_639"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L853",
+      "community": 127,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_853"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L1081",
+      "community": 138,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_1081"
+    },
+    {
+      "label": "Context",
+      "file_type": "document",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L103",
+      "community": 73,
+      "norm_label": "context",
+      "id": "authentication_frontend_context_103"
+    },
+    {
+      "label": "Services",
+      "file_type": "document",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L114",
+      "community": 73,
+      "norm_label": "services",
+      "id": "authentication_frontend_services_114"
+    },
+    {
+      "label": "Routes/Guards",
+      "file_type": "document",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L121",
+      "community": 73,
+      "norm_label": "routes/guards",
+      "id": "authentication_frontend_routes_guards_121"
+    },
+    {
+      "label": "`ProtectedRoutes.jsx`",
+      "file_type": "document",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L123",
+      "community": 73,
+      "norm_label": "`protectedroutes.jsx`",
+      "id": "authentication_frontend_protectedroutes_jsx_123"
+    },
+    {
       "label": "AGENTS.md",
       "file_type": "document",
       "source_file": "AGENTS.md",
@@ -23996,6 +24068,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L510",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_2_ads_management_superadmin_only",
+      "target": "docs_admin_feature_overview_510"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/admin.md",
       "source_location": "L499",
       "weight": 1.0,
@@ -24102,6 +24184,16 @@
       "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
       "target": "docs_admin_feature_overview_639"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L641",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_2_movie_management",
+      "target": "docs_admin_feature_overview_641"
     },
     {
       "relation": "contains",
@@ -24262,6 +24354,16 @@
       "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
       "target": "docs_admin_feature_overview_853"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L855",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_2_screen_designer",
+      "target": "docs_admin_feature_overview_855"
     },
     {
       "relation": "contains",
@@ -24472,6 +24574,16 @@
       "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
       "target": "docs_admin_feature_overview_1081"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L1083",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_admin_3_shows_management",
+      "target": "docs_admin_feature_overview_1083"
     },
     {
       "relation": "contains",
@@ -25569,9 +25681,9 @@
       "source_file": "Design system.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "design_system_md",
-      "target": "docs_design_system_cinemax_design_system",
-      "confidence_score": 1.0
+      "target": "docs_design_system_cinemax_design_system"
     },
     {
       "relation": "contains",
@@ -25899,9 +26011,9 @@
       "source_file": "documentation-progress.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "documentation_progress_md",
-      "target": "docs_documentation_progress_cinema_hall_documentation_progress",
-      "confidence_score": 1.0
+      "target": "docs_documentation_progress_cinema_hall_documentation_progress"
     },
     {
       "relation": "contains",
@@ -26109,9 +26221,9 @@
       "source_file": "latest-changes.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "latest_changes_md",
-      "target": "docs_latest_changes_latest_changes",
-      "confidence_score": 1.0
+      "target": "docs_latest_changes_latest_changes"
     },
     {
       "relation": "contains",
@@ -26189,9 +26301,9 @@
       "source_file": "mcp_implementation_plan.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "mcp_implementation_plan_md",
-      "target": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan",
-      "confidence_score": 1.0
+      "target": "docs_mcp_implementation_plan_cinemax_mcp_server_implementation_plan"
     },
     {
       "relation": "contains",
@@ -27199,9 +27311,9 @@
       "source_file": "mcp_server.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "mcp_server_md",
-      "target": "docs_mcp_server_cinemax_mcp_server",
-      "confidence_score": 1.0
+      "target": "docs_mcp_server_cinemax_mcp_server"
     },
     {
       "relation": "contains",
@@ -28819,9 +28931,9 @@
       "source_file": "registration-and-onboarding-flow.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "registration_and_onboarding_flow_md",
-      "target": "docs_registration_and_onboarding_flow_registration_onboarding_tenancy_complete_flow",
-      "confidence_score": 1.0
+      "target": "docs_registration_and_onboarding_flow_registration_onboarding_tenancy_complete_flow"
     },
     {
       "relation": "contains",
@@ -29069,9 +29181,9 @@
       "source_file": "settings-module-architecture.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "settings_module_architecture_md",
-      "target": "docs_settings_module_architecture_settings_module_architecture_cinema_management_platform",
-      "confidence_score": 1.0
+      "target": "docs_settings_module_architecture_settings_module_architecture_cinema_management_platform"
     },
     {
       "relation": "contains",
@@ -30099,9 +30211,9 @@
       "source_file": "teams_implementation.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "teams_implementation_md",
-      "target": "docs_teams_implementation_phase_2_team_management_rbac_implementation_plan",
-      "confidence_score": 1.0
+      "target": "docs_teams_implementation_phase_2_team_management_rbac_implementation_plan"
     },
     {
       "relation": "contains",
@@ -30479,9 +30591,9 @@
       "source_file": "tenant-integrity-and-auth-wiring.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "tenant_integrity_and_auth_wiring_md",
-      "target": "docs_tenant_integrity_and_auth_wiring_tenant_integrity_auth_org_wiring",
-      "confidence_score": 1.0
+      "target": "docs_tenant_integrity_and_auth_wiring_tenant_integrity_auth_org_wiring"
     },
     {
       "relation": "contains",
@@ -31599,9 +31711,9 @@
       "source_file": "modules/ads-management/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_api_md",
-      "target": "ads_management_api_ads_management_api",
-      "confidence_score": 1.0
+      "target": "ads_management_api_ads_management_api"
     },
     {
       "relation": "contains",
@@ -31709,9 +31821,9 @@
       "source_file": "modules/ads-management/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_backend_md",
-      "target": "ads_management_backend_ads_management_backend",
-      "confidence_score": 1.0
+      "target": "ads_management_backend_ads_management_backend"
     },
     {
       "relation": "contains",
@@ -31769,9 +31881,9 @@
       "source_file": "modules/ads-management/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_components_md",
-      "target": "ads_management_components_ads_management_components",
-      "confidence_score": 1.0
+      "target": "ads_management_components_ads_management_components"
     },
     {
       "relation": "contains",
@@ -31849,9 +31961,9 @@
       "source_file": "modules/ads-management/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_database_md",
-      "target": "ads_management_database_ads_management_database",
-      "confidence_score": 1.0
+      "target": "ads_management_database_ads_management_database"
     },
     {
       "relation": "contains",
@@ -31959,9 +32071,9 @@
       "source_file": "modules/ads-management/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_file_reference_md",
-      "target": "ads_management_file_reference_ads_management_file_reference",
-      "confidence_score": 1.0
+      "target": "ads_management_file_reference_ads_management_file_reference"
     },
     {
       "relation": "contains",
@@ -32019,9 +32131,9 @@
       "source_file": "modules/ads-management/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_frontend_md",
-      "target": "ads_management_frontend_ads_management_frontend",
-      "confidence_score": 1.0
+      "target": "ads_management_frontend_ads_management_frontend"
     },
     {
       "relation": "contains",
@@ -32139,9 +32251,9 @@
       "source_file": "modules/ads-management/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_readme_md",
-      "target": "ads_management_readme_ads_management_module",
-      "confidence_score": 1.0
+      "target": "ads_management_readme_ads_management_module"
     },
     {
       "relation": "contains",
@@ -32219,9 +32331,9 @@
       "source_file": "modules/ads-management/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ads_management_workflows_md",
-      "target": "ads_management_workflows_ads_management_workflows",
-      "confidence_score": 1.0
+      "target": "ads_management_workflows_ads_management_workflows"
     },
     {
       "relation": "contains",
@@ -32269,9 +32381,9 @@
       "source_file": "modules/authentication/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_api_md",
-      "target": "authentication_api_authentication_api",
-      "confidence_score": 1.0
+      "target": "authentication_api_authentication_api"
     },
     {
       "relation": "contains",
@@ -32689,9 +32801,9 @@
       "source_file": "modules/authentication/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_backend_md",
-      "target": "authentication_backend_authentication_backend",
-      "confidence_score": 1.0
+      "target": "authentication_backend_authentication_backend"
     },
     {
       "relation": "contains",
@@ -32919,9 +33031,9 @@
       "source_file": "modules/authentication/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_components_md",
-      "target": "authentication_components_authentication_components",
-      "confidence_score": 1.0
+      "target": "authentication_components_authentication_components"
     },
     {
       "relation": "contains",
@@ -32989,9 +33101,9 @@
       "source_file": "modules/authentication/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_database_md",
-      "target": "authentication_database_authentication_database",
-      "confidence_score": 1.0
+      "target": "authentication_database_authentication_database"
     },
     {
       "relation": "contains",
@@ -33129,9 +33241,9 @@
       "source_file": "modules/authentication/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_file_reference_md",
-      "target": "authentication_file_reference_authentication_file_reference",
-      "confidence_score": 1.0
+      "target": "authentication_file_reference_authentication_file_reference"
     },
     {
       "relation": "contains",
@@ -33179,9 +33291,9 @@
       "source_file": "modules/authentication/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_frontend_md",
-      "target": "authentication_frontend_authentication_frontend",
-      "confidence_score": 1.0
+      "target": "authentication_frontend_authentication_frontend"
     },
     {
       "relation": "contains",
@@ -33396,12 +33508,32 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L104",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "authentication_frontend_user_app_cinema_hall_users",
+      "target": "authentication_frontend_context_104"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/authentication/frontend.md",
       "source_location": "L121",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "authentication_frontend_user_app_cinema_hall_users",
       "target": "authentication_frontend_routes_guards_121"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "authentication_frontend_user_app_cinema_hall_users",
+      "target": "authentication_frontend_routes_guards_122"
     },
     {
       "relation": "contains",
@@ -33416,12 +33548,32 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L115",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "authentication_frontend_user_app_cinema_hall_users",
+      "target": "authentication_frontend_services_115"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/authentication/frontend.md",
       "source_location": "L95",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "authentication_frontend_components",
       "target": "authentication_frontend_loginmodal_jsx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L106",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "authentication_frontend_context_104",
+      "target": "authentication_frontend_customerauthcontext_jsx"
     },
     {
       "relation": "contains",
@@ -33436,6 +33588,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L117",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "authentication_frontend_services_115",
+      "target": "authentication_frontend_api_js_customerauthapi_section"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/authentication/frontend.md",
       "source_location": "L116",
       "weight": 1.0,
@@ -33446,12 +33608,12 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "docs/modules/authentication/frontend.md",
-      "source_location": "L123",
+      "source_file": "modules/authentication/frontend.md",
+      "source_location": "L124",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "authentication_frontend_routes_guards_121",
-      "target": "authentication_frontend_protectedroutes_jsx_123"
+      "source": "authentication_frontend_routes_guards_122",
+      "target": "authentication_frontend_protectedroutes_jsx_124"
     },
     {
       "relation": "contains",
@@ -33459,9 +33621,9 @@
       "source_file": "modules/authentication/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_readme_md",
-      "target": "authentication_readme_authentication_module",
-      "confidence_score": 1.0
+      "target": "authentication_readme_authentication_module"
     },
     {
       "relation": "contains",
@@ -33549,9 +33711,9 @@
       "source_file": "modules/authentication/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_authentication_workflows_md",
-      "target": "authentication_workflows_authentication_workflows",
-      "confidence_score": 1.0
+      "target": "authentication_workflows_authentication_workflows"
     },
     {
       "relation": "contains",
@@ -33629,9 +33791,9 @@
       "source_file": "modules/booking-payment/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_api_md",
-      "target": "booking_payment_api_api_reference",
-      "confidence_score": 1.0
+      "target": "booking_payment_api_api_reference"
     },
     {
       "relation": "contains",
@@ -33829,9 +33991,9 @@
       "source_file": "modules/booking-payment/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_backend_md",
-      "target": "booking_payment_backend_backend",
-      "confidence_score": 1.0
+      "target": "booking_payment_backend_backend"
     },
     {
       "relation": "contains",
@@ -34099,9 +34261,9 @@
       "source_file": "modules/booking-payment/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_components_md",
-      "target": "booking_payment_components_components",
-      "confidence_score": 1.0
+      "target": "booking_payment_components_components"
     },
     {
       "relation": "contains",
@@ -34299,9 +34461,9 @@
       "source_file": "modules/booking-payment/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_database_md",
-      "target": "booking_payment_database_database_schema",
-      "confidence_score": 1.0
+      "target": "booking_payment_database_database_schema"
     },
     {
       "relation": "contains",
@@ -34399,9 +34561,9 @@
       "source_file": "modules/booking-payment/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_file_reference_md",
-      "target": "booking_payment_file_reference_file_reference",
-      "confidence_score": 1.0
+      "target": "booking_payment_file_reference_file_reference"
     },
     {
       "relation": "contains",
@@ -34489,9 +34651,9 @@
       "source_file": "modules/booking-payment/frontend.md",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_frontend_md",
-      "target": "booking_payment_frontend_frontend_admin_app",
-      "confidence_score": 1.0
+      "target": "booking_payment_frontend_frontend_admin_app"
     },
     {
       "relation": "contains",
@@ -34499,9 +34661,9 @@
       "source_file": "modules/booking-payment/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_frontend_md",
-      "target": "booking_payment_frontend_frontend_user_app",
-      "confidence_score": 1.0
+      "target": "booking_payment_frontend_frontend_user_app"
     },
     {
       "relation": "contains",
@@ -34769,9 +34931,9 @@
       "source_file": "modules/booking-payment/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_readme_md",
-      "target": "booking_payment_readme_booking_management_payment_refunds_module",
-      "confidence_score": 1.0
+      "target": "booking_payment_readme_booking_management_payment_refunds_module"
     },
     {
       "relation": "contains",
@@ -34839,9 +35001,9 @@
       "source_file": "modules/booking-payment/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_booking_payment_workflows_md",
-      "target": "booking_payment_workflows_workflows",
-      "confidence_score": 1.0
+      "target": "booking_payment_workflows_workflows"
     },
     {
       "relation": "contains",
@@ -34939,9 +35101,9 @@
       "source_file": "modules/dashboard-analytics/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_api_md",
-      "target": "dashboard_analytics_api_api_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_api_api_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35029,9 +35191,9 @@
       "source_file": "modules/dashboard-analytics/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_backend_md",
-      "target": "dashboard_analytics_backend_backend_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_backend_backend_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35189,9 +35351,9 @@
       "source_file": "modules/dashboard-analytics/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_components_md",
-      "target": "dashboard_analytics_components_components_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_components_components_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35299,9 +35461,9 @@
       "source_file": "modules/dashboard-analytics/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_database_md",
-      "target": "dashboard_analytics_database_database_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_database_database_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35419,9 +35581,9 @@
       "source_file": "modules/dashboard-analytics/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_file_reference_md",
-      "target": "dashboard_analytics_file_reference_file_reference_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_file_reference_file_reference_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35519,9 +35681,9 @@
       "source_file": "modules/dashboard-analytics/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_frontend_md",
-      "target": "dashboard_analytics_frontend_frontend_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_frontend_frontend_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35609,9 +35771,9 @@
       "source_file": "modules/dashboard-analytics/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_readme_md",
-      "target": "dashboard_analytics_readme_dashboard_analytics_module",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_readme_dashboard_analytics_module"
     },
     {
       "relation": "contains",
@@ -35669,9 +35831,9 @@
       "source_file": "modules/dashboard-analytics/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_dashboard_analytics_workflows_md",
-      "target": "dashboard_analytics_workflows_workflows_dashboard_analytics",
-      "confidence_score": 1.0
+      "target": "dashboard_analytics_workflows_workflows_dashboard_analytics"
     },
     {
       "relation": "contains",
@@ -35769,9 +35931,9 @@
       "source_file": "modules/hall-management/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_api_md",
-      "target": "hall_management_api_hall_management_api",
-      "confidence_score": 1.0
+      "target": "hall_management_api_hall_management_api"
     },
     {
       "relation": "contains",
@@ -35839,9 +36001,9 @@
       "source_file": "modules/hall-management/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_backend_md",
-      "target": "hall_management_backend_hall_management_backend",
-      "confidence_score": 1.0
+      "target": "hall_management_backend_hall_management_backend"
     },
     {
       "relation": "contains",
@@ -35909,9 +36071,9 @@
       "source_file": "modules/hall-management/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_components_md",
-      "target": "hall_management_components_hall_management_components",
-      "confidence_score": 1.0
+      "target": "hall_management_components_hall_management_components"
     },
     {
       "relation": "contains",
@@ -35949,9 +36111,9 @@
       "source_file": "modules/hall-management/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_database_md",
-      "target": "hall_management_database_hall_management_database",
-      "confidence_score": 1.0
+      "target": "hall_management_database_hall_management_database"
     },
     {
       "relation": "contains",
@@ -36049,9 +36211,9 @@
       "source_file": "modules/hall-management/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_file_reference_md",
-      "target": "hall_management_file_reference_hall_management_file_reference",
-      "confidence_score": 1.0
+      "target": "hall_management_file_reference_hall_management_file_reference"
     },
     {
       "relation": "contains",
@@ -36099,9 +36261,9 @@
       "source_file": "modules/hall-management/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_frontend_md",
-      "target": "hall_management_frontend_hall_management_frontend",
-      "confidence_score": 1.0
+      "target": "hall_management_frontend_hall_management_frontend"
     },
     {
       "relation": "contains",
@@ -36219,9 +36381,9 @@
       "source_file": "modules/hall-management/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_readme_md",
-      "target": "hall_management_readme_hall_management_module",
-      "confidence_score": 1.0
+      "target": "hall_management_readme_hall_management_module"
     },
     {
       "relation": "contains",
@@ -36299,9 +36461,9 @@
       "source_file": "modules/hall-management/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_hall_management_workflows_md",
-      "target": "hall_management_workflows_hall_management_workflows",
-      "confidence_score": 1.0
+      "target": "hall_management_workflows_hall_management_workflows"
     },
     {
       "relation": "contains",
@@ -36369,9 +36531,9 @@
       "source_file": "modules/movie-management/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_api_md",
-      "target": "movie_management_api_movie_management_api",
-      "confidence_score": 1.0
+      "target": "movie_management_api_movie_management_api"
     },
     {
       "relation": "contains",
@@ -36669,9 +36831,9 @@
       "source_file": "modules/movie-management/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_backend_md",
-      "target": "movie_management_backend_movie_management_backend",
-      "confidence_score": 1.0
+      "target": "movie_management_backend_movie_management_backend"
     },
     {
       "relation": "contains",
@@ -36769,9 +36931,9 @@
       "source_file": "modules/movie-management/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_components_md",
-      "target": "movie_management_components_movie_management_components",
-      "confidence_score": 1.0
+      "target": "movie_management_components_movie_management_components"
     },
     {
       "relation": "contains",
@@ -36809,9 +36971,9 @@
       "source_file": "modules/movie-management/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_database_md",
-      "target": "movie_management_database_movie_management_database",
-      "confidence_score": 1.0
+      "target": "movie_management_database_movie_management_database"
     },
     {
       "relation": "contains",
@@ -36889,9 +37051,9 @@
       "source_file": "modules/movie-management/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_file_reference_md",
-      "target": "movie_management_file_reference_movie_management_file_reference",
-      "confidence_score": 1.0
+      "target": "movie_management_file_reference_movie_management_file_reference"
     },
     {
       "relation": "contains",
@@ -36939,9 +37101,9 @@
       "source_file": "modules/movie-management/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_frontend_md",
-      "target": "movie_management_frontend_movie_management_frontend",
-      "confidence_score": 1.0
+      "target": "movie_management_frontend_movie_management_frontend"
     },
     {
       "relation": "contains",
@@ -37199,9 +37361,9 @@
       "source_file": "modules/movie-management/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_readme_md",
-      "target": "movie_management_readme_movie_management_module",
-      "confidence_score": 1.0
+      "target": "movie_management_readme_movie_management_module"
     },
     {
       "relation": "contains",
@@ -37279,9 +37441,9 @@
       "source_file": "modules/movie-management/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_movie_management_workflows_md",
-      "target": "movie_management_workflows_movie_management_workflows",
-      "confidence_score": 1.0
+      "target": "movie_management_workflows_movie_management_workflows"
     },
     {
       "relation": "contains",
@@ -37329,9 +37491,9 @@
       "source_file": "modules/notifications-otp/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_api_md",
-      "target": "notifications_otp_api_notifications_otp_api",
-      "confidence_score": 1.0
+      "target": "notifications_otp_api_notifications_otp_api"
     },
     {
       "relation": "contains",
@@ -37379,9 +37541,9 @@
       "source_file": "modules/notifications-otp/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_backend_md",
-      "target": "notifications_otp_backend_notifications_otp_backend",
-      "confidence_score": 1.0
+      "target": "notifications_otp_backend_notifications_otp_backend"
     },
     {
       "relation": "contains",
@@ -37539,9 +37701,9 @@
       "source_file": "modules/notifications-otp/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_components_md",
-      "target": "notifications_otp_components_notifications_otp_components",
-      "confidence_score": 1.0
+      "target": "notifications_otp_components_notifications_otp_components"
     },
     {
       "relation": "contains",
@@ -37619,9 +37781,9 @@
       "source_file": "modules/notifications-otp/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_database_md",
-      "target": "notifications_otp_database_notifications_otp_database",
-      "confidence_score": 1.0
+      "target": "notifications_otp_database_notifications_otp_database"
     },
     {
       "relation": "contains",
@@ -37769,9 +37931,9 @@
       "source_file": "modules/notifications-otp/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_file_reference_md",
-      "target": "notifications_otp_file_reference_notifications_otp_file_reference",
-      "confidence_score": 1.0
+      "target": "notifications_otp_file_reference_notifications_otp_file_reference"
     },
     {
       "relation": "contains",
@@ -37869,9 +38031,9 @@
       "source_file": "modules/notifications-otp/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_frontend_md",
-      "target": "notifications_otp_frontend_notifications_otp_frontend",
-      "confidence_score": 1.0
+      "target": "notifications_otp_frontend_notifications_otp_frontend"
     },
     {
       "relation": "contains",
@@ -37969,9 +38131,9 @@
       "source_file": "modules/notifications-otp/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_readme_md",
-      "target": "notifications_otp_readme_notifications_otp_module",
-      "confidence_score": 1.0
+      "target": "notifications_otp_readme_notifications_otp_module"
     },
     {
       "relation": "contains",
@@ -38049,9 +38211,9 @@
       "source_file": "modules/notifications-otp/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_notifications_otp_workflows_md",
-      "target": "notifications_otp_workflows_notifications_otp_workflows",
-      "confidence_score": 1.0
+      "target": "notifications_otp_workflows_notifications_otp_workflows"
     },
     {
       "relation": "contains",
@@ -38139,9 +38301,9 @@
       "source_file": "modules/offers-coupons/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_api_md",
-      "target": "offers_coupons_api_api_reference",
-      "confidence_score": 1.0
+      "target": "offers_coupons_api_api_reference"
     },
     {
       "relation": "contains",
@@ -38269,9 +38431,9 @@
       "source_file": "modules/offers-coupons/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_backend_md",
-      "target": "offers_coupons_backend_backend_offers_controller_js",
-      "confidence_score": 1.0
+      "target": "offers_coupons_backend_backend_offers_controller_js"
     },
     {
       "relation": "contains",
@@ -38409,9 +38571,9 @@
       "source_file": "modules/offers-coupons/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_components_md",
-      "target": "offers_coupons_components_components_ui",
-      "confidence_score": 1.0
+      "target": "offers_coupons_components_components_ui"
     },
     {
       "relation": "contains",
@@ -38489,9 +38651,9 @@
       "source_file": "modules/offers-coupons/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_database_md",
-      "target": "offers_coupons_database_database_schema",
-      "confidence_score": 1.0
+      "target": "offers_coupons_database_database_schema"
     },
     {
       "relation": "contains",
@@ -38549,9 +38711,9 @@
       "source_file": "modules/offers-coupons/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_file_reference_md",
-      "target": "offers_coupons_file_reference_file_reference",
-      "confidence_score": 1.0
+      "target": "offers_coupons_file_reference_file_reference"
     },
     {
       "relation": "contains",
@@ -38609,9 +38771,9 @@
       "source_file": "modules/offers-coupons/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_frontend_md",
-      "target": "offers_coupons_frontend_frontend",
-      "confidence_score": 1.0
+      "target": "offers_coupons_frontend_frontend"
     },
     {
       "relation": "contains",
@@ -38729,9 +38891,9 @@
       "source_file": "modules/offers-coupons/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_readme_md",
-      "target": "offers_coupons_readme_offers_coupons_module",
-      "confidence_score": 1.0
+      "target": "offers_coupons_readme_offers_coupons_module"
     },
     {
       "relation": "contains",
@@ -38779,9 +38941,9 @@
       "source_file": "modules/offers-coupons/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_offers_coupons_workflows_md",
-      "target": "offers_coupons_workflows_workflows",
-      "confidence_score": 1.0
+      "target": "offers_coupons_workflows_workflows"
     },
     {
       "relation": "contains",
@@ -38889,9 +39051,9 @@
       "source_file": "modules/reports-export/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_api_md",
-      "target": "reports_export_api_api_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_api_api_reports_export"
     },
     {
       "relation": "contains",
@@ -38989,9 +39151,9 @@
       "source_file": "modules/reports-export/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_backend_md",
-      "target": "reports_export_backend_backend_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_backend_backend_reports_export"
     },
     {
       "relation": "contains",
@@ -39089,9 +39251,9 @@
       "source_file": "modules/reports-export/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_components_md",
-      "target": "reports_export_components_components_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_components_components_reports_export"
     },
     {
       "relation": "contains",
@@ -39199,9 +39361,9 @@
       "source_file": "modules/reports-export/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_database_md",
-      "target": "reports_export_database_database_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_database_database_reports_export"
     },
     {
       "relation": "contains",
@@ -39279,9 +39441,9 @@
       "source_file": "modules/reports-export/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_file_reference_md",
-      "target": "reports_export_file_reference_file_reference_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_file_reference_file_reference_reports_export"
     },
     {
       "relation": "contains",
@@ -39379,9 +39541,9 @@
       "source_file": "modules/reports-export/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_frontend_md",
-      "target": "reports_export_frontend_frontend_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_frontend_frontend_reports_export"
     },
     {
       "relation": "contains",
@@ -39479,9 +39641,9 @@
       "source_file": "modules/reports-export/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_readme_md",
-      "target": "reports_export_readme_reports_export_module",
-      "confidence_score": 1.0
+      "target": "reports_export_readme_reports_export_module"
     },
     {
       "relation": "contains",
@@ -39539,9 +39701,9 @@
       "source_file": "modules/reports-export/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_reports_export_workflows_md",
-      "target": "reports_export_workflows_workflows_reports_export",
-      "confidence_score": 1.0
+      "target": "reports_export_workflows_workflows_reports_export"
     },
     {
       "relation": "contains",
@@ -39609,9 +39771,9 @@
       "source_file": "modules/roles-permissions-team/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_api_md",
-      "target": "roles_permissions_team_api_api_reference_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_api_api_reference_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -39829,9 +39991,9 @@
       "source_file": "modules/roles-permissions-team/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_backend_md",
-      "target": "roles_permissions_team_backend_backend_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_backend_backend_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -39969,9 +40131,9 @@
       "source_file": "modules/roles-permissions-team/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_components_md",
-      "target": "roles_permissions_team_components_components_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_components_components_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -40039,9 +40201,9 @@
       "source_file": "modules/roles-permissions-team/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_database_md",
-      "target": "roles_permissions_team_database_database_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_database_database_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -40159,9 +40321,9 @@
       "source_file": "modules/roles-permissions-team/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_file_reference_md",
-      "target": "roles_permissions_team_file_reference_file_reference_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_file_reference_file_reference_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -40219,9 +40381,9 @@
       "source_file": "modules/roles-permissions-team/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_frontend_md",
-      "target": "roles_permissions_team_frontend_frontend_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_frontend_frontend_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -40309,9 +40471,9 @@
       "source_file": "modules/roles-permissions-team/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_readme_md",
-      "target": "roles_permissions_team_readme_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_readme_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -40369,9 +40531,9 @@
       "source_file": "modules/roles-permissions-team/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_roles_permissions_team_workflows_md",
-      "target": "roles_permissions_team_workflows_workflows_roles_permissions_team_management",
-      "confidence_score": 1.0
+      "target": "roles_permissions_team_workflows_workflows_roles_permissions_team_management"
     },
     {
       "relation": "contains",
@@ -40489,9 +40651,9 @@
       "source_file": "modules/screen-management/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_api_md",
-      "target": "screen_management_api_api_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_api_api_screen_management"
     },
     {
       "relation": "contains",
@@ -40559,9 +40721,9 @@
       "source_file": "modules/screen-management/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_backend_md",
-      "target": "screen_management_backend_backend_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_backend_backend_screen_management"
     },
     {
       "relation": "contains",
@@ -40649,9 +40811,9 @@
       "source_file": "modules/screen-management/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_components_md",
-      "target": "screen_management_components_components_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_components_components_screen_management"
     },
     {
       "relation": "contains",
@@ -40719,9 +40881,9 @@
       "source_file": "modules/screen-management/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_database_md",
-      "target": "screen_management_database_database_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_database_database_screen_management"
     },
     {
       "relation": "contains",
@@ -40799,9 +40961,9 @@
       "source_file": "modules/screen-management/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_file_reference_md",
-      "target": "screen_management_file_reference_file_reference_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_file_reference_file_reference_screen_management"
     },
     {
       "relation": "contains",
@@ -40949,9 +41111,9 @@
       "source_file": "modules/screen-management/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_frontend_md",
-      "target": "screen_management_frontend_frontend_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_frontend_frontend_screen_management"
     },
     {
       "relation": "contains",
@@ -41019,9 +41181,9 @@
       "source_file": "modules/screen-management/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_readme_md",
-      "target": "screen_management_readme_screen_management_module",
-      "confidence_score": 1.0
+      "target": "screen_management_readme_screen_management_module"
     },
     {
       "relation": "contains",
@@ -41099,9 +41261,9 @@
       "source_file": "modules/screen-management/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_screen_management_workflows_md",
-      "target": "screen_management_workflows_workflows_screen_management",
-      "confidence_score": 1.0
+      "target": "screen_management_workflows_workflows_screen_management"
     },
     {
       "relation": "contains",
@@ -41179,9 +41341,9 @@
       "source_file": "modules/settings/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_api_md",
-      "target": "settings_api_api_settings_endpoints",
-      "confidence_score": 1.0
+      "target": "settings_api_api_settings_endpoints"
     },
     {
       "relation": "contains",
@@ -41339,9 +41501,9 @@
       "source_file": "modules/settings/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_backend_md",
-      "target": "settings_backend_backend_settings_module",
-      "confidence_score": 1.0
+      "target": "settings_backend_backend_settings_module"
     },
     {
       "relation": "contains",
@@ -41439,9 +41601,9 @@
       "source_file": "modules/settings/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_components_md",
-      "target": "settings_components_components_settings_module",
-      "confidence_score": 1.0
+      "target": "settings_components_components_settings_module"
     },
     {
       "relation": "contains",
@@ -41549,9 +41711,9 @@
       "source_file": "modules/settings/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_database_md",
-      "target": "settings_database_database_settings_tables",
-      "confidence_score": 1.0
+      "target": "settings_database_database_settings_tables"
     },
     {
       "relation": "contains",
@@ -41649,9 +41811,9 @@
       "source_file": "modules/settings/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_file_reference_md",
-      "target": "settings_file_reference_file_reference_settings_module",
-      "confidence_score": 1.0
+      "target": "settings_file_reference_file_reference_settings_module"
     },
     {
       "relation": "contains",
@@ -41769,9 +41931,9 @@
       "source_file": "modules/settings/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_frontend_md",
-      "target": "settings_frontend_frontend_settings_module",
-      "confidence_score": 1.0
+      "target": "settings_frontend_frontend_settings_module"
     },
     {
       "relation": "contains",
@@ -41889,9 +42051,9 @@
       "source_file": "modules/settings/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_readme_md",
-      "target": "settings_readme_settings_module",
-      "confidence_score": 1.0
+      "target": "settings_readme_settings_module"
     },
     {
       "relation": "contains",
@@ -41949,9 +42111,9 @@
       "source_file": "modules/settings/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_settings_workflows_md",
-      "target": "settings_workflows_workflows_settings_module",
-      "confidence_score": 1.0
+      "target": "settings_workflows_workflows_settings_module"
     },
     {
       "relation": "contains",
@@ -42069,9 +42231,9 @@
       "source_file": "modules/show-management/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_api_md",
-      "target": "show_management_api_api_show_management",
-      "confidence_score": 1.0
+      "target": "show_management_api_api_show_management"
     },
     {
       "relation": "contains",
@@ -42259,9 +42421,9 @@
       "source_file": "modules/show-management/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_backend_md",
-      "target": "show_management_backend_backend_show_management",
-      "confidence_score": 1.0
+      "target": "show_management_backend_backend_show_management"
     },
     {
       "relation": "contains",
@@ -42479,9 +42641,9 @@
       "source_file": "modules/show-management/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_components_md",
-      "target": "show_management_components_components_show_management",
-      "confidence_score": 1.0
+      "target": "show_management_components_components_show_management"
     },
     {
       "relation": "contains",
@@ -42569,9 +42731,9 @@
       "source_file": "modules/show-management/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_database_md",
-      "target": "show_management_database_database_show_management",
-      "confidence_score": 1.0
+      "target": "show_management_database_database_show_management"
     },
     {
       "relation": "contains",
@@ -42639,9 +42801,9 @@
       "source_file": "modules/show-management/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_file_reference_md",
-      "target": "show_management_file_reference_file_reference_show_management",
-      "confidence_score": 1.0
+      "target": "show_management_file_reference_file_reference_show_management"
     },
     {
       "relation": "contains",
@@ -42729,9 +42891,9 @@
       "source_file": "modules/show-management/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_frontend_md",
-      "target": "show_management_frontend_frontend_show_management_admin",
-      "confidence_score": 1.0
+      "target": "show_management_frontend_frontend_show_management_admin"
     },
     {
       "relation": "contains",
@@ -42829,9 +42991,9 @@
       "source_file": "modules/show-management/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_readme_md",
-      "target": "show_management_readme_show_management_module",
-      "confidence_score": 1.0
+      "target": "show_management_readme_show_management_module"
     },
     {
       "relation": "contains",
@@ -42889,9 +43051,9 @@
       "source_file": "modules/show-management/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_show_management_workflows_md",
-      "target": "show_management_workflows_workflows_show_management",
-      "confidence_score": 1.0
+      "target": "show_management_workflows_workflows_show_management"
     },
     {
       "relation": "contains",
@@ -42989,9 +43151,9 @@
       "source_file": "modules/ticket-verification/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_api_md",
-      "target": "ticket_verification_api_api_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_api_api_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43089,9 +43251,9 @@
       "source_file": "modules/ticket-verification/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_backend_md",
-      "target": "ticket_verification_backend_backend_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_backend_backend_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43169,9 +43331,9 @@
       "source_file": "modules/ticket-verification/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_components_md",
-      "target": "ticket_verification_components_components_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_components_components_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43229,9 +43391,9 @@
       "source_file": "modules/ticket-verification/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_database_md",
-      "target": "ticket_verification_database_database_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_database_database_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43319,9 +43481,9 @@
       "source_file": "modules/ticket-verification/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_file_reference_md",
-      "target": "ticket_verification_file_reference_file_reference_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_file_reference_file_reference_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43389,9 +43551,9 @@
       "source_file": "modules/ticket-verification/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_frontend_md",
-      "target": "ticket_verification_frontend_frontend_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_frontend_frontend_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43469,9 +43631,9 @@
       "source_file": "modules/ticket-verification/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_readme_md",
-      "target": "ticket_verification_readme_ticket_verification_module",
-      "confidence_score": 1.0
+      "target": "ticket_verification_readme_ticket_verification_module"
     },
     {
       "relation": "contains",
@@ -43529,9 +43691,9 @@
       "source_file": "modules/ticket-verification/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_ticket_verification_workflows_md",
-      "target": "ticket_verification_workflows_workflows_ticket_verification",
-      "confidence_score": 1.0
+      "target": "ticket_verification_workflows_workflows_ticket_verification"
     },
     {
       "relation": "contains",
@@ -43579,9 +43741,9 @@
       "source_file": "modules/user-app-experience/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_api_md",
-      "target": "user_app_experience_api_api_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_api_api_user_app_experience"
     },
     {
       "relation": "contains",
@@ -43839,9 +44001,9 @@
       "source_file": "modules/user-app-experience/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_backend_md",
-      "target": "user_app_experience_backend_backend_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_backend_backend_user_app_experience"
     },
     {
       "relation": "contains",
@@ -43919,9 +44081,9 @@
       "source_file": "modules/user-app-experience/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_components_md",
-      "target": "user_app_experience_components_components_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_components_components_user_app_experience"
     },
     {
       "relation": "contains",
@@ -44239,9 +44401,9 @@
       "source_file": "modules/user-app-experience/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_database_md",
-      "target": "user_app_experience_database_database_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_database_database_user_app_experience"
     },
     {
       "relation": "contains",
@@ -44339,9 +44501,9 @@
       "source_file": "modules/user-app-experience/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_file_reference_md",
-      "target": "user_app_experience_file_reference_file_reference_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_file_reference_file_reference_user_app_experience"
     },
     {
       "relation": "contains",
@@ -44469,9 +44631,9 @@
       "source_file": "modules/user-app-experience/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_frontend_md",
-      "target": "user_app_experience_frontend_frontend_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_frontend_frontend_user_app_experience"
     },
     {
       "relation": "contains",
@@ -44559,9 +44721,9 @@
       "source_file": "modules/user-app-experience/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_readme_md",
-      "target": "user_app_experience_readme_user_app_experience_module",
-      "confidence_score": 1.0
+      "target": "user_app_experience_readme_user_app_experience_module"
     },
     {
       "relation": "contains",
@@ -44639,9 +44801,9 @@
       "source_file": "modules/user-app-experience/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_app_experience_workflows_md",
-      "target": "user_app_experience_workflows_workflows_user_app_experience",
-      "confidence_score": 1.0
+      "target": "user_app_experience_workflows_workflows_user_app_experience"
     },
     {
       "relation": "contains",
@@ -44729,9 +44891,9 @@
       "source_file": "modules/user-management-customers/api.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_api_md",
-      "target": "user_management_customers_api_api_reference_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_api_api_reference_user_management_customers"
     },
     {
       "relation": "contains",
@@ -44829,9 +44991,9 @@
       "source_file": "modules/user-management-customers/backend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_backend_md",
-      "target": "user_management_customers_backend_backend_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_backend_backend_user_management_customers"
     },
     {
       "relation": "contains",
@@ -44889,9 +45051,9 @@
       "source_file": "modules/user-management-customers/components.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_components_md",
-      "target": "user_management_customers_components_components_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_components_components_user_management_customers"
     },
     {
       "relation": "contains",
@@ -44979,9 +45141,9 @@
       "source_file": "modules/user-management-customers/database.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_database_md",
-      "target": "user_management_customers_database_database_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_database_database_user_management_customers"
     },
     {
       "relation": "contains",
@@ -45069,9 +45231,9 @@
       "source_file": "modules/user-management-customers/file-reference.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_file_reference_md",
-      "target": "user_management_customers_file_reference_file_reference_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_file_reference_file_reference_user_management_customers"
     },
     {
       "relation": "contains",
@@ -45149,9 +45311,9 @@
       "source_file": "modules/user-management-customers/frontend.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_frontend_md",
-      "target": "user_management_customers_frontend_frontend_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_frontend_frontend_user_management_customers"
     },
     {
       "relation": "contains",
@@ -45249,9 +45411,9 @@
       "source_file": "modules/user-management-customers/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_readme_md",
-      "target": "user_management_customers_readme_user_management_customers_module",
-      "confidence_score": 1.0
+      "target": "user_management_customers_readme_user_management_customers_module"
     },
     {
       "relation": "contains",
@@ -45319,9 +45481,9 @@
       "source_file": "modules/user-management-customers/workflows.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "modules_user_management_customers_workflows_md",
-      "target": "user_management_customers_workflows_workflows_user_management_customers",
-      "confidence_score": 1.0
+      "target": "user_management_customers_workflows_workflows_user_management_customers"
     },
     {
       "relation": "contains",
@@ -45392,6 +45554,16 @@
       "confidence_score": 1.0,
       "source": "user_management_customers_workflows_workflows_user_management_customers",
       "target": "user_management_customers_workflows_workflow_6_customer_manages_settings"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/modules/authentication/frontend.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "authentication_frontend_routes_guards_121",
+      "target": "authentication_frontend_protectedroutes_jsx_123"
     },
     {
       "relation": "contains",
@@ -47475,5 +47647,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "21b63d503c2cf6cf10057c7f371d9beb2be90ee4"
+  "built_at_commit": "d51c9469f7e2c08163107008f037cc958d4436e4"
 }

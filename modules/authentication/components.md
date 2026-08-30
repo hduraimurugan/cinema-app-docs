@@ -28,7 +28,7 @@ App
 | Component | File | Props | State | Parent | Children |
 |-----------|------|-------|-------|--------|----------|
 | `AuthPage` | `pages/Auth/AuthPage.jsx` | `view` | prevView, direction | Routes | LeftPanel, AnimatePresence → forms |
-| `LoginForm` | `pages/Auth/LoginForm.jsx` | none | email, password, loading, error, oauthLoading | AuthPage | shadcn form components |
+| `LoginForm` | `pages/Auth/LoginForm.jsx` | none | email, password, showPassword, loading, error, oauthLoading | AuthPage | shadcn form components |
 | `RegisterForm` | `pages/Auth/RegisterForm.jsx` | none | name, email, phone, password, confirmPassword | AuthPage | shadcn form components |
 | `ForgotPasswordForm` | `pages/Auth/ForgotPasswordForm.jsx` | none | email, submitted | AuthPage | shadcn form components |
 | `ResetPasswordForm` | `pages/Auth/ResetPasswordForm.jsx` | none | token, password, confirm | AuthPage | shadcn form components |

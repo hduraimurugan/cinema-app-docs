@@ -247,6 +247,8 @@ Rather than full route re-renders causing layout flickering and empty state jump
 #### 1. LoginForm (`LoginForm.jsx`)
 Collects Admin credentials, handles login requests, and reads authentication response payloads. Handles account lock banners and directs unverified registration emails to verification page triggers.
 
+**Password visibility toggle** (`3e043c5d`): the password input (`type={showPassword ? "text" : "password"}`) has a trailing eye button (`Eye`/`EyeOff`, `absolute right-3`, `tabIndex={-1}`, `pr-11` padding) that flips `showPassword` — `EyeOff` shown while visible, `Eye` when masked.
+
 **OAuth Buttons:** (Aligned side-by-side in a single row)
 - **"Google"** — Uses `@react-oauth/google` `useGoogleLogin` hook (implicit flow). On success, sends access token to backend via `AuthContext.googleLogin()`.
 - **"GitHub"** — Redirects browser to `https://github.com/login/oauth/authorize` with `VITE_GITHUB_CLIENT_ID` and redirect URI `/auth/github/callback`. After authorization, GitHub redirects back with a `code` parameter.
@@ -1876,7 +1878,7 @@ try {
 - Active state: `bg-primary/10 rounded-lg` pill + `font-semibold` label + small dot indicator; no `border-r-2` accent
 - Collapsed mode (`collapsed` prop): icon-only (`w-16`); all nav items and logout button are wrapped in `<Tooltip side="right">` via `TooltipProvider` so titles appear on hover — no text overflow
 - Expanded mode width: `w-64` (256 px) set in `CinemaLayout.jsx`
-- Footer: `<Separator />` + user avatar card (`bg-muted/40 rounded-lg px-3 py-2.5`) with name, role, and ghost logout button; collapsed footer shows icon-only logout with tooltip
+- Footer: `<Separator />` + user avatar card (`bg-muted/30 rounded-lg ring-1 ring-border/40 px-2.5 py-2`) with name, role badge, and ghost logout button; the role comes from `getDisplayRole(user)` (`6e6c3aff` in `src/utils/utils.js` — a platform `superAdmin` always reads as "Super Admin" regardless of the team `roleKey` seeded on a membership row, everyone else shows `roleKey || role`), badge class from `getRoleBadgeClass(displayRole)` (`85ad55c0` — `bg-primary/10 text-primary` for `owner`/`superAdmin` else `bg-amber-500/10 text-amber-500`), label `formatRole(displayRole) || "Administrator"`; collapsed footer shows icon-only logout with tooltip
 - Role filtering: items with `roles: ["superAdmin"]` are hidden when `user.role !== "superAdmin"`
 - Active route detection via `useLocation()` — `isActive` at `src/components/AppSidebar.jsx:40` (`cd66dd9`): `url === "/" ? location.pathname === "/" : location.pathname.startsWith(url)` so parent items stay active for nested routes (e.g. `/offers` remains active on `/offers/new` and `/offers/:id/edit`)
 
@@ -1916,6 +1918,7 @@ try {
 **CinemaLayout** (`src/components/CinemaLayout.jsx:1`, updated `8e4d69f`)
 
 - Sidebar + content area + responsive design + notification bell.
+- **User dropdown** (header avatar menu): shows avatar, name, email, and the role as a badge pill (`inline-flex w-fit items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium`) with `formatRole(getDisplayRole(user))` + `getRoleBadgeClass(getDisplayRole(user))` (`85ad55c0`, `6e6c3aff` — same `getDisplayRole` resolution as the sidebar footer; was plain `text-xs text-primary` text on `formatRole(user?.role)`).
 - **Bell:** replaces `mockNotifications` with live `notificationAPI` (`services/api.js:1056` → `/api/notifications`). `NOTIFICATION_POLL_MS=25000` (`CinemaLayout.jsx:38`): `refreshNotifications` (`useCallback`) fetches `list(1,5)` + `getUnreadCount` in parallel on `user` mount and every 25s when `document.visibilityState==="visible"` (clears interval on unmount / `!user`). State `notifications` (up to 5) + `unreadCount`; dropdown `DropdownMenuTrigger` `Bell` shows `animate-pulse` + `animate-ping` badge only when `unreadCount>0` (`CinemaLayout.jsx:226`), label `"You have ${unreadCount} unread"` else `"You're all caught up"`, list `DropdownMenuItem` with `!read_at ? font-medium : text-muted-foreground`, `formatDistanceToNow(created_at, addSuffix:true)` (`date-fns`), optimistic `handleNotificationClick` (`setNotifications` `read_at=now`, `setUnreadCount-1`, `notificationAPI.markAsRead` fire-and-forget).
 
 **Notifications** (`src/pages/Notifications.jsx:1`, `8e4d69f` → `35908f4` for FCM)
