@@ -39,7 +39,7 @@ This page records the latest committed behavior across the three applications.
 
 ### Offer/Ad Announcements & Multi-channel Broadcasts (`99c1870` in `cinema-hall-api/controllers/{offers,ads,broadcast}.Controller.js` / `services/notification/{announce,broadcast}.js:1` / `mail/{emails,emailTemplate}.js` / `migrations/migration_notification_channels.sql:1` / `services/notification/{channels/email,defaultPreferences}.js`)
 
-- New `services/notification/announce.js`: `announceOffer`/`announceAd` bridge offers/ads into the broadcast pipeline — insert an `admin_broadcasts` row with `source: 'offer'|'ad'` + `origin_id` and run `runAnnouncement` (reuses `resolveAudience` + `sendBroadcastNow`/`scheduleBroadcastFor`); default copy via `defaultOfferCopy`/`defaultAdCopy` (discount/validity/min-amount, ad `click_url` → `ctaUrl` "View offer"). Announcement failures are swallowed so a dead FCM token/SMTP hiccup never fails offer/ad creation.
+- New `services/notification/announce.js`: `announceOffer`/`announceAd` bridge offers/ads into the broadcast pipeline — insert an `admin_broadcasts` row with `source: 'offer'|'ad'` + `origin_id` and run `runAnnouncement` (reuses `resolveAudience` + `sendBroadcastNow`/`scheduleBroadcastFor`); default copy via `defaultOfferCopy`/`defaultAdCopy` (discount/validity/min-amount, ad `click_url` → `ctaUrl` "View details" since `a839052`). Announcement failures are swallowed so a dead FCM token/SMTP hiccup never fails offer/ad creation.
 - New routes: `POST /api/offers/:id/announce` (`offers.update`, owner/superAdmin + hall-org guard, audit `offers.announce`) and `POST /api/ads/:id/announce` (`verifySuperAdmin`); `createOffer`/`createAd` accept `notify: {enabled, channels, title, body}` and respond with `announced: true/false`.
 - `admin_broadcasts` gains `channels TEXT[] DEFAULT '{push}'` (push/email subset — in-app always fires), `source` (`manual|offer|ad`), `origin_id` (deliberately not a FK), `cinema_hall_id`; audience CHECK widened to `hall_customers` (customers who booked at a hall — `resolveAudience` joins `bookings→shows→screens`).
 - `createBroadcast` accepts `cinemaHallId` + `channels` (default `['push']`); `listBroadcasts` gets `?source=manual|offer|ad|all` (default `manual`); new `GET /api/notifications/activity` — unified Auto-tab feed merging offer/ad announcement rows (`offer_announcement`/`ad_announcement`) with event notifications (`broadcast_id IS NULL`), filters `source`/`event`/`status`, paginated (50).
@@ -92,7 +92,7 @@ This page records the latest committed behavior across the three applications.
 | App | Latest commits |
 |---|---|
 | Admin | `2b54a38`, `fa801d3`, `2f9bbeb`, `ed9aa47`, `e2b1564`, `f7952e5`, `a79e555`, `cd66dd9`, `1e94937`, `fbad9d0`, `8e4d69f`, `35908f4`, `3965271`, `9368b5e`, `ebd0008`, `be224b5`, `14f8815`, `a63f978`, `24047bb`, `8f97915`, `a8796a4`, `6e6c3af`, `3e043c5`, `85ad55c`, `b014eb6`, `5e69dd9` |
-| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a`, `edec38f`, `7658007`, `e121b87`, `578985c`, `eb8920c`, `b434bee`, `622af22`, `c227618`, `af3a008`, `99c1870` |
+| API | `50b1feb`, `c35886c`, `99f165e`, `d802f3c`, `680c9c4`, `36a7e4e`, `6e0705a`, `edec38f`, `7658007`, `e121b87`, `578985c`, `eb8920c`, `b434bee`, `622af22`, `c227618`, `af3a008`, `99c1870`, `a839052` |
 | Users | `548e50f`, `74049d1`, `8cbaa06`, `2ab168b`, `160b0303` |
 
 ## Related Documentation
