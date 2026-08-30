@@ -53,7 +53,7 @@ A table with resources as rows and actions as columns, checkboxes at intersectio
 
 **Path:** `src/components/settings/AddMemberDialog.jsx`
 
-A dialog for adding an existing admin user to the organization.
+A right-side `Sheet` (shadcn, `w-full sm:max-w-lg p-0`) for creating a new organization member (account + password, role, hall access). Refactored from a `Dialog` in `b014eb6a`.
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
@@ -62,6 +62,12 @@ A dialog for adding an existing admin user to the organization.
 | `onAdded` | function | | Called with the new member object |
 | `roles` | array | `[]` | Available roles for role selection dropdown |
 
+**Behavior (`b014eb6a`):**
+- The form is a flex-column that fills the sheet height: `SheetHeader`, a scrollable body (`flex-1 px-4`), and a `SheetFooter` (top-bordered) with Cancel / Create Member.
+- Form fields reset in a `useEffect` keyed on `open` (previously only cleared after a successful submit).
+- Each input gets `name` + `autoComplete` attributes (`autoComplete="new-password"` on the password, `"off"` elsewhere), plus two hidden dummy `username`/`new-password` fields — absorbing Chrome's saved-login autofill so it can't hijack the form.
+- Hall Access rows render in a `max-h-64 overflow-y-auto` list with per-hall Full Access / Read Only scope select.
+
 ---
 
 ## MemberDetailDrawer
@@ -69,8 +75,9 @@ A dialog for adding an existing admin user to the organization.
 **Path:** `src/components/settings/MemberDetailDrawer.jsx`
 
 A slide-out `Sheet` (shadcn) showing one member's details, fetched by `memberId`
-on open — not a tabbed view, a single scrollable panel with four sections:
-Role, Status, Hall Access, and a Remove action.
+on open — not a tabbed view, a single scrollable panel organized into `Card`
+sections (refactored to cards in `b014eb6a`): Profile, Role & Status, Hall
+Access, and a Danger Zone.
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
@@ -80,13 +87,12 @@ Role, Status, Hall Access, and a Remove action.
 | `onSuccess` | function | | Called after any successful mutation, so the parent list can refetch |
 | `roles` | array | `[]` | Pre-fetched roles for the dropdown; fetched lazily if not provided |
 
-**Sections:**
-- **Header** — avatar, name, email, and an `Owner` badge (`bg-primary/10`) when `member.is_owner`
-- **Owner banner** — shown only for the owner, directly under the header: *"Owners are locked: role, status, hall access, and removal can't be changed here. Transfer ownership first."* Sits outside the section grid so it doesn't disturb the vertical rhythm shared with the non-owner layout.
-- **Role** — a `Select` calling `updateMember(memberId, { roleId })` on change
-- **Status** — Active/Suspended buttons calling `updateMember(memberId, { status })`
-- **Hall Access** — list of assigned halls with an inline "Add Hall" form; per-row remove (`X`) button
-- **Remove** — an `AlertDialog`-confirmed destructive button calling `removeMember(memberId)`
+**Sections (`b014eb6a` card layout):**
+- **Profile card** — avatar, name, and an `Owner` badge with a `Crown` icon when `member.is_owner`; email/phone rows (`Mail`/`Phone` icons); a 2-col Joined / Last login grid (`CalendarDays`/`Clock`, formatted by a local `formatDate` helper)
+- **Owner banner** — shown only for the owner, directly under the profile card: *"Owners are locked: role, status, hall access, and removal can't be changed here. Transfer ownership first."* (with a `Lock` icon)
+- **Role & Status card** — `ShieldCheck` header; a `Select` calling `updateMember(memberId, { roleId })` on change, and Active/Suspended buttons (`CircleDot`/`AlertTriangle`) calling `updateMember(memberId, { status })`
+- **Hall Access card** — `Building2` header; list of assigned halls (icon tile + name + scope badge) with an inline "Add Hall" form and per-row remove (`X`) button
+- **Danger Zone card** — destructive-styled `Card` (`border-destructive/30 bg-destructive/[0.03]`, `AlertTriangle` header) containing the `AlertDialog`-confirmed "Remove from Organization" button calling `removeMember(memberId)`
 
 **Owner lock (`member.is_owner === true`):** every control above becomes either
 `disabled` or is hidden outright — the Role select, both Status buttons, the
@@ -98,9 +104,9 @@ enforcement is the backend's `assertNotOrgOwner` guard (see
 somehow triggered directly.
 
 The whole content region (everything below the `SheetHeader`) is wrapped in a
-`px-4 pb-4` div — `SheetContent` itself ships with no padding, so this wrapper
-is what keeps the panel's body aligned with the header instead of running
-edge-to-edge.
+`px-4 pb-6 space-y-4` div — `SheetContent` itself ships with no padding, so this
+wrapper is what keeps the panel's body aligned with the header instead of
+running edge-to-edge, and spaces the `Card` sections.
 
 ---
 

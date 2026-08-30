@@ -1,16 +1,16 @@
 # Graph Report - docs  (2026-08-30)
 
 ## Corpus Check
-- 145 files · ~164,647 words
+- 145 files · ~164,929 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2570 nodes · 2447 edges · 235 communities (232 shown, 3 thin omitted)
+- 2570 nodes · 2447 edges · 236 communities (233 shown, 3 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d51c9469`
+- Built from commit: `d0e345ad`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -30,6 +30,7 @@
 - [[_COMMUNITY_Community 12|Community 12]]
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 24|Community 24]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 35|Community 35]]
@@ -262,7 +263,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (235 total, 3 thin omitted)
+## Communities (236 total, 3 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -323,6 +324,10 @@ Nodes (25): Adding New Tests, Cinema Hall API — Test Suite Guide, Cleanup Rule
 ### Community 15 - "Community 15"
 Cohesion: 0.67
 Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
+
+### Community 16 - "Community 16"
+Cohesion: 0.67
+Nodes (3): Custom Components, shadcn/ui Components Used, UI Components
 
 ### Community 24 - "Community 24"
 Cohesion: 0.05
@@ -501,8 +506,8 @@ Cohesion: 0.12
 Nodes (17): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+9 more)
 
 ### Community 139 - "Community 139"
-Cohesion: 0.14
-Nodes (13): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Custom Components, Environment Variables, Future Enhancements, Image Upload (+5 more)
+Cohesion: 0.18
+Nodes (10): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Environment Variables, Future Enhancements, Image Upload, Overview (+2 more)
 
 ### Community 140 - "Community 140"
 Cohesion: 0.22
@@ -1172,7 +1177,7 @@ Nodes (5): 7.1 Light / Dark Mode (exists), 7.2 Custom Branding (stored in `organ
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 408`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 88`, `Community 89`, `Community 158`?**
+- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 408`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 16`, `Community 88`, `Community 89`, `Community 158`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **Why does `User Application Documentation` connect `Community 142` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 89`?**
   _High betweenness centrality (0.004) - this node is a cross-community bridge._

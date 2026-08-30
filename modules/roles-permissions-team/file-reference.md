@@ -20,8 +20,8 @@
 | `src/components/settings/CreateRoleDialog.jsx` | ~120 | Dialog for creating/cloning roles |
 | `src/components/settings/PermissionMatrixTable.jsx` | ~330 | Page-oriented permission matrix (page rows × View/Create/Edit/Delete columns), driven by `config/pagePermissions.js` reconciled against `GET /api/roles/permissions` |
 | `src/config/pagePermissions.js` | ~110 | Single page→permission catalog shared by the sidebar, route guards, settings nav and the matrix |
-| `src/components/settings/AddMemberDialog.jsx` | ~100 | Dialog for adding existing users to org |
-| `src/components/settings/MemberDetailDrawer.jsx` | ~330 | Slide-out drawer with member details, role/status/hall management, and the owner-protection UI lock |
+| `src/components/settings/AddMemberDialog.jsx` | ~230 | Right-side `Sheet` for creating a new org member (name/email/password/phone, role, hall access) — autofill-immune inputs, reset on open |
+| `src/components/settings/MemberDetailDrawer.jsx` | ~420 | Slide-out drawer with card-based member details (Profile / Role & Status / Hall Access / Danger Zone) and the owner-protection UI lock |
 | `src/components/settings/TeamInviteDialog.jsx` | ~130 | Dialog for inviting new members by email |
 | `src/services/settings/teamService.js` | ~80 | API service functions for roles and team |
 | `src/context/PermissionContext.jsx` | ~60 | React context providing `can()` function globally |

@@ -945,7 +945,7 @@
       "source_file": "admin.md",
       "source_location": "L1853",
       "id": "docs_admin_ui_components",
-      "community": 139,
+      "community": 16,
       "norm_label": "ui components"
     },
     {
@@ -954,7 +954,7 @@
       "source_file": "admin.md",
       "source_location": "L1855",
       "id": "docs_admin_shadcn_ui_components_used",
-      "community": 139,
+      "community": 16,
       "norm_label": "shadcn/ui components used"
     },
     {
@@ -963,7 +963,7 @@
       "source_file": "admin.md",
       "source_location": "L1872",
       "id": "docs_admin_custom_components",
-      "community": 139,
+      "community": 16,
       "norm_label": "custom components"
     },
     {
@@ -2221,7 +2221,7 @@
       "label": "API",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L36",
+      "source_location": "L37",
       "id": "docs_latest_changes_api",
       "community": 367,
       "norm_label": "api"
@@ -2230,7 +2230,7 @@
       "label": "Organization Onboarding Hardening",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L38",
+      "source_location": "L39",
       "id": "docs_latest_changes_organization_onboarding_hardening",
       "community": 367,
       "norm_label": "organization onboarding hardening"
@@ -2239,7 +2239,7 @@
       "label": "User App",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L67",
+      "source_location": "L68",
       "id": "docs_latest_changes_user_app",
       "community": 367,
       "norm_label": "user app"
@@ -2248,7 +2248,7 @@
       "label": "Source Commits",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L78",
+      "source_location": "L79",
       "id": "docs_latest_changes_source_commits",
       "community": 367,
       "norm_label": "source commits"
@@ -2257,7 +2257,7 @@
       "label": "Related Documentation",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L86",
+      "source_location": "L87",
       "id": "docs_latest_changes_related_documentation",
       "community": 367,
       "norm_label": "related documentation"
@@ -14560,7 +14560,7 @@
       "label": "MemberDetailDrawer",
       "file_type": "document",
       "source_file": "modules/roles-permissions-team/components.md",
-      "source_location": "L67",
+      "source_location": "L73",
       "id": "roles_permissions_team_components_memberdetaildrawer",
       "community": 372,
       "norm_label": "memberdetaildrawer"
@@ -14569,7 +14569,7 @@
       "label": "TeamInviteDialog",
       "file_type": "document",
       "source_file": "modules/roles-permissions-team/components.md",
-      "source_location": "L107",
+      "source_location": "L113",
       "id": "roles_permissions_team_components_teaminvitedialog",
       "community": 372,
       "norm_label": "teaminvitedialog"
@@ -47647,5 +47647,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d51c9469f7e2c08163107008f037cc958d4436e4"
+  "built_at_commit": "d0e345ad96adf5790d83138a1bbb41452d89c31a"
 }
