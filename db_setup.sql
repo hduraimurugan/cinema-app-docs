@@ -1152,6 +1152,29 @@ ALTER TABLE notifications ADD COLUMN IF NOT EXISTS broadcast_id UUID REFERENCES 
 ALTER TABLE notification_dispatch_log ADD COLUMN IF NOT EXISTS broadcast_id UUID REFERENCES admin_broadcasts(id) ON DELETE SET NULL;
 CREATE INDEX IF NOT EXISTS idx_notifications_broadcast ON notifications(broadcast_id) WHERE broadcast_id IS NOT NULL;
 
+-- Broadcast channel selection (push/email; in-app is implicit) + a source
+-- discriminator so composer-created broadcasts (source='manual') can be told
+-- apart from ones an Offer/Ad announcement generated (source='offer'|'ad') —
+-- see migration_notification_channels.sql.
+ALTER TABLE admin_broadcasts ADD COLUMN IF NOT EXISTS channels TEXT[] NOT NULL DEFAULT '{push}';
+ALTER TABLE admin_broadcasts ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'manual';
+-- Deliberately not a FK: an announcement should outlive the offer/ad that
+-- spawned it, the same way notification_dispatch_log outlives a deleted broadcast.
+ALTER TABLE admin_broadcasts ADD COLUMN IF NOT EXISTS origin_id UUID;
+ALTER TABLE admin_broadcasts ADD COLUMN IF NOT EXISTS cinema_hall_id UUID REFERENCES cinema_hall(id) ON DELETE SET NULL;
+
+ALTER TABLE admin_broadcasts DROP CONSTRAINT IF EXISTS admin_broadcasts_audience_type_check;
+ALTER TABLE admin_broadcasts ADD CONSTRAINT admin_broadcasts_audience_type_check
+  CHECK (audience_type IN ('all_customers','all_admins','custom','hall_customers'));
+
+ALTER TABLE admin_broadcasts DROP CONSTRAINT IF EXISTS admin_broadcasts_source_check;
+ALTER TABLE admin_broadcasts ADD CONSTRAINT admin_broadcasts_source_check
+  CHECK (source IN ('manual','offer','ad'));
+
+CREATE INDEX IF NOT EXISTS idx_admin_broadcasts_source ON admin_broadcasts(source, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_admin_broadcasts_origin ON admin_broadcasts(origin_id) WHERE origin_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_notifications_event_created ON notifications(event, created_at DESC);
+
 -- Mirrors user_settings (per-admin preferences) but for customers. Currently
 -- only used for the 'notifications' section (per-event channel toggles, same
 -- shape as USER_DEFAULTS.notifications in cinema-hall-admin's settingsDefaults.js).
