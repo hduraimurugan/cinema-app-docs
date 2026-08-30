@@ -12,6 +12,7 @@
 | `/api/ads/create` | POST | `verifySuperAdmin` | `createAd` |
 | `/api/ads/update/:id` | PUT | `verifySuperAdmin` | `updateAd` |
 | `/api/ads/delete/:id` | DELETE | `verifySuperAdmin` | `deleteAd` |
+| `/api/ads/:id/announce` | POST | `verifySuperAdmin` | `announceAdById` (`99c1870`) |
 | `/api/ads/:id/clicks` | GET | `verifySuperAdmin` | `getAdClicks` |
 | `/api/ads/active?placement=banner` | GET | - | `getActiveAds` |
 | `/api/ads/click/:id` | POST | - | `recordClick` |

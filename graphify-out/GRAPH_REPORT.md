@@ -1,16 +1,16 @@
 # Graph Report - docs  (2026-08-30)
 
 ## Corpus Check
-- 145 files · ~164,929 words
+- 145 files · ~166,781 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2570 nodes · 2447 edges · 236 communities (233 shown, 3 thin omitted)
+- 2580 nodes · 2457 edges · 235 communities (232 shown, 3 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d0e345ad`
+- Built from commit: `354e8dcb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -30,7 +30,6 @@
 - [[_COMMUNITY_Community 12|Community 12]]
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 24|Community 24]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 35|Community 35]]
@@ -247,15 +246,15 @@
 
 ## God Nodes (most connected - your core abstractions)
 1. `Admin Authentication` - 24 edges
-2. `2. Screen Designer` - 20 edges
+2. `2. Screen Designer` - 21 edges
 3. `Admin Panel Documentation` - 19 edges
-4. `8. Initial Implementation` - 19 edges
-5. `Page Components` - 19 edges
-6. `2. Movie Management` - 18 edges
-7. `Concurrency-Safe Seat Booking - Implementation Plan` - 18 edges
-8. `User Application Documentation` - 18 edges
-9. `3. Shows Management` - 17 edges
-10. `2. Ads Management (SuperAdmin Only)` - 16 edges
+4. `2. Movie Management` - 19 edges
+5. `8. Initial Implementation` - 19 edges
+6. `Page Components` - 19 edges
+7. `3. Shows Management` - 18 edges
+8. `Concurrency-Safe Seat Booking - Implementation Plan` - 18 edges
+9. `User Application Documentation` - 18 edges
+10. `2. Ads Management (SuperAdmin Only)` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -263,7 +262,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (236 total, 3 thin omitted)
+## Communities (235 total, 3 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -324,10 +323,6 @@ Nodes (25): Adding New Tests, Cinema Hall API — Test Suite Guide, Cleanup Rule
 ### Community 15 - "Community 15"
 Cohesion: 0.67
 Nodes (3): Razorpay Dashboard Setup, Testing Webhooks Locally, Webhook Configuration
-
-### Community 16 - "Community 16"
-Cohesion: 0.67
-Nodes (3): Custom Components, shadcn/ui Components Used, UI Components
 
 ### Community 24 - "Community 24"
 Cohesion: 0.05
@@ -471,11 +466,11 @@ Nodes (5): `booking-concurrency.test.js` (3 tests), `booking-edge.test.js` (7 te
 
 ### Community 126 - "Community 126"
 Cohesion: 0.10
-Nodes (20): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Feature Overview (+12 more)
+Nodes (21): 2. Movie Management, Add / Edit Movie — Right-Side Sheet, Available Genres, Available Languages, Browse Movies Tab, Cast Management UI, Feature Overview, Feature Overview (+13 more)
 
 ### Community 127 - "Community 127"
 Cohesion: 0.10
-Nodes (20): 2. Screen Designer, Aisle System, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview (+12 more)
+Nodes (21): 2. Screen Designer, Aisle System, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview, Feature Overview (+13 more)
 
 ### Community 128 - "Community 128"
 Cohesion: 0.14
@@ -499,15 +494,15 @@ Nodes (10): 1. Install Dependencies, 2. Start Development Server, 3. Build for P
 
 ### Community 137 - "Community 137"
 Cohesion: 0.12
-Nodes (16): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+8 more)
+Nodes (17): 2. Ads Management (SuperAdmin Only), Ad Placements, Ads Tab (Card Grid), Analytics Tab (Table), Click-through Details Modal, Create / Edit Ad — Right-Side Sheet, Create/Edit Form Fields, Export — Ads Management (+9 more)
 
 ### Community 138 - "Community 138"
-Cohesion: 0.12
-Nodes (17): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+9 more)
+Cohesion: 0.11
+Nodes (18): 3. Shows Management, Add Multiple Shows Page (`/shows/bulk`), Add Show Page (`/shows/new`), Confirm Dialog (`AlertDialog`), Edit Show Page (`/shows/:id/edit`), Feature Overview, Feature Overview, Feature Overview (+10 more)
 
 ### Community 139 - "Community 139"
-Cohesion: 0.18
-Nodes (10): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Environment Variables, Future Enhancements, Image Upload, Overview (+2 more)
+Cohesion: 0.14
+Nodes (13): Admin Panel Documentation, Best Practices Implemented, Cloudinary Integration, Context Providers, Custom Components, Environment Variables, Future Enhancements, Image Upload (+5 more)
 
 ### Community 140 - "Community 140"
 Cohesion: 0.22
@@ -730,8 +725,8 @@ Cohesion: 0.14
 Nodes (12): Backend (`cinema-hall-api`), Components, File Reference — User App Experience, Frontend (`cinema-hall-users`), Hooks, Middleware, Models, Pages (+4 more)
 
 ### Community 289 - "Community 289"
-Cohesion: 0.15
-Nodes (11): `AdBanner.jsx`, Admin App (`cinema-hall-admin`), Ads Management - Frontend, `AdsManagement.jsx`, `api.js` (adsAPI section), `api.js` (adsAPI section), Components, Pages (+3 more)
+Cohesion: 0.13
+Nodes (13): `AdBanner.jsx`, Admin App (`cinema-hall-admin`), Ads Management - Frontend, `AdsManagement.jsx`, `api.js` (adsAPI section), `api.js` (adsAPI section), `api.js` (adsAPI section), Components (+5 more)
 
 ### Community 290 - "Community 290"
 Cohesion: 0.15
@@ -743,7 +738,7 @@ Nodes (11): Admin App (`cinema-hall-admin`), `api.js` (hallsAPI section), Compon
 
 ### Community 292 - "Community 292"
 Cohesion: 0.10
-Nodes (18): Admin Endpoints (RBAC — `offers.*`, creator-scoped since `6e0705a`), Admin Endpoints (SuperAdmin), API Reference, Customer Endpoints, DELETE /api/offers/delete/:id, DELETE /api/offers/delete/:id — `requirePermission('offers.delete')` (`controllers/offers.Controller.js:395`, `6e0705a`), GET /api/offers, GET /api/offers/active (+10 more)
+Nodes (19): Admin Endpoints (RBAC — `offers.*`, creator-scoped since `6e0705a`), Admin Endpoints (SuperAdmin), API Reference, Customer Endpoints, DELETE /api/offers/delete/:id, DELETE /api/offers/delete/:id — `requirePermission('offers.delete')` (`controllers/offers.Controller.js:395`, `6e0705a`), GET /api/offers, GET /api/offers/active (+11 more)
 
 ### Community 293 - "Community 293"
 Cohesion: 0.13
@@ -762,8 +757,8 @@ Cohesion: 0.15
 Nodes (11): 1. Organization Onboarding — Seed Default Settings, 2. Updating Organization Name, 3. Configuring Payment Settings, 4. Creating a Hall — Seed Hall Settings, 5. Updating Hall Booking Policy, 6. Reading Settings in the Customer Booking Flow, 7. Integrating a Payment Gateway, Common Operations (+3 more)
 
 ### Community 297 - "Community 297"
-Cohesion: 0.17
-Nodes (10): Admin Endpoints, Ads Management - API, DELETE `/api/ads/delete/:id`, GET `/api/ads`, GET `/api/ads/active?placement=banner`, GET `/api/ads/:id/clicks`, POST `/api/ads/click/:id`, POST `/api/ads/create` (+2 more)
+Cohesion: 0.15
+Nodes (11): Admin Endpoints, Ads Management - API, DELETE `/api/ads/delete/:id`, GET `/api/ads`, GET `/api/ads/active?placement=banner`, GET `/api/ads/:id/clicks`, POST `/api/ads/click/:id`, POST `/api/ads/create` (+3 more)
 
 ### Community 298 - "Community 298"
 Cohesion: 0.17
@@ -886,8 +881,8 @@ Cohesion: 0.20
 Nodes (8): 1. Send OTP (Signup), 2. Send OTP (Password Reset — Enumeration Protection), 3. Verify OTP (Signup — Account Activation), 4. Verify OTP — Wrong Attempts, 5. OTP Expired Flow, 6. Admin Account Locked Email, 7. Admin Password Changed Notification, Notifications & OTP - Workflows
 
 ### Community 330 - "Community 330"
-Cohesion: 0.15
-Nodes (11): Admin App — `cinema-hall-admin`, Frontend, `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx), `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx, updated `a79e555`), `OffersManagement.jsx` (src/pages/OffersManagement.jsx), `OffersManagement.jsx` (src/pages/OffersManagement.jsx, updated `a79e555`), `OffersPage.jsx` (src/pages/OffersPage.jsx), `services/api.js` — `offersAPI` (+3 more)
+Cohesion: 0.14
+Nodes (12): Admin App — `cinema-hall-admin`, Frontend, `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx), `OfferFormPage.jsx` (src/pages/OfferFormPage.jsx, updated `a79e555`), `OffersManagement.jsx` (src/pages/OffersManagement.jsx), `OffersManagement.jsx` (src/pages/OffersManagement.jsx, updated `a79e555`), `OffersPage.jsx` (src/pages/OffersPage.jsx), `services/api.js` — `offersAPI` (+4 more)
 
 ### Community 331 - "Community 331"
 Cohesion: 0.20
@@ -1022,8 +1017,8 @@ Cohesion: 0.25
 Nodes (6): Cinema Hall - Documentation Progress, Legend, Module Directory Structure, Module Documentation Status, Platform Architecture, Repository Overview
 
 ### Community 367 - "Community 367"
-Cohesion: 0.22
-Nodes (7): Admin App, API, Latest Changes, Organization Onboarding Hardening, Related Documentation, Source Commits, User App
+Cohesion: 0.20
+Nodes (8): Admin App, API, Latest Changes, Offer/Ad Announcements & Multi-channel Broadcasts (`99c1870` in `cinema-hall-api/controllers/{offers,ads,broadcast}.Controller.js` / `services/notification/{announce,broadcast}.js:1` / `mail/{emails,emailTemplate}.js` / `migrations/migration_notification_channels.sql:1` / `services/notification/{channels/email,defaultPreferences}.js`), Organization Onboarding Hardening, Related Documentation, Source Commits, User App
 
 ### Community 368 - "Community 368"
 Cohesion: 0.25
@@ -1170,21 +1165,21 @@ Cohesion: 0.40
 Nodes (5): 7.1 Light / Dark Mode (exists), 7.2 Custom Branding (stored in `organization_settings.branding`), 7.3 Theme Colors → oklch Tokens, 7.4 White-Label Support (SaaS-ready), 7. Theme & Branding
 
 ## Knowledge Gaps
-- **1725 isolated node(s):** `Overview`, `Route Structure`, `Component Hierarchy`, `Authentication Flow`, `AuthContext State Management` (+1720 more)
+- **1734 isolated node(s):** `Overview`, `Route Structure`, `Component Hierarchy`, `Authentication Flow`, `AuthContext State Management` (+1729 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 408`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 16`, `Community 88`, `Community 89`, `Community 158`?**
+- **Why does `Admin Panel Documentation` connect `Community 139` to `Community 160`, `Community 408`, `Community 107`, `Community 140`, `Community 174`, `Community 175`, `Community 176`, `Community 88`, `Community 89`, `Community 158`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **Why does `User Application Documentation` connect `Community 142` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 10`, `Community 11`, `Community 12`, `Community 89`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
 - **Why does `Features Documentation` connect `Community 88` to `Community 131`, `Community 105`, `Community 137`, `Community 139`, `Community 138`, `Community 126`, `Community 127`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
 - **What connects `Overview`, `Route Structure`, `Component Hierarchy` to the rest of the system?**
-  _1725 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1734 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

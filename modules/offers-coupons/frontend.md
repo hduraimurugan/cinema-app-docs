@@ -43,10 +43,11 @@ Create/edit form at `/offers/new` and `/offers/:id/edit` (requires `offers.creat
 ```js
 offersAPI.getCinemaHalls()          // GET /api/offers/cinema-halls
 offersAPI.getAll(filters)           // GET /api/offers?scope=&is_active=&search=&page=
-offersAPI.create(data)              // POST /api/offers/create
+offersAPI.create(data)              // POST /api/offers/create (accepts notify payload; response `announced`)
 offersAPI.getById(id)              // GET /api/offers/:id
 offersAPI.update(id, data)         // PUT /api/offers/update/:id
 offersAPI.delete(id)               // DELETE /api/offers/delete/:id
+offersAPI.announce(id, data)       // POST /api/offers/:id/announce (99c1870)
 ```
 
 All calls use `credentials: 'include'` for cookie/session auth. POST/PUT set JSON content type.

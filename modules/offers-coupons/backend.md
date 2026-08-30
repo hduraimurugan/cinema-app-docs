@@ -67,6 +67,7 @@ GET    /api/offers/:id          → verifyCinemaAdminAccessToken + requirePermis
 POST   /api/offers/create       → verifyCinemaAdminAccessToken + requirePermission('offers.create') → createOffer
 PUT    /api/offers/update/:id   → verifyCinemaAdminAccessToken + requirePermission('offers.update') → updateOffer
 DELETE /api/offers/delete/:id   → verifyCinemaAdminAccessToken + requirePermission('offers.delete') → deleteOffer
+POST   /api/offers/:id/announce → verifyCinemaAdminAccessToken + requirePermission('offers.update') → announceOfferById (99c1870)
 ```
 
 ## Integration — `payment.Controller.js`

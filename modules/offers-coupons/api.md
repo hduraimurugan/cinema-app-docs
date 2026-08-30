@@ -55,6 +55,13 @@ Create a new offer. Access: `scope=global` requires `req.admin.role === 'superAd
 | `cinema_hall_id` | uuid | if scope=hall (and required for non-SuperAdmin hall offers) |
 | `user_eligibility` | "all" | "joined_after" | no (default "all") |
 | `user_joined_after` | ISO date | if user_eligibility=joined_after |
+| `notify` | object | no | `99c1870` — `{ enabled, channels?: ('push'\|'email')[], title?, body? }`; when `enabled`, announces the offer on create via `announceOffer` (global → `all_customers`, hall → `hall_customers`). Response gains `announced: true/false`. Announcement failures are swallowed so offer creation never fails |
+
+**Response `201`:** `{ offer, announced }` — `announced: true` when a `notify.enabled` announcement was sent.
+
+### POST /api/offers/:id/announce — `requirePermission('offers.update')` (`controllers/offers.Controller.js:467`, `99c1870`)
+
+Re-send an announcement for an existing offer. Same creator/ownership + hall-org guards as update (`403 You can only announce offers you created.` / `403 You can only announce offers for your own cinema hall.`). Body `{ channels?: ('push'|'email')[], title?, body? }`; records an `admin_broadcasts` row (`source='offer'`, `origin_id`) via `announceOffer` + audit log `offers.announce`. **Response `201`:** `{ broadcast: {...status:'sent'|'scheduled', sent_count, failed_count} }`.
 
 ### GET /api/offers/:id — `requirePermission('offers.read')` (`controllers/offers.Controller.js:280`, `6e0705a`)
 

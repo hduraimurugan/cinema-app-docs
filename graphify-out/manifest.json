@@ -1165,8 +1165,8 @@
     "semantic_hash": "f13c1e1658030d2cbeadb1e245127645"
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\db_setup.sql": {
-    "mtime": 1787759709.8735168,
-    "ast_hash": "58a441d7ff3b5805961442e20564fcf5",
+    "mtime": 1788078999.981481,
+    "ast_hash": "099a7ce0abdbd4d74af7256efa7541d5",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\.agents\\rules\\graphify.md": {
@@ -1205,13 +1205,13 @@
     "semantic_hash": "c6d62eb4b41edbcaeff4835852d8bdf4"
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\admin.md": {
-    "mtime": 1788074292.2251103,
-    "ast_hash": "421becf31a1f3394c6c1bb59f50e1279",
+    "mtime": 1788081806.4329941,
+    "ast_hash": "57c71b9b25ca3a11318f284dfd2c700c",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\backend.md": {
-    "mtime": 1787761129.0960941,
-    "ast_hash": "2312578c9ce7187388fe01235b2b4e46",
+    "mtime": 1788081718.255629,
+    "ast_hash": "b4a6497357ee9cba40d70bfe434bab03",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\index.md": {
@@ -1230,8 +1230,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\users.md": {
-    "mtime": 1787730444.678775,
-    "ast_hash": "3254569dc8f837b526283b47f3a5bf39",
+    "mtime": 1788081800.6105762,
+    "ast_hash": "1b8574dd3539f9a05d5d0a59855be132",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\cinema-hall-admin\\public\\cinemax_logo.png": {
@@ -2030,8 +2030,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\latest-changes.md": {
-    "mtime": 1788078011.656518,
-    "ast_hash": "8e123f14b2f09f962fabd94068177141",
+    "mtime": 1788081917.9495332,
+    "ast_hash": "06b3c48ce885a66a0f8ca7c0fb9d05fe",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\tenant-integrity-and-auth-wiring.md": {
@@ -2040,13 +2040,13 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\ads-management\\api.md": {
-    "mtime": 1782622007.971214,
-    "ast_hash": "9d061634d804ed87f26a66697d84b261",
+    "mtime": 1788081849.221852,
+    "ast_hash": "f4d951142e8bf057b4b55cdd08b9f3e3",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\ads-management\\backend.md": {
-    "mtime": 1782621998.6085234,
-    "ast_hash": "c2f259a0cf6acce8028c54850a1ebfef",
+    "mtime": 1788081857.3295763,
+    "ast_hash": "59ebffdd6615f398dfda68abfe02601e",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\ads-management\\components.md": {
@@ -2065,8 +2065,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\ads-management\\frontend.md": {
-    "mtime": 1782622021.1719902,
-    "ast_hash": "8f67005878a755ba2bae4312bf5099fb",
+    "mtime": 1788081862.5088205,
+    "ast_hash": "1e854fa9cd7148f34495d78e65bda147",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\ads-management\\README.md": {
@@ -2320,13 +2320,13 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\offers-coupons\\api.md": {
-    "mtime": 1787422839.2415774,
-    "ast_hash": "8fc31b78bf7c5fc851c9b013ec120742",
+    "mtime": 1788081821.8047388,
+    "ast_hash": "c7d49bad8c15dbd717e2bfe0c575c9e4",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\offers-coupons\\backend.md": {
-    "mtime": 1787422844.9821403,
-    "ast_hash": "22219b9bda8bfbc3a1dcbc6fed3df1f3",
+    "mtime": 1788081830.8890584,
+    "ast_hash": "20a93aca292dea954efd6e02f6c41ce3",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\offers-coupons\\components.md": {
@@ -2345,8 +2345,8 @@
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\offers-coupons\\frontend.md": {
-    "mtime": 1787422854.068889,
-    "ast_hash": "7e91dac1bcec3cc2bec8994b0fa6e262",
+    "mtime": 1788081837.5679853,
+    "ast_hash": "b3c3edce53a4e2bf0c7934b11bc02d94",
     "semantic_hash": ""
   },
   "D:\\Users\\Duraimurugan H\\Git Cloned\\My Projects\\cinema-hall\\docs\\modules\\offers-coupons\\README.md": {

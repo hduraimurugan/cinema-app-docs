@@ -32,9 +32,10 @@
 | Method | Endpoint | Purpose |
 |--------|----------|---------|
 | `getAll()` | GET `/api/ads` | List all ads with click counts |
-| `create(data)` | POST `/api/ads/create` | Create a new ad |
+| `create(data)` | POST `/api/ads/create` | Create a new ad (accepts `notify` payload; response `announced`) |
 | `update(id, data)` | PUT `/api/ads/update/:id` | Update an existing ad |
 | `delete(id)` | DELETE `/api/ads/delete/:id` | Delete an ad |
+| `announce(id, data)` | POST `/api/ads/:id/announce` | Announce an existing ad (`99c1870`) |
 | `getClicks(id)` | GET `/api/ads/:id/clicks` | Get click-through details |
 
 - **Auth**: All admin endpoints use `credentials: 'include'` for cookie-based auth

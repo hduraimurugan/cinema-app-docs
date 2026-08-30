@@ -340,7 +340,7 @@
       "label": "Offer Form Fields",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L452",
+      "source_location": "L454",
       "id": "docs_admin_offer_form_fields",
       "community": 88,
       "norm_label": "offer form fields"
@@ -349,7 +349,7 @@
       "label": "Date Picker Implementation Note",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L470",
+      "source_location": "L472",
       "id": "docs_admin_date_picker_implementation_note",
       "community": 88,
       "norm_label": "date picker implementation note"
@@ -358,7 +358,7 @@
       "label": "Sidebar Navigation",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L493",
+      "source_location": "L495",
       "id": "docs_admin_sidebar_navigation",
       "community": 88,
       "norm_label": "sidebar navigation"
@@ -367,7 +367,7 @@
       "label": "2. Ads Management (SuperAdmin Only)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L503",
+      "source_location": "L505",
       "id": "docs_admin_2_ads_management_superadmin_only",
       "community": 137,
       "norm_label": "2. ads management (superadmin only)"
@@ -376,8 +376,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L510",
-      "id": "docs_admin_feature_overview_510",
+      "source_location": "L512",
+      "id": "docs_admin_feature_overview_512",
       "community": 137,
       "norm_label": "feature overview"
     },
@@ -385,7 +385,7 @@
       "label": "Tabs",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L535",
+      "source_location": "L537",
       "id": "docs_admin_tabs",
       "community": 137,
       "norm_label": "tabs"
@@ -394,7 +394,7 @@
       "label": "Ad Placements",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L546",
+      "source_location": "L548",
       "id": "docs_admin_ad_placements",
       "community": 137,
       "norm_label": "ad placements"
@@ -403,7 +403,7 @@
       "label": "Ads Tab (Card Grid)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L553",
+      "source_location": "L555",
       "id": "docs_admin_ads_tab_card_grid",
       "community": 137,
       "norm_label": "ads tab (card grid)"
@@ -412,7 +412,7 @@
       "label": "Analytics Tab (Table)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L565",
+      "source_location": "L567",
       "id": "docs_admin_analytics_tab_table",
       "community": 137,
       "norm_label": "analytics tab (table)"
@@ -421,7 +421,7 @@
       "label": "Create / Edit Ad \u2014 Right-Side Sheet",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L583",
+      "source_location": "L585",
       "id": "docs_admin_create_edit_ad_right_side_sheet",
       "community": 137,
       "norm_label": "create / edit ad \u2014 right-side sheet"
@@ -430,7 +430,7 @@
       "label": "Create/Edit Form Fields",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L597",
+      "source_location": "L599",
       "id": "docs_admin_create_edit_form_fields",
       "community": 137,
       "norm_label": "create/edit form fields"
@@ -439,7 +439,7 @@
       "label": "Click-through Details Modal",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L609",
+      "source_location": "L614",
       "id": "docs_admin_click_through_details_modal",
       "community": 137,
       "norm_label": "click-through details modal"
@@ -448,7 +448,7 @@
       "label": "Export \u2014 Ads Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L622",
+      "source_location": "L627",
       "id": "docs_admin_export_ads_management",
       "community": 137,
       "norm_label": "export \u2014 ads management"
@@ -457,7 +457,7 @@
       "label": "2. Movie Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L635",
+      "source_location": "L640",
       "id": "docs_admin_2_movie_management",
       "community": 126,
       "norm_label": "2. movie management"
@@ -466,8 +466,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L641",
-      "id": "docs_admin_feature_overview_641",
+      "source_location": "L646",
+      "id": "docs_admin_feature_overview_646",
       "community": 126,
       "norm_label": "feature overview"
     },
@@ -475,7 +475,7 @@
       "label": "Layout Behavior",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L670",
+      "source_location": "L675",
       "id": "docs_admin_layout_behavior",
       "community": 126,
       "norm_label": "layout behavior"
@@ -484,7 +484,7 @@
       "label": "Add / Edit Movie \u2014 Right-Side Sheet",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L680",
+      "source_location": "L685",
       "id": "docs_admin_add_edit_movie_right_side_sheet",
       "community": 126,
       "norm_label": "add / edit movie \u2014 right-side sheet"
@@ -493,7 +493,7 @@
       "label": "Movie Form Fields",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L698",
+      "source_location": "L703",
       "id": "docs_admin_movie_form_fields",
       "community": 126,
       "norm_label": "movie form fields"
@@ -502,7 +502,7 @@
       "label": "Cast Management UI",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L716",
+      "source_location": "L721",
       "id": "docs_admin_cast_management_ui",
       "community": 126,
       "norm_label": "cast management ui"
@@ -511,7 +511,7 @@
       "label": "Available Genres",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L725",
+      "source_location": "L730",
       "id": "docs_admin_available_genres",
       "community": 126,
       "norm_label": "available genres"
@@ -520,7 +520,7 @@
       "label": "Available Languages",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L729",
+      "source_location": "L734",
       "id": "docs_admin_available_languages",
       "community": 126,
       "norm_label": "available languages"
@@ -529,7 +529,7 @@
       "label": "Movie Card Display",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L733",
+      "source_location": "L738",
       "id": "docs_admin_movie_card_display",
       "community": 126,
       "norm_label": "movie card display"
@@ -538,7 +538,7 @@
       "label": "TMDB Integration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L747",
+      "source_location": "L752",
       "id": "docs_admin_tmdb_integration",
       "community": 126,
       "norm_label": "tmdb integration"
@@ -547,7 +547,7 @@
       "label": "Browse Movies Tab",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L749",
+      "source_location": "L754",
       "id": "docs_admin_browse_movies_tab",
       "community": 126,
       "norm_label": "browse movies tab"
@@ -556,7 +556,7 @@
       "label": "Sync from TMDB (Edit Mode)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L778",
+      "source_location": "L783",
       "id": "docs_admin_sync_from_tmdb_edit_mode",
       "community": 126,
       "norm_label": "sync from tmdb (edit mode)"
@@ -565,7 +565,7 @@
       "label": "Movie Detail Page",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L796",
+      "source_location": "L801",
       "id": "docs_admin_movie_detail_page",
       "community": 126,
       "norm_label": "movie detail page"
@@ -574,7 +574,7 @@
       "label": "Filtering System",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L824",
+      "source_location": "L829",
       "id": "docs_admin_filtering_system",
       "community": 126,
       "norm_label": "filtering system"
@@ -583,7 +583,7 @@
       "label": "2. Screen Designer",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L845",
+      "source_location": "L850",
       "id": "docs_admin_2_screen_designer",
       "community": 127,
       "norm_label": "2. screen designer"
@@ -592,8 +592,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L855",
-      "id": "docs_admin_feature_overview_855",
+      "source_location": "L860",
+      "id": "docs_admin_feature_overview_860",
       "community": 127,
       "norm_label": "feature overview"
     },
@@ -601,7 +601,7 @@
       "label": "Navigation Pattern",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L880",
+      "source_location": "L885",
       "id": "docs_admin_navigation_pattern",
       "community": 127,
       "norm_label": "navigation pattern"
@@ -610,7 +610,7 @@
       "label": "Screen Configuration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L887",
+      "source_location": "L892",
       "id": "docs_admin_screen_configuration",
       "community": 127,
       "norm_label": "screen configuration"
@@ -619,7 +619,7 @@
       "label": "Seat Layout Structure",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L908",
+      "source_location": "L913",
       "id": "docs_admin_seat_layout_structure",
       "community": 127,
       "norm_label": "seat layout structure"
@@ -628,7 +628,7 @@
       "label": "Aisle System",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L924",
+      "source_location": "L929",
       "id": "docs_admin_aisle_system",
       "community": 127,
       "norm_label": "aisle system"
@@ -637,7 +637,7 @@
       "label": "Rows/Columns Resize Behaviour",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L938",
+      "source_location": "L943",
       "id": "docs_admin_rows_columns_resize_behaviour",
       "community": 127,
       "norm_label": "rows/columns resize behaviour"
@@ -646,7 +646,7 @@
       "label": "UI Layout",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L944",
+      "source_location": "L949",
       "id": "docs_admin_ui_layout",
       "community": 127,
       "norm_label": "ui layout"
@@ -655,7 +655,7 @@
       "label": "Seat Summary",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L955",
+      "source_location": "L960",
       "id": "docs_admin_seat_summary",
       "community": 127,
       "norm_label": "seat summary"
@@ -664,7 +664,7 @@
       "label": "Zoom Controls",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L966",
+      "source_location": "L971",
       "id": "docs_admin_zoom_controls",
       "community": 127,
       "norm_label": "zoom controls"
@@ -673,7 +673,7 @@
       "label": "Undo / Redo",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L976",
+      "source_location": "L981",
       "id": "docs_admin_undo_redo",
       "community": 127,
       "norm_label": "undo / redo"
@@ -682,7 +682,7 @@
       "label": "Interactive Features",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L983",
+      "source_location": "L988",
       "id": "docs_admin_interactive_features",
       "community": 127,
       "norm_label": "interactive features"
@@ -691,7 +691,7 @@
       "label": "Layout Designer Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1042",
+      "source_location": "L1047",
       "id": "docs_admin_layout_designer_workflow",
       "community": 127,
       "norm_label": "layout designer workflow"
@@ -700,7 +700,7 @@
       "label": "3. Shows Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1071",
+      "source_location": "L1076",
       "id": "docs_admin_3_shows_management",
       "community": 138,
       "norm_label": "3. shows management"
@@ -709,8 +709,8 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1083",
-      "id": "docs_admin_feature_overview_1083",
+      "source_location": "L1088",
+      "id": "docs_admin_feature_overview_1088",
       "community": 138,
       "norm_label": "feature overview"
     },
@@ -718,7 +718,7 @@
       "label": "UI Layout \u2014 Shows List (`/shows`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1129",
+      "source_location": "L1134",
       "id": "docs_admin_ui_layout_shows_list_shows",
       "community": 138,
       "norm_label": "ui layout \u2014 shows list (`/shows`)"
@@ -727,7 +727,7 @@
       "label": "Multi-Select Mode & Bulk Actions",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1182",
+      "source_location": "L1187",
       "id": "docs_admin_multi_select_mode_bulk_actions",
       "community": 138,
       "norm_label": "multi-select mode & bulk actions"
@@ -736,7 +736,7 @@
       "label": "Confirm Dialog (`AlertDialog`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1198",
+      "source_location": "L1203",
       "id": "docs_admin_confirm_dialog_alertdialog",
       "community": 138,
       "norm_label": "confirm dialog (`alertdialog`)"
@@ -745,7 +745,7 @@
       "label": "Add Show Page (`/shows/new`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1202",
+      "source_location": "L1207",
       "id": "docs_admin_add_show_page_shows_new",
       "community": 138,
       "norm_label": "add show page (`/shows/new`)"
@@ -754,7 +754,7 @@
       "label": "Edit Show Page (`/shows/:id/edit`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1247",
+      "source_location": "L1252",
       "id": "docs_admin_edit_show_page_shows_id_edit",
       "community": 138,
       "norm_label": "edit show page (`/shows/:id/edit`)"
@@ -763,7 +763,7 @@
       "label": "Add Multiple Shows Page (`/shows/bulk`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1272",
+      "source_location": "L1277",
       "id": "docs_admin_add_multiple_shows_page_shows_bulk",
       "community": 138,
       "norm_label": "add multiple shows page (`/shows/bulk`)"
@@ -772,7 +772,7 @@
       "label": "Show Detail Page (`/show/:id`)",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1308",
+      "source_location": "L1313",
       "id": "docs_admin_show_detail_page_show_id",
       "community": 138,
       "norm_label": "show detail page (`/show/:id`)"
@@ -781,7 +781,7 @@
       "label": "Movie Search Component",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1402",
+      "source_location": "L1407",
       "id": "docs_admin_movie_search_component",
       "community": 138,
       "norm_label": "movie search component"
@@ -790,7 +790,7 @@
       "label": "4. Additional Features",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1415",
+      "source_location": "L1420",
       "id": "docs_admin_4_additional_features",
       "community": 131,
       "norm_label": "4. additional features"
@@ -799,7 +799,7 @@
       "label": "HomePage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1417",
+      "source_location": "L1422",
       "id": "docs_admin_homepage",
       "community": 131,
       "norm_label": "homepage"
@@ -808,7 +808,7 @@
       "label": "Bookings",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1422",
+      "source_location": "L1427",
       "id": "docs_admin_bookings",
       "community": 131,
       "norm_label": "bookings"
@@ -817,7 +817,7 @@
       "label": "BookingDetailPage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1448",
+      "source_location": "L1453",
       "id": "docs_admin_bookingdetailpage",
       "community": 131,
       "norm_label": "bookingdetailpage"
@@ -826,7 +826,7 @@
       "label": "VerifyTicket",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1498",
+      "source_location": "L1503",
       "id": "docs_admin_verifyticket",
       "community": 131,
       "norm_label": "verifyticket"
@@ -835,7 +835,7 @@
       "label": "RefundsPage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1519",
+      "source_location": "L1524",
       "id": "docs_admin_refundspage",
       "community": 131,
       "norm_label": "refundspage"
@@ -844,7 +844,7 @@
       "label": "PaymentOrders",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1548",
+      "source_location": "L1553",
       "id": "docs_admin_paymentorders",
       "community": 131,
       "norm_label": "paymentorders"
@@ -853,7 +853,7 @@
       "label": "Customers",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1578",
+      "source_location": "L1583",
       "id": "docs_admin_customers",
       "community": 131,
       "norm_label": "customers"
@@ -862,7 +862,7 @@
       "label": "Hall Admins",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1617",
+      "source_location": "L1622",
       "id": "docs_admin_hall_admins",
       "community": 131,
       "norm_label": "hall admins"
@@ -871,7 +871,7 @@
       "label": "ProfilePage",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1656",
+      "source_location": "L1661",
       "id": "docs_admin_profilepage",
       "community": 131,
       "norm_label": "profilepage"
@@ -880,7 +880,7 @@
       "label": "Settings Layout",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1686",
+      "source_location": "L1691",
       "id": "docs_admin_settings_layout",
       "community": 131,
       "norm_label": "settings layout"
@@ -889,7 +889,7 @@
       "label": "API Service Layer",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1737",
+      "source_location": "L1742",
       "id": "docs_admin_api_service_layer",
       "community": 107,
       "norm_label": "api service layer"
@@ -898,7 +898,7 @@
       "label": "Service Modules",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1741",
+      "source_location": "L1746",
       "id": "docs_admin_service_modules",
       "community": 107,
       "norm_label": "service modules"
@@ -907,7 +907,7 @@
       "label": "Pagination \u2014 Shared Component",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1770",
+      "source_location": "L1775",
       "id": "docs_admin_pagination_shared_component",
       "community": 107,
       "norm_label": "pagination \u2014 shared component"
@@ -916,7 +916,7 @@
       "label": "Export \u2014 Shared Utility",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1776",
+      "source_location": "L1781",
       "id": "docs_admin_export_shared_utility",
       "community": 107,
       "norm_label": "export \u2014 shared utility"
@@ -925,7 +925,7 @@
       "label": "API Configuration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1825",
+      "source_location": "L1830",
       "id": "docs_admin_api_configuration",
       "community": 107,
       "norm_label": "api configuration"
@@ -934,7 +934,7 @@
       "label": "Error Handling",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1835",
+      "source_location": "L1840",
       "id": "docs_admin_error_handling",
       "community": 107,
       "norm_label": "error handling"
@@ -943,34 +943,34 @@
       "label": "UI Components",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1853",
+      "source_location": "L1858",
       "id": "docs_admin_ui_components",
-      "community": 16,
+      "community": 139,
       "norm_label": "ui components"
     },
     {
       "label": "shadcn/ui Components Used",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1855",
+      "source_location": "L1860",
       "id": "docs_admin_shadcn_ui_components_used",
-      "community": 16,
+      "community": 139,
       "norm_label": "shadcn/ui components used"
     },
     {
       "label": "Custom Components",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1872",
+      "source_location": "L1877",
       "id": "docs_admin_custom_components",
-      "community": 16,
+      "community": 139,
       "norm_label": "custom components"
     },
     {
       "label": "State Management",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1939",
+      "source_location": "L1946",
       "id": "docs_admin_state_management",
       "community": 139,
       "norm_label": "state management"
@@ -979,7 +979,7 @@
       "label": "Context Providers",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1941",
+      "source_location": "L1948",
       "id": "docs_admin_context_providers",
       "community": 139,
       "norm_label": "context providers"
@@ -988,7 +988,7 @@
       "label": "Routing & Navigation",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1971",
+      "source_location": "L1978",
       "id": "docs_admin_routing_navigation",
       "community": 408,
       "norm_label": "routing & navigation"
@@ -997,7 +997,7 @@
       "label": "Route Protection",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1973",
+      "source_location": "L1980",
       "id": "docs_admin_route_protection",
       "community": 408,
       "norm_label": "route protection"
@@ -1006,7 +1006,7 @@
       "label": "Navigation Structure",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L1986",
+      "source_location": "L1993",
       "id": "docs_admin_navigation_structure",
       "community": 408,
       "norm_label": "navigation structure"
@@ -1015,7 +1015,7 @@
       "label": "Image Upload",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2014",
+      "source_location": "L2021",
       "id": "docs_admin_image_upload",
       "community": 139,
       "norm_label": "image upload"
@@ -1024,7 +1024,7 @@
       "label": "Cloudinary Integration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2016",
+      "source_location": "L2023",
       "id": "docs_admin_cloudinary_integration",
       "community": 139,
       "norm_label": "cloudinary integration"
@@ -1033,7 +1033,7 @@
       "label": "Styling & Theming",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2045",
+      "source_location": "L2052",
       "id": "docs_admin_styling_theming",
       "community": 175,
       "norm_label": "styling & theming"
@@ -1042,7 +1042,7 @@
       "label": "Tailwind Configuration",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2047",
+      "source_location": "L2054",
       "id": "docs_admin_tailwind_configuration",
       "community": 175,
       "norm_label": "tailwind configuration"
@@ -1051,7 +1051,7 @@
       "label": "Dark Mode Support",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2057",
+      "source_location": "L2064",
       "id": "docs_admin_dark_mode_support",
       "community": 175,
       "norm_label": "dark mode support"
@@ -1060,7 +1060,7 @@
       "label": "Performance Optimizations",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2067",
+      "source_location": "L2074",
       "id": "docs_admin_performance_optimizations",
       "community": 176,
       "norm_label": "performance optimizations"
@@ -1069,7 +1069,7 @@
       "label": "Lazy Loading",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2069",
+      "source_location": "L2076",
       "id": "docs_admin_lazy_loading",
       "community": 176,
       "norm_label": "lazy loading"
@@ -1078,7 +1078,7 @@
       "label": "Debouncing",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2082",
+      "source_location": "L2089",
       "id": "docs_admin_debouncing",
       "community": 176,
       "norm_label": "debouncing"
@@ -1087,7 +1087,7 @@
       "label": "User Workflows",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2098",
+      "source_location": "L2105",
       "id": "docs_admin_user_workflows",
       "community": 158,
       "norm_label": "user workflows"
@@ -1096,7 +1096,7 @@
       "label": "Complete Show Creation Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2100",
+      "source_location": "L2107",
       "id": "docs_admin_complete_show_creation_workflow",
       "community": 158,
       "norm_label": "complete show creation workflow"
@@ -1105,7 +1105,7 @@
       "label": "Add Multiple Shows Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2126",
+      "source_location": "L2133",
       "id": "docs_admin_add_multiple_shows_workflow",
       "community": 158,
       "norm_label": "add multiple shows workflow"
@@ -1114,7 +1114,7 @@
       "label": "Screen Designer Workflow",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2151",
+      "source_location": "L2158",
       "id": "docs_admin_screen_designer_workflow",
       "community": 158,
       "norm_label": "screen designer workflow"
@@ -1123,7 +1123,7 @@
       "label": "Environment Variables",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2189",
+      "source_location": "L2196",
       "id": "docs_admin_environment_variables",
       "community": 139,
       "norm_label": "environment variables"
@@ -1132,7 +1132,7 @@
       "label": "Build & Deployment",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2202",
+      "source_location": "L2209",
       "id": "docs_admin_build_deployment",
       "community": 160,
       "norm_label": "build & deployment"
@@ -1141,7 +1141,7 @@
       "label": "Development",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2204",
+      "source_location": "L2211",
       "id": "docs_admin_development",
       "community": 160,
       "norm_label": "development"
@@ -1150,7 +1150,7 @@
       "label": "Production Build",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2211",
+      "source_location": "L2218",
       "id": "docs_admin_production_build",
       "community": 160,
       "norm_label": "production build"
@@ -1159,7 +1159,7 @@
       "label": "Deployment",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2218",
+      "source_location": "L2225",
       "id": "docs_admin_deployment",
       "community": 160,
       "norm_label": "deployment"
@@ -1168,7 +1168,7 @@
       "label": "Recently Implemented",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2228",
+      "source_location": "L2235",
       "id": "docs_admin_recently_implemented",
       "community": 139,
       "norm_label": "recently implemented"
@@ -1177,7 +1177,7 @@
       "label": "Best Practices Implemented",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2354",
+      "source_location": "L2361",
       "id": "docs_admin_best_practices_implemented",
       "community": 139,
       "norm_label": "best practices implemented"
@@ -1186,7 +1186,7 @@
       "label": "Future Enhancements",
       "file_type": "document",
       "source_file": "admin.md",
-      "source_location": "L2387",
+      "source_location": "L2394",
       "id": "docs_admin_future_enhancements",
       "community": 139,
       "norm_label": "future enhancements"
@@ -1240,7 +1240,7 @@
       "label": "Key Database Features",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L525",
+      "source_location": "L529",
       "id": "docs_backend_key_database_features",
       "community": 78,
       "norm_label": "key database features"
@@ -1249,7 +1249,7 @@
       "label": "Constraints",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L527",
+      "source_location": "L531",
       "id": "docs_backend_constraints",
       "community": 78,
       "norm_label": "constraints"
@@ -1258,7 +1258,7 @@
       "label": "Triggers",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L533",
+      "source_location": "L537",
       "id": "docs_backend_triggers",
       "community": 78,
       "norm_label": "triggers"
@@ -1267,7 +1267,7 @@
       "label": "Data Types",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L538",
+      "source_location": "L542",
       "id": "docs_backend_data_types",
       "community": 78,
       "norm_label": "data types"
@@ -1276,7 +1276,7 @@
       "label": "Authentication System",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L546",
+      "source_location": "L550",
       "id": "docs_backend_authentication_system",
       "community": 90,
       "norm_label": "authentication system"
@@ -1285,7 +1285,7 @@
       "label": "Admin Authentication Flow",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L548",
+      "source_location": "L552",
       "id": "docs_backend_admin_authentication_flow",
       "community": 90,
       "norm_label": "admin authentication flow"
@@ -1294,7 +1294,7 @@
       "label": "Customer Authentication Flow",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L589",
+      "source_location": "L593",
       "id": "docs_backend_customer_authentication_flow",
       "community": 90,
       "norm_label": "customer authentication flow"
@@ -1303,7 +1303,7 @@
       "label": "Token Strategy",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L640",
+      "source_location": "L644",
       "id": "docs_backend_token_strategy",
       "community": 90,
       "norm_label": "token strategy"
@@ -1312,7 +1312,7 @@
       "label": "OAuth Authentication",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L667",
+      "source_location": "L671",
       "id": "docs_backend_oauth_authentication",
       "community": 90,
       "norm_label": "oauth authentication"
@@ -1321,7 +1321,7 @@
       "label": "OAuth Flow Architecture",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L671",
+      "source_location": "L675",
       "id": "docs_backend_oauth_flow_architecture",
       "community": 90,
       "norm_label": "oauth flow architecture"
@@ -1330,7 +1330,7 @@
       "label": "Account Linking Rules",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L704",
+      "source_location": "L708",
       "id": "docs_backend_account_linking_rules",
       "community": 90,
       "norm_label": "account linking rules"
@@ -1339,7 +1339,7 @@
       "label": "Environment Variables",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L713",
+      "source_location": "L717",
       "id": "docs_backend_environment_variables",
       "community": 90,
       "norm_label": "environment variables"
@@ -1348,7 +1348,7 @@
       "label": "API Endpoints",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L725",
+      "source_location": "L729",
       "id": "docs_backend_api_endpoints",
       "community": 78,
       "norm_label": "api endpoints"
@@ -1357,7 +1357,7 @@
       "label": "Admin Authentication (`/api/auth`)",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L727",
+      "source_location": "L731",
       "id": "docs_backend_admin_authentication_api_auth",
       "community": 2,
       "norm_label": "admin authentication (`/api/auth`)"
@@ -1366,7 +1366,7 @@
       "label": "POST `/api/auth/register`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L752",
+      "source_location": "L756",
       "id": "docs_backend_post_api_auth_register",
       "community": 2,
       "norm_label": "post `/api/auth/register`"
@@ -1375,7 +1375,7 @@
       "label": "GET `/api/auth/verify-email?token=<token>`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L782",
+      "source_location": "L786",
       "id": "docs_backend_get_api_auth_verify_email_token_token",
       "community": 2,
       "norm_label": "get `/api/auth/verify-email?token=<token>`"
@@ -1384,7 +1384,7 @@
       "label": "POST `/api/auth/resend-verification`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L790",
+      "source_location": "L794",
       "id": "docs_backend_post_api_auth_resend_verification",
       "community": 2,
       "norm_label": "post `/api/auth/resend-verification`"
@@ -1393,7 +1393,7 @@
       "label": "POST `/api/auth/forgot-password`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L798",
+      "source_location": "L802",
       "id": "docs_backend_post_api_auth_forgot_password",
       "community": 2,
       "norm_label": "post `/api/auth/forgot-password`"
@@ -1402,7 +1402,7 @@
       "label": "POST `/api/auth/reset-password`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L806",
+      "source_location": "L810",
       "id": "docs_backend_post_api_auth_reset_password",
       "community": 2,
       "norm_label": "post `/api/auth/reset-password`"
@@ -1411,7 +1411,7 @@
       "label": "POST `/api/auth/change-password`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L816",
+      "source_location": "L820",
       "id": "docs_backend_post_api_auth_change_password",
       "community": 2,
       "norm_label": "post `/api/auth/change-password`"
@@ -1420,7 +1420,7 @@
       "label": "POST `/api/auth/logout-all`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L824",
+      "source_location": "L828",
       "id": "docs_backend_post_api_auth_logout_all",
       "community": 2,
       "norm_label": "post `/api/auth/logout-all`"
@@ -1429,7 +1429,7 @@
       "label": "GET `/api/auth/security`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L830",
+      "source_location": "L834",
       "id": "docs_backend_get_api_auth_security",
       "community": 2,
       "norm_label": "get `/api/auth/security`"
@@ -1438,7 +1438,7 @@
       "label": "PATCH `/api/auth/hall`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L853",
+      "source_location": "L857",
       "id": "docs_backend_patch_api_auth_hall",
       "community": 2,
       "norm_label": "patch `/api/auth/hall`"
@@ -1447,7 +1447,7 @@
       "label": "POST `/api/auth/login`",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L888",
+      "source_location": "L892",
       "id": "docs_backend_post_api_auth_login",
       "community": 2,
       "norm_label": "post `/api/auth/login`"
@@ -1456,7 +1456,7 @@
       "label": "Database",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L2993",
+      "source_location": "L3004",
       "id": "docs_backend_database",
       "community": 46,
       "norm_label": "database"
@@ -1465,7 +1465,7 @@
       "label": "JWT",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L2996",
+      "source_location": "L3007",
       "id": "docs_backend_jwt",
       "community": 46,
       "norm_label": "jwt"
@@ -1474,7 +1474,7 @@
       "label": "Server",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L2999",
+      "source_location": "L3010",
       "id": "docs_backend_server",
       "community": 46,
       "norm_label": "server"
@@ -1483,7 +1483,7 @@
       "label": "Email (for OTP)",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3003",
+      "source_location": "L3014",
       "id": "docs_backend_email_for_otp",
       "community": 46,
       "norm_label": "email (for otp)"
@@ -1492,7 +1492,7 @@
       "label": "Sentry (optional \u2014 falls back to hardcoded DSN in instrument.js if not set)",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3008",
+      "source_location": "L3019",
       "id": "docs_backend_sentry_optional_falls_back_to_hardcoded_dsn_in_instrument_js_if_not_set",
       "community": 46,
       "norm_label": "sentry (optional \u2014 falls back to hardcoded dsn in instrument.js if not set)"
@@ -1501,7 +1501,7 @@
       "label": "Vercel Cron protection",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3011",
+      "source_location": "L3022",
       "id": "docs_backend_vercel_cron_protection",
       "community": 46,
       "norm_label": "vercel cron protection"
@@ -1510,7 +1510,7 @@
       "label": "Razorpay",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3014",
+      "source_location": "L3025",
       "id": "docs_backend_razorpay",
       "community": 46,
       "norm_label": "razorpay"
@@ -1519,7 +1519,7 @@
       "label": "TMDB",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3019",
+      "source_location": "L3030",
       "id": "docs_backend_tmdb",
       "community": 46,
       "norm_label": "tmdb"
@@ -1528,7 +1528,7 @@
       "label": "via psql",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3110",
+      "source_location": "L3121",
       "id": "docs_backend_via_psql",
       "community": 46,
       "norm_label": "via psql"
@@ -1537,7 +1537,7 @@
       "label": "or paste into pgAdmin Query Tool / Neon SQL Editor",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3113",
+      "source_location": "L3124",
       "id": "docs_backend_or_paste_into_pgadmin_query_tool_neon_sql_editor",
       "community": 46,
       "norm_label": "or paste into pgadmin query tool / neon sql editor"
@@ -1546,7 +1546,7 @@
       "label": "1. Generate bcrypt hash",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3130",
+      "source_location": "L3141",
       "id": "docs_backend_1_generate_bcrypt_hash",
       "community": 46,
       "norm_label": "1. generate bcrypt hash"
@@ -1555,7 +1555,7 @@
       "label": "2. Insert in pgAdmin / psql",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3133",
+      "source_location": "L3144",
       "id": "docs_backend_2_insert_in_pgadmin_psql",
       "community": 46,
       "norm_label": "2. insert in pgadmin / psql"
@@ -1564,7 +1564,7 @@
       "label": "Razorpay Test Mode Keys (Get from: https://dashboard.razorpay.com/app/keys)",
       "file_type": "document",
       "source_file": "backend.md",
-      "source_location": "L3668",
+      "source_location": "L3679",
       "id": "docs_backend_razorpay_test_mode_keys_get_from_https_dashboard_razorpay_com_app_keys",
       "community": 46,
       "norm_label": "razorpay test mode keys (get from: https://dashboard.razorpay.com/app/keys)"
@@ -2221,16 +2221,25 @@
       "label": "API",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L37",
+      "source_location": "L38",
       "id": "docs_latest_changes_api",
       "community": 367,
       "norm_label": "api"
     },
     {
+      "label": "Offer/Ad Announcements & Multi-channel Broadcasts (`99c1870` in `cinema-hall-api/controllers/{offers,ads,broadcast}.Controller.js` / `services/notification/{announce,broadcast}.js:1` / `mail/{emails,emailTemplate}.js` / `migrations/migration_notification_channels.sql:1` / `services/notification/{channels/email,defaultPreferences}.js`)",
+      "file_type": "document",
+      "source_file": "latest-changes.md",
+      "source_location": "L40",
+      "id": "docs_latest_changes_offer_ad_announcements_multi_channel_broadcasts_99c1870_in_cinema_hall_api_controllers_offers_ads_broadcast_controller_js_services_notification_announce_broadcast_js_1_mail_emails_emailtemplate_js_migrations_migration_notification_channels_sql_1_services_notification_channels_email_defaultpreferences_js",
+      "community": 367,
+      "norm_label": "offer/ad announcements & multi-channel broadcasts (`99c1870` in `cinema-hall-api/controllers/{offers,ads,broadcast}.controller.js` / `services/notification/{announce,broadcast}.js:1` / `mail/{emails,emailtemplate}.js` / `migrations/migration_notification_channels.sql:1` / `services/notification/{channels/email,defaultpreferences}.js`)"
+    },
+    {
       "label": "Organization Onboarding Hardening",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L39",
+      "source_location": "L49",
       "id": "docs_latest_changes_organization_onboarding_hardening",
       "community": 367,
       "norm_label": "organization onboarding hardening"
@@ -2239,7 +2248,7 @@
       "label": "User App",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L68",
+      "source_location": "L78",
       "id": "docs_latest_changes_user_app",
       "community": 367,
       "norm_label": "user app"
@@ -2248,7 +2257,7 @@
       "label": "Source Commits",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L79",
+      "source_location": "L90",
       "id": "docs_latest_changes_source_commits",
       "community": 367,
       "norm_label": "source commits"
@@ -2257,7 +2266,7 @@
       "label": "Related Documentation",
       "file_type": "document",
       "source_file": "latest-changes.md",
-      "source_location": "L87",
+      "source_location": "L98",
       "id": "docs_latest_changes_related_documentation",
       "community": 367,
       "norm_label": "related documentation"
@@ -7114,10 +7123,19 @@
       "norm_label": "post `/api/ads/create`"
     },
     {
-      "label": "PUT `/api/ads/update/:id`",
+      "label": "POST `/api/ads/:id/announce`",
       "file_type": "document",
       "source_file": "modules/ads-management/api.md",
       "source_location": "L19",
+      "id": "ads_management_api_post_api_ads_id_announce",
+      "community": 297,
+      "norm_label": "post `/api/ads/:id/announce`"
+    },
+    {
+      "label": "PUT `/api/ads/update/:id`",
+      "file_type": "document",
+      "source_file": "modules/ads-management/api.md",
+      "source_location": "L26",
       "id": "ads_management_api_put_api_ads_update_id",
       "community": 297,
       "norm_label": "put `/api/ads/update/:id`"
@@ -7126,7 +7144,7 @@
       "label": "DELETE `/api/ads/delete/:id`",
       "file_type": "document",
       "source_file": "modules/ads-management/api.md",
-      "source_location": "L26",
+      "source_location": "L33",
       "id": "ads_management_api_delete_api_ads_delete_id",
       "community": 297,
       "norm_label": "delete `/api/ads/delete/:id`"
@@ -7135,7 +7153,7 @@
       "label": "GET `/api/ads/:id/clicks`",
       "file_type": "document",
       "source_file": "modules/ads-management/api.md",
-      "source_location": "L32",
+      "source_location": "L39",
       "id": "ads_management_api_get_api_ads_id_clicks",
       "community": 297,
       "norm_label": "get `/api/ads/:id/clicks`"
@@ -7144,7 +7162,7 @@
       "label": "Public Endpoints",
       "file_type": "document",
       "source_file": "modules/ads-management/api.md",
-      "source_location": "L38",
+      "source_location": "L45",
       "id": "ads_management_api_public_endpoints",
       "community": 297,
       "norm_label": "public endpoints"
@@ -7153,7 +7171,7 @@
       "label": "GET `/api/ads/active?placement=banner`",
       "file_type": "document",
       "source_file": "modules/ads-management/api.md",
-      "source_location": "L40",
+      "source_location": "L47",
       "id": "ads_management_api_get_api_ads_active_placement_banner",
       "community": 297,
       "norm_label": "get `/api/ads/active?placement=banner`"
@@ -7162,7 +7180,7 @@
       "label": "POST `/api/ads/click/:id`",
       "file_type": "document",
       "source_file": "modules/ads-management/api.md",
-      "source_location": "L48",
+      "source_location": "L55",
       "id": "ads_management_api_post_api_ads_click_id",
       "community": 297,
       "norm_label": "post `/api/ads/click/:id`"
@@ -7207,7 +7225,7 @@
       "label": "Controllers",
       "file_type": "document",
       "source_file": "modules/ads-management/backend.md",
-      "source_location": "L19",
+      "source_location": "L20",
       "id": "ads_management_backend_controllers",
       "community": 379,
       "norm_label": "controllers"
@@ -7216,7 +7234,7 @@
       "label": "`ads.Controller.js`",
       "file_type": "document",
       "source_file": "modules/ads-management/backend.md",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "ads_management_backend_ads_controller_js",
       "community": 379,
       "norm_label": "`ads.controller.js`"
@@ -7513,7 +7531,7 @@
       "label": "User App (`cinema-hall-users`)",
       "file_type": "document",
       "source_file": "modules/ads-management/frontend.md",
-      "source_location": "L44",
+      "source_location": "L45",
       "id": "ads_management_frontend_user_app_cinema_hall_users",
       "community": 289,
       "norm_label": "user app (`cinema-hall-users`)"
@@ -7522,7 +7540,7 @@
       "label": "Components",
       "file_type": "document",
       "source_file": "modules/ads-management/frontend.md",
-      "source_location": "L46",
+      "source_location": "L47",
       "id": "ads_management_frontend_components",
       "community": 289,
       "norm_label": "components"
@@ -7531,7 +7549,7 @@
       "label": "`AdBanner.jsx`",
       "file_type": "document",
       "source_file": "modules/ads-management/frontend.md",
-      "source_location": "L48",
+      "source_location": "L49",
       "id": "ads_management_frontend_adbanner_jsx",
       "community": 289,
       "norm_label": "`adbanner.jsx`"
@@ -7540,8 +7558,8 @@
       "label": "Services",
       "file_type": "document",
       "source_file": "modules/ads-management/frontend.md",
-      "source_location": "L62",
-      "id": "ads_management_frontend_services_62",
+      "source_location": "L63",
+      "id": "ads_management_frontend_services_63",
       "community": 289,
       "norm_label": "services"
     },
@@ -7549,8 +7567,8 @@
       "label": "`api.js` (adsAPI section)",
       "file_type": "document",
       "source_file": "modules/ads-management/frontend.md",
-      "source_location": "L64",
-      "id": "ads_management_frontend_api_js_adsapi_section_64",
+      "source_location": "L65",
+      "id": "ads_management_frontend_api_js_adsapi_section_65",
       "community": 289,
       "norm_label": "`api.js` (adsapi section)"
     },
@@ -13000,10 +13018,19 @@
       "norm_label": "post /api/offers/create \u2014 `requirepermission('offers.create')` (`controllers/offers.controller.js:221`, `6e0705a`)"
     },
     {
+      "label": "POST /api/offers/:id/announce \u2014 `requirePermission('offers.update')` (`controllers/offers.Controller.js:467`, `99c1870`)",
+      "file_type": "document",
+      "source_file": "modules/offers-coupons/api.md",
+      "source_location": "L62",
+      "id": "offers_coupons_api_post_api_offers_id_announce_requirepermission_offers_update_controllers_offers_controller_js_467_99c1870",
+      "community": 292,
+      "norm_label": "post /api/offers/:id/announce \u2014 `requirepermission('offers.update')` (`controllers/offers.controller.js:467`, `99c1870`)"
+    },
+    {
       "label": "GET /api/offers/:id \u2014 `requirePermission('offers.read')` (`controllers/offers.Controller.js:280`, `6e0705a`)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/api.md",
-      "source_location": "L59",
+      "source_location": "L66",
       "id": "offers_coupons_api_get_api_offers_id_requirepermission_offers_read_controllers_offers_controller_js_280_6e0705a",
       "community": 292,
       "norm_label": "get /api/offers/:id \u2014 `requirepermission('offers.read')` (`controllers/offers.controller.js:280`, `6e0705a`)"
@@ -13012,7 +13039,7 @@
       "label": "PUT /api/offers/update/:id \u2014 `requirePermission('offers.update')` (`controllers/offers.Controller.js:308`, `6e0705a`)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/api.md",
-      "source_location": "L63",
+      "source_location": "L70",
       "id": "offers_coupons_api_put_api_offers_update_id_requirepermission_offers_update_controllers_offers_controller_js_308_6e0705a",
       "community": 292,
       "norm_label": "put /api/offers/update/:id \u2014 `requirepermission('offers.update')` (`controllers/offers.controller.js:308`, `6e0705a`)"
@@ -13021,7 +13048,7 @@
       "label": "DELETE /api/offers/delete/:id \u2014 `requirePermission('offers.delete')` (`controllers/offers.Controller.js:395`, `6e0705a`)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/api.md",
-      "source_location": "L67",
+      "source_location": "L74",
       "id": "offers_coupons_api_delete_api_offers_delete_id_requirepermission_offers_delete_controllers_offers_controller_js_395_6e0705a",
       "community": 292,
       "norm_label": "delete /api/offers/delete/:id \u2014 `requirepermission('offers.delete')` (`controllers/offers.controller.js:395`, `6e0705a`)"
@@ -13030,7 +13057,7 @@
       "label": "Customer Endpoints",
       "file_type": "document",
       "source_file": "modules/offers-coupons/api.md",
-      "source_location": "L73",
+      "source_location": "L80",
       "id": "offers_coupons_api_customer_endpoints",
       "community": 292,
       "norm_label": "customer endpoints"
@@ -13039,7 +13066,7 @@
       "label": "GET /api/offers/active",
       "file_type": "document",
       "source_file": "modules/offers-coupons/api.md",
-      "source_location": "L77",
+      "source_location": "L84",
       "id": "offers_coupons_api_get_api_offers_active",
       "community": 292,
       "norm_label": "get /api/offers/active"
@@ -13048,7 +13075,7 @@
       "label": "POST /api/offers/validate",
       "file_type": "document",
       "source_file": "modules/offers-coupons/api.md",
-      "source_location": "L96",
+      "source_location": "L103",
       "id": "offers_coupons_api_post_api_offers_validate",
       "community": 292,
       "norm_label": "post /api/offers/validate"
@@ -13120,7 +13147,7 @@
       "label": "Integration \u2014 `payment.Controller.js`",
       "file_type": "document",
       "source_file": "modules/offers-coupons/backend.md",
-      "source_location": "L72",
+      "source_location": "L73",
       "id": "offers_coupons_backend_integration_payment_controller_js",
       "community": 293,
       "norm_label": "integration \u2014 `payment.controller.js`"
@@ -13129,7 +13156,7 @@
       "label": "`createOrder` (line ~137-153)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/backend.md",
-      "source_location": "L74",
+      "source_location": "L75",
       "id": "offers_coupons_backend_createorder_line_137_153",
       "community": 293,
       "norm_label": "`createorder` (line ~137-153)"
@@ -13138,7 +13165,7 @@
       "label": "`verifyPayment` (line ~314-327)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/backend.md",
-      "source_location": "L81",
+      "source_location": "L82",
       "id": "offers_coupons_backend_verifypayment_line_314_327",
       "community": 293,
       "norm_label": "`verifypayment` (line ~314-327)"
@@ -13147,7 +13174,7 @@
       "label": "`handlePaymentCaptured` webhook (line ~550-562)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/backend.md",
-      "source_location": "L88",
+      "source_location": "L89",
       "id": "offers_coupons_backend_handlepaymentcaptured_webhook_line_550_562",
       "community": 293,
       "norm_label": "`handlepaymentcaptured` webhook (line ~550-562)"
@@ -13156,7 +13183,7 @@
       "label": "Error Handling",
       "file_type": "document",
       "source_file": "modules/offers-coupons/backend.md",
-      "source_location": "L95",
+      "source_location": "L96",
       "id": "offers_coupons_backend_error_handling",
       "community": 293,
       "norm_label": "error handling"
@@ -13399,7 +13426,7 @@
       "label": "User App \u2014 `cinema-hall-users`",
       "file_type": "document",
       "source_file": "modules/offers-coupons/frontend.md",
-      "source_location": "L56",
+      "source_location": "L57",
       "id": "offers_coupons_frontend_user_app_cinema_hall_users",
       "community": 330,
       "norm_label": "user app \u2014 `cinema-hall-users`"
@@ -13408,7 +13435,7 @@
       "label": "`OffersPage.jsx` (src/pages/OffersPage.jsx)",
       "file_type": "document",
       "source_file": "modules/offers-coupons/frontend.md",
-      "source_location": "L58",
+      "source_location": "L59",
       "id": "offers_coupons_frontend_offerspage_jsx_src_pages_offerspage_jsx",
       "community": 330,
       "norm_label": "`offerspage.jsx` (src/pages/offerspage.jsx)"
@@ -13417,8 +13444,8 @@
       "label": "`services/api.js` \u2014 `offersAPI`",
       "file_type": "document",
       "source_file": "modules/offers-coupons/frontend.md",
-      "source_location": "L77",
-      "id": "offers_coupons_frontend_services_api_js_offersapi_77",
+      "source_location": "L78",
+      "id": "offers_coupons_frontend_services_api_js_offersapi_78",
       "community": 330,
       "norm_label": "`services/api.js` \u2014 `offersapi`"
     },
@@ -19384,6 +19411,69 @@
       "label": "Feature Overview",
       "file_type": "document",
       "source_file": "admin.md",
+      "source_location": "L510",
+      "community": 137,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_510"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L641",
+      "community": 126,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_641"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L855",
+      "community": 127,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_855"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
+      "source_location": "L1083",
+      "community": 138,
+      "norm_label": "feature overview",
+      "id": "docs_admin_feature_overview_1083"
+    },
+    {
+      "label": "Services",
+      "file_type": "document",
+      "source_file": "modules/ads-management/frontend.md",
+      "source_location": "L62",
+      "community": 289,
+      "norm_label": "services",
+      "id": "ads_management_frontend_services_62"
+    },
+    {
+      "label": "`api.js` (adsAPI section)",
+      "file_type": "document",
+      "source_file": "modules/ads-management/frontend.md",
+      "source_location": "L64",
+      "community": 289,
+      "norm_label": "`api.js` (adsapi section)",
+      "id": "ads_management_frontend_api_js_adsapi_section_64"
+    },
+    {
+      "label": "`services/api.js` \u2014 `offersAPI`",
+      "file_type": "document",
+      "source_file": "modules/offers-coupons/frontend.md",
+      "source_location": "L77",
+      "community": 330,
+      "norm_label": "`services/api.js` \u2014 `offersapi`",
+      "id": "offers_coupons_frontend_services_api_js_offersapi_77"
+    },
+    {
+      "label": "Feature Overview",
+      "file_type": "document",
+      "source_file": "admin.md",
       "source_location": "L508",
       "community": 137,
       "norm_label": "feature overview",
@@ -24078,6 +24168,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L512",
+      "weight": 1.0,
+      "source": "docs_admin_2_ads_management_superadmin_only",
+      "target": "docs_admin_feature_overview_512",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/admin.md",
       "source_location": "L499",
       "weight": 1.0,
@@ -24194,6 +24294,16 @@
       "confidence_score": 1.0,
       "source": "docs_admin_2_movie_management",
       "target": "docs_admin_feature_overview_641"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L646",
+      "weight": 1.0,
+      "source": "docs_admin_2_movie_management",
+      "target": "docs_admin_feature_overview_646",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24364,6 +24474,16 @@
       "confidence_score": 1.0,
       "source": "docs_admin_2_screen_designer",
       "target": "docs_admin_feature_overview_855"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L860",
+      "weight": 1.0,
+      "source": "docs_admin_2_screen_designer",
+      "target": "docs_admin_feature_overview_860",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -24584,6 +24704,16 @@
       "confidence_score": 1.0,
       "source": "docs_admin_3_shows_management",
       "target": "docs_admin_feature_overview_1083"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "admin.md",
+      "source_location": "L1088",
+      "weight": 1.0,
+      "source": "docs_admin_3_shows_management",
+      "target": "docs_admin_feature_overview_1088",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -26284,6 +26414,16 @@
       "confidence_score": 1.0,
       "source": "docs_latest_changes_md",
       "target": "docs_latest_changes_latest_changes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "latest-changes.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "docs_latest_changes_api",
+      "target": "docs_latest_changes_offer_ad_announcements_multi_channel_broadcasts_99c1870_in_cinema_hall_api_controllers_offers_ads_broadcast_controller_js_services_notification_announce_broadcast_js_1_mail_emails_emailtemplate_js_migrations_migration_notification_channels_sql_1_services_notification_channels_email_defaultpreferences_js",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -31788,6 +31928,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "modules/ads-management/api.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "ads_management_api_admin_endpoints",
+      "target": "ads_management_api_post_api_ads_id_announce",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/ads-management/api.md",
       "source_location": "L19",
       "weight": 1.0,
@@ -32228,6 +32378,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "modules/ads-management/frontend.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "ads_management_frontend_user_app_cinema_hall_users",
+      "target": "ads_management_frontend_services_63",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/ads-management/frontend.md",
       "source_location": "L48",
       "weight": 1.0,
@@ -32238,12 +32398,12 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "docs/modules/ads-management/frontend.md",
-      "source_location": "L64",
+      "source_file": "modules/ads-management/frontend.md",
+      "source_location": "L65",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "ads_management_frontend_services_62",
-      "target": "ads_management_frontend_api_js_adsapi_section_64"
+      "source": "ads_management_frontend_services_63",
+      "target": "ads_management_frontend_api_js_adsapi_section_65",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -38398,6 +38558,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "modules/offers-coupons/api.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "offers_coupons_api_admin_endpoints_rbac_offers_creator_scoped_since_6e0705a",
+      "target": "offers_coupons_api_post_api_offers_id_announce_requirepermission_offers_update_controllers_offers_controller_js_467_99c1870",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/offers-coupons/api.md",
       "source_location": "L63",
       "weight": 1.0,
@@ -38884,6 +39054,16 @@
       "confidence_score": 1.0,
       "source": "offers_coupons_frontend_user_app_cinema_hall_users",
       "target": "offers_coupons_frontend_services_api_js_offersapi_77"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "modules/offers-coupons/frontend.md",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "offers_coupons_frontend_user_app_cinema_hall_users",
+      "target": "offers_coupons_frontend_services_api_js_offersapi_78",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -45558,6 +45738,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/modules/ads-management/frontend.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "ads_management_frontend_services_62",
+      "target": "ads_management_frontend_api_js_adsapi_section_64"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/modules/authentication/frontend.md",
       "source_location": "L123",
       "weight": 1.0,
@@ -47647,5 +47837,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d0e345ad96adf5790d83138a1bbb41452d89c31a"
+  "built_at_commit": "354e8dcb865dae2a384688b2d080941f00a6e879"
 }

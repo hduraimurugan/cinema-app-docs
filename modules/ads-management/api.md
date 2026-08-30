@@ -10,11 +10,18 @@
 ### POST `/api/ads/create`
 - **Description**: Create a new ad
 - **Auth**: `verifySuperAdmin`
-- **Body**: `{ title, image_url, click_url?, placement, start_date, end_date, is_active? }`
+- **Body**: `{ title, image_url, click_url?, placement, start_date, end_date, is_active?, notify? }` — `notify: { enabled, channels?: ('push'|'email')[], title?, body? }` (`99c1870`) announces the ad to `all_customers` on create via `announceAd`
 - **Required**: `title`, `image_url`, `placement`, `start_date`, `end_date`
 - **Defaults**: `is_active` defaults to `true`, `click_url` defaults to `null`
-- **Success (201)**: `{ ad: { ...full ad object } }`
+- **Success (201)**: `{ ad: { ...full ad object }, announced: true|false }`
 - **Errors**: 400 (missing required fields)
+
+### POST `/api/ads/:id/announce`
+- **Description**: Re-announce an existing ad (`99c1870` `announceAdById`) — records an `admin_broadcasts` row (`source='ad'`, `origin_id`) via `announceAd`
+- **Auth**: `verifySuperAdmin`
+- **Body**: `{ channels?: ('push'|'email')[], title?, body? }`
+- **Success (201)**: `{ broadcast: { ...status: 'sent'|'scheduled', sent_count, failed_count } }`
+- **Errors**: 404 (ad not found)
 
 ### PUT `/api/ads/update/:id`
 - **Description**: Full update of an ad
