@@ -13,9 +13,9 @@ All settings pages live in `src/pages/settings/`.
 | Page | Path | Purpose |
 |------|------|---------|
 | `SettingsLayout.jsx` | `/admin/settings` (`src/pages/settings/SettingsLayout.jsx:82`) | Sticky horizontal tab bar + outlet for nested routes. `f7952e5`: `DISABLED_PATHS` (`cinema-profile`, `showtimes`, `booking` → `Soon`), dirty dot (`isSectionDirty`), active underline (`settings-tab-underline`). |
-| `GeneralSettingsPage.jsx` | `/admin/settings/general` | Organization name, timezone, currency, language. |
+| `GeneralSettingsPage.jsx` | `/admin/settings/general` | Organization name, timezone, currency, language. Full-width `space-y-6` layout (`a8796a4`). |
 | `BookingSettingsPage.jsx` | `/admin/settings/booking` | Max seats per booking, advance booking days, hold minutes, cancellation policy. |
-| `PaymentSettingsPage.jsx` | `/admin/settings/payment` | Convenience fee model/amount, GST percentage, applicable states/taxes. |
+| `PaymentSettingsPage.jsx` | `/admin/settings/payment` | Convenience fee model/amount, GST percentage, applicable states/taxes. Full-width `space-y-6` layout (`a8796a4`); non-super-admin sees read-only stat cards. |
 | `ShowtimesSettingsPage.jsx` | `/admin/settings/showtimes` | Default buffer minutes, overlap prevention, default language version, status transitions. |
 | `CinemaProfilePage.jsx` | `/admin/settings/cinema-profile` | Hall name, address, district, state, phone, description, operating hours. |
 | `RolesPermissionsPage.jsx` | `/admin/settings/roles` | Role management (delegated to Roles module). |
